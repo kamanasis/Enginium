@@ -1,61 +1,64 @@
 import React, { useState } from 'react';
-import { MessageSquare, ThumbsUp, DollarSign, Plus, Share2 } from 'lucide-react';
+import { DollarSign, MessageSquare, Plus, ThumbsUp } from 'lucide-react';
+import './ToolViews.css';
+
+const getForumName = (vehicleId) => ({
+  splendor: 'Splendor owners',
+  activa: 'Activa maintenance',
+  pulsar: 'Pulsar DIY',
+}[vehicleId] || 'Enthusiast zone');
+
+const STARTER_POSTS = [
+  {
+    id: 1,
+    author: 'Rajesh Kumar',
+    avatar: 'RK',
+    vehicle: 'Hero Splendor Plus',
+    time: '2h ago',
+    title: 'Cleaned carburetor jets in 30 minutes',
+    content: 'The bike was stuttering at mid-RPM. I cleaned the main and pilot jets at home and the pickup feels much better. Sharing the careful steps so another owner can compare symptoms.',
+    likes: 18,
+    costSaved: '₹250',
+    commentsCount: 3,
+  },
+  {
+    id: 2,
+    author: 'Amit Sharma',
+    avatar: 'AS',
+    vehicle: 'Honda Activa 6G',
+    time: '1d ago',
+    title: 'Viscous paper air filter change tip',
+    content: 'The Activa filter is viscous and should not be cleaned with compressed air. Mine took five minutes to replace with a Philips screwdriver.',
+    likes: 24,
+    costSaved: '₹100',
+    commentsCount: 6,
+  },
+];
 
 export default function CommunityView({ selectedVehicle, showAddForm, setShowAddForm }) {
-  const [activeForum, setActiveForum] = useState(selectedVehicle.id === 'splendor' ? 'Splendor Owners' : 
-                                                selectedVehicle.id === 'activa' ? 'Activa Maintenance' : 
-                                                selectedVehicle.id === 'pulsar' ? 'Pulsar DIY' : 'Enthusiast Zone');
-  
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      author: "Rajesh Kumar",
-      avatar: "RK",
-      vehicle: "Hero Splendor Plus",
-      time: "2h ago",
-      title: "Cleaned carburetor jets in 30 mins!",
-      content: "Bike was stuttering at mid-RPM range. Unbolted intake manifold, opened carburetor bowl, and blew carbon out of the main/pilot jets. Pickup is back to perfect. Cleaned at home for ₹0 compared to ₹250 at local shop.",
-      likes: 18,
-      costSaved: "₹250",
-      commentsCount: 3
-    },
-    {
-      id: 2,
-      author: "Amit Sharma",
-      avatar: "AS",
-      vehicle: "Honda Activa 6G",
-      time: "1d ago",
-      title: "Viscous paper air filter change tip",
-      content: "Reminder that Honda Activa 6G uses a viscous oil coated filter. Do not clean with compressed air, it ruins it! Just swap it, it is only ₹250 and took me 5 minutes using a single Philips screwdriver.",
-      likes: 24,
-      costSaved: "₹100",
-      commentsCount: 6
-    }
-  ]);
-
-  // Input states for writing a new post
+  const [activeForum, setActiveForum] = useState(getForumName(selectedVehicle.id));
+  const [posts, setPosts] = useState(STARTER_POSTS);
+  const [likedPostIds, setLikedPostIds] = useState(new Set());
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newSavedCost, setNewSavedCost] = useState('');
 
-  const handleSubmitPost = (e) => {
-    e.preventDefault();
+  const handleSubmitPost = (event) => {
+    event.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
-
     const newPost = {
       id: Date.now(),
-      author: "You (DIY Mechanic)",
-      avatar: "ME",
+      author: 'You · local demo',
+      avatar: 'ME',
       vehicle: selectedVehicle.name,
-      time: "Just now",
-      title: newTitle,
-      content: newContent,
-      likes: 1,
-      costSaved: newSavedCost ? `₹${newSavedCost}` : "₹0",
-      commentsCount: 0
+      time: 'Just now',
+      title: newTitle.trim(),
+      content: newContent.trim(),
+      likes: 0,
+      costSaved: newSavedCost ? `₹${newSavedCost}` : '₹0',
+      commentsCount: 0,
     };
-
-    setPosts([newPost, ...posts]);
+    setPosts((previous) => [newPost, ...previous]);
     setNewTitle('');
     setNewContent('');
     setNewSavedCost('');
@@ -63,105 +66,71 @@ export default function CommunityView({ selectedVehicle, showAddForm, setShowAdd
   };
 
   const handleLike = (id) => {
-    setPosts(posts.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
+    setLikedPostIds((previous) => {
+      const next = new Set(previous);
+      const isLiked = next.has(id);
+      if (isLiked) next.delete(id);
+      else next.add(id);
+      setPosts((currentPosts) => currentPosts.map((post) => (post.id === id ? { ...post, likes: Math.max(0, post.likes + (isLiked ? -1 : 1)) } : post)));
+      return next;
+    });
   };
 
   return (
-    <div className="flex-1 flex flex-col p-4 pb-28 text-white space-y-4">
-      
-      {/* Forum selection header */}
-      <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
-        <div>
-          <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Community Forum</span>
-          <h3 className="text-sm font-black text-accent">{activeForum} Forum</h3>
+    <main className="tool-view">
+      <div className="tool-page">
+        <header className="community-hero">
+          <div>
+            <span className="ui-eyebrow">Community · local demo feed</span>
+            <h1 className="ui-title">Practical stories from the garage</h1>
+            <p className="ui-muted">Share what you learned while caring for {selectedVehicle.name}. Posts stay in this browser session; no account or backend is connected.</p>
+          </div>
+          <button type="button" className="ui-btn ui-btn-primary" onClick={() => setShowAddForm(!showAddForm)}><Plus size={16} aria-hidden="true" /> {showAddForm ? 'Close composer' : 'Share a tip'}</button>
+        </header>
+
+        <div className="ui-card" style={{ marginBottom: 16 }}>
+          <div className="tool-meta" style={{ justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+            <div><span className="ui-label">Browse a local room</span><strong>{activeForum}</strong></div>
+            <div className="tool-inline" role="group" aria-label="Community rooms">
+              {['splendor', 'activa', 'all'].map((forumId) => {
+                const forum = forumId === 'all' ? 'Enthusiast zone' : getForumName(forumId);
+                return <button type="button" key={forumId} className={`ui-btn ${activeForum === forum ? 'ui-btn-primary' : ''}`} onClick={() => setActiveForum(forum)}>{forum}</button>;
+              })}
+            </div>
+          </div>
         </div>
-        <button
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="text-xs bg-accent hover:bg-accent-dark text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 shadow-md shadow-accent/20"
-        >
-          <Plus className="w-3.5 h-3.5" /> Share Tip
-        </button>
-      </div>
 
-      {/* Post tip form */}
-      {showAddForm && (
-        <form onSubmit={handleSubmitPost} className="bg-[#1A1A22] border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-2xl">
-          <h4 className="text-xs font-bold text-zinc-200">Share Your Repair Tip</h4>
-          <input 
-            type="text"
-            placeholder="Post Title (e.g. Cleared chain rust)..."
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            className="w-full bg-steel-dark border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
-            required
-          />
-          <textarea 
-            placeholder="Describe what you repaired, the problem, steps, and recommendations..."
-            value={newContent}
-            onChange={(e) => setNewContent(e.target.value)}
-            className="w-full bg-steel-dark border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent min-h-[70px]"
-            required
-          />
-          <div className="flex gap-2">
-            <input 
-              type="number"
-              placeholder="Est. Cost Saved (INR)..."
-              value={newSavedCost}
-              onChange={(e) => setNewSavedCost(e.target.value)}
-              className="flex-1 bg-steel-dark border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
-            />
-            <button type="submit" className="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-xl text-xs font-extrabold transition-colors">
-              Publish Tip
-            </button>
-          </div>
-        </form>
-      )}
+        {showAddForm && (
+          <form className="ui-card community-compose" onSubmit={handleSubmitPost}>
+            <div><span className="ui-eyebrow">Compose a local post</span><h2 className="ui-title" style={{ fontSize: '1.3rem' }}>Share a repair lesson</h2></div>
+            <label className="ui-label" htmlFor="community-title">Title<input id="community-title" className="ui-input" type="text" placeholder="What did you learn?" value={newTitle} onChange={(event) => setNewTitle(event.target.value)} required /></label>
+            <label className="ui-label" htmlFor="community-content">Story<textarea id="community-content" className="ui-input" placeholder="Describe the symptom, steps, and what you would recommend." value={newContent} onChange={(event) => setNewContent(event.target.value)} required /></label>
+            <div className="tool-inline" style={{ alignItems: 'flex-end' }}>
+              <label className="ui-label" style={{ flex: 1 }} htmlFor="community-cost">Estimated saving (optional)<input id="community-cost" className="ui-input" type="number" min="0" placeholder="INR" value={newSavedCost} onChange={(event) => setNewSavedCost(event.target.value)} /></label>
+              <button type="submit" className="ui-btn ui-btn-primary">Publish locally</button>
+            </div>
+          </form>
+        )}
 
-      {/* Feed list */}
-      <div className="space-y-4">
-        {posts.map((post) => (
-          <div key={post.id} className="bg-[#1A1A22] border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-lg">
-            <div className="flex justify-between items-center text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-accent/20 rounded-full flex items-center justify-center font-bold text-accent">
-                  {post.avatar}
+        <div className="community-feed">
+          {posts.map((post) => {
+            const liked = likedPostIds.has(post.id);
+            return (
+              <article key={post.id} className="ui-card community-post">
+                <div className="community-post-header">
+                  <div className="community-author"><div className="community-avatar" aria-hidden="true">{post.avatar}</div><div><strong>{post.author}</strong><span>{post.vehicle} · {post.time}</span></div></div>
+                  {post.costSaved !== '₹0' && <span className="ui-tag ui-tag-success"><DollarSign size={13} aria-hidden="true" /> Saved {post.costSaved}</span>}
                 </div>
-                <div>
-                  <h5 className="font-bold text-zinc-200">{post.author}</h5>
-                  <p className="text-[9px] text-zinc-500">{post.vehicle} • {post.time}</p>
+                <div><h3>{post.title}</h3><p className="community-post-copy">{post.content}</p></div>
+                <div className="community-action-row">
+                  <button type="button" className={`ui-btn ${liked ? 'ui-btn-primary' : 'ui-btn-quiet'}`} aria-pressed={liked} onClick={() => handleLike(post.id)}><ThumbsUp size={15} aria-hidden="true" /> {post.likes} {post.likes === 1 ? 'like' : 'likes'}</button>
+                  <span className="community-comments-note"><MessageSquare size={14} aria-hidden="true" /> {post.commentsCount} comments · replies unavailable in local demo</span>
                 </div>
-              </div>
-              
-              {post.costSaved !== "₹0" && (
-                <span className="text-[10px] bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-0.5 rounded-full font-bold flex items-center gap-0.5">
-                  <DollarSign className="w-3 h-3" /> Saved {post.costSaved}
-                </span>
-              )}
-            </div>
-
-            <div className="space-y-1">
-              <h4 className="font-extrabold text-xs text-zinc-100">{post.title}</h4>
-              <p className="text-[11px] text-zinc-400 leading-normal">{post.content}</p>
-            </div>
-
-            <div className="flex items-center gap-4 text-zinc-500 border-t border-zinc-800/60 pt-3">
-              <button 
-                onClick={() => handleLike(post.id)}
-                className="flex items-center gap-1 hover:text-accent transition-colors text-[10px] font-bold"
-              >
-                <ThumbsUp className="w-3.5 h-3.5" />
-                <span>{post.likes} Likes</span>
-              </button>
-              
-              <div className="flex items-center gap-1 text-[10px] font-bold">
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>{post.commentsCount} Comments</span>
-              </div>
-            </div>
-          </div>
-        ))}
+              </article>
+            );
+          })}
+        </div>
       </div>
-
-    </div>
+    </main>
   );
 }

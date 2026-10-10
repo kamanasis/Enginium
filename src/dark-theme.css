@@ -1,0 +1,354 @@
+/* Local-only deep-night theme for the redesigned Enginium workspace. */
+.app-shell {
+  --shell-canvas: #07100e;
+  --shell-forest: #0b241b;
+  --shell-forest-deep: #061b14;
+  --shell-lime: #d4ee8a;
+  background: #07100e;
+}
+
+.app-shell .engineering-backdrop {
+  opacity: 0.48;
+}
+
+.app-shell .app-main {
+  background: rgba(6, 15, 13, 0.64);
+}
+
+.app-shell .app-topbar {
+  background: rgba(8, 20, 16, 0.88);
+  border-bottom-color: rgba(196, 224, 205, 0.14);
+  color: #e9f2ea;
+}
+
+.app-shell .app-topbar-label,
+.app-shell .app-mobile-brand,
+.app-shell .app-vehicle-picker,
+.app-shell .app-mode-switcher button {
+  color: #9caf9f;
+}
+
+.app-shell .app-vehicle-picker {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(196, 224, 205, 0.16);
+}
+
+.app-shell .app-mode-switcher {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(196, 224, 205, 0.15);
+}
+
+.app-shell .app-mode-switcher button.is-active {
+  background: #d4ee8a;
+  color: #0b241b;
+}
+
+.app-shell .app-topbar-help {
+  background: rgba(185, 106, 43, 0.13);
+  border-color: rgba(239, 190, 139, 0.32);
+  color: #f0bd8d;
+}
+
+.app-shell .app-vehicle-menu {
+  background: #10231b;
+  border-color: #29483a;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+.app-shell .app-vehicle-menu-heading {
+  background: #0b1c16;
+  color: #91a89a;
+}
+
+.app-shell .app-vehicle-menu button {
+  background: #10231b;
+  border-top-color: #1d3a2e;
+  color: #e3eee5;
+}
+
+.app-shell .app-vehicle-menu button:hover,
+.app-shell .app-vehicle-menu button.is-selected {
+  background: #19372a;
+}
+
+.app-shell .app-vehicle-menu button small,
+.app-shell .app-vehicle-menu button > span:last-child {
+  color: #91a89a;
+}
+
+.app-shell .app-mobile-nav {
+  background: rgba(8, 20, 16, 0.94);
+  border-bottom-color: rgba(196, 224, 205, 0.13);
+}
+
+.app-shell .app-mobile-nav button {
+  color: #91a89a;
+}
+
+.app-shell .app-mobile-nav button.is-active {
+  background: #d4ee8a;
+  color: #0b241b;
+}
+
+.app-shell .app-preview-main {
+  background: #061b14;
+}
+
+.app-shell .app-preview-screen {
+  background: #07100e;
+}
+
+.app-shell .preview-nav {
+  background: rgba(12, 31, 23, 0.94);
+  border-color: #29483a;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.app-shell .preview-nav-item {
+  color: #91a89a;
+}
+
+.app-shell .preview-nav-item:hover,
+.app-shell .preview-nav-item.is-active {
+  color: #d4ee8a;
+}
+
+.app-shell .preview-nav-active-mark {
+  background: #d4ee8a;
+}
+
+.app-shell .workspace-view {
+  --workspace-canvas: rgba(7, 16, 14, 0.73);
+  --workspace-forest: #173d30;
+  --workspace-forest-deep: #0a2118;
+  --workspace-green: #9bd39f;
+  --workspace-lime: #d4ee8a;
+  --workspace-charcoal: #eef6ef;
+  --workspace-muted: #9caf9f;
+  --workspace-border: #29483a;
+  --workspace-orange: #efb47f;
+  --workspace-orange-soft: rgba(185, 106, 43, 0.16);
+  background: var(--workspace-canvas);
+}
+
+.app-shell .workspace-view .ui-card,
+.app-shell .workspace-tool-card,
+.app-shell .workspace-subsystem-row,
+.app-shell .workspace-filter,
+.app-shell .workspace-profile-detail-grid > div,
+.app-shell .workspace-document-placeholder,
+.app-shell .workspace-session-note,
+.app-shell .workspace-observation-note,
+.app-shell .workspace-profile-callout {
+  background: rgba(15, 31, 24, 0.88);
+  border-color: #29483a;
+  color: var(--workspace-charcoal);
+}
+
+.app-shell .workspace-tool-card:hover,
+.app-shell .workspace-subsystem-row:hover,
+.app-shell .workspace-subsystem-row.is-selected {
+  background: #19372a;
+  border-color: #5b8867;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.app-shell .workspace-subsystem-icon,
+.app-shell .workspace-profile-detail-grid > div,
+.app-shell .workspace-service-check {
+  background: rgba(155, 211, 159, 0.12);
+}
+
+.app-shell .workspace-hud-observation {
+  background: rgba(12, 27, 21, 0.92);
+  border-color: #29483a;
+}
+
+.app-shell .workspace-hud-notice {
+  background: rgba(185, 106, 43, 0.13);
+  border-color: rgba(239, 180, 127, 0.3);
+  color: #efc49e;
+}
+
+.app-shell .workspace-hud-notice strong,
+.app-shell .workspace-observation-heading h3,
+.app-shell .workspace-sample-metrics strong,
+.app-shell .workspace-garage-intro h2,
+.app-shell .workspace-section-heading h2,
+.app-shell .workspace-fleet-card h3,
+.app-shell .workspace-profile-callout strong,
+.app-shell .workspace-document-placeholder strong,
+.app-shell .workspace-form-heading h2,
+.app-shell .workspace-form-heading h3 {
+  color: var(--workspace-charcoal);
+}
+
+.app-shell .workspace-filter:hover,
+.app-shell .workspace-filter.is-active {
+  background: #d4ee8a;
+  border-color: #d4ee8a;
+  color: #0b241b;
+}
+
+.app-shell .workspace-home-sos {
+  background: rgba(185, 106, 43, 0.14);
+  border-color: rgba(239, 180, 127, 0.32);
+}
+
+.app-shell .workspace-home-sos strong {
+  color: #f0ddca;
+}
+
+.app-shell .workspace-home-sos p,
+.app-shell .workspace-home-footnote,
+.app-shell .workspace-tool-card small,
+.app-shell .workspace-maintenance-summary p,
+.app-shell .workspace-fleet-model,
+.app-shell .workspace-fleet-facts dt,
+.app-shell .workspace-document-placeholder span:not(.ui-tag) {
+  color: var(--workspace-muted);
+}
+
+.app-shell .tool-view {
+  --tool-canvas: rgba(7, 16, 14, 0.74);
+  --tool-text: #eef6ef;
+  --tool-muted: #9caf9f;
+  --tool-border: #29483a;
+  --tool-panel: rgba(15, 31, 24, 0.9);
+  --tool-pale: rgba(155, 211, 159, 0.12);
+  --tool-green: #9bd39f;
+  --tool-green-hover: #b9e4ae;
+  --tool-lime: #d4ee8a;
+  --tool-orange: #efb47f;
+  background: var(--tool-canvas);
+  color: var(--tool-text);
+}
+
+.app-shell .tool-view .ui-card,
+.app-shell .tool-view .diagnose-message:not(.user),
+.app-shell .tool-view .diagnose-stat,
+.app-shell .tool-view .diagnose-cause,
+.app-shell .tool-view .diagnose-list li,
+.app-shell .tool-view .acoustic-profile,
+.app-shell .tool-view .learn-part-button,
+.app-shell .tool-view .learn-module,
+.app-shell .tool-view .tool-unavailable,
+.app-shell .tool-view .ui-empty {
+  background: rgba(15, 31, 24, 0.9);
+  border-color: #29483a;
+  color: var(--tool-text);
+}
+
+.app-shell .tool-view .ui-input,
+.app-shell .tool-view select.ui-input {
+  background: #0c2118;
+  border-color: #31553f;
+  color: #eef6ef;
+}
+
+.app-shell .tool-view .ui-input::placeholder {
+  color: #718a7b;
+}
+
+.app-shell .tool-view .ui-btn {
+  background: #12291f;
+  border-color: #31553f;
+  color: #dcebdd;
+}
+
+.app-shell .tool-view .ui-btn:hover:not(:disabled) {
+  background: #1a3a2b;
+  border-color: #5d8d68;
+}
+
+.app-shell .tool-view .ui-btn-primary {
+  background: #d4ee8a;
+  border-color: #d4ee8a;
+  color: #0b241b;
+}
+
+.app-shell .tool-view .ui-btn-primary:hover:not(:disabled) {
+  background: #e0f5a7;
+  border-color: #e0f5a7;
+  color: #0b241b;
+}
+
+.app-shell .tool-view .ui-btn-quiet {
+  background: transparent;
+  border-color: transparent;
+  color: #a9bcae;
+}
+
+.app-shell .tool-view .ui-btn-quiet:hover:not(:disabled) {
+  background: rgba(155, 211, 159, 0.1);
+  border-color: #31553f;
+  color: #eef6ef;
+}
+
+.app-shell .tool-view .tool-notice,
+.app-shell .tool-view .diagnose-warning {
+  background: rgba(185, 106, 43, 0.14);
+  border-color: rgba(239, 180, 127, 0.3);
+  color: #efc49e;
+}
+
+.app-shell .tool-view .acoustic-wave,
+.app-shell .tool-view .learn-3d-shell {
+  background: #071a13;
+  border-color: #31553f;
+}
+
+.app-shell .tool-view .acoustic-progress {
+  background: #263e32;
+}
+
+.app-shell .tool-view .learn-detail-copy,
+.app-shell .tool-view .diagnose-step,
+.app-shell .tool-view .acoustic-record {
+  background: rgba(155, 211, 159, 0.1);
+  border-color: #31553f;
+  color: #d4e6d7;
+}
+
+.app-shell .tool-view .learn-module:hover,
+.app-shell .tool-view .learn-part-button:hover,
+.app-shell .tool-view .acoustic-profile:hover {
+  background: #19372a;
+  border-color: #5b8867;
+}
+
+.app-shell .tool-view .community-post,
+.app-shell .tool-view .community-hero,
+.app-shell .tool-view .profile-header,
+.app-shell .tool-view .sos-panel,
+.app-shell .tool-view .preference-panel,
+.app-shell .tool-view .support-panel {
+  background: rgba(15, 31, 24, 0.9);
+  border-color: #29483a;
+}
+
+.app-shell .tool-view h1,
+.app-shell .tool-view h2,
+.app-shell .tool-view h3,
+.app-shell .tool-view h4,
+.app-shell .tool-view strong {
+  color: #eef6ef;
+}
+
+.app-shell .tool-view .ui-tag {
+  background: rgba(155, 211, 159, 0.12);
+  border-color: #31553f;
+  color: #b9e4ae;
+}
+
+.app-shell .tool-view .ui-tag-warning {
+  background: rgba(185, 106, 43, 0.16);
+  border-color: rgba(239, 180, 127, 0.3);
+  color: #efb47f;
+}
+
+.app-shell .tool-view .ui-tag-demo {
+  background: rgba(148, 171, 157, 0.12);
+  border-color: #31553f;
+  color: #a9bcae;
+}

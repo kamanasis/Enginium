@@ -1,223 +1,216 @@
 import React from 'react';
-import { Shield, ChevronRight, Zap, Cpu, Search, BookOpen, AlertTriangle } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BookOpen,
+  CalendarClock,
+  ChevronRight,
+  CircleAlert,
+  Cpu,
+  Headphones,
+  ShieldAlert,
+  Sparkles,
+  Wrench,
+} from 'lucide-react';
+import './WorkspaceViews.css';
 
-export default function HomeView({ 
-  selectedVehicle, 
-  setSelectedVehicle, 
-  vehiclesList, 
-  setActiveTab, 
-  setDiagnoseInput, 
-  setEmergencyMode, 
-  showDropdown, 
-  setShowDropdown 
+const getOdometer = (vehicle) => {
+  if (vehicle?.odometer) return vehicle.odometer;
+
+  return {
+    splendor: '42,850 km',
+    activa: '18,210 km',
+    pulsar: '28,900 km',
+  }[vehicle?.id] || '42,912 km';
+};
+
+export default function HomeView({
+  selectedVehicle,
+  setSelectedVehicle: _setSelectedVehicle,
+  vehiclesList: _vehiclesList,
+  setActiveTab,
+  setDiagnoseInput,
+  setEmergencyMode,
+  showDropdown: _showDropdown,
+  setShowDropdown: _setShowDropdown,
+  serviceHistory = [],
 }) {
-  const odometer = selectedVehicle.id === 'splendor' ? '42,850 km' : 
-                   selectedVehicle.id === 'activa' ? '18,210 km' : 
-                   selectedVehicle.id === 'pulsar' ? '28,900 km' : '42,912 km';
+  const vehicle = selectedVehicle || {};
+  const odometer = getOdometer(vehicle);
+  const latestService = serviceHistory[0];
+
+  const openDiagnosis = () => {
+    setDiagnoseInput?.(`Help me make a service plan for my ${vehicle.name || 'vehicle'}.`);
+    setActiveTab('diagnose');
+  };
 
   return (
-    <div className="flex-1 flex flex-col p-4 pb-28 text-white space-y-5">
-      
-      {/* Greetings & Avatar Header */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center font-black text-cyan-400 text-sm border border-cyan-500/30">
-            KA
-          </div>
+    <main className="workspace-view workspace-home">
+      <div className="workspace-page">
+        <header className="workspace-home-header">
           <div>
-            <h4 className="text-[10px] text-zinc-500 uppercase tracking-widest font-black">Namaste, Kamanasis</h4>
-            <p className="text-xs text-zinc-300 font-bold">Let's check your ride</p>
+            <p className="ui-eyebrow">Enginium dashboard</p>
+            <h1 className="ui-title workspace-home-title">Your ride. In good hands.</h1>
+            <p className="ui-muted workspace-home-intro">
+              A calm place to keep service notes, learn the essentials, and plan the next check.
+            </p>
           </div>
-        </div>
-        
-        {/* Active vehicle dropdown trigger */}
-        <div className="relative">
-          <button 
-            onClick={() => setShowDropdown(!showDropdown)}
-            className="bg-[#1A1A22] border border-zinc-800 rounded-xl px-3 py-1.5 text-xs font-bold text-zinc-200 hover:text-white flex items-center gap-1 transition-colors"
-          >
-            {selectedVehicle.name}
-            <ChevronRight className={`w-3.5 h-3.5 transform transition-transform ${showDropdown ? 'rotate-90' : ''}`} />
-          </button>
-
-          {showDropdown && (
-            <div className="absolute right-0 mt-2 w-60 bg-[#1A1A22] border border-zinc-800 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-zinc-800/50 animate-fade-in">
-              {vehiclesList.map((v) => (
-                <button
-                  key={v.id}
-                  onClick={() => {
-                    setSelectedVehicle(v);
-                    setShowDropdown(false);
-                  }}
-                  className={`w-full text-left px-4 py-3 text-xs transition-colors flex items-center justify-between ${
-                    selectedVehicle.id === v.id ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-zinc-300 hover:bg-zinc-800/40'
-                  }`}
-                >
-                  <div>
-                    <p className="font-semibold">{v.name}</p>
-                    <p className="text-[9px] text-zinc-500">{v.engine}</p>
-                  </div>
-                  <span className="text-[9px] bg-zinc-800 px-2 py-0.5 rounded text-zinc-400 font-mono">{v.type}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Main Vehicle Health Card */}
-      <div className="bg-gradient-to-br from-[#14141B] to-[#0F0F12] border border-zinc-800 rounded-3xl p-5 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full filter blur-xl"></div>
-        
-        <div className="flex justify-between items-start">
-          <div>
-            <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-black block">Active Machine</span>
-            <h3 className="text-lg font-black text-zinc-100">{selectedVehicle.name}</h3>
-            <p className="text-xs text-zinc-400 font-medium">{selectedVehicle.make} • {odometer}</p>
+          <div className="workspace-home-context">
+            <span className="ui-tag ui-tag-demo">Demo context</span>
+            <span className="ui-muted">Profile view · {vehicle.type || 'Vehicle'}</span>
           </div>
-          
-          {/* Health circular score */}
-          <div className="flex flex-col items-center">
-            <div className="relative w-16 h-16 flex items-center justify-center">
-              <svg className="w-full h-full transform -rotate-95" viewBox="0 0 36 36">
-                <path
-                  className="text-zinc-800"
-                  strokeWidth="2.5"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-                <path
-                  className="text-cyan-500 transition-all duration-500"
-                  strokeDasharray="87, 100"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-              </svg>
-              <div className="absolute flex flex-col items-center justify-center">
-                <span className="text-sm font-black text-white">87%</span>
-                <span className="text-[7px] text-zinc-500 font-bold uppercase tracking-wider">Health</span>
+        </header>
+
+        <section className="workspace-home-hero" aria-labelledby="selected-vehicle-title">
+          <div className="workspace-home-hero-copy">
+            <p className="workspace-overline">Selected vehicle</p>
+            <h2 id="selected-vehicle-title">{vehicle.name || 'Your vehicle'}</h2>
+            <p className="workspace-home-vehicle-model">
+              {vehicle.make || 'Vehicle'} {vehicle.model ? `· ${vehicle.model}` : ''}
+            </p>
+
+            <div className="workspace-spec-list" aria-label="Selected vehicle details">
+              <div>
+                <span>Type</span>
+                <strong>{vehicle.type || '—'}</strong>
+              </div>
+              <div>
+                <span>Engine</span>
+                <strong>{vehicle.engine || 'Profile details pending'}</strong>
+              </div>
+              <div>
+                <span>Odometer reference</span>
+                <strong>{odometer}</strong>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Dynamic heart rate style details */}
-        <div className="mt-4 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between text-[10px] text-zinc-400">
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
-            <span className="font-bold text-cyan-400">OBD Diagnostics Linked</span>
-          </div>
-          <button 
-            onClick={() => setActiveTab('hud')} 
-            className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-0.5"
-          >
-            Open HUD Diagnostics <ChevronRight className="w-3 h-3" />
-          </button>
-        </div>
-      </div>
+            <p className="workspace-home-hero-note">
+              This dashboard uses your selected profile. The vehicle image is an illustrative reference,
+              not a photo or live reading of this model.
+            </p>
 
-      {/* Maintenance Warning Card (Teal & Amber custom border highlight) */}
-      <button 
-        onClick={() => setActiveTab('garage')}
-        className="w-full bg-[#1A1812] border border-yellow-500/20 rounded-2xl p-4 flex items-center justify-between hover:border-yellow-500/40 transition-colors shadow-lg text-left"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 border border-yellow-500/20 shrink-0">
-            <AlertTriangle className="w-4.5 h-4.5" />
+            <div className="workspace-action-row">
+              <button type="button" className="ui-btn ui-btn-primary" onClick={() => setActiveTab('hud')}>
+                Inspect vehicle <ArrowUpRight aria-hidden="true" size={17} />
+              </button>
+              <button type="button" className="ui-btn ui-btn-quiet workspace-btn-on-dark" onClick={() => setActiveTab('garage')}>
+                Open garage <ChevronRight aria-hidden="true" size={17} />
+              </button>
+            </div>
           </div>
+
+          <figure className="workspace-home-hero-figure">
+            <img
+              src="/hud_motorcycle_wireframe.jpg"
+              alt="Illustrative motorcycle wireframe used as a reference, not the selected vehicle"
+            />
+            <figcaption>
+              <span>Illustrative reference</span>
+              <span>Not a live OBD image</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section className="workspace-home-maintenance ui-card" aria-labelledby="maintenance-preview-title">
+          <div className="workspace-section-heading">
+            <div>
+              <p className="ui-eyebrow">Keep the small things small</p>
+              <h2 id="maintenance-preview-title">Maintenance preview</h2>
+            </div>
+            <span className="ui-tag ui-tag-demo">Sample schedule</span>
+          </div>
+
+          <div className="workspace-maintenance-body">
+            <div className="workspace-maintenance-summary">
+              <div className="workspace-icon-tile workspace-icon-tile-warning" aria-hidden="true">
+                <CalendarClock size={21} />
+              </div>
+              <div>
+                <h3>Oil and chain check</h3>
+                <p>
+                  A sample reminder for your next workshop visit. Confirm the condition in person before
+                  booking any work.
+                </p>
+              </div>
+            </div>
+            <div className="workspace-maintenance-badges" aria-label="Maintenance sample badges">
+              <span className="ui-tag ui-tag-warning">Review soon</span>
+              <span className="ui-tag">Planning item</span>
+              {latestService ? <span className="ui-tag ui-tag-success">Service log available</span> : null}
+            </div>
+          </div>
+
+          <div className="workspace-card-footer">
+            <span className="ui-muted">
+              <CircleAlert aria-hidden="true" size={15} /> Sample reminder, not a measured fault
+            </span>
+            <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setActiveTab('garage')}>
+              Review service log <ChevronRight aria-hidden="true" size={16} />
+            </button>
+          </div>
+        </section>
+
+        <section className="workspace-home-tools" aria-labelledby="tools-title">
+          <div className="workspace-section-heading workspace-section-heading-compact">
+            <div>
+              <p className="ui-eyebrow">Choose a starting point</p>
+              <h2 id="tools-title">Your shortcuts</h2>
+            </div>
+            <p className="ui-muted">Built for the next useful action.</p>
+          </div>
+
+          <div className="workspace-tool-grid">
+            <button type="button" className="workspace-tool-card" onClick={openDiagnosis}>
+              <span className="workspace-tool-icon workspace-tool-icon-green" aria-hidden="true"><Sparkles size={19} /></span>
+              <span>
+                <strong>Diagnosis guide</strong>
+                <small>Turn a symptom into a practical plan.</small>
+              </span>
+              <ChevronRight aria-hidden="true" size={18} />
+            </button>
+            <button type="button" className="workspace-tool-card" onClick={() => setActiveTab('acoustic')}>
+              <span className="workspace-tool-icon workspace-tool-icon-lime" aria-hidden="true"><Headphones size={19} /></span>
+              <span>
+                <strong>Sound check</strong>
+                <small>Explore an illustrative engine sound workflow.</small>
+              </span>
+              <ChevronRight aria-hidden="true" size={18} />
+            </button>
+            <button type="button" className="workspace-tool-card" onClick={() => setActiveTab('learn')}>
+              <span className="workspace-tool-icon workspace-tool-icon-neutral" aria-hidden="true"><BookOpen size={19} /></span>
+              <span>
+                <strong>Learn the basics</strong>
+                <small>Open parts guides and maintenance lessons.</small>
+              </span>
+              <ChevronRight aria-hidden="true" size={18} />
+            </button>
+            <button type="button" className="workspace-tool-card" onClick={() => setActiveTab('garage')}>
+              <span className="workspace-tool-icon workspace-tool-icon-forest" aria-hidden="true"><Wrench size={19} /></span>
+              <span>
+                <strong>Garage records</strong>
+                <small>Keep service and family milestones together.</small>
+              </span>
+              <ChevronRight aria-hidden="true" size={18} />
+            </button>
+          </div>
+        </section>
+
+        <section className="workspace-home-sos" aria-label="Emergency assistance">
           <div>
-            <h4 className="font-bold text-xs text-yellow-400 uppercase tracking-wide">Oil replacement due soon</h4>
-            <p className="text-[10px] text-zinc-400 leading-normal mt-0.5">Engine oil replacement recommended in next 80 km.</p>
+            <span className="workspace-sos-icon" aria-hidden="true"><ShieldAlert size={19} /></span>
+            <div>
+              <strong>Need help on the roadside?</strong>
+              <p>Open the breakdown guide for a quick, safety-first checklist.</p>
+            </div>
           </div>
-        </div>
-        <ChevronRight className="w-4 h-4 text-yellow-400" />
-      </button>
-
-      {/* Features Action Grid */}
-      <div className="space-y-3">
-        <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Main Diagnostic Tools</h4>
-        <div className="grid grid-cols-2 gap-3">
-          {/* 1. AI Mechanic */}
-          <button 
-            onClick={() => setActiveTab('diagnose')}
-            className="bg-[#14141B] border border-zinc-800 hover:border-cyan-500/50 p-4 rounded-2xl text-left transition-all hover:-translate-y-0.5 flex flex-col justify-between h-28 shadow-lg group"
-          >
-            <div className="w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
-              <Zap className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <h5 className="font-bold text-xs text-zinc-200">AI Diagnostic Chat</h5>
-              <p className="text-[9px] text-zinc-500 mt-0.5">Diagnose symptoms & codes</p>
-            </div>
+          <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setEmergencyMode(true)}>
+            Open roadside guide <ArrowUpRight aria-hidden="true" size={16} />
           </button>
+        </section>
 
-          {/* 2. Acoustic Sound AI (The Red Circle Screen in Design!) */}
-          <button 
-            onClick={() => setActiveTab('acoustic')}
-            className="bg-[#14141B] border border-zinc-800 hover:border-red-500/50 p-4 rounded-2xl text-left transition-all hover:-translate-y-0.5 flex flex-col justify-between h-28 shadow-lg group relative overflow-hidden"
-          >
-            <div className="w-8 h-8 bg-red-500/10 text-red-400 rounded-lg flex items-center justify-center border border-red-500/20 group-hover:scale-110 transition-transform">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping absolute"></span>
-              <span className="w-2 h-2 rounded-full bg-red-500"></span>
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <h5 className="font-bold text-xs text-zinc-200">Acoustic Sound AI</h5>
-                <span className="text-[8px] bg-red-500/20 text-red-400 px-1 rounded font-mono font-bold">FFT</span>
-              </div>
-              <p className="text-[9px] text-zinc-500 mt-0.5">Listen to engine frequencies</p>
-            </div>
-          </button>
-
-          {/* 3. Primary HUD Diagnostics */}
-          <button 
-            onClick={() => setActiveTab('hud')}
-            className="bg-[#14141B] border border-cyan-500/40 hover:border-cyan-400 p-4 rounded-2xl text-left transition-all hover:-translate-y-0.5 flex flex-col justify-between h-28 shadow-lg shadow-cyan-500/10 group relative overflow-hidden"
-          >
-            <div className="w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
-              <Cpu className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <h5 className="font-bold text-xs text-white">HUD Diagnostics</h5>
-                <span className="text-[8px] bg-cyan-500/20 text-cyan-400 px-1 rounded font-mono font-bold">CORE</span>
-              </div>
-              <p className="text-[9px] text-zinc-500 mt-0.5">Wireframe grid telemetry</p>
-            </div>
-          </button>
-
-          {/* 4. Parts & Learn */}
-          <button 
-            onClick={() => { setActiveTab('learn'); }}
-            className="bg-[#14141B] border border-zinc-800 hover:border-cyan-500/50 p-4 rounded-2xl text-left transition-all hover:-translate-y-0.5 flex flex-col justify-between h-28 shadow-lg group"
-          >
-            <div className="w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center border border-cyan-500/20 group-hover:scale-110 transition-transform">
-              <BookOpen className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <h5 className="font-bold text-xs text-zinc-200">DIY Manual & Quiz</h5>
-              <p className="text-[9px] text-zinc-500 mt-0.5">Step-by-step guides</p>
-            </div>
-          </button>
-        </div>
+        <p className="workspace-home-footnote">
+          <Cpu aria-hidden="true" size={14} /> Profile data is reference material until you connect a compatible device.
+        </p>
       </div>
-
-      {/* Emergency Roadside SOS Button */}
-      <button 
-        onClick={() => setEmergencyMode(true)}
-        className="w-full bg-red-600/10 hover:bg-red-600/15 border border-red-500/25 p-3.5 rounded-2xl flex items-center justify-between text-left transition-colors"
-      >
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 bg-red-500 rounded-full animate-ping shrink-0"></span>
-          <span className="text-xs font-black text-red-400 uppercase tracking-wider">Highway Breakdown SOS</span>
-        </div>
-        <ChevronRight className="w-4 h-4 text-red-400" />
-      </button>
-
-    </div>
+    </main>
   );
 }

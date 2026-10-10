@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MobileFrame from './components/MobileFrame';
 import Navbar from './components/Navbar';
 import EngineBlueprintAnimation from './components/EngineBlueprintAnimation';
-import EngineeringStation from './components/EngineeringStation';
 import EngineeringBackdrop from './components/EngineeringBackdrop';
 import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
 import LearnView from './views/LearnView';
 import GarageView from './views/GarageView';
 import CommunityView from './views/CommunityView';
-import ScannerView from './views/ScannerView';
 import HudDiagnosticsView from './views/HudDiagnosticsView';
 import AcousticView from './views/AcousticView';
 import ProfileView from './views/ProfileView';
 import DesignBoardView from './views/DesignBoardView';
 import { vehiclesData } from './data/vehicles';
-import { 
-  ShieldAlert, X, PhoneCall, Play, ChevronLeft, ChevronRight, 
-  Layers, Monitor, Smartphone, LayoutGrid, AlertTriangle, Compass, 
-  ChevronDown, Cpu, Activity, Zap, BookOpen, Users, User, ArrowRight, Scan
+import {
+  ShieldAlert, X, PhoneCall, Play, Monitor, Smartphone, LayoutGrid,
+  Compass, ChevronDown, Activity, Zap, BookOpen, Users, User, Scan,
 } from 'lucide-react';
 
 export default function App() {
@@ -73,14 +70,14 @@ export default function App() {
 
   // Nav items for desktop website navbar - HUD Diagnostics as Primary Flagship
   const desktopNavItems = [
-    { id: 'hud', label: 'HUD Diagnostics', icon: Scan, isHero: true },
-    { id: 'home', label: 'Dashboard', icon: Zap },
-    { id: 'diagnose', label: 'AI Diagnostic', icon: Compass },
-    { id: 'acoustic', label: 'Acoustic Sound AI', icon: Activity, alert: true },
-    { id: 'garage', label: 'Garage Fleet', icon: ShieldAlert },
-    { id: 'learn', label: 'Parts & Quiz', icon: BookOpen },
+    { id: 'home', label: 'Overview', icon: Zap },
+    { id: 'hud', label: 'Inspect vehicle', icon: Scan, isHero: true },
+    { id: 'diagnose', label: 'Service guide', icon: Compass },
+    { id: 'garage', label: 'Garage', icon: ShieldAlert },
+    { id: 'learn', label: 'Learn', icon: BookOpen },
+    { id: 'acoustic', label: 'Sound profile', icon: Activity },
     { id: 'community', label: 'Community', icon: Users },
-    { id: 'profile', label: 'Profile & OBD-II', icon: User },
+    { id: 'profile', label: 'Settings', icon: User },
   ];
 
   // Render Inner Active Screen
@@ -127,6 +124,7 @@ export default function App() {
             setEmergencyMode={setEmergencyMode}
             showDropdown={showDropdown}
             setShowDropdown={setShowDropdown}
+            serviceHistory={serviceHistory}
           />
         );
       case 'diagnose':
@@ -190,6 +188,8 @@ export default function App() {
             onAddMilestone={handleAddMilestone}
             showMilestoneForm={showMilestoneForm}
             setShowMilestoneForm={setShowMilestoneForm}
+            vehiclesList={vehiclesData}
+            onSelectVehicle={setSelectedVehicle}
           />
         );
       case 'community':
@@ -257,218 +257,54 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen text-white flex flex-col font-sans overflow-x-hidden selection:bg-cyan-500 selection:text-black relative isolate bg-[#070c14]">
+    <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-lime-200 selection:text-[#173d30] relative isolate">
       <EngineeringBackdrop />
-      
-      {/* ========================================================================= */}
-      {/* GLOBAL TOP NAVIGATION BAR (For Website Mode & Viewport Switcher) */}
-      {/* ========================================================================= */}
-      <header className="bg-[#0a1018]/88 backdrop-blur-2xl border-b border-white/[0.08] sticky top-0 z-50 px-4 md:px-8 py-3.5 relative">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          
-          {/* Logo Brand */}
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => { setShowSplash(false); setActiveTab('home'); }}
-              className="flex items-center gap-2 text-left group"
-            >
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-300 via-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 font-black text-sm shadow-[0_8px_25px_rgba(34,211,238,0.22)] group-hover:scale-105 transition-transform">
-                EN
-              </div>
-              <div>
-                <h1 className="text-base font-black tracking-tight text-white flex items-center gap-0.5">
-                  ENGIN<span className="text-cyan-400">IUM</span>
-                </h1>
-                <span className="text-[9px] font-mono tracking-[0.16em] text-zinc-500 uppercase block font-bold">
-                  VEHICLE INTELLIGENCE SYSTEM
-                </span>
-              </div>
+      {viewMode === 'website' ? (
+        <>
+          <aside className="app-sidebar">
+            <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('home'); }}>
+              <span className="app-brand-mark">EN</span>
+              <span><strong>ENGINIUM</strong><small>Vehicle care, made clear.</small></span>
             </button>
-          </div>
-
-          {/* Desktop Navigation Links (Visible in Website Mode on md+) */}
-          {viewMode === 'website' && (
-            <nav className="hidden lg:flex items-center gap-1 bg-white/[0.035] border border-white/[0.08] rounded-2xl p-1 shadow-inner">
+            <div className="app-sidebar-section">Workspace</div>
+            <nav className="app-sidebar-nav" aria-label="Main navigation">
               {desktopNavItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
-                    className={`en-focus-ring px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1.5 relative ${
-                      isActive 
-                        ? (item.alert ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/25') 
-                        : 'text-zinc-400 hover:text-white hover:bg-zinc-800/50'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{item.label}</span>
-                    {item.alert && !isActive && (
-                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                    )}
-                  </button>
-                );
+                return <button type="button" key={item.id} className={`app-sidebar-link ${isActive ? 'is-active' : ''}`} onClick={() => { setShowSplash(false); setActiveTab(item.id); }} aria-current={isActive ? 'page' : undefined}>
+                  <Icon size={18} aria-hidden="true" /><span>{item.label}</span>{item.id === 'hud' ? <span className="app-sidebar-dot" /> : null}
+                </button>;
               })}
             </nav>
-          )}
-
-          {/* Right Controls: Active Vehicle, Telemetry Pill, Viewport Mode Switcher & SOS */}
-          <div className="flex items-center gap-3">
-            
-            {/* Active Vehicle Picker Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setShowDropdown(!showDropdown)}
-                className="bg-[#161822] hover:bg-zinc-800 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs font-bold text-zinc-200 flex items-center gap-2 transition-colors"
-              >
-                <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
-                <span className="max-w-[120px] md:max-w-[160px] truncate">{selectedVehicle.name}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
-              </button>
-
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-72 bg-[#141620] border border-zinc-800 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-zinc-800/60 animate-fade-in">
-                  <div className="p-2.5 bg-zinc-900/80 text-[10px] text-zinc-400 font-mono uppercase tracking-wider font-bold">
-                    Switch Garage Machine
-                  </div>
-                  {vehiclesData.map((v) => (
-                    <button
-                      key={v.id}
-                      onClick={() => {
-                        setSelectedVehicle(v);
-                        setShowDropdown(false);
-                      }}
-                      className={`w-full text-left p-3 text-xs transition-colors flex items-center justify-between ${
-                        selectedVehicle.id === v.id ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-zinc-300 hover:bg-zinc-800/50'
-                      }`}
-                    >
-                      <div>
-                        <p className="font-bold">{v.name}</p>
-                        <p className="text-[10px] text-zinc-500 font-mono">{v.engine}</p>
-                      </div>
-                      <span className="text-[9px] bg-zinc-800 px-2 py-0.5 rounded text-zinc-400 font-mono">{v.power}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div className="app-sidebar-bottom">
+              <button type="button" className="app-sidebar-sos" onClick={() => setEmergencyMode(true)}><ShieldAlert size={17} /><span>Roadside help</span><small>SOS</small></button>
+              <span className="app-sidebar-version">ENGINIUM / local preview</span>
             </div>
-
-            {/* Viewport Mode Switcher (Website / App / Figma Flow) */}
-            <div className="flex bg-white/[0.035] border border-white/[0.08] rounded-xl p-1 text-xs">
-              <button
-                onClick={() => setViewMode('website')}
-                className={`px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 transition-colors ${
-                  viewMode === 'website' ? 'bg-cyan-500 text-black' : 'text-zinc-400 hover:text-white'
-                }`}
-                title="Full Responsive Desktop Website"
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px]">Website</span>
-              </button>
-
-              <button
-                onClick={() => setViewMode('app')}
-                className={`px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 transition-colors ${
-                  viewMode === 'app' ? 'bg-cyan-500 text-black' : 'text-zinc-400 hover:text-white'
-                }`}
-                title="Mobile App Frame Preview"
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px]">App</span>
-              </button>
-
-              <button
-                onClick={() => setViewMode('flow')}
-                className="px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 text-zinc-400 hover:text-white transition-colors"
-                title="Figma All-Screens Flow Canvas"
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px]">Figma Flow</span>
-              </button>
-            </div>
-
-            {/* SOS Emergency Trigger Button */}
-            <button
-              onClick={() => setEmergencyMode(true)}
-              className="bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/30 px-3 py-1.5 rounded-xl text-xs font-black tracking-wider uppercase transition-all flex items-center gap-1.5 glow-red"
-              title="Emergency Breakdown Checklist & SOS"
-            >
-              <ShieldAlert className="w-4 h-4 animate-pulse" />
-              <span className="hidden sm:inline font-mono">SOS</span>
-            </button>
-
+          </aside>
+          <div className="app-main">
+            <header className="app-topbar">
+              <div className="app-mobile-brand"><span className="app-brand-mark">EN</span><strong>ENGINIUM</strong></div>
+              <div className="app-topbar-context"><span className="app-topbar-label">Active profile</span><div className="relative">
+                <button type="button" className="app-vehicle-picker" onClick={() => setShowDropdown(!showDropdown)} aria-expanded={showDropdown}><span className="app-live-dot" />{selectedVehicle.name}<ChevronDown size={16} /></button>
+                {showDropdown ? <div className="app-vehicle-menu">
+                  <div className="app-vehicle-menu-heading">Switch vehicle profile</div>
+                  {vehiclesData.map((vehicle) => <button type="button" key={vehicle.id} className={selectedVehicle.id === vehicle.id ? 'is-selected' : ''} onClick={() => { setSelectedVehicle(vehicle); setShowDropdown(false); }}><span><strong>{vehicle.name}</strong><small>{vehicle.make} · {vehicle.type}</small></span><span>{vehicle.engine?.split(',')[0]}</span></button>)}
+                </div> : null}
+              </div></div>
+              <div className="app-topbar-actions">
+                <div className="app-mode-switcher" aria-label="Preview mode"><button type="button" onClick={() => setViewMode('website')} className={viewMode === 'website' ? 'is-active' : ''}><Monitor size={15} />Web</button><button type="button" onClick={() => setViewMode('app')}><Smartphone size={15} />App</button><button type="button" onClick={() => setViewMode('flow')}><LayoutGrid size={15} />Flow</button></div>
+                <button type="button" className="app-topbar-help" onClick={() => setEmergencyMode(true)}><ShieldAlert size={17} /><span>Need help?</span></button>
+              </div>
+            </header>
+            <main className="app-content">
+              <div className="app-mobile-nav" aria-label="Mobile navigation">{desktopNavItems.slice(0, 6).map((item) => { const Icon = item.icon; return <button type="button" key={item.id} className={activeTab === item.id ? 'is-active' : ''} onClick={() => setActiveTab(item.id)}><Icon size={16} /><span>{item.label}</span></button>; })}</div>
+              {renderActiveScreen()}
+            </main>
           </div>
-        </div>
-      </header>
-
-      {/* ========================================================================= */}
-      {/* MAIN CONTENT AREA */}
-      {/* ========================================================================= */}
-      {viewMode === 'website' ? (
-        /* ======================== 1. FULL WEBSITE DESKTOP WORKSPACE ======================== */
-        <main className="flex-1 max-w-[1440px] w-full mx-auto p-3 md:p-6 lg:p-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
-            {/* Left / Center Workstation Column (65% width) */}
-            <div className="lg:col-span-7 xl:col-span-8 en-panel rounded-[28px] overflow-hidden relative min-h-[720px] flex flex-col">
-              
-              {/* Animated Blueprint Background Layer */}
-              <EngineBlueprintAnimation themeColor={activeTab === 'acoustic' ? '#EF4444' : '#06b6d4'} speed={0.015} />
-
-              {/* View Header Tabs on Tablet/Mobile in Website Mode */}
-              <div className="lg:hidden flex items-center gap-1 p-2 bg-[#141620] border-b border-zinc-800 overflow-x-auto scrollbar-none z-20">
-                {desktopNavItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors ${
-                      activeTab === item.id ? 'bg-cyan-500 text-black' : 'text-zinc-400'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Active Screen Content */}
-              <div className="flex-1 flex flex-col relative z-10 overflow-y-auto">
-                {renderActiveScreen()}
-              </div>
-
-            </div>
-
-            {/* Right Desktop Station: Live Engine Blueprint & Telemetry (35% width) */}
-            <div className="hidden lg:block lg:col-span-5 xl:col-span-4 sticky top-24">
-              <div className="en-panel rounded-[28px] overflow-hidden h-[780px]">
-                <EngineeringStation 
-                  selectedVehicle={selectedVehicle} 
-                  activeTab={activeTab} 
-                />
-              </div>
-            </div>
-
-          </div>
-        </main>
+        </>
       ) : (
-        /* ======================== 2. MOBILE APP PREVIEW MODE ======================== */
-        <main className="flex-1 flex items-center justify-center p-2 sm:p-6 bg-[#07080b] relative z-10">
-          <MobileFrame>
-            <div className="flex-1 flex flex-col relative bg-[#0e1017] select-none h-full overflow-hidden">
-              
-              {/* Background Wireframe Engine */}
-              <EngineBlueprintAnimation themeColor={activeTab === 'acoustic' ? '#EF4444' : '#06b6d4'} speed={0.015} />
-
-              {/* Screen Area */}
-              <div className="flex-1 flex flex-col overflow-y-auto relative scrollbar-none pb-20 z-10">
-                {renderActiveScreen()}
-              </div>
-
-              {/* Mobile Bottom Navigation Bar */}
-              {!showSplash && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />}
-
-            </div>
-          </MobileFrame>
+        <main className="app-preview-main">
+          <MobileFrame><div className="app-preview-screen"><EngineBlueprintAnimation themeColor={activeTab === 'acoustic' ? '#EF4444' : '#245c46'} speed={0.015} /><div className="app-preview-content">{renderActiveScreen()}</div>{!showSplash && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />}</div></MobileFrame>
         </main>
       )}
 
