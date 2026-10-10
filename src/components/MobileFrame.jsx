@@ -23,7 +23,7 @@ export default function MobileFrame({ children }) {
   return (
     <div className="min-h-screen bg-[#070709] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-steel-light/10 via-[#0C0C0F] to-[#050507] flex items-center justify-center p-2 sm:p-6 font-sans">
       {/* Premium Bezel / Mobile casing for Desktop rendering */}
-      <div className="relative w-full max-w-[430px] h-[92vh] max-h-[880px] bg-[#141416] rounded-[50px] shadow-[0_0_0_10px_#27272A,_0_25px_60px_-15px_rgba(0,0,0,0.9),_0_0_80px_rgba(249,115,22,0.15)] border-4 border-zinc-700/50 flex flex-col overflow-hidden transition-all duration-300">
+      <div className="relative w-full max-w-[430px] h-[92vh] max-h-[880px] bg-[#0d141d] rounded-[46px] shadow-[0_0_0_8px_#1b2634,_0_25px_70px_-15px_rgba(0,0,0,0.95),_0_0_90px_rgba(34,211,238,0.12)] border-4 border-slate-600/40 flex flex-col overflow-hidden transition-all duration-300">
         
         {/* Dynamic Notch / Dynamic Island */}
         <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full z-50 flex items-center justify-center border border-zinc-800">
@@ -34,7 +34,7 @@ export default function MobileFrame({ children }) {
         </div>
 
         {/* Custom Premium Status Bar */}
-        <div className="h-11 pt-3 px-8 flex justify-between items-center text-xs font-semibold select-none text-zinc-400 z-40 bg-[#0F0F12] border-b border-zinc-800/20">
+        <div className="h-11 pt-3 px-8 flex justify-between items-center text-xs font-semibold select-none text-zinc-400 z-40 bg-[#0b121b] border-b border-white/[0.06]">
           <span>{time}</span>
           <div className="flex items-center gap-1.5">
             <Signal className="w-3.5 h-3.5" />

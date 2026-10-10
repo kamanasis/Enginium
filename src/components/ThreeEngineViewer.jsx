@@ -9,7 +9,14 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     if (!container) return;
 
     // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch {
+      // Keep the rest of the learning screen usable when WebGL is unavailable.
+      if (container) container.dataset.webglUnavailable = 'true';
+      return undefined;
+    }
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
@@ -36,6 +43,61 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     // Engine Assembly Parts Group
     const group = new THREE.Group();
     scene.add(group);
+
+    // Lightweight orbital HUD background: decorative objects live outside the
+    // selectable engine group so they never interfere with raycasting.
+    const hudGroup = new THREE.Group();
+    scene.add(hudGroup);
+    const hudMaterial = new THREE.LineBasicMaterial({
+      color: 0x06b6d4,
+      transparent: true,
+      opacity: 0.22,
+    });
+    const ringGeometry = new THREE.TorusGeometry(2.8, 0.008, 6, 96);
+    const ring = new THREE.LineSegments(new THREE.EdgesGeometry(ringGeometry), hudMaterial);
+    ring.rotation.x = Math.PI / 2.4;
+    hudGroup.add(ring);
+
+    const innerRing = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.TorusGeometry(2.25, 0.006, 6, 80)),
+      hudMaterial.clone(),
+    );
+    innerRing.rotation.x = Math.PI / 2.1;
+    innerRing.rotation.z = Math.PI / 5;
+    innerRing.material.opacity = 0.16;
+    hudGroup.add(innerRing);
+
+    const tickGeometry = new THREE.BufferGeometry();
+    const tickPositions = [];
+    for (let i = 0; i < 24; i += 1) {
+      const angle = (i / 24) * Math.PI * 2;
+      const radius = i % 3 === 0 ? 2.95 : 2.82;
+      tickPositions.push(
+        Math.cos(angle) * radius, Math.sin(angle) * radius, 0,
+        Math.cos(angle) * 3.08, Math.sin(angle) * 3.08, 0,
+      );
+    }
+    tickGeometry.setAttribute('position', new THREE.Float32BufferAttribute(tickPositions, 3));
+    const ticks = new THREE.LineSegments(tickGeometry, hudMaterial.clone());
+    ticks.rotation.x = Math.PI / 2;
+    ticks.material.opacity = 0.14;
+    hudGroup.add(ticks);
+
+    const particlePositions = new Float32Array(54);
+    for (let i = 0; i < particlePositions.length; i += 3) {
+      const angle = (i / particlePositions.length) * Math.PI * 10;
+      const radius = 2.4 + ((i * 17) % 11) / 10;
+      particlePositions[i] = Math.cos(angle) * radius;
+      particlePositions[i + 1] = Math.sin(angle) * radius;
+      particlePositions[i + 2] = ((i * 13) % 9) / 10 - 0.45;
+    }
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particles = new THREE.Points(
+      particleGeometry,
+      new THREE.PointsMaterial({ color: 0x22d3ee, size: 0.035, transparent: true, opacity: 0.55 }),
+    );
+    hudGroup.add(particles);
 
     // Object map for raycasting
     const partsMap = {};
@@ -124,7 +186,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     let isDragging = false;
     let previousMousePosition = { x: 0, y: 0 };
 
-    const handleMouseDown = (e) => {
+    const handleMouseDown = () => {
       isDragging = true;
     };
 
@@ -163,6 +225,11 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
         group.rotation.y += 0.005;
       }
 
+      hudGroup.rotation.z -= 0.0015;
+      ring.rotation.y += 0.001;
+      innerRing.rotation.y -= 0.0018;
+      particles.rotation.z += 0.0008;
+
       renderer.render(scene, camera);
     };
 
@@ -190,12 +257,20 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
         container.removeChild(renderer.domElement);
       }
       scene.clear();
+      ringGeometry.dispose();
+      tickGeometry.dispose();
+      particleGeometry.dispose();
+      hudMaterial.dispose();
+      ring.material.dispose();
+      innerRing.material.dispose();
+      ticks.material.dispose();
+      particles.material.dispose();
       renderer.dispose();
     };
   }, [selectedPartId]);
 
   return (
-    <div className="relative w-full h-full min-h-[300px] flex items-center justify-center bg-black/30 rounded-2xl border border-zinc-800 overflow-hidden cursor-grab active:cursor-grabbing">
+    <div className="engineering-surface relative w-full h-full min-h-[300px] flex items-center justify-center bg-black/30 rounded-2xl border border-zinc-800 overflow-hidden cursor-grab active:cursor-grabbing">
       <div ref={containerRef} className="absolute inset-0 w-full h-full" />
       
       {/* 3D View Helper Hint */}

@@ -3,6 +3,7 @@ import MobileFrame from './components/MobileFrame';
 import Navbar from './components/Navbar';
 import EngineBlueprintAnimation from './components/EngineBlueprintAnimation';
 import EngineeringStation from './components/EngineeringStation';
+import EngineeringBackdrop from './components/EngineeringBackdrop';
 import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
 import LearnView from './views/LearnView';
@@ -256,12 +257,13 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0b0e] text-white flex flex-col font-sans overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+    <div className="min-h-screen text-white flex flex-col font-sans overflow-x-hidden selection:bg-cyan-500 selection:text-black relative isolate bg-[#070c14]">
+      <EngineeringBackdrop />
       
       {/* ========================================================================= */}
       {/* GLOBAL TOP NAVIGATION BAR (For Website Mode & Viewport Switcher) */}
       {/* ========================================================================= */}
-      <header className="bg-[#101218]/95 backdrop-blur-xl border-b border-zinc-800/80 sticky top-0 z-50 px-4 md:px-8 py-3">
+      <header className="bg-[#0a1018]/88 backdrop-blur-2xl border-b border-white/[0.08] sticky top-0 z-50 px-4 md:px-8 py-3.5 relative">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           
           {/* Logo Brand */}
@@ -270,15 +272,15 @@ export default function App() {
               onClick={() => { setShowSplash(false); setActiveTab('home'); }}
               className="flex items-center gap-2 text-left group"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-black font-black text-sm shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-300 via-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 font-black text-sm shadow-[0_8px_25px_rgba(34,211,238,0.22)] group-hover:scale-105 transition-transform">
                 EN
               </div>
               <div>
                 <h1 className="text-base font-black tracking-tight text-white flex items-center gap-0.5">
                   ENGIN<span className="text-cyan-400">IUM</span>
                 </h1>
-                <span className="text-[9px] font-mono tracking-widest text-zinc-500 uppercase block font-bold">
-                  DIGITAL MECHANIC PLATFORM
+                <span className="text-[9px] font-mono tracking-[0.16em] text-zinc-500 uppercase block font-bold">
+                  VEHICLE INTELLIGENCE SYSTEM
                 </span>
               </div>
             </button>
@@ -286,7 +288,7 @@ export default function App() {
 
           {/* Desktop Navigation Links (Visible in Website Mode on md+) */}
           {viewMode === 'website' && (
-            <nav className="hidden lg:flex items-center gap-1 bg-[#161822] border border-zinc-800/80 rounded-2xl p-1 shadow-inner">
+            <nav className="hidden lg:flex items-center gap-1 bg-white/[0.035] border border-white/[0.08] rounded-2xl p-1 shadow-inner">
               {desktopNavItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -294,7 +296,7 @@ export default function App() {
                   <button
                     key={item.id}
                     onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 relative ${
+                    className={`en-focus-ring px-3 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1.5 relative ${
                       isActive 
                         ? (item.alert ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/25') 
                         : 'text-zinc-400 hover:text-white hover:bg-zinc-800/50'
@@ -353,7 +355,7 @@ export default function App() {
             </div>
 
             {/* Viewport Mode Switcher (Website / App / Figma Flow) */}
-            <div className="flex bg-[#161822] border border-zinc-800 rounded-xl p-1 text-xs">
+            <div className="flex bg-white/[0.035] border border-white/[0.08] rounded-xl p-1 text-xs">
               <button
                 onClick={() => setViewMode('website')}
                 className={`px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 transition-colors ${
@@ -405,11 +407,11 @@ export default function App() {
       {/* ========================================================================= */}
       {viewMode === 'website' ? (
         /* ======================== 1. FULL WEBSITE DESKTOP WORKSPACE ======================== */
-        <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8">
+        <main className="flex-1 max-w-[1440px] w-full mx-auto p-3 md:p-6 lg:p-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
             {/* Left / Center Workstation Column (65% width) */}
-            <div className="lg:col-span-7 xl:col-span-8 bg-[#101218] border border-zinc-800/90 rounded-3xl overflow-hidden shadow-2xl relative min-h-[720px] flex flex-col">
+            <div className="lg:col-span-7 xl:col-span-8 en-panel rounded-[28px] overflow-hidden relative min-h-[720px] flex flex-col">
               
               {/* Animated Blueprint Background Layer */}
               <EngineBlueprintAnimation themeColor={activeTab === 'acoustic' ? '#EF4444' : '#06b6d4'} speed={0.015} />
@@ -438,7 +440,7 @@ export default function App() {
 
             {/* Right Desktop Station: Live Engine Blueprint & Telemetry (35% width) */}
             <div className="hidden lg:block lg:col-span-5 xl:col-span-4 sticky top-24">
-              <div className="bg-[#101218] border border-zinc-800/90 rounded-3xl overflow-hidden shadow-2xl h-[780px]">
+              <div className="en-panel rounded-[28px] overflow-hidden h-[780px]">
                 <EngineeringStation 
                   selectedVehicle={selectedVehicle} 
                   activeTab={activeTab} 
@@ -450,7 +452,7 @@ export default function App() {
         </main>
       ) : (
         /* ======================== 2. MOBILE APP PREVIEW MODE ======================== */
-        <main className="flex-1 flex items-center justify-center p-2 sm:p-6 bg-[#07080b]">
+        <main className="flex-1 flex items-center justify-center p-2 sm:p-6 bg-[#07080b] relative z-10">
           <MobileFrame>
             <div className="flex-1 flex flex-col relative bg-[#0e1017] select-none h-full overflow-hidden">
               
