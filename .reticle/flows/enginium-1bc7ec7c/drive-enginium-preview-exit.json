@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "name": "drive-enginium-preview-exit",
+  "intent": "enginium-preview-exit",
+  "intentId": "flow:drive-enginium-preview-exit",
+  "projectId": "enginium-1bc7ec7c",
+  "startPath": "/",
+  "requires": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "ensures": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "author": {
+    "agent": "reticle-cli"
+  },
+  "createdAt": 1791692218135,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "App"
+      },
+      "source": {
+        "file": "src/App.jsx",
+        "line": 297
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "text",
+            "contains": "Back to workspace"
+          },
+          {
+            "kind": "text",
+            "contains": "Flow preview"
+          },
+          {
+            "kind": "text",
+            "contains": "Phone preview"
+          }
+        ]
+      },
+      "page": "/"
+    }
+  ]
+}

@@ -4,8 +4,6 @@ import {
   BookOpen,
   CalendarClock,
   ChevronRight,
-  CircleAlert,
-  Cpu,
   Headphones,
   ShieldAlert,
   Sparkles,
@@ -44,19 +42,15 @@ export default function HomeView({
   };
 
   return (
-    <main className="workspace-view workspace-home">
+    <section className="workspace-view workspace-home">
       <div className="workspace-page">
         <header className="workspace-home-header">
           <div>
-            <p className="ui-eyebrow">Enginium dashboard</p>
-            <h1 className="ui-title workspace-home-title">Your ride. In good hands.</h1>
+            <p className="ui-eyebrow">Dashboard</p>
+            <h1 className="ui-title workspace-home-title">Your ride, in good hands.</h1>
             <p className="ui-muted workspace-home-intro">
-              A calm place to keep service notes, learn the essentials, and plan the next check.
+              Keep track of service, explore your vehicle, and plan what comes next.
             </p>
-          </div>
-          <div className="workspace-home-context">
-            <span className="ui-tag ui-tag-demo">Demo context</span>
-            <span className="ui-muted">Profile view · {vehicle.type || 'Vehicle'}</span>
           </div>
         </header>
 
@@ -78,14 +72,19 @@ export default function HomeView({
                 <strong>{vehicle.engine || 'Profile details pending'}</strong>
               </div>
               <div>
+                <span>Drive Architecture</span>
+                <strong>{vehicle.type?.toLowerCase() === 'scooter' ? 'CVT V-Belt (Dry Clutch)' : 'Roller Chain (Wet Clutch)'}</strong>
+              </div>
+              <div>
                 <span>Odometer reference</span>
                 <strong>{odometer}</strong>
               </div>
             </div>
 
             <p className="workspace-home-hero-note">
-              This dashboard uses your selected profile. The vehicle image is an illustrative reference,
-              not a photo or live reading of this model.
+              {vehicle.type?.toLowerCase() === 'scooter'
+                ? 'Scooter platform: uses underbone step-through chassis with continuous variator transmission.'
+                : 'Motorcycle platform: uses diamond/cradle frame with manual multi-speed gearbox and final drive chain.'}
             </p>
 
             <div className="workspace-action-row">
@@ -101,11 +100,10 @@ export default function HomeView({
           <figure className="workspace-home-hero-figure">
             <img
               src="/hud_motorcycle_wireframe.jpg"
-              alt="Illustrative motorcycle wireframe used as a reference, not the selected vehicle"
+              alt="Illustrative engineering blueprint wireframe"
             />
             <figcaption>
-              <span>Illustrative reference</span>
-              <span>Not a live OBD image</span>
+              <span>{vehicle.type?.toLowerCase() === 'scooter' ? 'Scooter architectural blueprint' : 'Motorcycle architectural blueprint'}</span>
             </figcaption>
           </figure>
         </section>
@@ -113,10 +111,8 @@ export default function HomeView({
         <section className="workspace-home-maintenance ui-card" aria-labelledby="maintenance-preview-title">
           <div className="workspace-section-heading">
             <div>
-              <p className="ui-eyebrow">Keep the small things small</p>
               <h2 id="maintenance-preview-title">Maintenance preview</h2>
             </div>
-            <span className="ui-tag ui-tag-demo">Sample schedule</span>
           </div>
 
           <div className="workspace-maintenance-body">
@@ -132,17 +128,13 @@ export default function HomeView({
                 </p>
               </div>
             </div>
-            <div className="workspace-maintenance-badges" aria-label="Maintenance sample badges">
+            <div className="workspace-maintenance-badges">
               <span className="ui-tag ui-tag-warning">Review soon</span>
-              <span className="ui-tag">Planning item</span>
-              {latestService ? <span className="ui-tag ui-tag-success">Service log available</span> : null}
             </div>
           </div>
 
           <div className="workspace-card-footer">
-            <span className="ui-muted">
-              <CircleAlert aria-hidden="true" size={15} /> Sample reminder, not a measured fault
-            </span>
+            <span className="ui-muted">{latestService?.title ? `Last logged: ${latestService.title}` : 'Sample reminder · confirm before booking'}</span>
             <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setActiveTab('garage')}>
               Review service log <ChevronRight aria-hidden="true" size={16} />
             </button>
@@ -152,10 +144,8 @@ export default function HomeView({
         <section className="workspace-home-tools" aria-labelledby="tools-title">
           <div className="workspace-section-heading workspace-section-heading-compact">
             <div>
-              <p className="ui-eyebrow">Choose a starting point</p>
               <h2 id="tools-title">Your shortcuts</h2>
             </div>
-            <p className="ui-muted">Built for the next useful action.</p>
           </div>
 
           <div className="workspace-tool-grid">
@@ -206,11 +196,7 @@ export default function HomeView({
             Open roadside guide <ArrowUpRight aria-hidden="true" size={16} />
           </button>
         </section>
-
-        <p className="workspace-home-footnote">
-          <Cpu aria-hidden="true" size={14} /> Profile data is reference material until you connect a compatible device.
-        </p>
       </div>
-    </main>
+    </section>
   );
 }

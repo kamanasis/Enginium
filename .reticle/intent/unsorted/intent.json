@@ -1,0 +1,86 @@
+{
+  "intents": {
+    "enginium-mobile-nav-access": {
+      "declaredAt": 1791691649720,
+      "id": "enginium-mobile-nav-access",
+      "state": "declared",
+      "statement": "On mobile workspace and phone preview, keyboard and screen-reader users can navigate every destination including Community and Settings and identify the active destination.",
+      "status": "proposed",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1791692349081
+    },
+    "enginium-preview-exit": {
+      "declaredAt": 1791691649720,
+      "id": "enginium-preview-exit",
+      "state": "declared",
+      "statement": "A user in phone preview can activate Back to workspace to return to the web workspace, or open Flow preview from a control outside the phone.",
+      "status": "proposed",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1791692191076
+    },
+    "inline:phone-preview-users-can-return-to-the-full-works-359bbad1": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Inspect vehicle",
+          "role": "button"
+        }
+      },
+      "declaredAt": 1791693347347,
+      "id": "inline:phone-preview-users-can-return-to-the-full-works-359bbad1",
+      "provenBy": {
+        "at": 1791693368425,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1791693368425"
+      },
+      "state": "proved",
+      "statement": "Phone preview users can return to the full workspace without losing their current screen.",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1791693368480
+    },
+    "inline:the-preview-mode-switcher-opens-a-usable-phone-p-4a7c5b40": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Back to workspace",
+          "role": "button"
+        }
+      },
+      "declaredAt": 1791693377774,
+      "id": "inline:the-preview-mode-switcher-opens-a-usable-phone-p-4a7c5b40",
+      "provenBy": {
+        "at": 1791693379927,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1791693379927"
+      },
+      "state": "proved",
+      "statement": "The preview mode switcher opens a usable phone preview with a clear return path.",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1791693379955
+    }
+  },
+  "subject": "unsorted",
+  "version": 1
+}

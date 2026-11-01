@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cpu, Zap, Activity, Gauge, RefreshCw, Layers, ShieldCheck, Thermometer } from 'lucide-react';
+import { Cpu, Gauge } from 'lucide-react';
 import ThreeEngineViewer from './ThreeEngineViewer';
 
-export default function EngineeringStation({ selectedVehicle, activeTab }) {
+export default function EngineeringStation({ selectedVehicle }) {
   const [themeColor, setThemeColor] = useState('#06b6d4');
   const [rpm, setRpm] = useState(1250);
-  const [engineCycle, setEngineCycle] = useState('Power');
   const [viewMode, setViewMode] = useState('blueprint'); // 'blueprint' | '3d'
   const [selectedPartId, setSelectedPartId] = useState('spark-plug');
 

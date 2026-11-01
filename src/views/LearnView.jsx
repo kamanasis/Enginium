@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState } from 'react';
-import { Award, BatteryCharging, BookOpen, ChevronRight, HelpCircle, RefreshCw, Search, ShieldAlert, Wind, Zap } from 'lucide-react';
+import { Award, BatteryCharging, ChevronRight, HelpCircle, ImageOff, RefreshCw, Search, ShieldAlert, Wind, Zap } from 'lucide-react';
 import './ToolViews.css';
 
 const ThreeEngineViewer = lazy(() => import('../components/ThreeEngineViewer'));
@@ -117,21 +117,45 @@ export default function LearnView({
 
         {effectivePart ? (
           <article className="ui-card learn-detail">
-            <div className="tool-meta" style={{ justifyContent: 'space-between', gap: 12 }}>
+            <div className="tool-meta tool-meta-split">
               <div><span className="ui-eyebrow">Selected part · {selectedVehicle.name}</span><h2>{effectivePart.name}</h2></div>
               <span className="ui-tag ui-tag-success">{effectivePart.difficulty} DIY</span>
             </div>
+
+            {effectivePart.image && (
+              <div className="learn-part-image-wrap">
+                <img
+                  key={effectivePart.image}
+                  src={effectivePart.image}
+                  alt={`Reference photo of ${effectivePart.name}`}
+                  className="learn-part-image"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const fallback = e.currentTarget.nextElementSibling;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+                <div className="learn-part-image-fallback" style={{ display: 'none' }}>
+                  <ImageOff size={24} aria-hidden="true" />
+                  <span>Image unavailable</span>
+                </div>
+                {effectivePart.imageCredit && (
+                  <span className="learn-part-image-credit">📷 {effectivePart.imageCredit}</span>
+                )}
+              </div>
+            )}
+
             <div className="learn-detail-copy"><strong>Purpose</strong><br />{effectivePart.function}</div>
-            <div className="ui-grid-two">
+            <div className="ui-grid-two learn-part-metrics">
               <div className="diagnose-stat"><span className="ui-label">Symptoms</span><strong>{effectivePart.symptoms}</strong></div>
               <div className="diagnose-stat"><span className="ui-label">Check interval</span><strong>{effectivePart.interval}</strong></div>
             </div>
             {effectivePart.safety && <div className="tool-notice"><ShieldAlert size={17} aria-hidden="true" /><div><strong>Safety first</strong>{effectivePart.safety}</div></div>}
 
             <div>
-              <div className="tool-meta" style={{ justifyContent: 'space-between', gap: 12, marginBottom: 10 }}><h3>Repair guide</h3><span className="ui-muted">{effectivePart.cost}</span></div>
-              <ol className="diagnose-list">{effectivePart.diySteps.map((step) => <li key={step}>{step}</li>)}</ol>
-              <p className="ui-muted" style={{ marginBottom: 0, marginTop: 12 }}><strong>Tools:</strong> {effectivePart.tools.join(' · ')}</p>
+               <div className="tool-meta learn-guide-heading"><h3>Repair guide</h3><span className="ui-muted">{effectivePart.cost}</span></div>
+               <ol className="diagnose-list">{effectivePart.diySteps.map((step) => <li key={step}>{step}</li>)}</ol>
+               <p className="ui-muted learn-tools"><strong>Tools:</strong> {effectivePart.tools.join(' · ')}</p>
             </div>
 
             <div className="learn-3d-shell">
@@ -160,7 +184,7 @@ export default function LearnView({
         <div className="learn-modules">
           {MODULES.map((module) => (
             <button type="button" key={module.id} className="learn-module" onClick={() => { setSelectedModule(module); resetQuiz(); }}>
-              <div style={{ flex: 1 }}><h3>{module.title}</h3><p>{module.desc}</p><div className="tool-meta" style={{ justifyContent: 'space-between', marginBottom: 6 }}><span className="ui-label">Progress</span><span className="ui-muted">{module.progress}%</span></div><div className="learn-progress"><span style={{ width: `${module.progress}%` }} /></div></div>
+                 <div className="learn-module-body"><h3>{module.title}</h3><p>{module.desc}</p><div className="tool-meta learn-module-progress"><span className="ui-label">Progress</span><span className="ui-muted">{module.progress}%</span></div><div className="learn-progress"><span style={{ width: `${module.progress}%` }} /></div></div>
               <ChevronRight size={20} aria-hidden="true" />
             </button>
           ))}
@@ -171,16 +195,16 @@ export default function LearnView({
     const currentQuiz = selectedModule.quizzes[Math.min(quizIndex, selectedModule.quizzes.length - 1)];
     return (
       <section className="ui-card ui-stack">
-        <div className="tool-meta" style={{ justifyContent: 'space-between', gap: 12 }}><div><span className="ui-eyebrow">Learning module</span><h2 className="ui-title" style={{ fontSize: '1.35rem' }}>{selectedModule.title}</h2></div><button type="button" className="ui-btn ui-btn-quiet" onClick={() => setSelectedModule(null)}>Back to modules</button></div>
+         <div className="tool-meta tool-meta-split"><div><span className="ui-eyebrow">Learning module</span><h2 className="ui-title learn-module-title">{selectedModule.title}</h2></div><button type="button" className="ui-btn ui-btn-quiet" onClick={() => setSelectedModule(null)}>Back to modules</button></div>
         {!showQuizResult && currentQuiz ? (
           <>
             <span className="ui-tag ui-tag-demo">Question {quizIndex + 1} of {selectedModule.quizzes.length}</span>
-            <h3 style={{ margin: 0, fontSize: '1.05rem', lineHeight: 1.45 }}>{currentQuiz.question}</h3>
-            <div className="ui-stack" style={{ gap: 9 }}>{currentQuiz.options.map((option, index) => <button type="button" key={option} className={`quiz-option ${selectedAnswer === index ? 'is-selected' : ''}`} aria-pressed={selectedAnswer === index} onClick={() => setSelectedAnswer(index)}>{option}</button>)}</div>
+             <h3 className="quiz-question">{currentQuiz.question}</h3>
+             <div className="ui-stack quiz-options">{currentQuiz.options.map((option, index) => <button type="button" key={option} className={`quiz-option ${selectedAnswer === index ? 'is-selected' : ''}`} aria-pressed={selectedAnswer === index} onClick={() => setSelectedAnswer(index)}>{option}</button>)}</div>
             <button type="button" className="ui-btn ui-btn-primary" disabled={selectedAnswer === null} onClick={handleNextQuiz}>Next question <ChevronRight size={15} aria-hidden="true" /></button>
           </>
         ) : (
-          <div className="ui-empty"><div><Award size={35} aria-hidden="true" /><h3>Module quiz complete</h3><p className="ui-muted">You scored {quizScore} out of {selectedModule.quizzes.length} correctly.</p><button type="button" className="ui-btn ui-btn-primary" onClick={resetQuiz}>Retry quiz</button></div></div>
+           <div className="learn-quiz-complete"><div><Award size={35} aria-hidden="true" /><h3>Module quiz complete</h3><p className="ui-muted">You scored {quizScore} out of {selectedModule.quizzes.length} correctly.</p><button type="button" className="ui-btn ui-btn-primary" onClick={resetQuiz}>Retry quiz</button></div></div>
         )}
       </section>
     );
@@ -190,8 +214,7 @@ export default function LearnView({
     <main className="tool-view">
       <div className="tool-page">
         <header className="tool-header">
-          <div><span className="ui-eyebrow">Learn your machine</span><h1 className="ui-title">Parts, guides, and practice</h1><p className="ui-muted">Readable reference material for {selectedVehicle.name}, with optional 3D exploration.</p></div>
-          <span className="ui-tag ui-tag-demo"><BookOpen size={14} /> Local reference</span>
+           <div><span className="ui-eyebrow">Learn</span><h1 className="ui-title">Parts and guides</h1><p className="ui-muted">Reference material for {selectedVehicle.name}, with optional 3D exploration and local practice quizzes.</p></div>
         </header>
         <div className="learn-tabs" role="tablist" aria-label="Learning sections">
           <button type="button" role="tab" aria-selected={activeSegment === 'parts'} className={`ui-btn learn-tab ${activeSegment === 'parts' ? 'is-active' : ''}`} onClick={() => { setActiveSegment('parts'); setSelectedModule(null); }}>Parts explorer</button>

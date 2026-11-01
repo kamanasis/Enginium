@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "element \"Inspect\"",
+  "observed": "no 'button' named 'Inspect'; saw: EN ENGINIUM Vehicle care, made clear., Overview, Inspect vehicle, Service guide, Garage, Learn, Sound profile, Community, Settings, Roadside help SOS, Hero Splendor Plus, Web, App, Flow, Roadside help, Overview, Inspect vehicle, Service guide, Garage, Learn, Sound profile, Community, Settings, Open SOS mode, Location sharing unavailable, Metric, Imperial, Toggle reminder notifications preview",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e440",
+        "source": {
+          "file": "src/App.jsx",
+          "line": 312,
+          "column": 14
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1791693358942-click-bbe62b92",
+  "createdAt": 1791693358942,
+  "seen": 1,
+  "lastSeenAt": 1791693358942
+}

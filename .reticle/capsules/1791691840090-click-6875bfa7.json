@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "text \"Back to workspace\"",
+  "observed": "no element matched {\"text\":\"Back to workspace\"}",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e131",
+        "source": {
+          "file": "src/App.jsx",
+          "line": 295,
+          "column": 225
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1791691840090-click-6875bfa7",
+  "createdAt": 1791691840090,
+  "seen": 1,
+  "lastSeenAt": 1791691840090
+}

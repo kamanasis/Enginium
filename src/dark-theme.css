@@ -1,14 +1,14 @@
 /* Local-only deep-night theme for the redesigned Enginium workspace. */
 .app-shell {
-  --shell-canvas: #07100e;
-  --shell-forest: #0b241b;
-  --shell-forest-deep: #061b14;
-  --shell-lime: #d4ee8a;
-  background: #07100e;
+  --shell-canvas: #0b1512;
+  --shell-forest: #173d30;
+  --shell-forest-deep: #102e25;
+  --shell-lime: #c7df9b;
+  background: #0b1512;
 }
 
 .app-shell .engineering-backdrop {
-  opacity: 0.48;
+  opacity: 0.24;
 }
 
 .app-shell .app-main {
@@ -39,8 +39,8 @@
 }
 
 .app-shell .app-mode-switcher button.is-active {
-  background: #d4ee8a;
-  color: #0b241b;
+  background: #c7df9b;
+  color: #102e25;
 }
 
 .app-shell .app-topbar-help {
@@ -86,8 +86,8 @@
 }
 
 .app-shell .app-mobile-nav button.is-active {
-  background: #d4ee8a;
-  color: #0b241b;
+  background: #c7df9b;
+  color: #102e25;
 }
 
 .app-shell .app-preview-main {
@@ -110,11 +110,11 @@
 
 .app-shell .preview-nav-item:hover,
 .app-shell .preview-nav-item.is-active {
-  color: #d4ee8a;
+  color: #c7df9b;
 }
 
 .app-shell .preview-nav-active-mark {
-  background: #d4ee8a;
+  background: #c7df9b;
 }
 
 .app-shell .workspace-view {
@@ -122,7 +122,7 @@
   --workspace-forest: #173d30;
   --workspace-forest-deep: #0a2118;
   --workspace-green: #9bd39f;
-  --workspace-lime: #d4ee8a;
+  --workspace-lime: #c7df9b;
   --workspace-charcoal: #eef6ef;
   --workspace-muted: #9caf9f;
   --workspace-border: #29483a;
@@ -185,9 +185,9 @@
 
 .app-shell .workspace-filter:hover,
 .app-shell .workspace-filter.is-active {
-  background: #d4ee8a;
-  border-color: #d4ee8a;
-  color: #0b241b;
+  background: #c7df9b;
+  border-color: #c7df9b;
+  color: #102e25;
 }
 
 .app-shell .workspace-home-sos {
@@ -218,7 +218,7 @@
   --tool-pale: rgba(155, 211, 159, 0.12);
   --tool-green: #9bd39f;
   --tool-green-hover: #b9e4ae;
-  --tool-lime: #d4ee8a;
+  --tool-lime: #c7df9b;
   --tool-orange: #efb47f;
   background: var(--tool-canvas);
   color: var(--tool-text);
@@ -262,15 +262,15 @@
 }
 
 .app-shell .tool-view .ui-btn-primary {
-  background: #d4ee8a;
-  border-color: #d4ee8a;
-  color: #0b241b;
+  background: #c7df9b;
+  border-color: #c7df9b;
+  color: #102e25;
 }
 
 .app-shell .tool-view .ui-btn-primary:hover:not(:disabled) {
   background: #e0f5a7;
   border-color: #e0f5a7;
-  color: #0b241b;
+  color: #102e25;
 }
 
 .app-shell .tool-view .ui-btn-quiet {
@@ -293,9 +293,16 @@
 }
 
 .app-shell .tool-view .acoustic-wave,
-.app-shell .tool-view .learn-3d-shell {
+.app-shell .tool-view .learn-3d-shell,
+.app-shell .tool-view .learn-part-image-wrap {
   background: #071a13;
   border-color: #31553f;
+}
+
+.app-shell .tool-view .learn-part-image-credit {
+  background: rgba(8, 22, 17, 0.92);
+  border-color: #264332;
+  color: #8ea896;
 }
 
 .app-shell .tool-view .acoustic-progress {
@@ -318,11 +325,7 @@
 }
 
 .app-shell .tool-view .community-post,
-.app-shell .tool-view .community-hero,
-.app-shell .tool-view .profile-header,
-.app-shell .tool-view .sos-panel,
-.app-shell .tool-view .preference-panel,
-.app-shell .tool-view .support-panel {
+.app-shell .tool-view .sos-card {
   background: rgba(15, 31, 24, 0.9);
   border-color: #29483a;
 }

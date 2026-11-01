@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DollarSign, MessageSquare, Plus, ThumbsUp } from 'lucide-react';
 import './ToolViews.css';
 
@@ -37,8 +37,42 @@ const STARTER_POSTS = [
 
 export default function CommunityView({ selectedVehicle, showAddForm, setShowAddForm }) {
   const [activeForum, setActiveForum] = useState(getForumName(selectedVehicle.id));
-  const [posts, setPosts] = useState(STARTER_POSTS);
-  const [likedPostIds, setLikedPostIds] = useState(new Set());
+  const [posts, setPosts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('enginium_community_posts');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.warn('Failed to read community posts from localStorage', e);
+    }
+    return STARTER_POSTS;
+  });
+
+  const [likedPostIds, setLikedPostIds] = useState(() => {
+    try {
+      const saved = localStorage.getItem('enginium_liked_posts');
+      if (saved) return new Set(JSON.parse(saved));
+    } catch (e) {
+      console.warn('Failed to read liked posts from localStorage', e);
+    }
+    return new Set();
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('enginium_community_posts', JSON.stringify(posts));
+    } catch (e) {
+      console.warn('Failed to save community posts to localStorage', e);
+    }
+  }, [posts]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('enginium_liked_posts', JSON.stringify(Array.from(likedPostIds)));
+    } catch (e) {
+      console.warn('Failed to save liked posts to localStorage', e);
+    }
+  }, [likedPostIds]);
+
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newSavedCost, setNewSavedCost] = useState('');
@@ -81,16 +115,16 @@ export default function CommunityView({ selectedVehicle, showAddForm, setShowAdd
       <div className="tool-page">
         <header className="community-hero">
           <div>
-            <span className="ui-eyebrow">Community · local demo feed</span>
-            <h1 className="ui-title">Practical stories from the garage</h1>
-            <p className="ui-muted">Share what you learned while caring for {selectedVehicle.name}. Posts stay in this browser session; no account or backend is connected.</p>
+            <span className="ui-eyebrow">Community</span>
+            <h1 className="ui-title">Garage stories</h1>
+            <p className="ui-muted">Share a tip about {selectedVehicle.name}. This is a local demo feed: posts and likes last only for this session, with no account or backend.</p>
           </div>
           <button type="button" className="ui-btn ui-btn-primary" onClick={() => setShowAddForm(!showAddForm)}><Plus size={16} aria-hidden="true" /> {showAddForm ? 'Close composer' : 'Share a tip'}</button>
         </header>
 
-        <div className="ui-card" style={{ marginBottom: 16 }}>
-          <div className="tool-meta" style={{ justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-            <div><span className="ui-label">Browse a local room</span><strong>{activeForum}</strong></div>
+        <div className="community-room-bar">
+          <div className="tool-meta tool-meta-split">
+            <div><span className="ui-label">Room preview</span><strong>{activeForum}</strong></div>
             <div className="tool-inline" role="group" aria-label="Community rooms">
               {['splendor', 'activa', 'all'].map((forumId) => {
                 const forum = forumId === 'all' ? 'Enthusiast zone' : getForumName(forumId);
@@ -98,15 +132,16 @@ export default function CommunityView({ selectedVehicle, showAddForm, setShowAdd
               })}
             </div>
           </div>
+          <p className="ui-muted community-room-note">Room selection changes the label; all sample posts remain visible. Replies are unavailable.</p>
         </div>
 
         {showAddForm && (
           <form className="ui-card community-compose" onSubmit={handleSubmitPost}>
-            <div><span className="ui-eyebrow">Compose a local post</span><h2 className="ui-title" style={{ fontSize: '1.3rem' }}>Share a repair lesson</h2></div>
+            <div><span className="ui-eyebrow">Local post</span><h2 className="ui-title community-compose-title">Share a repair lesson</h2></div>
             <label className="ui-label" htmlFor="community-title">Title<input id="community-title" className="ui-input" type="text" placeholder="What did you learn?" value={newTitle} onChange={(event) => setNewTitle(event.target.value)} required /></label>
             <label className="ui-label" htmlFor="community-content">Story<textarea id="community-content" className="ui-input" placeholder="Describe the symptom, steps, and what you would recommend." value={newContent} onChange={(event) => setNewContent(event.target.value)} required /></label>
-            <div className="tool-inline" style={{ alignItems: 'flex-end' }}>
-              <label className="ui-label" style={{ flex: 1 }} htmlFor="community-cost">Estimated saving (optional)<input id="community-cost" className="ui-input" type="number" min="0" placeholder="INR" value={newSavedCost} onChange={(event) => setNewSavedCost(event.target.value)} /></label>
+            <div className="tool-inline community-compose-actions">
+              <label className="ui-label" htmlFor="community-cost">Estimated saving (optional)<input id="community-cost" className="ui-input" type="number" min="0" placeholder="INR" value={newSavedCost} onChange={(event) => setNewSavedCost(event.target.value)} /></label>
               <button type="submit" className="ui-btn ui-btn-primary">Publish locally</button>
             </div>
           </form>
@@ -124,7 +159,7 @@ export default function CommunityView({ selectedVehicle, showAddForm, setShowAdd
                 <div><h3>{post.title}</h3><p className="community-post-copy">{post.content}</p></div>
                 <div className="community-action-row">
                   <button type="button" className={`ui-btn ${liked ? 'ui-btn-primary' : 'ui-btn-quiet'}`} aria-pressed={liked} onClick={() => handleLike(post.id)}><ThumbsUp size={15} aria-hidden="true" /> {post.likes} {post.likes === 1 ? 'like' : 'likes'}</button>
-                  <span className="community-comments-note"><MessageSquare size={14} aria-hidden="true" /> {post.commentsCount} comments · replies unavailable in local demo</span>
+                  <span className="community-comments-note"><MessageSquare size={14} aria-hidden="true" /> {post.commentsCount} comments</span>
                 </div>
               </article>
             );

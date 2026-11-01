@@ -3,6 +3,11 @@ import * as THREE from 'three';
 
 export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
   const containerRef = useRef(null);
+  const onSelectPartRef = useRef(onSelectPart);
+
+  useEffect(() => {
+    onSelectPartRef.current = onSelectPart;
+  }, [onSelectPart]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -175,7 +180,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
         // Find top level intersection with user data
         const hit = intersects[0].object;
         if (hit.userData && hit.userData.id) {
-          onSelectPart(hit.userData.id);
+          onSelectPartRef.current?.(hit.userData.id);
         }
       }
     };

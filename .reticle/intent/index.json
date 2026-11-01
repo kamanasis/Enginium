@@ -1,0 +1,41 @@
+{
+  "entries": [
+    {
+      "id": "flow:drive-enginium-preview-exit",
+      "statement": "enginium-preview-exit",
+      "status": "proposed",
+      "subject": "drive-enginium-preview-exit"
+    },
+    {
+      "id": "flow:drive-enginium-preview-exit-9c65e0",
+      "statement": "enginium-preview-exit",
+      "status": "proposed",
+      "subject": "drive-enginium-preview-exit-9c65e0"
+    },
+    {
+      "id": "enginium-mobile-nav-access",
+      "statement": "On mobile workspace and phone preview, keyboard and screen-reader users…",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "enginium-preview-exit",
+      "statement": "A user in phone preview can activate Back to workspace to return to the…",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:phone-preview-users-can-return-to-the-full-works-359bbad1",
+      "statement": "Phone preview users can return to the full workspace without losing the…",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-preview-mode-switcher-opens-a-usable-phone-p-4a7c5b40",
+      "statement": "The preview mode switcher opens a usable phone preview with a clear ret…",
+      "status": "proved",
+      "subject": "unsorted"
+    }
+  ],
+  "version": 1
+}

@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import MobileFrame from './components/MobileFrame';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import EngineBlueprintAnimation from './components/EngineBlueprintAnimation';
 import EngineeringBackdrop from './components/EngineeringBackdrop';
 import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
@@ -14,7 +12,7 @@ import ProfileView from './views/ProfileView';
 import DesignBoardView from './views/DesignBoardView';
 import { vehiclesData } from './data/vehicles';
 import {
-  ShieldAlert, X, PhoneCall, Play, Monitor, Smartphone, LayoutGrid,
+  ShieldAlert, X, PhoneCall, Play, Monitor, LayoutGrid,
   Compass, ChevronDown, Activity, Zap, BookOpen, Users, User, Scan,
 } from 'lucide-react';
 
@@ -26,7 +24,19 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(false);
   const [activeTab, setActiveTab] = useState('hud');
   const [emergencyMode, setEmergencyMode] = useState(false);
-  const [selectedVehicle, setSelectedVehicle] = useState(vehiclesData[0]);
+
+  const [selectedVehicle, setSelectedVehicle] = useState(() => {
+    try {
+      const savedId = localStorage.getItem('enginium_selected_vehicle_id');
+      if (savedId) {
+        const found = vehiclesData.find((v) => v.id === savedId);
+        if (found) return found;
+      }
+    } catch (e) {
+      console.warn('Failed to read selected vehicle from localStorage', e);
+    }
+    return vehiclesData[0];
+  });
 
   // Lifted HomeView States
   const [showDropdown, setShowDropdown] = useState(false);
@@ -52,10 +62,36 @@ export default function App() {
   // Lifted CommunityView States
   const [showAddTipForm, setShowAddTipForm] = useState(false);
 
-  // Global state for logged DIY actions
-  const [serviceHistory, setServiceHistory] = useState([
-    { id: 1, title: 'Spark Plug cleaned & gap reset', desc: 'Electrode gap cleaned and adjusted to 0.7mm to resolve cold start lag.', date: '2026-08-12' }
-  ]);
+  // Global state for logged DIY actions with localStorage persistence
+  const [serviceHistory, setServiceHistory] = useState(() => {
+    try {
+      const saved = localStorage.getItem('enginium_service_history');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.warn('Failed to read service history from localStorage', e);
+    }
+    return [
+      { id: 1, title: 'Spark Plug cleaned & gap reset', desc: 'Electrode gap cleaned and adjusted to 0.7mm to resolve cold start lag.', date: '2026-08-12' }
+    ];
+  });
+
+  useEffect(() => {
+    try {
+      if (selectedVehicle?.id) {
+        localStorage.setItem('enginium_selected_vehicle_id', selectedVehicle.id);
+      }
+    } catch (e) {
+      console.warn('Failed to save selected vehicle to localStorage', e);
+    }
+  }, [selectedVehicle]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('enginium_service_history', JSON.stringify(serviceHistory));
+    } catch (e) {
+      console.warn('Failed to save service history to localStorage', e);
+    }
+  }, [serviceHistory]);
 
   const handleAddServiceRecord = (record) => {
     setServiceHistory([record, ...serviceHistory]);
@@ -214,30 +250,24 @@ export default function App() {
   // If user selected FIGMA FLOW BOARD MODE
   if (viewMode === 'flow') {
     return (
-      <div className="h-screen flex flex-col bg-[#07080b]">
+      <div className="h-screen flex flex-col bg-[#07100e]">
         {/* Floating Switcher Bar */}
-        <div className="bg-[#12141a] border-b border-zinc-800 px-6 py-2.5 flex items-center justify-between text-xs z-50">
+        <div className="bg-[#0b2118] border-b border-[#29483a] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
           <div className="flex items-center gap-2">
             <span className="font-black text-white tracking-widest text-sm flex items-center gap-1.5">
-              <span className="text-cyan-400">ENGIN</span>IUM
+              <span className="text-lime-200">ENGIN</span>IUM
             </span>
-            <span className="text-[10px] text-zinc-500 font-mono">/ Figma All-Screens Board</span>
+            <span className="text-[10px] text-[#a5b6aa] font-mono">/ Design flow canvas</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
+              type="button"
               onClick={() => setViewMode('website')}
-              className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 text-xs font-bold border border-zinc-750 flex items-center gap-1.5 transition-colors"
+              className="ui-btn !min-h-9 !border-[#31553f] !bg-[#12291f] !text-[#e9f2ea] hover:!bg-[#1a3a2b] en-focus-ring"
             >
-              <Monitor className="w-3.5 h-3.5 text-cyan-400" />
-              Desktop Website Mode
-            </button>
-            <button
-              onClick={() => setViewMode('app')}
-              className="px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 text-xs font-bold border border-zinc-750 flex items-center gap-1.5 transition-colors"
-            >
-              <Smartphone className="w-3.5 h-3.5 text-cyan-400" />
-              Mobile App Preview
+              <Monitor className="w-4 h-4" aria-hidden="true" />
+              Back to workspace
             </button>
           </div>
         </div>
@@ -259,54 +289,108 @@ export default function App() {
   return (
     <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-lime-200 selection:text-[#173d30] relative isolate">
       <EngineeringBackdrop />
-      {viewMode === 'website' ? (
-        <>
-          <aside className="app-sidebar">
-            <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('home'); }}>
-              <span className="app-brand-mark">EN</span>
-              <span><strong>ENGINIUM</strong><small>Vehicle care, made clear.</small></span>
-            </button>
-            <div className="app-sidebar-section">Workspace</div>
-            <nav className="app-sidebar-nav" aria-label="Main navigation">
-              {desktopNavItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeTab === item.id;
-                return <button type="button" key={item.id} className={`app-sidebar-link ${isActive ? 'is-active' : ''}`} onClick={() => { setShowSplash(false); setActiveTab(item.id); }} aria-current={isActive ? 'page' : undefined}>
-                  <Icon size={18} aria-hidden="true" /><span>{item.label}</span>{item.id === 'hud' ? <span className="app-sidebar-dot" /> : null}
-                </button>;
-              })}
-            </nav>
-            <div className="app-sidebar-bottom">
-              <button type="button" className="app-sidebar-sos" onClick={() => setEmergencyMode(true)}><ShieldAlert size={17} /><span>Roadside help</span><small>SOS</small></button>
-              <span className="app-sidebar-version">ENGINIUM / local preview</span>
-            </div>
-          </aside>
-          <div className="app-main">
-            <header className="app-topbar">
-              <div className="app-mobile-brand"><span className="app-brand-mark">EN</span><strong>ENGINIUM</strong></div>
-              <div className="app-topbar-context"><span className="app-topbar-label">Active profile</span><div className="relative">
-                <button type="button" className="app-vehicle-picker" onClick={() => setShowDropdown(!showDropdown)} aria-expanded={showDropdown}><span className="app-live-dot" />{selectedVehicle.name}<ChevronDown size={16} /></button>
-                {showDropdown ? <div className="app-vehicle-menu">
-                  <div className="app-vehicle-menu-heading">Switch vehicle profile</div>
-                  {vehiclesData.map((vehicle) => <button type="button" key={vehicle.id} className={selectedVehicle.id === vehicle.id ? 'is-selected' : ''} onClick={() => { setSelectedVehicle(vehicle); setShowDropdown(false); }}><span><strong>{vehicle.name}</strong><small>{vehicle.make} · {vehicle.type}</small></span><span>{vehicle.engine?.split(',')[0]}</span></button>)}
-                </div> : null}
-              </div></div>
-              <div className="app-topbar-actions">
-                <div className="app-mode-switcher" aria-label="Preview mode"><button type="button" onClick={() => setViewMode('website')} className={viewMode === 'website' ? 'is-active' : ''}><Monitor size={15} />Web</button><button type="button" onClick={() => setViewMode('app')}><Smartphone size={15} />App</button><button type="button" onClick={() => setViewMode('flow')}><LayoutGrid size={15} />Flow</button></div>
-                <button type="button" className="app-topbar-help" onClick={() => setEmergencyMode(true)}><ShieldAlert size={17} /><span>Need help?</span></button>
-              </div>
-            </header>
-            <main className="app-content">
-              <div className="app-mobile-nav" aria-label="Mobile navigation">{desktopNavItems.slice(0, 6).map((item) => { const Icon = item.icon; return <button type="button" key={item.id} className={activeTab === item.id ? 'is-active' : ''} onClick={() => setActiveTab(item.id)}><Icon size={16} /><span>{item.label}</span></button>; })}</div>
-              {renderActiveScreen()}
-            </main>
+      <aside className="app-sidebar hidden lg:flex">
+        <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('home'); }}>
+          <span className="app-brand-mark">EN</span>
+          <span><strong>ENGINIUM</strong><small>Vehicle care, made clear.</small></span>
+        </button>
+        <div className="app-sidebar-section">Workspace</div>
+        <nav className="app-sidebar-nav" aria-label="Main navigation">
+          {desktopNavItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                type="button"
+                key={item.id}
+                className={`app-sidebar-link ${isActive ? 'is-active' : ''}`}
+                onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <Icon size={18} aria-hidden="true" />
+                <span>{item.label}</span>
+                {item.id === 'hud' ? <span className="app-sidebar-dot" /> : null}
+              </button>
+            );
+          })}
+        </nav>
+        <div className="app-sidebar-bottom">
+          <button
+            type="button"
+            className="app-sidebar-link !min-h-9 !py-1 text-xs text-[#a5b6aa] hover:text-white mb-2"
+            onClick={() => setViewMode('flow')}
+          >
+            <LayoutGrid size={16} aria-hidden="true" />
+            <span>Design flow board</span>
+          </button>
+          <button type="button" className="app-sidebar-sos" onClick={() => setEmergencyMode(true)}>
+            <ShieldAlert size={17} />
+            <span>Roadside help</span>
+            <small>SOS</small>
+          </button>
+          <span className="app-sidebar-version">ENGINIUM / local preview</span>
+        </div>
+      </aside>
+
+      <div className="app-main flex-1 flex flex-col min-w-0">
+        <header className="app-topbar">
+          <div className="app-mobile-brand">
+            <span className="app-brand-mark">EN</span>
+            <strong>ENGINIUM</strong>
           </div>
-        </>
-      ) : (
-        <main className="app-preview-main">
-          <MobileFrame><div className="app-preview-screen"><EngineBlueprintAnimation themeColor={activeTab === 'acoustic' ? '#EF4444' : '#245c46'} speed={0.015} /><div className="app-preview-content">{renderActiveScreen()}</div>{!showSplash && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />}</div></MobileFrame>
+          <div className="app-topbar-context">
+            <span className="app-topbar-label hidden sm:inline">Active profile</span>
+            <div className="relative">
+              <button
+                type="button"
+                className="app-vehicle-picker"
+                onClick={() => setShowDropdown(!showDropdown)}
+                aria-expanded={showDropdown}
+              >
+                <span className="app-live-dot" />
+                <span>{selectedVehicle.name}</span>
+                <ChevronDown size={16} />
+              </button>
+              {showDropdown && (
+                <div className="app-vehicle-menu">
+                  <div className="app-vehicle-menu-heading">Switch vehicle profile</div>
+                  {vehiclesData.map((vehicle) => (
+                    <button
+                      type="button"
+                      key={vehicle.id}
+                      className={selectedVehicle.id === vehicle.id ? 'is-selected' : ''}
+                      onClick={() => { setSelectedVehicle(vehicle); setShowDropdown(false); }}
+                    >
+                      <span>
+                        <strong>{vehicle.name}</strong>
+                        <small>{vehicle.make} · {vehicle.type}</small>
+                      </span>
+                      <span>{vehicle.engine?.split(',')[0]}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="app-topbar-actions">
+            <button
+              type="button"
+              className="app-topbar-help"
+              aria-label="Roadside help"
+              onClick={() => setEmergencyMode(true)}
+            >
+              <ShieldAlert size={17} aria-hidden="true" />
+              <span className="hidden sm:inline">Need help?</span>
+            </button>
+          </div>
+        </header>
+
+        <main className="app-content flex-1 pb-20 lg:pb-6">
+          {renderActiveScreen()}
         </main>
-      )}
+
+        {!showSplash && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />}
+      </div>
 
       {/* ========================================================================= */}
       {/* ROAD-ASSIST SOS EMERGENCY MODAL OVERLAY */}

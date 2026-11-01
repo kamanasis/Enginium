@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "text \"Reference photo of Clutch Cable\"",
+  "observed": "no element matched {\"text\":\"Reference photo of Clutch Cable\"}",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e167",
+        "source": {
+          "file": "src/views/LearnView.jsx",
+          "line": 112,
+          "column": 12
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1793534904156-click-ccf1cd6b",
+  "createdAt": 1793534904156,
+  "seen": 1,
+  "lastSeenAt": 1793534904156
+}

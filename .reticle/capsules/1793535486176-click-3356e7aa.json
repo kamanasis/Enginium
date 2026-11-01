@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "text \"Reference photo of Air Filter\"",
+  "observed": "no element matched {\"text\":\"Reference photo of Air Filter\"}",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e474",
+        "source": {
+          "file": "src/views/LearnView.jsx",
+          "line": 112,
+          "column": 12
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1793535486176-click-3356e7aa",
+  "createdAt": 1793535486176,
+  "seen": 1,
+  "lastSeenAt": 1793535486176
+}

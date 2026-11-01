@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AlertTriangle, CheckCircle2, ClipboardList, Send, Sparkles, Wrench } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Send, Sparkles, Wrench } from 'lucide-react';
 import './ToolViews.css';
 
 const DEFAULT_STEPS = [
@@ -38,7 +38,8 @@ export default function DiagnoseView({
 
   useEffect(() => () => {
     timersRef.current.forEach((timer) => window.clearTimeout(timer));
-  }, []);
+    setLoading(false);
+  }, [setLoading]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -195,25 +196,22 @@ export default function DiagnoseView({
       <div className="tool-page">
         <header className="tool-header">
           <div>
-            <span className="ui-eyebrow">Local diagnostic workspace</span>
-            <h1 className="ui-title">A calmer way to investigate a symptom</h1>
-            <p className="ui-muted">{selectedVehicle.name} · Describe what you noticed and follow a transparent demo inspection path.</p>
-          </div>
-          <div className="tool-header-actions">
-            <span className="ui-tag ui-tag-demo"><Sparkles size={14} /> Demo logic</span>
+            <span className="ui-eyebrow">Diagnosis</span>
+            <h1 className="ui-title">Investigate a symptom</h1>
+            <p className="ui-muted">{selectedVehicle.name} · Describe what you noticed and follow a demo inspection path.</p>
           </div>
         </header>
 
         <div className="tool-notice" role="note">
-          <ClipboardList size={19} aria-hidden="true" />
-          <div><strong>Local-only demo</strong> Results are deterministic guidance for learning and planning. No API key, live AI, sensor, or attachment service is connected.</div>
+          <Sparkles size={19} aria-hidden="true" />
+          <div><strong>Local demo</strong> Results follow a fixed questionnaire, not live AI or vehicle data. Photo, audio and document attachments are unavailable; describe the symptom in text. Do not rely on the result to confirm riding safety.</div>
         </div>
 
-        <div className="diagnose-layout" style={{ marginTop: 20 }}>
+        <div className="diagnose-layout">
           <section className="diagnose-main" aria-label="Diagnostic conversation">
             <div className="ui-card diagnose-thread" aria-live="polite">
               {messages.length === 0 && (
-                <div className="ui-empty">
+                <div className="diagnose-thread-empty">
                   <div>
                     <Sparkles size={30} aria-hidden="true" />
                     <p><strong>Start with a plain-language symptom</strong></p>
@@ -228,7 +226,7 @@ export default function DiagnoseView({
               ))}
               {questionsActive && currentQuestion && (
                 <div className="diagnose-step">
-                  <span className="ui-tag ui-tag-demo">Demo step {currentQuestionIndex + 1} of {diagnosticQuestions.length}</span>
+                   <span className="ui-label">Question {currentQuestionIndex + 1} of {diagnosticQuestions.length}</span>
                   <p>{currentQuestion.text}</p>
                   <div className="diagnose-step-actions">
                     <button type="button" className="ui-btn ui-btn-primary" onClick={() => handleQuestionAnswer('Yes', true)} disabled={loading}>Yes</button>
@@ -268,7 +266,7 @@ export default function DiagnoseView({
               <section className="ui-card diagnose-result">
                 <div className="diagnose-result-header">
                   <div>
-                    <span className="ui-eyebrow">Demo result</span>
+                     <span className="ui-eyebrow">Sample result</span>
                     <h2>{activeDiagnosis.cause}</h2>
                   </div>
                   <span className="ui-tag ui-tag-success">{activeDiagnosis.difficulty || 'Review'}</span>
@@ -303,9 +301,8 @@ export default function DiagnoseView({
                 <button type="button" className="ui-btn ui-btn-primary" onClick={handleSaveRepair}><CheckCircle2 size={16} aria-hidden="true" /> Add check to Digital Garage</button>
               </section>
             ) : (
-              <div className="ui-card ui-empty"><div><Wrench size={28} aria-hidden="true" /><p><strong>Your result will appear here</strong></p><p className="ui-muted">The demo will keep possible causes, steps, and safety context together.</p></div></div>
-            )}
-            <div className="tool-unavailable">Photo, audio, and document attachments are unavailable in this local build. Describe the observation in text or use Acoustic for a separate sound-profile simulation.</div>
+               <div className="diagnose-placeholder"><Wrench size={22} aria-hidden="true" /><p className="ui-muted">Your sample result, steps and safety notes will appear here.</p></div>
+             )}
           </aside>
         </div>
       </div>

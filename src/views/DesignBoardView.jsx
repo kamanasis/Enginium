@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layers, ZoomIn, ZoomOut, Maximize2, ExternalLink, ChevronRight, Activity, Cpu, Compass, ShieldAlert } from 'lucide-react';
+import { Layers, ZoomIn, ZoomOut, ExternalLink } from 'lucide-react';
 import HomeView from './HomeView';
 import DiagnoseView from './DiagnoseView';
 import ScannerView from './ScannerView';

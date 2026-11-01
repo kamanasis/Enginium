@@ -5,8 +5,6 @@ import {
   Check,
   FileText,
   Plus,
-  ShieldCheck,
-  Sparkles,
   Wrench,
   X,
 } from 'lucide-react';
@@ -56,7 +54,24 @@ export default function GarageView({
   const [activeProfileTab, setActiveProfileTab] = useState('overview');
   const [garageFilter, setGarageFilter] = useState('All');
   const [showAddVehicleModal, setShowAddVehicleModal] = useState(false);
-  const [sessionVehicles, setSessionVehicles] = useState([]);
+  const [sessionVehicles, setSessionVehicles] = useState(() => {
+    try {
+      const saved = localStorage.getItem('enginium_custom_vehicles');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.warn('Failed to read custom vehicles from localStorage', e);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('enginium_custom_vehicles', JSON.stringify(sessionVehicles));
+    } catch (e) {
+      console.warn('Failed to save custom vehicles to localStorage', e);
+    }
+  }, [sessionVehicles]);
+
   const [newVehicleName, setNewVehicleName] = useState('');
   const [newVehicleModel, setNewVehicleModel] = useState('');
   const [newVehicleType, setNewVehicleType] = useState('Motorcycle');
@@ -153,14 +168,14 @@ export default function GarageView({
   };
 
   return (
-    <main className="workspace-view workspace-garage">
+    <section className="workspace-view workspace-garage">
       <div className="workspace-page">
         <header className="workspace-garage-header">
           <div>
-            <p className="ui-eyebrow">Keep every ride accounted for</p>
+            <p className="ui-eyebrow">Your vehicles</p>
             <h1 className="ui-title">Garage</h1>
             <p className="ui-muted workspace-garage-lede">
-              Your fleet, service notes, and the stories that make each vehicle yours.
+              Profiles, service notes, and the stories behind each ride. Demo mileage is a reference, not a live reading.
             </p>
           </div>
           <button type="button" className="ui-btn ui-btn-primary" onClick={() => setShowAddVehicleModal(true)}>
@@ -168,36 +183,26 @@ export default function GarageView({
           </button>
         </header>
 
-        <section className="workspace-garage-intro ui-card">
-          <div>
-            <p className="ui-eyebrow">Fleet view</p>
-            <h2>Choose a useful lens.</h2>
-            <p className="ui-muted">Filter by vehicle type. The active profile remains the one selected in the main header.</p>
-          </div>
-          <div className="workspace-filter-list" role="group" aria-label="Filter garage vehicles">
-            {fleetFilters.map((filter) => (
-              <button
-                type="button"
-                key={filter}
-                className={`workspace-filter ${garageFilter === filter ? 'is-active' : ''}`}
-                onClick={() => setGarageFilter(filter)}
-                aria-pressed={garageFilter === filter}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        </section>
-
         <section aria-labelledby="fleet-title">
-          <div className="workspace-section-heading workspace-section-heading-compact">
+          <div className="workspace-garage-intro">
             <div>
-              <p className="ui-eyebrow">Your vehicles</p>
-              <h2 id="fleet-title">Fleet list</h2>
+              <h2 id="fleet-title">Fleet</h2>
+              <p className="ui-muted">Your active profile is selected in the header.</p>
             </div>
-            <span className="ui-tag">{filteredVehicles.length} {filteredVehicles.length === 1 ? 'vehicle' : 'vehicles'}</span>
+            <div className="workspace-filter-list" role="group" aria-label="Filter garage vehicles">
+              {fleetFilters.map((filter) => (
+                <button
+                  type="button"
+                  key={filter}
+                  className={`workspace-filter ${garageFilter === filter ? 'is-active' : ''}`}
+                  onClick={() => setGarageFilter(filter)}
+                  aria-pressed={garageFilter === filter}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
-
           {filteredVehicles.length ? (
             <div className="workspace-fleet-grid">
               {filteredVehicles.map((vehicle) => {
@@ -205,12 +210,7 @@ export default function GarageView({
                 const isSession = vehicle.source === 'session';
                 return (
                   <article className={`workspace-fleet-card ui-card ${isActive ? 'is-active' : ''}`} key={vehicle.id}>
-                    <div className="workspace-fleet-card-topline">
-                      <span className={`ui-tag ${isSession ? 'ui-tag-demo' : 'ui-tag-success'}`}>
-                        {isSession ? 'Session only' : isActive ? 'Active profile' : vehicle.type}
-                      </span>
-                      {isActive ? <ShieldCheck aria-label="Active profile" size={18} /> : null}
-                    </div>
+                    {isActive ? <span className="ui-tag ui-tag-success">Active profile</span> : null}
                     <h3>{vehicle.name}</h3>
                     <p className="workspace-fleet-model">{vehicle.model}</p>
                     <dl className="workspace-fleet-facts">
@@ -219,7 +219,7 @@ export default function GarageView({
                       <div><dt>Last service</dt><dd>{vehicle.lastService ? formatDate(vehicle.lastService) : 'Not recorded'}</dd></div>
                     </dl>
                     {isSession ? (
-                      <p className="workspace-session-note">Added in this session. It is not saved to a backend.</p>
+                      <p className="workspace-session-note">Session only · not saved to a backend</p>
                     ) : null}
                     {canSelectVehicle && !isActive ? (
                       <button type="button" className="ui-btn ui-btn-quiet workspace-fleet-action" onClick={() => onSelectVehicle(vehicle)}>
@@ -246,7 +246,6 @@ export default function GarageView({
               <h2 id="active-profile-title">{selectedVehicle?.name || 'No vehicle selected'}</h2>
               <p className="ui-muted">{selectedVehicle?.make || 'Vehicle'} {selectedVehicle?.model ? `· ${selectedVehicle.model}` : ''}</p>
             </div>
-            <span className="ui-tag ui-tag-success">Selected in header</span>
           </div>
 
           <nav className="workspace-profile-tabs" aria-label="Vehicle profile sections">
@@ -271,13 +270,6 @@ export default function GarageView({
                 <div><span>Reference mileage</span><strong>{getVehicleMileage(selectedVehicle)}</strong></div>
                 <div><span>Power profile</span><strong>{selectedVehicle?.power || 'Not recorded'}</strong></div>
               </div>
-              <div className="workspace-profile-callout">
-                <Sparkles aria-hidden="true" size={18} />
-                <div>
-                  <strong>Keep this profile useful</strong>
-                  <p>Connect a compatible source or add a service entry when you have a confirmed workshop note.</p>
-                </div>
-              </div>
             </div>
           ) : null}
 
@@ -286,7 +278,6 @@ export default function GarageView({
               <div className="workspace-profile-tab-heading">
                 <div>
                   <h3>Family and service milestones</h3>
-                  <p className="ui-muted">Preserve the story behind the machine.</p>
                 </div>
                 <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setShowMilestoneForm?.(!showMilestoneForm)}>
                   <Plus aria-hidden="true" size={16} /> Log milestone
@@ -326,8 +317,8 @@ export default function GarageView({
 
           {activeProfileTab === 'documents' ? (
             <div className="workspace-document-grid">
-              <div className="workspace-document-placeholder"><FileText aria-hidden="true" size={20} /><div><strong>Registration documents</strong><span>Document storage can be connected later.</span></div><span className="ui-tag ui-tag-demo">Placeholder</span></div>
-              <div className="workspace-document-placeholder"><FileText aria-hidden="true" size={20} /><div><strong>Insurance and permits</strong><span>Keep expiry notes with the profile.</span></div><span className="ui-tag ui-tag-demo">Placeholder</span></div>
+              <div className="workspace-document-placeholder"><FileText aria-hidden="true" size={20} /><div><strong>Registration documents</strong><span>Document storage can be connected later.</span></div></div>
+              <div className="workspace-document-placeholder"><FileText aria-hidden="true" size={20} /><div><strong>Insurance and permits</strong><span>Keep expiry notes with the profile.</span></div></div>
             </div>
           ) : null}
         </section>
@@ -363,7 +354,6 @@ export default function GarageView({
             <div className="workspace-service-list">
               {serviceHistory.map((service) => (
                 <article className="workspace-service-entry ui-card" key={service.id}>
-                  <span className="workspace-service-check" aria-hidden="true"><Check size={16} /></span>
                   <div><time dateTime={service.date}>{formatDate(service.date)}</time><h3>{service.title}</h3><p>{service.desc}</p></div>
                 </article>
               ))}
@@ -408,6 +398,6 @@ export default function GarageView({
           </div>
         </form>
       </dialog>
-    </main>
+    </section>
   );
 }
