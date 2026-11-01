@@ -19,11 +19,14 @@ import {
   Shield,
   ShieldAlert,
   Wind,
+  X,
   Zap,
 } from 'lucide-react';
 import './ToolViews.css';
 
 const ThreeEngineViewer = lazy(() => import('../components/ThreeEngineViewer'));
+
+const POPULAR_SEARCHES = ['Spark Plug', 'Engine Oil', 'Carburetor', 'Brake Pads', 'Battery', 'Drive Chain', 'Air Filter', 'Clutch'];
 
 const MODULES = [
   {
@@ -70,17 +73,61 @@ export default function LearnView({
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [show3D, setShow3D] = useState(false);
 
-  const effectivePart = selectedVehicle.parts.find((part) => part.id === selectedPart?.id) || selectedVehicle.parts[0];
+  const getMatchSnippet = (part, query) => {
+    if (!query) return null;
+    const q = query.toLowerCase().trim();
+    if (part.name.toLowerCase().includes(q)) return null;
+    if (part.symptoms && part.symptoms.toLowerCase().includes(q)) {
+      return `Symptom: ${part.symptoms}`;
+    }
+    if (part.function && part.function.toLowerCase().includes(q)) {
+      return `Function: ${part.function}`;
+    }
+    if (part.tools && part.tools.some((t) => t.toLowerCase().includes(q))) {
+      const matchedTool = part.tools.find((t) => t.toLowerCase().includes(q));
+      return `Tool: ${matchedTool}`;
+    }
+    if (part.failures && part.failures.toLowerCase().includes(q)) {
+      return `Issue: ${part.failures}`;
+    }
+    return null;
+  };
+
+  const getCategoryCount = (category) => {
+    if (category === 'All') return selectedVehicle.parts.length;
+    return selectedVehicle.parts.filter((p) => p.category === category).length;
+  };
+
   const filteredParts = selectedVehicle.parts.filter((part) => {
-    const search = searchTerm.toLowerCase();
-    const matchesSearch = part.name.toLowerCase().includes(search) || part.function.toLowerCase().includes(search);
+    const search = searchTerm.toLowerCase().trim();
+    const matchesSearch = !search
+      || part.name.toLowerCase().includes(search)
+      || part.function?.toLowerCase().includes(search)
+      || part.symptoms?.toLowerCase().includes(search)
+      || part.failures?.toLowerCase().includes(search)
+      || part.category?.toLowerCase().includes(search)
+      || part.tools?.some((t) => t.toLowerCase().includes(search));
+
     const matchesCategory = categoryFilter === 'All'
       || part.category === categoryFilter
       || (categoryFilter === 'Engine' && ['spark-plug', 'air-filter', 'engine-oil'].includes(part.id))
       || (categoryFilter === 'Electrical' && ['battery', 'spark-plug'].includes(part.id))
       || (categoryFilter === 'Brakes' && ['brakes', 'clutch-cable'].includes(part.id));
+
     return matchesSearch && matchesCategory;
   });
+
+  const effectivePart = filteredParts.find((part) => part.id === selectedPart?.id)
+    || selectedVehicle.parts.find((part) => part.id === selectedPart?.id)
+    || filteredParts[0]
+    || selectedVehicle.parts[0];
+
+  const groupedParts = filteredParts.reduce((acc, part) => {
+    const cat = part.category || 'General';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(part);
+    return acc;
+  }, {});
 
   const getIcon = (iconName) => {
     const Icon = {
@@ -122,35 +169,136 @@ export default function LearnView({
     }
   };
 
-  const renderParts = () => (
-    <>
-      <div className="ui-card">
-        <div className="learn-search-row">
-          <Search size={18} aria-hidden="true" />
-          <input
-            className="ui-input"
-            aria-label="Search vehicle parts"
-            type="search"
-            placeholder="Search parts or purpose"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-        </div>
-        <div className="learn-filters" aria-label="Part categories">
-          {CATEGORIES.map((category) => (
-            <button type="button" key={category} className={`ui-btn learn-filter ${categoryFilter === category ? 'is-active' : ''}`} aria-pressed={categoryFilter === category} onClick={() => setCategoryFilter(category)}>{category}</button>
-          ))}
-        </div>
-      </div>
+  const renderParts = () => {
+    const isSearching = searchTerm.trim().length > 0;
+    const isAll = categoryFilter === 'All';
 
-      <div className="learn-parts-layout">
-        <div className="learn-part-list" aria-label="Vehicle parts">
-          {filteredParts.length > 0 ? filteredParts.map((part) => (
-            <button type="button" key={part.id} className={`learn-part-button ${effectivePart?.id === part.id ? 'is-active' : ''}`} onClick={() => setSelectedPart(part)}>
-              <span className="tool-inline">{getIcon(part.icon)} {part.name}</span>
-            </button>
-          )) : <div className="ui-empty">No parts match that search.</div>}
+    const renderPartButton = (part) => {
+      const isSelected = effectivePart?.id === part.id;
+      const matchSnippet = isSearching ? getMatchSnippet(part, searchTerm) : null;
+      return (
+        <button
+          type="button"
+          key={part.id}
+          className={`learn-part-button ${isSelected ? 'is-active' : ''}`}
+          onClick={() => setSelectedPart(part)}
+        >
+          <div className="learn-part-btn-header">
+            <span className="tool-inline">
+              {getIcon(part.icon)}
+              <span className="learn-part-btn-name">{part.name}</span>
+            </span>
+            <span className="learn-part-btn-badge">{part.category || 'Part'}</span>
+          </div>
+          {matchSnippet && (
+            <div className="learn-part-match-snippet">
+              <span className="learn-match-tag">Matched:</span> {matchSnippet}
+            </div>
+          )}
+        </button>
+      );
+    };
+
+    return (
+      <>
+        <div className="ui-card learn-search-card">
+          <div className="learn-search-input-wrap">
+            <Search className="learn-search-icon" size={18} aria-hidden="true" />
+            <input
+              className="ui-input learn-search-input"
+              aria-label="Search vehicle parts"
+              type="search"
+              placeholder="Search 35+ components, symptoms (e.g. misfire, starting), or tools..."
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            <div className="learn-search-controls">
+              <span className="learn-search-count">
+                {filteredParts.length} {filteredParts.length === 1 ? 'part' : 'parts'}
+              </span>
+              {searchTerm && (
+                <button
+                  type="button"
+                  className="learn-search-clear"
+                  onClick={() => setSearchTerm('')}
+                  title="Clear search"
+                  aria-label="Clear search"
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="learn-quick-searches" aria-label="Popular searches">
+            <span className="tool-inline"><Flame size={14} color="#b96a2b" aria-hidden="true" /> Popular:</span>
+            {POPULAR_SEARCHES.map((query) => (
+              <button
+                type="button"
+                key={query}
+                className="learn-quick-chip"
+                onClick={() => {
+                  setSearchTerm(query);
+                  const found = selectedVehicle.parts.find((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+                  if (found) setSelectedPart(found);
+                }}
+              >
+                {query}
+              </button>
+            ))}
+          </div>
+
+          <div className="learn-filters" aria-label="Part categories">
+            {CATEGORIES.map((category) => {
+              const count = getCategoryCount(category);
+              return (
+                <button
+                  type="button"
+                  key={category}
+                  className={`ui-btn learn-filter ${categoryFilter === category ? 'is-active' : ''}`}
+                  aria-pressed={categoryFilter === category}
+                  onClick={() => setCategoryFilter(category)}
+                >
+                  {category}
+                  {count > 0 && <span className="learn-filter-count">({count})</span>}
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        <div className="learn-parts-layout">
+          <div className="learn-part-list" aria-label="Vehicle parts">
+            {filteredParts.length === 0 ? (
+              <div className="ui-empty">
+                No components match "{searchTerm}".
+                <br />
+                <button
+                  type="button"
+                  className="ui-btn ui-btn-quiet"
+                  style={{ marginTop: '10px' }}
+                  onClick={() => {
+                    setSearchTerm('');
+                    setCategoryFilter('All');
+                  }}
+                >
+                  Reset search & filters
+                </button>
+              </div>
+            ) : isAll && !isSearching ? (
+              Object.entries(groupedParts).map(([categoryName, parts]) => (
+                <div key={categoryName} className="learn-category-group">
+                  <div className="learn-group-header">
+                    <span>{categoryName}</span>
+                    <span className="learn-group-count">{parts.length}</span>
+                  </div>
+                  {parts.map(renderPartButton)}
+                </div>
+              ))
+            ) : (
+              filteredParts.map(renderPartButton)
+            )}
+          </div>
 
         {effectivePart ? (
           <article className="ui-card learn-detail">
@@ -213,7 +361,8 @@ export default function LearnView({
         ) : <div className="ui-empty">Choose a part to see its guide.</div>}
       </div>
     </>
-  );
+    );
+  };
 
   const renderEducation = () => {
     if (!selectedModule) {

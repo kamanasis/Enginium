@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "name": "drive-the-text-popular-appears",
+  "projectId": "enginium-1bc7ec7c",
+  "createdAt": 1793540435329,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Learn",
+        "nth": 0,
+        "of": 2
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/App.jsx",
+        "line": 303
+      },
+      "expect": {
+        "kind": "text",
+        "contains": "Popular:"
+      },
+      "page": "/"
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Carburetor"
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/views/LearnView.jsx",
+        "line": 236
+      },
+      "page": "/"
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "searchbox",
+        "name": "Search vehicle parts"
+      },
+      "args": {
+        "value": "misfire"
+      },
+      "action": "fill",
+      "source": {
+        "file": "src/views/LearnView.jsx",
+        "line": 207
+      },
+      "page": "/"
+    }
+  ],
+  "startPath": "/",
+  "intent": "The text \"Popular:\" appears",
+  "intentDerived": true,
+  "requires": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "ensures": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "author": {
+    "agent": "antigravity-client"
+  }
+}

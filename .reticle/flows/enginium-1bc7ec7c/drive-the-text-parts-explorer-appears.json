@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "name": "drive-the-text-parts-explorer-appears",
+  "projectId": "enginium-1bc7ec7c",
+  "createdAt": 1793539526916,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Learn",
+        "nth": 0,
+        "of": 2
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/App.jsx",
+        "line": 303
+      },
+      "expect": {
+        "kind": "text",
+        "contains": "Parts explorer"
+      },
+      "page": "/"
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Carburetor & Float Bowl"
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/views/LearnView.jsx",
+        "line": 149
+      },
+      "page": "/"
+    }
+  ],
+  "startPath": "/",
+  "intent": "The text \"Parts explorer\" appears",
+  "intentDerived": true,
+  "requires": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "ensures": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "author": {
+    "agent": "antigravity-client"
+  }
+}

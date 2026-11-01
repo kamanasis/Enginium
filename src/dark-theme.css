@@ -305,6 +305,43 @@
   color: #8ea896;
 }
 
+.app-shell .tool-view .learn-search-count {
+  background: #10261e;
+  border-color: #2b4c3b;
+  color: #9cb9a6;
+}
+
+.app-shell .tool-view .learn-quick-chip {
+  background: #0d1e17;
+  border-color: #223f30;
+  color: #c4d9cb;
+}
+
+.app-shell .tool-view .learn-quick-chip:hover {
+  background: #18382b;
+  border-color: #4a7d5a;
+  color: #e4f0e7;
+}
+
+.app-shell .tool-view .learn-part-btn-badge {
+  background: #091812;
+  border-color: #223f30;
+  color: #8fa797;
+}
+
+.app-shell .tool-view .learn-group-header {
+  color: #809c8b;
+}
+
+.app-shell .tool-view .learn-group-count {
+  background: #142a20;
+  color: #a0c2ad;
+}
+
+.app-shell .tool-view .learn-match-tag {
+  color: #e09855;
+}
+
 .app-shell .tool-view .acoustic-progress {
   background: #263e32;
 }
