@@ -1,0 +1,69 @@
+{
+  "version": 2,
+  "name": "drive-the-text-spark-plug-appears-then-the-img-referen",
+  "projectId": "enginium-1bc7ec7c",
+  "createdAt": 1793537329615,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Learn",
+        "nth": 0,
+        "of": 2
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/App.jsx",
+        "line": 303
+      },
+      "expect": {
+        "kind": "text",
+        "contains": "Spark Plug"
+      },
+      "page": "/"
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Air Filter"
+      },
+      "args": {},
+      "action": "click",
+      "source": {
+        "file": "src/views/LearnView.jsx",
+        "line": 112
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "img",
+          "alt": "Reference photo of Air Filter"
+        }
+      },
+      "page": "/"
+    }
+  ],
+  "startPath": "/",
+  "intent": "The text \"Spark Plug\" appears, then the img \"Reference photo of Air Filter\" appears",
+  "intentDerived": true,
+  "requires": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "ensures": [
+    {
+      "kind": "route",
+      "pathname": "/"
+    }
+  ],
+  "author": {
+    "agent": "antigravity-client"
+  }
+}

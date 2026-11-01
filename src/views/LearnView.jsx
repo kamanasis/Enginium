@@ -1,5 +1,26 @@
 import React, { lazy, Suspense, useState } from 'react';
-import { Award, BatteryCharging, ChevronRight, HelpCircle, ImageOff, RefreshCw, Search, ShieldAlert, Wind, Zap } from 'lucide-react';
+import {
+  Activity,
+  Award,
+  BatteryCharging,
+  ChevronRight,
+  CircleDot,
+  Cpu,
+  Disc,
+  Droplet,
+  Flame,
+  Fuel,
+  Gauge,
+  HelpCircle,
+  ImageOff,
+  RefreshCw,
+  Search,
+  Settings,
+  Shield,
+  ShieldAlert,
+  Wind,
+  Zap,
+} from 'lucide-react';
 import './ToolViews.css';
 
 const ThreeEngineViewer = lazy(() => import('../components/ThreeEngineViewer'));
@@ -26,7 +47,7 @@ const MODULES = [
   },
 ];
 
-const CATEGORIES = ['All', 'Engine', 'Electrical', 'Brakes'];
+const CATEGORIES = ['All', 'Engine', 'Fuel & Exhaust', 'Transmission', 'Brakes', 'Suspension', 'Wheels', 'Electrical'];
 
 export default function LearnView({
   selectedVehicle,
@@ -54,6 +75,7 @@ export default function LearnView({
     const search = searchTerm.toLowerCase();
     const matchesSearch = part.name.toLowerCase().includes(search) || part.function.toLowerCase().includes(search);
     const matchesCategory = categoryFilter === 'All'
+      || part.category === categoryFilter
       || (categoryFilter === 'Engine' && ['spark-plug', 'air-filter', 'engine-oil'].includes(part.id))
       || (categoryFilter === 'Electrical' && ['battery', 'spark-plug'].includes(part.id))
       || (categoryFilter === 'Brakes' && ['brakes', 'clutch-cable'].includes(part.id));
@@ -61,7 +83,22 @@ export default function LearnView({
   });
 
   const getIcon = (iconName) => {
-    const Icon = { Zap, RefreshCw, Wind, BatteryCharging }[iconName] || HelpCircle;
+    const Icon = {
+      Zap,
+      RefreshCw,
+      Wind,
+      BatteryCharging,
+      Droplet,
+      Cpu,
+      Shield,
+      Settings,
+      Activity,
+      Disc,
+      CircleDot,
+      Flame,
+      Fuel,
+      Gauge,
+    }[iconName] || HelpCircle;
     return <Icon size={18} aria-hidden="true" />;
   };
 
