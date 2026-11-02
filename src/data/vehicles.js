@@ -174,6 +174,8 @@ export const vehiclesData = [
       },
       {
         id: "piston-rings",
+        image: "/images/parts/piston-rings.jpg",
+        imageCredit: "Wikimedia Commons / Interiot~commonswiki",
         name: "Piston & Piston Rings Assembly",
         category: "Engine",
         icon: "Cpu",
@@ -198,6 +200,8 @@ export const vehiclesData = [
       },
       {
         id: "cylinder-block",
+        image: "/images/parts/cylinder-block.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Cylinder Block & Bore",
         category: "Engine",
         icon: "Shield",
@@ -222,6 +226,8 @@ export const vehiclesData = [
       },
       {
         id: "valves-tappets",
+        image: "/images/parts/valves-tappets.jpg",
+        imageCredit: "Wikimedia Commons / Andy Dingley",
         name: "Intake & Exhaust Valves (Tappets)",
         category: "Engine",
         icon: "Settings",
@@ -246,6 +252,8 @@ export const vehiclesData = [
       },
       {
         id: "camshaft-timing",
+        image: "/images/parts/camshaft-timing.jpg",
+        imageCredit: "Wikimedia Commons / Manju~commonswiki",
         name: "Camshaft & Timing Chain Assembly",
         category: "Engine",
         icon: "RefreshCw",
@@ -270,6 +278,8 @@ export const vehiclesData = [
       },
       {
         id: "crankshaft",
+        image: "/images/parts/crankshaft.JPG",
+        imageCredit: "Wikimedia Commons / TuckerBag",
         name: "Crankshaft & Connecting Rod",
         category: "Engine",
         icon: "Activity",
@@ -294,6 +304,8 @@ export const vehiclesData = [
       },
       {
         id: "carburetor",
+        image: "/images/parts/carburetor.jpg",
+        imageCredit: "Wikimedia Commons / A7N8X",
         name: "Carburetor & Float Bowl",
         category: "Fuel & Exhaust",
         icon: "Wind",
@@ -319,6 +331,8 @@ export const vehiclesData = [
       },
       {
         id: "fuel-cock",
+        image: "/images/parts/fuel-cock.jpg",
+        imageCredit: "Wikimedia Commons / Mau Spencer",
         name: "Fuel Cock (Petcock) & Strainer",
         category: "Fuel & Exhaust",
         icon: "Fuel",
@@ -343,6 +357,8 @@ export const vehiclesData = [
       },
       {
         id: "fuel-tank",
+        image: "/images/parts/fuel-tank.jpg",
+        imageCredit: "Wikimedia Commons / Khaosaming",
         name: "Fuel Tank & Breather Cap",
         category: "Fuel & Exhaust",
         icon: "Shield",
@@ -367,6 +383,8 @@ export const vehiclesData = [
       },
       {
         id: "exhaust-muffler",
+        image: "/images/parts/exhaust-muffler.jpg",
+        imageCredit: "Wikimedia Commons / Liftarn",
         name: "Exhaust Header Pipe & Muffler",
         category: "Fuel & Exhaust",
         icon: "Flame",
@@ -391,6 +409,8 @@ export const vehiclesData = [
       },
       {
         id: "catalytic-converter",
+        image: "/images/parts/catalytic-converter.jpg",
+        imageCredit: "Wikimedia Commons / Tousleso",
         name: "Catalytic Converter & Oxygen Sensor",
         category: "Fuel & Exhaust",
         icon: "Zap",
@@ -415,6 +435,8 @@ export const vehiclesData = [
       },
       {
         id: "clutch-assembly",
+        image: "/images/parts/clutch-assembly.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Clutch Basket & Friction Plates Pack",
         category: "Transmission",
         icon: "Disc",
@@ -440,6 +462,8 @@ export const vehiclesData = [
       },
       {
         id: "gearbox",
+        image: "/images/parts/gearbox.jpg",
+        imageCredit: "Wikimedia Commons / Liftarn",
         name: "Gearbox Cluster & Shift Mechanism",
         category: "Transmission",
         icon: "Settings",
@@ -464,6 +488,8 @@ export const vehiclesData = [
       },
       {
         id: "cush-drive",
+        image: "/images/parts/cush-drive.jpg",
+        imageCredit: "Wikimedia Commons / SteinsplitterBot",
         name: "Rear Wheel Cush Drive Rubbers",
         category: "Transmission",
         icon: "CircleDot",
@@ -488,6 +514,8 @@ export const vehiclesData = [
       },
       {
         id: "front-brake-disc",
+        image: "/images/parts/front-brake-disc.jpg",
+        imageCredit: "Wikimedia Commons / TheMalsa",
         name: "Front Disc Brake & Caliper Assembly",
         category: "Brakes",
         icon: "Disc",
@@ -512,6 +540,8 @@ export const vehiclesData = [
       },
       {
         id: "brake-pads",
+        image: "/images/parts/brake-pads.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Brake Pads & Fluid Reservoir",
         category: "Brakes",
         icon: "Shield",
@@ -536,6 +566,8 @@ export const vehiclesData = [
       },
       {
         id: "rear-brake-drum",
+        image: "/images/parts/rear-brake-drum.jpg",
+        imageCredit: "Wikimedia Commons / Gede~commonswiki",
         name: "Rear Drum Brake & Brake Shoes",
         category: "Brakes",
         icon: "CircleDot",
@@ -560,6 +592,8 @@ export const vehiclesData = [
       },
       {
         id: "brake-cable-rod",
+        image: "/images/parts/brake-cable-rod.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Brake Rod, Linkage & Return Spring",
         category: "Brakes",
         icon: "Settings",
@@ -583,6 +617,8 @@ export const vehiclesData = [
       },
       {
         id: "telescopic-forks",
+        image: "/images/parts/telescopic-forks.jpg",
+        imageCredit: "Wikimedia Commons / Cancun",
         name: "Front Telescopic Forks & Oil Seals",
         category: "Suspension",
         icon: "Activity",
@@ -607,6 +643,8 @@ export const vehiclesData = [
       },
       {
         id: "rear-shock-absorbers",
+        image: "/images/parts/rear-shock-absorbers.jpg",
+        imageCredit: "Wikimedia Commons / Ww2censor",
         name: "Rear Shock Absorbers (Twin Dampers)",
         category: "Suspension",
         icon: "Activity",
@@ -630,6 +668,8 @@ export const vehiclesData = [
       },
       {
         id: "steering-bearings",
+        image: "/images/parts/steering-bearings.jpg",
+        imageCredit: "Wikimedia Commons / JotaCartas",
         name: "Steering Head Cone Set Bearings",
         category: "Suspension",
         icon: "CircleDot",
@@ -655,6 +695,8 @@ export const vehiclesData = [
       },
       {
         id: "swingarm",
+        image: "/images/parts/swingarm.jpg",
+        imageCredit: "Wikimedia Commons / Gede~commonswiki",
         name: "Swingarm & Pivot Bushings",
         category: "Suspension",
         icon: "Shield",
@@ -679,6 +721,8 @@ export const vehiclesData = [
       },
       {
         id: "main-chassis",
+        image: "/images/parts/main-chassis.jpg",
+        imageCredit: "Wikimedia Commons / Siebrand",
         name: "Chassis Frame & Subframe",
         category: "Suspension",
         icon: "Shield",
@@ -700,6 +744,8 @@ export const vehiclesData = [
       },
       {
         id: "stands-footpegs",
+        image: "/images/parts/stands-footpegs.jpg",
+        imageCredit: "Wikimedia Commons / BotMultichillT",
         name: "Center Stand, Side Stand & Footpegs",
         category: "Suspension",
         icon: "Settings",
@@ -721,6 +767,8 @@ export const vehiclesData = [
       },
       {
         id: "front-tyre",
+        image: "/images/parts/front-tyre.JPG",
+        imageCredit: "Wikimedia Commons / K1200RSRIDER",
         name: "Front Wheel & Tyre Assembly",
         category: "Wheels",
         icon: "CircleDot",
@@ -743,6 +791,8 @@ export const vehiclesData = [
       },
       {
         id: "rear-tyre",
+        image: "/images/parts/rear-tyre.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Rear Wheel & Tyre Assembly",
         category: "Wheels",
         icon: "CircleDot",
@@ -764,6 +814,8 @@ export const vehiclesData = [
       },
       {
         id: "wheel-bearings",
+        image: "/images/parts/wheel-bearings.png",
+        imageCredit: "Wikimedia Commons / Niabot",
         name: "Wheel Bearings & Axle Spacers",
         category: "Wheels",
         icon: "CircleDot",
@@ -788,6 +840,8 @@ export const vehiclesData = [
       },
       {
         id: "stator-magneto",
+        image: "/images/parts/stator-magneto.jpg",
+        imageCredit: "Wikimedia Commons / Ritchyblack",
         name: "Alternator / Stator Magneto Coil",
         category: "Electrical",
         icon: "Zap",
@@ -811,6 +865,8 @@ export const vehiclesData = [
       },
       {
         id: "regulator-rectifier",
+        image: "/images/parts/regulator-rectifier.png",
+        imageCredit: "Wikimedia Commons / Bloodshedder~commonswiki",
         name: "Voltage Regulator / Rectifier (RR Unit)",
         category: "Electrical",
         icon: "Cpu",
@@ -835,6 +891,8 @@ export const vehiclesData = [
       },
       {
         id: "starter-motor",
+        image: "/images/parts/starter-motor.jpg",
+        imageCredit: "Wikimedia Commons / Rama",
         name: "Electric Starter Motor & Solenoid Relay",
         category: "Electrical",
         icon: "Zap",
@@ -859,6 +917,8 @@ export const vehiclesData = [
       },
       {
         id: "ignition-coil",
+        image: "/images/parts/ignition-coil.jpg",
+        imageCredit: "Wikimedia Commons / Ascaron",
         name: "Ignition Coil & High-Tension (HT) Lead",
         category: "Electrical",
         icon: "Zap",
@@ -882,6 +942,8 @@ export const vehiclesData = [
       },
       {
         id: "cdi-unit",
+        image: "/images/parts/cdi-unit.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "CDI / Engine Control Unit (ECU)",
         category: "Electrical",
         icon: "Cpu",
@@ -905,6 +967,8 @@ export const vehiclesData = [
       },
       {
         id: "headlight-assembly",
+        image: "/images/parts/headlight-assembly.jpg",
+        imageCredit: "Wikimedia Commons / Sandstein",
         name: "Headlight, Tail Lamp & Indicators",
         category: "Electrical",
         icon: "Zap",
@@ -928,6 +992,8 @@ export const vehiclesData = [
       },
       {
         id: "switchgear-throttle",
+        image: "/images/parts/switchgear-throttle.jpg",
+        imageCredit: "Wikimedia Commons / Matanya",
         name: "Handlebar Switchgear & Throttle Cable",
         category: "Electrical",
         icon: "Settings",
@@ -951,6 +1017,8 @@ export const vehiclesData = [
       },
       {
         id: "instrument-cluster",
+        image: "/images/parts/instrument-cluster.jpg",
+        imageCredit: "Wikimedia Commons / DanTD",
         name: "Instrument Cluster & Speedometer Cable",
         category: "Electrical",
         icon: "Gauge",
@@ -974,6 +1042,8 @@ export const vehiclesData = [
       },
       {
         id: "wiring-harness",
+        image: "/images/parts/wiring-harness.jpg",
+        imageCredit: "Wikimedia Commons / Jcrispin64",
         name: "Main Wiring Harness & Fuse Box",
         category: "Electrical",
         icon: "Cpu",
