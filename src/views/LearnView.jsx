@@ -122,12 +122,6 @@ export default function LearnView({
     || filteredParts[0]
     || selectedVehicle.parts[0];
 
-  const groupedParts = filteredParts.reduce((acc, part) => {
-    const cat = part.category || 'General';
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(part);
-    return acc;
-  }, {});
 
   const getIcon = (iconName) => {
     const Icon = {
@@ -183,13 +177,10 @@ export default function LearnView({
           className={`learn-part-button ${isSelected ? 'is-active' : ''}`}
           onClick={() => setSelectedPart(part)}
         >
-          <div className="learn-part-btn-header">
-            <span className="tool-inline">
-              {getIcon(part.icon)}
-              <span className="learn-part-btn-name">{part.name}</span>
-            </span>
-            <span className="learn-part-btn-badge">{part.category || 'Part'}</span>
-          </div>
+          <span className="tool-inline">
+            {getIcon(part.icon)}
+            <span className="learn-part-btn-name">{part.name}</span>
+          </span>
           {matchSnippet && (
             <div className="learn-part-match-snippet">
               <span className="learn-match-tag">Matched:</span> {matchSnippet}
@@ -285,16 +276,6 @@ export default function LearnView({
                   Reset search & filters
                 </button>
               </div>
-            ) : isAll && !isSearching ? (
-              Object.entries(groupedParts).map(([categoryName, parts]) => (
-                <div key={categoryName} className="learn-category-group">
-                  <div className="learn-group-header">
-                    <span>{categoryName}</span>
-                    <span className="learn-group-count">{parts.length}</span>
-                  </div>
-                  {parts.map(renderPartButton)}
-                </div>
-              ))
             ) : (
               filteredParts.map(renderPartButton)
             )}
