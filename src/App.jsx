@@ -10,19 +10,21 @@ import HudDiagnosticsView from './views/HudDiagnosticsView';
 import AcousticView from './views/AcousticView';
 import ProfileView from './views/ProfileView';
 import DesignBoardView from './views/DesignBoardView';
+import LandingView from './views/LandingView';
 import { vehiclesData } from './data/vehicles';
 import {
   ShieldAlert, X, PhoneCall, Play, Monitor, LayoutGrid,
   Compass, ChevronDown, Activity, Zap, BookOpen, Users, User, Scan,
+  Sparkles,
 } from 'lucide-react';
 
 export default function App() {
   // Viewport mode: 'website' (Full responsive desktop) | 'app' (Mobile phone frame) | 'flow' (Figma canvas)
   const [viewMode, setViewMode] = useState('website');
 
-  // Navigation & Splash: HUD Diagnostics is the MAIN FLAGSHIP function
+  // Navigation & Splash: Landing page is the primary entrance
   const [showSplash, setShowSplash] = useState(false);
-  const [activeTab, setActiveTab] = useState('hud');
+  const [activeTab, setActiveTab] = useState('landing');
   const [emergencyMode, setEmergencyMode] = useState(false);
 
   const [selectedVehicle, setSelectedVehicle] = useState(() => {
@@ -104,10 +106,11 @@ export default function App() {
     }));
   };
 
-  // Nav items for desktop website navbar - HUD Diagnostics as Primary Flagship
+  // Nav items for desktop website navbar - Landing + HUD Diagnostics
   const desktopNavItems = [
-    { id: 'home', label: 'Overview', icon: Zap },
+    { id: 'landing', label: 'Landing page', icon: Sparkles },
     { id: 'hud', label: 'Inspect vehicle', icon: Scan, isHero: true },
+    { id: 'home', label: 'Overview', icon: Zap },
     { id: 'diagnose', label: 'Service guide', icon: Compass },
     { id: 'garage', label: 'Garage', icon: ShieldAlert },
     { id: 'learn', label: 'Learn', icon: BookOpen },
@@ -149,6 +152,17 @@ export default function App() {
     }
 
     switch (activeTab) {
+      case 'landing':
+        return (
+          <LandingView
+            selectedVehicle={selectedVehicle}
+            onSelectVehicle={setSelectedVehicle}
+            onNavigate={(tab) => {
+              setActiveTab(tab);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        );
       case 'home':
         return (
           <HomeView
@@ -247,6 +261,100 @@ export default function App() {
     }
   };
 
+  // Render Emergency SOS modal
+  const renderEmergencyModal = () => (
+    <div className="fixed inset-0 bg-black/95 z-[999] flex flex-col p-6 text-white overflow-y-auto animate-fade-in font-sans backdrop-blur-xl">
+      <div className="max-w-2xl w-full mx-auto my-auto space-y-6">
+        
+        {/* Header */}
+        <div className="flex justify-between items-center border-b border-zinc-800 pb-4">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
+            <h2 className="text-base font-black text-red-500 tracking-widest uppercase">ROAD-ASSIST EMERGENCY SOS</h2>
+          </div>
+          <button 
+            onClick={() => setEmergencyMode(false)}
+            className="w-9 h-9 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-white"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Quick Warning Alert */}
+        <div className="bg-red-500/10 border border-red-500/30 rounded-3xl p-5 text-center space-y-2 shadow-2xl">
+          <ShieldAlert className="w-10 h-10 text-red-500 mx-auto animate-bounce" />
+          <h3 className="font-black text-base text-white">Emergency Breakdown Protocols Active</h3>
+          <p className="text-xs text-zinc-300 max-w-md mx-auto">
+            Pull over safely onto the road shoulder. Turn on hazard lamps. Put motorcycle on center stand.
+          </p>
+        </div>
+
+        {/* Breakdown Checklists */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-[#161822] border border-zinc-800 p-4 rounded-2xl space-y-2">
+            <h4 className="text-xs font-black text-white flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              1. Engine Sudden Stall / No-Start
+            </h4>
+            <ul className="list-disc pl-5 text-[11px] text-zinc-400 space-y-1">
+              <li>Check kill switch is in 'RUN' mode.</li>
+              <li>Check fuel petcock (turn to RESERVE if low).</li>
+              <li>Inspect spark plug rubber boot for loose wire or water.</li>
+              <li>Verify side-stand safety sensor is fully up.</li>
+            </ul>
+          </div>
+
+          <div className="bg-[#161822] border border-zinc-800 p-4 rounded-2xl space-y-2">
+            <h4 className="text-xs font-black text-white flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-red-500"></span>
+              2. Flat Tyre / Puncture
+            </h4>
+            <ul className="list-disc pl-5 text-[11px] text-zinc-400 space-y-1">
+              <li>Do NOT ride on flat tire; it bends the alloy rim.</li>
+              <li>Put vehicle on main/center stand immediately.</li>
+              <li>Locate nail/puncture point. Use plug kit if tubeless.</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Emergency Hotline Buttons */}
+        <div className="space-y-3 pt-2">
+          <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Emergency Dialers</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a 
+              href="tel:1033"
+              className="bg-[#161822] border border-zinc-800 hover:border-red-500/50 p-4 rounded-2xl flex items-center justify-between text-xs transition-colors shadow-lg"
+            >
+              <div className="flex items-center gap-2.5">
+                <PhoneCall className="w-4 h-4 text-red-500" />
+                <div>
+                  <span className="font-bold text-white block">National Highway Helpline</span>
+                  <span className="text-[10px] text-zinc-500">Toll-Free Roadside Support</span>
+                </div>
+              </div>
+              <span className="text-cyan-400 font-mono font-bold">1033</span>
+            </a>
+
+            <a 
+              href="tel:112"
+              className="bg-[#161822] border border-zinc-800 hover:border-red-500/50 p-4 rounded-2xl flex items-center justify-between text-xs transition-colors shadow-lg"
+            >
+              <div className="flex items-center gap-2.5">
+                <PhoneCall className="w-4 h-4 text-red-500" />
+                <div>
+                  <span className="font-bold text-white block">All-India Emergency Response</span>
+                  <span className="text-[10px] text-zinc-500">Police, Ambulance, Fire</span>
+                </div>
+              </div>
+              <span className="text-cyan-400 font-mono font-bold">112</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+
   // If user selected FIGMA FLOW BOARD MODE
   if (viewMode === 'flow') {
     return (
@@ -286,11 +394,28 @@ export default function App() {
     );
   }
 
+  // Standalone Full-Bleed Landing Page
+  if (viewMode !== 'flow' && activeTab === 'landing') {
+    return (
+      <div className="min-h-screen bg-[#070e0b] text-[#e3ede6] selection:bg-lime-200 selection:text-[#173d30]">
+        <LandingView
+          selectedVehicle={selectedVehicle}
+          onSelectVehicle={setSelectedVehicle}
+          onNavigate={(tab) => {
+            setActiveTab(tab);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+        {emergencyMode && renderEmergencyModal()}
+      </div>
+    );
+  }
+
   return (
     <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-lime-200 selection:text-[#173d30] relative isolate">
       <EngineeringBackdrop />
       <aside className="app-sidebar hidden lg:flex">
-        <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('home'); }}>
+        <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('landing'); }}>
           <span className="app-brand-mark">EN</span>
           <span><strong>ENGINIUM</strong><small>Vehicle care, made clear.</small></span>
         </button>
@@ -395,104 +520,7 @@ export default function App() {
       {/* ========================================================================= */}
       {/* ROAD-ASSIST SOS EMERGENCY MODAL OVERLAY */}
       {/* ========================================================================= */}
-      {emergencyMode && (
-        <div className="fixed inset-0 bg-black/95 z-[999] flex flex-col p-6 text-white overflow-y-auto animate-fade-in font-sans backdrop-blur-xl">
-          <div className="max-w-2xl w-full mx-auto my-auto space-y-6">
-            
-            {/* Header */}
-            <div className="flex justify-between items-center border-b border-zinc-800 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
-                <h2 className="text-base font-black text-red-500 tracking-widest uppercase">ROAD-ASSIST EMERGENCY SOS</h2>
-              </div>
-              <button 
-                onClick={() => setEmergencyMode(false)}
-                className="w-9 h-9 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center text-zinc-400 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Quick Warning Alert */}
-            <div className="bg-red-500/10 border border-red-500/30 rounded-3xl p-5 text-center space-y-2 shadow-2xl">
-              <ShieldAlert className="w-10 h-10 text-red-500 mx-auto animate-bounce" />
-              <h3 className="font-black text-base text-white">Emergency Breakdown Protocols Active</h3>
-              <p className="text-xs text-zinc-300 max-w-md mx-auto">
-                Pull over safely onto the road shoulder. Turn on hazard lamps. Put motorcycle on center stand.
-              </p>
-            </div>
-
-            {/* Breakdown Checklists */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-[#161822] border border-zinc-800 p-4 rounded-2xl space-y-2">
-                <h4 className="text-xs font-black text-white flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                  1. Engine Sudden Stall / No-Start
-                </h4>
-                <ul className="list-disc pl-5 text-[11px] text-zinc-400 space-y-1">
-                  <li>Check kill switch is in 'RUN' mode.</li>
-                  <li>Check fuel petcock (turn to RESERVE if low).</li>
-                  <li>Inspect spark plug rubber boot for loose wire or water.</li>
-                  <li>Verify side-stand safety sensor is fully up.</li>
-                </ul>
-              </div>
-
-              <div className="bg-[#161822] border border-zinc-800 p-4 rounded-2xl space-y-2">
-                <h4 className="text-xs font-black text-white flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                  2. Flat Tyre / Puncture
-                </h4>
-                <ul className="list-disc pl-5 text-[11px] text-zinc-400 space-y-1">
-                  <li>Do NOT ride on flat tire; it bends the alloy rim.</li>
-                  <li>Put vehicle on main/center stand immediately.</li>
-                  <li>Locate nail/puncture point. Use plug kit if tubeless.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Emergency Hotline Buttons */}
-            <div className="space-y-3 pt-2">
-              <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Emergency Dialers</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <a 
-                  href="tel:1033"
-                  className="bg-[#161822] border border-zinc-800 hover:border-red-500/50 p-4 rounded-2xl flex items-center justify-between text-xs transition-colors shadow-lg"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <PhoneCall className="w-4 h-4 text-red-500" />
-                    <div>
-                      <span className="font-bold text-white block">National Highway Helpline</span>
-                      <span className="text-[10px] text-zinc-500">Toll-Free Roadside Support</span>
-                    </div>
-                  </div>
-                  <span className="text-cyan-400 font-mono font-bold">1033</span>
-                </a>
-
-                <a 
-                  href="tel:112"
-                  className="bg-[#161822] border border-zinc-800 hover:border-red-500/50 p-4 rounded-2xl flex items-center justify-between text-xs transition-colors shadow-lg"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <PhoneCall className="w-4 h-4 text-red-500" />
-                    <div>
-                      <span className="font-bold text-white block">All-India Emergency Response</span>
-                      <span className="text-[10px] text-zinc-500">Police, Ambulance, Fire</span>
-                    </div>
-                  </div>
-                  <span className="text-cyan-400 font-mono font-bold">112</span>
-                </a>
-              </div>
-            </div>
-
-            <button 
-              onClick={() => setEmergencyMode(false)}
-              className="w-full bg-red-600 hover:bg-red-500 text-white py-3.5 rounded-2xl text-xs font-black tracking-widest uppercase transition-colors text-center shadow-lg shadow-red-600/30"
-            >
-              Exit Emergency Mode
-            </button>
-          </div>
-        </div>
-      )}
+      {emergencyMode && renderEmergencyModal()}
 
     </div>
   );
