@@ -392,19 +392,19 @@ export default function KineticBackground({ opacity = 0.95 }) {
     // =========================================================================
     const fixedContactPoint = new THREE.Vector3(0.5, -0.4, 0);
 
-    const wheel1Radius = 1.75;
+    const wheel1Radius = 1.55;
     const wheel1Teeth = 24;
     const wheel1RotX = 1.22;
     const wheel1RotZ = -0.22;
 
     const gear1 = createRefinedGear({
       radius: wheel1Radius,
-      rimWidth: 0.46,
+      rimWidth: 0.42,
       axialDepth: 0.18,
       teethCount: wheel1Teeth,
-      toothLength: 0.24,
-      toothBaseWidth: 0.16,
-      toothTipWidth: 0.10,
+      toothLength: 0.22,
+      toothBaseWidth: 0.15,
+      toothTipWidth: 0.09,
       primaryColor: COLOR_TITANIUM,
       accentColor: COLOR_CHROME_SHARP,
       rimColor: COLOR_SILVER_RIM,
@@ -423,18 +423,18 @@ export default function KineticBackground({ opacity = 0.95 }) {
     wheel1OrientationGroup.add(wheel1SpinGroup);
     worldGroup.add(wheel1OrientationGroup);
 
-    const wheel2Radius = 1.85;
+    const wheel2Radius = 1.65;
     const wheel2Teeth = 24;
     const wheel2Euler = new THREE.Euler(0.26, -0.38, -0.84, 'XYZ');
 
     const gear2 = createRefinedGear({
       radius: wheel2Radius,
-      rimWidth: 0.44,
+      rimWidth: 0.40,
       axialDepth: 0.18,
       teethCount: wheel2Teeth,
-      toothLength: 0.24,
-      toothBaseWidth: 0.16,
-      toothTipWidth: 0.10,
+      toothLength: 0.22,
+      toothBaseWidth: 0.15,
+      toothTipWidth: 0.09,
       primaryColor: COLOR_TITANIUM,
       accentColor: COLOR_CHROME_SHARP,
       rimColor: COLOR_SILVER_RIM,
