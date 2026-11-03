@@ -231,19 +231,27 @@
 .en-hero-section {
   position: relative;
   z-index: 10;
-  padding: 64px 24px 96px;
+  padding: 80px 24px 64px;
   max-width: 1320px;
   margin: 0 auto;
   min-height: calc(100vh - 72px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 @media (min-width: 768px) {
   .en-hero-section {
-    padding: 96px 24px 120px;
-  }
+  position: relative;
+  z-index: 10;
+  padding: 80px 24px 64px;
+  max-width: 1320px;
+  margin: 0 auto;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 }
 
 .en-hero-content {
@@ -252,11 +260,6 @@
   margin: 0 auto;
   position: relative;
   z-index: 10;
-  padding: 28px 24px;
-  border-radius: 32px;
-  background: radial-gradient(ellipse 90% 75% at 50% 45%, rgba(3, 4, 7, 0.82) 0%, rgba(3, 4, 7, 0.5) 55%, transparent 90%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .en-kicker-badge {
@@ -296,7 +299,6 @@
   letter-spacing: -0.03em;
   color: #ffffff;
   margin-bottom: 24px;
-  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 0, 0, 0.9);
 }
 
 .en-title-gradient {
@@ -308,12 +310,11 @@
 
 .en-hero-subtitle {
   font-size: clamp(1rem, 1.8vw, 1.25rem);
-  color: #e2e8f0;
-  font-weight: 450;
-  max-width: 720px;
+  color: #f1f5f9;
+  font-weight: 500;
+  max-width: 760px;
   margin: 0 auto 36px;
-  line-height: 1.68;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.98), 0 0 24px rgba(0, 0, 0, 0.95);
+  line-height: 1.7;
 }
 
 .en-hero-cta-group {
@@ -388,13 +389,11 @@
 }
 
 .en-telemetry-card {
-  background: rgba(10, 12, 18, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #090b12;
+  border: 1px solid #1f2332;
   border-radius: 14px;
   padding: 18px 16px;
   text-align: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   position: relative;
   overflow: hidden;
 }
@@ -421,7 +420,7 @@
 .en-telemetry-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: #cbd5e1;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 4px;
@@ -518,8 +517,11 @@
 
 .en-section-desc {
   font-size: 1.0625rem;
-  color: #cbd5e1;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  color: #e2e8f0;
+  font-weight: 500;
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.65;
 }
 
 /* Interactive Interactive Feature Tabs */
@@ -556,24 +558,20 @@
 
 /* Feature Stage Box */
 .en-feature-stage {
-  background: rgba(10, 12, 18, 0.95);
-  border: 1px solid #2a2d39;
+  background: #090b12;
+  border: 1px solid #1f2332;
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 768px) {
   .en-feature-stage {
-  background: rgba(10, 12, 18, 0.95);
-  border: 1px solid #2a2d39;
+  background: #090b12;
+  border: 1px solid #1f2332;
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 }
 
@@ -597,16 +595,14 @@
 }
 
 .en-system-card {
-  background: rgba(10, 12, 18, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #090b12;
+  border: 1px solid #1f2332;
   border-radius: 16px;
   padding: 24px;
   transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-system-card:hover {
@@ -638,7 +634,8 @@
 .en-system-card p {
   font-size: 0.875rem;
   color: #cbd5e1;
-  line-height: 1.55;
+  font-weight: 450;
+  line-height: 1.6;
   margin-bottom: 20px;
 }
 
@@ -666,14 +663,12 @@
 .en-part-preview-card {
   flex: 0 0 280px;
   scroll-snap-align: start;
-  background: rgba(10, 12, 18, 0.94);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #090b12;
+  border: 1px solid #1f2332;
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.2s ease;
   cursor: pointer;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-part-preview-card:hover {
@@ -727,10 +722,8 @@
   border-spacing: 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #2a2d39;
-  background: rgba(10, 12, 18, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #1f2332;
+  background: #090b12;
 }
 
 .en-compare-table th,
@@ -765,16 +758,14 @@
 
 /* Call to Action Banner */
 .en-cta-banner {
-  background: linear-gradient(135deg, rgba(16, 18, 26, 0.96) 0%, rgba(8, 9, 14, 0.98) 100%);
-  border: 1px solid #282d3e;
+  background: linear-gradient(135deg, #10121a 0%, #08090e 100%);
+  border: 1px solid #232736;
   border-radius: 24px;
   padding: 56px 32px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
 }
 
 .en-cta-banner::before {
@@ -798,6 +789,7 @@
 .en-cta-desc {
   font-size: 1.125rem;
   color: #cbd5e1;
+  font-weight: 500;
   max-width: 640px;
   margin: 0 auto 36px;
   line-height: 1.6;

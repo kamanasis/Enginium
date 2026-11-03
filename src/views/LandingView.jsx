@@ -303,11 +303,11 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               </div>
               <div className="en-hud-bottom">
                 <div className="en-hud-metric-box">
-                  <div className="text-slate-400">SIMULATED RPM</div>
+                  <div className="text-slate-200">SIMULATED RPM</div>
                   <div className="text-[#ff1744] font-bold text-base font-bold">1,450 RPM (Idle)</div>
                 </div>
                 <div className="en-hud-metric-box text-right">
-                  <div className="text-slate-400">ACTIVE STROKE</div>
+                  <div className="text-slate-200">ACTIVE STROKE</div>
                   <div className="text-white text-base font-bold">Power / Scavenge</div>
                 </div>
               </div>
@@ -371,19 +371,19 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-2 mb-4">
                   Exploded 3D Inspection with Tolerance Gauges
                 </h3>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+                <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-6">
                   Rotate, explode, and inspect the engine block in real-time. Identify components such as the spark plug, valve rocker cover, carburetor, and exhaust manifold with precise metric torque references.
                 </p>
                 <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3 text-sm text-slate-300">
+                  <div className="flex items-center gap-3 text-sm text-slate-100">
                     <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
                     <span>Real-time wireframe scan and component highlight</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-300">
+                  <div className="flex items-center gap-3 text-sm text-slate-100">
                     <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
                     <span>Cross-referenced failure symptoms for every visible part</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-300">
+                  <div className="flex items-center gap-3 text-sm text-slate-100">
                     <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
                     <span>One-click jump into verified step-by-step repair guides</span>
                   </div>
@@ -399,7 +399,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               </div>
 
               <div className="relative bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 overflow-hidden min-h-[320px] flex flex-col justify-between">
-                <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div className="flex justify-between items-center text-xs text-slate-200 font-mono">
                   <span>STATION // ACTIVE</span>
                   <span className="text-[#ff1744] font-bold">HOTSPOTS: 8 IDENTIFIED</span>
                 </div>
@@ -408,7 +408,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     <Scan size={36} className="animate-pulse" />
                   </div>
                   <div className="text-white font-bold text-lg">{currentVehicle.name}</div>
-                  <div className="text-xs text-slate-400 max-w-xs mx-auto">
+                  <div className="text-xs text-slate-200 max-w-xs mx-auto">
                     {currentVehicle.engine} · {currentVehicle.specs?.sparkPlugGap} plug gap
                   </div>
                 </div>
@@ -429,11 +429,11 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-2 mb-4">
                   Identify Abnormal Sounds Through Frequency FFT
                 </h3>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+                <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-6">
                   Every engine failure has a characteristic acoustic fingerprint. Compare healthy purr against loose valve tappets, worn piston skirt slap, and timing chain rattles across audio spectrum bins.
                 </p>
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                  <div className="flex items-center justify-between text-xs font-mono text-slate-200">
                     <span>FREQUENCY MONITOR</span>
                     <span className="text-[#ff1744] font-bold">{acousticFrequency} Hz</span>
                   </div>
@@ -457,7 +457,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               </div>
 
               <div className="bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 flex flex-col justify-between min-h-[320px]">
-                <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
+                <div className="flex justify-between items-center text-xs text-slate-200 font-mono">
                   <span>AUDIO FFT SPECTRUM</span>
                   <span className="text-[#ff1744] font-bold">HARMONIC ANALYZER</span>
                 </div>
@@ -474,7 +474,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     );
                   })}
                 </div>
-                <div className="text-center text-xs font-mono text-slate-400">
+                <div className="text-center text-xs font-mono text-slate-200">
                   {acousticFrequency < 120
                     ? 'Sub-bass rumble (Idle Crankshaft stroke)'
                     : acousticFrequency < 300
@@ -492,7 +492,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-1 mb-2">
                   Test-Drive the AI Symptom Classifier
                 </h3>
-                <p className="text-slate-400 text-sm">
+                <p className="text-slate-200 text-sm">
                   Click a common motorcycle problem below to see the instant diagnostic analysis generated:
                 </p>
               </div>
@@ -506,7 +506,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
                       activeSymptomTest === key
                         ? 'bg-[#1e2029] border-[#ff3344] text-[#ff1744] font-bold'
-                        : 'bg-[#14151b] border-[#2c2f3a] text-slate-400 hover:text-white'
+                        : 'bg-[#14151b] border-[#2c2f3a] text-slate-200 hover:text-white'
                     }`}
                     onClick={() => setActiveSymptomTest(key)}
                   >
@@ -519,11 +519,11 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               {symptomDemos[activeSymptomTest] && (
                 <div className="bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div>
-                    <span className="text-xs text-slate-400 block mb-1">PROBABLE CAUSE</span>
+                    <span className="text-xs text-slate-200 block mb-1">PROBABLE CAUSE</span>
                     <strong className="text-white text-sm block">{symptomDemos[activeSymptomTest].cause}</strong>
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 block mb-1">CONFIDENCE & DIY LEVEL</span>
+                    <span className="text-xs text-slate-200 block mb-1">CONFIDENCE & DIY LEVEL</span>
                     <div className="flex items-center gap-2">
                       <span className="text-[#ff1744] font-bold text-sm">{symptomDemos[activeSymptomTest].confidence}</span>
                       <span className="text-[11px] px-2 py-0.5 rounded bg-[#1e2029] text-[#ff1744] font-bold border border-[#2c2f3a]">
@@ -532,7 +532,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     </div>
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 block mb-1">ESTIMATED TIME & COST</span>
+                    <span className="text-xs text-slate-200 block mb-1">ESTIMATED TIME & COST</span>
                     <strong className="text-white text-sm block">
                       {symptomDemos[activeSymptomTest].time} · {symptomDemos[activeSymptomTest].cost}
                     </strong>
@@ -590,7 +590,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     <div className="en-part-preview-content">
                       <span className="en-part-preview-cat">{part.category || 'System Component'}</span>
                       <h4 className="en-part-preview-title">{part.name}</h4>
-                      <p className="text-xs text-slate-400 line-clamp-2">{part.function}</p>
+                      <p className="text-xs text-slate-200 line-clamp-2">{part.function}</p>
                     </div>
                   </div>
                 ))}
@@ -722,7 +722,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 ENGIN<span className="text-[#ff1744] font-bold">IUM</span>
               </strong>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm mb-4">
+            <p className="text-xs text-slate-200 leading-relaxed max-w-sm mb-4">
               Open-architecture digital twin platform for motorcycle diagnostics, component mechanics, sound analysis, and community knowledge.
             </p>
             <span className="inline-block text-[11px] font-mono text-[#ff1744] font-bold px-2.5 py-1 rounded bg-[#1e2029] border border-[#2c2f3a]">
@@ -754,7 +754,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             <ul>
               <li><a href="https://github.com/kamanasis/Enginium" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
               <li><a href="https://commons.wikimedia.org" target="_blank" rel="noopener noreferrer">Wikimedia Commons Assets</a></li>
-              <li><span className="text-xs text-slate-400">Vite 8 · React 19 · Three.js</span></li>
+              <li><span className="text-xs text-slate-200">Vite 8 · React 19 · Three.js</span></li>
             </ul>
           </div>
         </div>

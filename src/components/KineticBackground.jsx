@@ -390,9 +390,9 @@ export default function KineticBackground({ opacity = 0.95 }) {
     // =========================================================================
     // 4. FIXED ROTATION POINT & GEAR WHEEL ANCHORING
     // =========================================================================
-    const fixedContactPoint = new THREE.Vector3(0.6, -1.1, -0.5);
+    const fixedContactPoint = new THREE.Vector3(0.9, -1.7, -0.6);
 
-    const wheel1Radius = 1.75;
+    const wheel1Radius = 1.35;
     const wheel1Teeth = 24;
     const wheel1RotX = 1.22;
     const wheel1RotZ = -0.22;
@@ -423,7 +423,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     wheel1OrientationGroup.add(wheel1SpinGroup);
     worldGroup.add(wheel1OrientationGroup);
 
-    const wheel2Radius = 1.85;
+    const wheel2Radius = 1.45;
     const wheel2Teeth = 24;
     const wheel2Euler = new THREE.Euler(0.26, -0.38, -0.84, 'XYZ');
 
@@ -687,15 +687,12 @@ export default function KineticBackground({ opacity = 0.95 }) {
         }}
       />
 
-      {/* Deep inky black ambient edge vignette */}
+      {/* Subtle perimeter edge vignette */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: `
-            radial-gradient(ellipse 75% 55% at 50% 34%, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 75%),
-            radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.92) 100%)
-          `,
+          background: 'radial-gradient(ellipse at center, transparent 65%, rgba(0, 0, 0, 0.75) 100%)',
           pointerEvents: 'none',
         }}
       />
