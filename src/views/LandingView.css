@@ -303,39 +303,39 @@
 }
 
 .en-hero-title-top {
-  background: linear-gradient(180deg, #ffffff 30%, #e2e8f0 70%, #94a3b8 100%);
+  background: linear-gradient(180deg, #ffffff 40%, #f1f5f9 75%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
 .en-hero-title-main {
-  background: linear-gradient(90deg, #ffffff 0%, #dc2626 18%, #b91c1c 40%, #991b1b 65%, #7f1d1d 80%, #94a3b8 94%, #64748b 100%);
+  background: linear-gradient(180deg, #ff2a4b 0%, #e11d48 25%, #dc2626 55%, #b91c1c 80%, #881337 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 38px rgba(185, 28, 28, 0.65)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 0 35px rgba(220, 38, 38, 0.55)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95));
   display: inline-block;
 }
 
 .en-hero-title-bottom {
-  background: linear-gradient(90deg, #ffffff 0%, #e2e8f0 22%, #b91c1c 48%, #991b1b 64%, #cbd5e1 84%, #64748b 100%);
+  background: linear-gradient(180deg, #e2e8f0 20%, #94a3b8 65%, #64748b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
 .en-title-white {
-  background: linear-gradient(135deg, #ffffff 40%, #f1f5f9 70%, #cbd5e1 100%);
+  background: linear-gradient(180deg, #ffffff 40%, #f1f5f9 75%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
 
 .en-title-gradient {
-  background: linear-gradient(90deg, #ffffff 0%, #dc2626 18%, #b91c1c 40%, #991b1b 65%, #7f1d1d 80%, #94a3b8 94%, #64748b 100%);
+  background: linear-gradient(180deg, #ff2a4b 0%, #e11d48 25%, #dc2626 55%, #b91c1c 80%, #881337 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 38px rgba(185, 28, 28, 0.65));
+  filter: drop-shadow(0 0 35px rgba(220, 38, 38, 0.55));
   display: inline-block;
 }
 
