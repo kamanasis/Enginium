@@ -37,7 +37,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0x06b6d4, 0.8);
+    const dirLight = new THREE.DirectionalLight(0xff3344, 0.8);
     dirLight.position.set(5, 5, 5);
     scene.add(dirLight);
 
@@ -54,7 +54,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     const hudGroup = new THREE.Group();
     scene.add(hudGroup);
     const hudMaterial = new THREE.LineBasicMaterial({
-      color: 0x06b6d4,
+      color: 0xff3344,
       transparent: true,
       opacity: 0.22,
     });
@@ -100,7 +100,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     const particles = new THREE.Points(
       particleGeometry,
-      new THREE.PointsMaterial({ color: 0x22d3ee, size: 0.035, transparent: true, opacity: 0.55 }),
+      new THREE.PointsMaterial({ color: 0xf87171, size: 0.035, transparent: true, opacity: 0.55 }),
     );
     hudGroup.add(particles);
 
@@ -110,7 +110,7 @@ export default function ThreeEngineViewer({ selectedPartId, onSelectPart }) {
     const createPartMaterial = (id) => {
       const isSelected = selectedPartId === id;
       return new THREE.MeshPhongMaterial({
-        color: isSelected ? 0x06b6d4 : 0x334155,
+        color: isSelected ? 0xff3344 : 0x475569,
         wireframe: true,
         transparent: true,
         opacity: isSelected ? 0.95 : 0.45,

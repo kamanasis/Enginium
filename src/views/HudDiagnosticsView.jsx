@@ -428,7 +428,7 @@ export default function HudDiagnosticsView({ selectedVehicle, setActiveTab, setD
           <div>
             <div className="flex items-center gap-2">
               <p className="ui-eyebrow">Vehicle Inspection</p>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-lime-400/10 text-lime-300 border border-lime-400/20">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">
                 {diagConfig.chassisType}
               </span>
             </div>

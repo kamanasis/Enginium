@@ -1,14 +1,14 @@
 /* Local presentation system for Enginium's secondary tools. */
 .tool-view {
-  --tool-canvas: #f4f5f0;
-  --tool-text: #202c28;
-  --tool-muted: #64736d;
-  --tool-border: #dce3db;
-  --tool-panel: #ffffff;
-  --tool-pale: #edf3e9;
-  --tool-green: #245c46;
-  --tool-green-hover: #1d4d3a;
-  --tool-lime: #d4ee8a;
+  --tool-canvas: #050507;
+  --tool-text: #fce7e8;
+  --tool-muted: #d8b4ba;
+  --tool-border: #2c2f3b;
+  --tool-panel: #111218;
+  --tool-pale: #14151e;
+  --tool-red: #ef4444;
+  --tool-red-hover: #dc2626;
+  --tool-lime: #ff3344;
   --tool-orange: #b96a2b;
   --tool-inset: color-mix(in srgb, var(--tool-pale) 55%, var(--tool-panel));
   --tool-warning-surface: color-mix(in srgb, var(--tool-orange) 11%, var(--tool-panel));
@@ -118,7 +118,7 @@
 
 .diagnose-message.user {
   align-self: flex-end;
-  border-left: 3px solid var(--tool-green);
+  border-left: 3px solid var(--tool-red);
   background: var(--tool-pale);
   color: var(--tool-text);
   border-bottom-right-radius: 5px;
@@ -254,7 +254,7 @@
 }
 
 .diagnose-list li::before {
-  color: var(--tool-green);
+  color: var(--tool-red);
   content: '✓';
   font-weight: 900;
 }
@@ -365,7 +365,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--tool-green);
+  background: var(--tool-red);
   transition: width 220ms linear;
 }
 
@@ -404,7 +404,7 @@
 }
 
 .acoustic-profile.is-selected {
-  border-color: var(--tool-green);
+  border-color: var(--tool-red);
   background: var(--tool-pale);
 }
 
@@ -458,9 +458,9 @@
 }
 
 .learn-tab.is-active {
-  border-color: var(--tool-green);
+  border-color: var(--tool-red);
   background: var(--tool-pale);
-  color: var(--tool-green);
+  color: var(--tool-red);
 }
 
 .learn-search-card {
@@ -550,8 +550,8 @@
 
 .learn-quick-chip:hover {
   background: var(--tool-pale);
-  border-color: var(--tool-green);
-  color: var(--tool-green);
+  border-color: var(--tool-red);
+  color: var(--tool-red);
 }
 
 .learn-filters {
@@ -569,9 +569,9 @@
 
 .learn-filter.is-active,
 .learn-part-button.is-active {
-  border-color: var(--tool-green);
+  border-color: var(--tool-red);
   background: var(--tool-pale);
-  color: var(--tool-green);
+  color: var(--tool-red);
 }
 
 .learn-parts-layout {
@@ -831,7 +831,7 @@
 }
 
 .learn-module:hover {
-  border-color: var(--tool-green);
+  border-color: var(--tool-red);
   background: var(--tool-inset);
 }
 
@@ -858,7 +858,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--tool-green);
+  background: var(--tool-red);
 }
 
 .quiz-option {
@@ -875,9 +875,9 @@
 }
 
 .quiz-option.is-selected {
-  border-color: var(--tool-green);
+  border-color: var(--tool-red);
   background: var(--tool-pale);
-  color: var(--tool-green);
+  color: var(--tool-red);
   font-weight: 750;
 }
 
@@ -942,7 +942,7 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid var(--tool-green);
+  border: 1px solid var(--tool-red);
   background: var(--tool-pale);
   color: var(--tool-text);
   font-size: 0.78rem;
@@ -1047,7 +1047,7 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid var(--tool-green);
+  border: 1px solid var(--tool-red);
   background: var(--tool-pale);
   color: var(--tool-text);
   font-size: 1.25rem;
@@ -1183,8 +1183,8 @@
 }
 
 .toggle.is-on {
-  border-color: var(--tool-green);
-  background: var(--tool-green);
+  border-color: var(--tool-red);
+  background: var(--tool-red);
 }
 
 .toggle.is-on span {

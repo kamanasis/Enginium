@@ -31,7 +31,7 @@ export const vehiclesData = [
         symptoms: "Engine misfire, starting trouble, poor acceleration, low mileage.",
         interval: "Inspect every 4,000 km, replace at 12,000 km.",
         cost: "₹120 - ₹180",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Ensure engine is cold before removing to avoid damage to cylinder head threads.",
         diySteps: [
           "Locate the spark plug on the right side of the engine cylinder head.",
@@ -82,7 +82,7 @@ export const vehiclesData = [
         symptoms: "Clanking sounds, jerky acceleration, chain slipping under load, sluggish pickup.",
         interval: "Clean & lubricate every 500 km. Adjust slack every 1,000 km.",
         cost: "₹850 - ₹1,200 (Full Kit)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "NEVER clean or lubricate the chain with the engine running or bike in gear. Fingers can get caught in sprocket.",
         diySteps: [
           "Put motorcycle on center stand. Remove the chain guard/cover (usually four 10mm bolts).",
@@ -107,7 +107,7 @@ export const vehiclesData = [
         symptoms: "Heavy fuel consumption, black exhaust smoke, poor throttle response, starting issues.",
         interval: "Clean every 2,000 km, replace every 12,000 km.",
         cost: "₹90 - ₹150",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never run the engine without the air filter; dirt will enter and permanently score the piston cylinder walls.",
         diySteps: [
           "Remove the right-side body panel using the ignition key or screwdriver.",
@@ -132,7 +132,7 @@ export const vehiclesData = [
         symptoms: "Weak horn sound, dim headlight at idle, self-start fails with clicking sound, console resets.",
         interval: "Check terminal voltage every 3 months. Clean terminals every 6 months.",
         cost: "₹1,200 - ₹1,800",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Disconnect negative terminal (-) first to avoid short circuits. Wear gloves. Keep sparks/flames away.",
         diySteps: [
           "Remove left-side panel using ignition key. Locate the battery band/bracket.",
@@ -158,7 +158,7 @@ export const vehiclesData = [
         symptoms: "Engine running abnormally hot, stiff clutch feel, clattering valvetrain noise.",
         interval: "Inspect level every 1,000 km, replace oil every 3,000 - 4,000 km.",
         cost: "₹350 - ₹550",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Do not touch hot oil directly. Always use a fresh aluminum or copper crush washer to prevent sump stripped threads.",
         diySteps: [
           "Warm engine for 3 minutes to thin the oil, then turn off ignition.",
@@ -341,7 +341,7 @@ export const vehiclesData = [
         symptoms: "Petrol smell while parked, debris reaching carburetor, fuel starvation when accelerating.",
         interval: "Clean sediment bowl every 4,000 km.",
         cost: "₹150 - ₹280",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Ensure fuel container is nearby to catch petrol when removing the petcock sediment cup.",
         diySteps: [
           "Switch petcock lever to OFF position.",
@@ -393,7 +393,7 @@ export const vehiclesData = [
         symptoms: "Extremely loud popping exhaust roar, backfiring on deceleration, carbon deposits on cylinder exhaust studs.",
         interval: "Inspect exhaust flange nuts every 4,000 km; check for rust annually.",
         cost: "₹1,800 - ₹3,200 (Full Silencer Assembly)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Exhaust gets above 300°C. Never work on exhaust until bike has cooled for at least 45 minutes.",
         diySteps: [
           "Allow motorcycle exhaust to cool completely.",
@@ -498,7 +498,7 @@ export const vehiclesData = [
         symptoms: "Noticeable 'thunk' jerk whenever opening or closing throttle, slack feeling when letting out clutch from standstill.",
         interval: "Inspect every 10,000 km; replace every 20,000 km.",
         cost: "₹120 - ₹220 (Set of 4)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never grease cush drive rubbers with petroleum grease as it dissolves and decomposes the rubber compound.",
         diySteps: [
           "Place motorcycle on center stand.",
@@ -550,7 +550,7 @@ export const vehiclesData = [
         symptoms: "Harsh scraping metallic noise when braking, brake lever pulls all the way to handlebar grip, dark muddy fluid in sight glass.",
         interval: "Inspect pad wear every 3,000 km; flush and replace brake fluid every 2 years.",
         cost: "₹250 - ₹650 (Pads) / ₹120 (Fluid)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Brake fluid ruins painted motorcycle body panels instantly on contact. Wash off immediately with soapy water.",
         diySteps: [
           "Check brake fluid sight glass on handlebar master cylinder; fluid should be amber and clear.",
@@ -576,7 +576,7 @@ export const vehiclesData = [
         symptoms: "Weak rear brake bite, foot pedal travels too far downward, high-pitched brake squeal, pointer arrow past wear mark.",
         interval: "Inspect wear indicator arrow every 2,000 km; clean drum dust every 4,000 km.",
         cost: "₹180 - ₹350 (Shoe Pair)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Wear a dust mask when cleaning brake drums to avoid inhaling toxic friction dust. Never blow with compressed air dry.",
         diySteps: [
           "Inspect the wear indicator arrow on the brake arm against the hub reference mark with pedal pressed.",
@@ -602,7 +602,7 @@ export const vehiclesData = [
         symptoms: "Brake pedal doesn't spring back up quickly, rear brake drags, brake light stays on constantly.",
         interval: "Lubricate pivot points every 3,000 km.",
         cost: "₹120 - ₹200",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Ensure rear brake rod cotter/split pin is installed and spread properly so the pin cannot fall out on the road.",
         diySteps: [
           "Park bike on center stand.",
@@ -653,7 +653,7 @@ export const vehiclesData = [
         symptoms: "Rear end bounces repeatedly like a pogo stick after bumps, rear bottoming out with pillion rider, visible oil weeping down spring.",
         interval: "Inspect eyelet bushings every 5,000 km; replace dampers every 35,000 km.",
         cost: "₹1,200 - ₹2,200 (Pair)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Always adjust BOTH left and right rear shocks to the EXACT same preload notch. Unequal notches cause high-speed instability.",
         diySteps: [
           "Put motorcycle on center stand so rear wheel hangs unweighted.",
@@ -754,7 +754,7 @@ export const vehiclesData = [
         symptoms: "Side stand scrapes road surface during left turns, bike cuts off when put in gear due to faulty side-stand switch.",
         interval: "Lubricate stand pivot pins every 2,000 km.",
         cost: "₹180 - ₹450",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never ride with a weak side stand spring that allows the stand to drop while riding; it can dig into tarmac and throw the rider.",
         diySteps: [
           "Inspect dual return springs on center stand and side stand for stretch or rust.",
@@ -777,7 +777,7 @@ export const vehiclesData = [
         symptoms: "Handlebar shimmy at 40-60 km/h, steering feels heavy and sluggish when tire pressure drops below spec, rapid pressure loss.",
         interval: "Inspect cold tire pressure weekly (spec: 25 psi); replace tire when tread depth reaches 1.5mm TWI mark.",
         cost: "₹1,400 - ₹2,200",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Under-inflated front tires make steering extremely heavy and can cause rim damage over moderate road potholes.",
         diySteps: [
           "Check tire pressure cold using a reliable digital pressure gauge (recommended: 25 psi).",
@@ -801,7 +801,7 @@ export const vehiclesData = [
         symptoms: "Rear end wobbling or sliding unexpectedly over road paint markings, loss of traction in wet conditions.",
         interval: "Check cold tire pressure weekly (spec: 28-32 psi solo, 36 psi pillion); replace at 25,000 - 35,000 km.",
         cost: "₹1,800 - ₹2,800",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never ride on a completely flat rear tire; the tire can debead from the rim instantly, causing total loss of balance.",
         diySteps: [
           "Check cold tire pressure with pressure gauge (standard: 32 psi solo, 36 psi with pillion).",
@@ -875,7 +875,7 @@ export const vehiclesData = [
         symptoms: "Blowing headlight bulbs repeatedly, boiling and overflowing battery acid, dead battery not charging.",
         interval: "Check regulated voltage at battery terminals every service.",
         cost: "₹350 - ₹750",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Overcharging above 15.5V generates explosive hydrogen gas from lead-acid batteries and destroys digital instrument clusters.",
         diySteps: [
           "Connect digital multimeter DC Voltage probes directly to battery terminals (+ and -).",
@@ -927,7 +927,7 @@ export const vehiclesData = [
         symptoms: "Engine cutting out during rain or bike wash, intermittent misfiring under heavy throttle, weak yellow/orange spark.",
         interval: "Inspect HT wire and spark plug cap every 8,000 km.",
         cost: "₹280 - ₹480",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "High secondary ignition voltage can deliver an intense, painful electrical shock. Keep hands clear while cranking with plug removed.",
         diySteps: [
           "Locate ignition coil bolted to the top chassis frame rail underneath the fuel tank.",
@@ -952,7 +952,7 @@ export const vehiclesData = [
         symptoms: "Sudden total loss of spark, engine shuts down abruptly after warming up, erratic high-RPM rev limiter stutter.",
         interval: "Maintenance-free solid-state electronic unit.",
         cost: "₹450 - ₹1,200",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never disconnect or connect CDI / ECU plugs while the ignition key switch is ON.",
         diySteps: [
           "Locate the CDI / ECU rubber mounting sleeve under the seat or side cover.",
@@ -977,7 +977,7 @@ export const vehiclesData = [
         symptoms: "Indicators stay lit steady without blinking, headlight beam flickering when handlebar turns, dead brake light.",
         interval: "Inspect all lights before every night ride; adjust headlight beam alignment every 6,000 km.",
         cost: "₹80 - ₹250 (Bulbs) / ₹450 - ₹1,200 (Assembly)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never touch halogen headlight glass bulbs with bare fingers; finger oils create hotspot hotspots that cause the glass envelope to shatter.",
         diySteps: [
           "To replace headlight bulb, remove front headlight cowl screws (usually 4 screws).",
@@ -1002,7 +1002,7 @@ export const vehiclesData = [
         symptoms: "Horn works intermittently, turn signals don't cancel smoothly, throttle fails to snap shut when released (dangerous!).",
         interval: "Clean switch internals with contact cleaner and lubricate throttle cable every 6,000 km.",
         cost: "₹120 - ₹180 (Throttle Cable) / ₹350 - ₹750 (Switch Unit)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Throttle MUST snap closed instantly when released at all handlebar angles (full left, center, full right). A sticking throttle causes runaway crashes.",
         diySteps: [
           "Remove the two Philips screws holding the right-hand handlebar switch pod together.",
@@ -1027,7 +1027,7 @@ export const vehiclesData = [
         symptoms: "Speedometer needle stays at 0 km/h or jumps erratically, odometer numbers stop advancing, fuel gauge needle stuck.",
         interval: "Lubricate speedometer drive cable core every 6,000 km.",
         cost: "₹90 - ₹150 (Speedo Cable) / ₹950 - ₹2,200 (Cluster)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Ensure speedometer cable is routed smoothly with no sharp bends that cause internal friction and cable snap.",
         diySteps: [
           "Unscrew the knurled metal collar nut at the bottom of the front wheel speedometer gear hub.",
@@ -1052,7 +1052,7 @@ export const vehiclesData = [
         symptoms: "Total loss of all electrical power (dead display, horn, starter), intermittent headlight flickering when turning handlebar left/right.",
         interval: "Inspect fuse box and wiring loom at steering pivot point every 10,000 km.",
         cost: "₹10 (Fuse) / ₹950 - ₹1,800 (Full Wiring Loom)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "NEVER replace a blown fuse with aluminum foil or copper wire. A fuse protects the motorcycle from catching fire in a short circuit.",
         diySteps: [
           "Locate main fuse holder (usually situated inside a rubber pouch next to the 12V battery under the left side panel).",
@@ -1069,7 +1069,7 @@ export const vehiclesData = [
     symptomMap: {
       "slow-starting": {
         cause: "Spark plug fouled/clogged or Weak Battery.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "85%",
         repairTime: "15 mins",
         partCost: "₹120 - ₹1,500",
@@ -1080,7 +1080,7 @@ export const vehiclesData = [
       },
       "self-start-failure": {
         cause: "Dead battery or faulty starter relay.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "95%",
         repairTime: "20 mins",
         partCost: "₹1,200 - ₹1,800",
@@ -1102,7 +1102,7 @@ export const vehiclesData = [
       },
       "chain-noise": {
         cause: "Loose or unlubricated drive chain.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "90%",
         repairTime: "25 mins",
         partCost: "₹200 (chain lube/cleaner)",
@@ -1190,7 +1190,7 @@ export const vehiclesData = [
         symptoms: "Severe pickup drop, low mileage (under 35 kmpl), exhaust smells of unburnt petrol.",
         interval: "Replace every 15,000 km. (No intermediate cleaning recommended).",
         cost: "₹220 - ₹280",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Never clean with compressed air, as this blows away the sticky oil layer and ruins filtration capabilities.",
         diySteps: [
           "Locate the air filter box on the left side of the rear wheel.",
@@ -1213,7 +1213,7 @@ export const vehiclesData = [
         symptoms: "LED headlamp flickering, horn sounds thin/feeble, starter motor clicks but doesn't crank.",
         interval: "Check charge annually, replace every 3-4 years.",
         cost: "₹1,300 - ₹1,700",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Always isolate negative (-) pole first. Be careful not to drop the terminal nuts into the nose cover.",
         diySteps: [
           "Locate the battery in the front nose shield/apron.",
@@ -1229,7 +1229,7 @@ export const vehiclesData = [
     symptomMap: {
       "slow-starting": {
         cause: "Viscous air filter clogged or Spark Plug fouled.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "80%",
         repairTime: "15 mins",
         partCost: "₹220 - ₹280",
@@ -1240,7 +1240,7 @@ export const vehiclesData = [
       },
       "self-start-failure": {
         cause: "Weak battery or blown fuse.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "90%",
         repairTime: "10 mins",
         partCost: "₹1,400",
@@ -1294,7 +1294,7 @@ export const vehiclesData = [
         symptoms: "Engine vibration, poor pickup, backfiring noises, uneven idling.",
         interval: "Clean every 5,000 km, replace both every 10,000 km.",
         cost: "₹260 - ₹340 (Pair)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Replace BOTH spark plugs together. Do not mix old and new plugs as it causes ignition imbalances.",
         diySteps: [
           "Locate Spark Plug 1 on left side of cylinder, Spark Plug 2 on the right side.",
@@ -1371,7 +1371,7 @@ export const vehiclesData = [
         symptoms: "Starting lag, cold engine stalling, engine heavy thumping but not starting.",
         interval: "Clean every 3,000 km, replace at 10,000 km.",
         cost: "₹180 - ₹250",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "The Classic 350 cylinder head gets exceptionally hot. Wait at least 1 hour after riding before touching.",
         diySteps: [
           "Locate plug on the left hand side of the engine block.",
@@ -1409,7 +1409,7 @@ export const vehiclesData = [
     symptomMap: {
       "slow-starting": {
         cause: "Weak battery or cold engine lubrication issues.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "80%",
         repairTime: "15 mins",
         partCost: "₹1,500",
@@ -1452,7 +1452,7 @@ export const vehiclesData = [
         symptoms: "Unbalanced twin exhaust note, idle fluctuation, loss of top-end power.",
         interval: "Inspect every 5,000 km, replace at 15,000 km.",
         cost: "₹650 (Pair)",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Allow parallel twin block to cool completely before wrenching.",
         diySteps: [
           "Remove seat and unbolt rear fuel tank mounting to tilt slightly.",
@@ -1490,7 +1490,7 @@ export const vehiclesData = [
     symptomMap: {
       "slow-starting": {
         cause: "Weak 12V 14Ah VRLA battery or clutch switch sensor misaligned.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "88%",
         repairTime: "15 mins",
         partCost: "₹2,400",
@@ -1532,7 +1532,7 @@ export const vehiclesData = [
         symptoms: "Loud chain slap on swingarm rubber pad, snatchy throttle response in 1st/2nd gear.",
         interval: "Clean & lube every 500 km.",
         cost: "₹1,400",
-        difficulty: "Green",
+        difficulty: "Basic DIY",
         safety: "Keep bike on paddock stand (Hunter lacks main stand by default).",
         diySteps: [
           "Mount bike onto rear paddock stand.",
@@ -1547,7 +1547,7 @@ export const vehiclesData = [
     symptomMap: {
       "chain-noise": {
         cause: "Loose chain slapping the swingarm guide.",
-        diy: "Green",
+        diy: "Basic DIY",
         confidence: "95%",
         repairTime: "20 mins",
         partCost: "₹250",

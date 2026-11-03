@@ -7,12 +7,12 @@
 @layer base {
   :root {
     color-scheme: dark;
-    --en-bg: #0b1512;
-    --en-surface: #12211b;
-    --en-surface-strong: #172c22;
-    --en-border: #29483a;
-    --en-lime: #c7df9b;
-    --en-muted: #a5b6aa;
+    --en-bg: #030305;
+    --en-surface: #0e0f14;
+    --en-surface-strong: #14161f;
+    --en-border: #232530;
+    --en-lime: #ff2a3b;
+    --en-muted: #94a3b8;
   }
 
   * {
@@ -22,10 +22,10 @@
   body {
     background-color: var(--en-bg);
     background-image:
-      radial-gradient(circle at 12% 0%, rgba(155, 211, 159, 0.08), transparent 30rem),
-      radial-gradient(circle at 92% 10%, rgba(199, 223, 155, 0.06), transparent 28rem),
-      linear-gradient(180deg, #0c1914 0%, #0b1512 52%, #07100d 100%);
-    color: #e9f0ea;
+      radial-gradient(circle at 12% 0%, rgba(225, 29, 72, 0.08), transparent 30rem),
+      radial-gradient(circle at 92% 10%, rgba(136, 19, 55, 0.05), transparent 28rem),
+      linear-gradient(180deg, #06070a 0%, #030305 52%, #010102 100%);
+    color: #f1f5f9;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
     min-width: 320px;
@@ -68,10 +68,10 @@
 
 /* Professional application shell */
 .app-shell {
-  --shell-forest: #173d30;
-  --shell-forest-deep: #102e25;
-  --shell-lime: #c7df9b;
-  --shell-canvas: #0b1512;
+  --shell-forest: #241215;
+  --shell-forest-deep: #180c0e;
+  --shell-lime: #ff3344;
+  --shell-canvas: #050507;
   background: var(--shell-canvas);
 }
 
@@ -249,8 +249,8 @@
 
 .app-topbar {
   align-items: center;
-  background: rgba(8, 20, 16, 0.9);
-  border-bottom: 1px solid rgba(196, 224, 205, 0.14);
+  background: rgba(11, 12, 16, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   gap: 20px;
   justify-content: space-between;
@@ -263,7 +263,7 @@
 
 .app-mobile-brand {
   align-items: center;
-  color: #e9f0ea;
+  color: #fce7e8;
   display: none;
   gap: 8px;
 }
@@ -302,7 +302,7 @@
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(196, 224, 205, 0.16);
   border-radius: 11px;
-  color: #e9f0ea;
+  color: #fce7e8;
   cursor: pointer;
   display: inline-flex;
   font-size: 0.82rem;
@@ -320,8 +320,8 @@
 }
 
 .app-vehicle-menu {
-  background: #12211b;
-  border: 1px solid #29483a;
+  background: #121319;
+  border: 1px solid #2c2f3b;
   border-radius: 14px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
   min-width: 290px;
@@ -344,7 +344,7 @@
 
 .app-vehicle-menu button {
   align-items: center;
-  background: #12211b;
+  background: #121319;
   border: 0;
   border-top: 1px solid #1d3a2e;
   color: #e3eee5;
@@ -441,7 +441,7 @@
 }
 
 .ui-title {
-  color: #e9f0ea;
+  color: #fce7e8;
   font-size: clamp(1.65rem, 2.7vw, 2.2rem);
   font-weight: 750;
   letter-spacing: -0.04em;
@@ -677,8 +677,8 @@
   }
 
   .app-mobile-nav button.is-active {
-    background: #173d30;
-    color: #c7df9b;
+    background: #241215;
+    color: #ff3344;
   }
 }
 

@@ -358,22 +358,22 @@ export default function App() {
   // If user selected FIGMA FLOW BOARD MODE
   if (viewMode === 'flow') {
     return (
-      <div className="h-screen flex flex-col bg-[#07100e] relative isolate">
+      <div className="h-screen flex flex-col bg-[#060608] relative isolate">
         <KineticBackground opacity={0.75} />
         {/* Floating Switcher Bar */}
-        <div className="bg-[#0b2118] border-b border-[#29483a] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
+        <div className="bg-[#121319] border-b border-[#2c2f3b] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
           <div className="flex items-center gap-2">
             <span className="font-black text-white tracking-widest text-sm flex items-center gap-1.5">
-              <span className="text-lime-200">ENGIN</span>IUM
+              <span className="text-red-500">ENGIN</span>IUM
             </span>
-            <span className="text-[10px] text-[#a5b6aa] font-mono">/ Design flow canvas</span>
+            <span className="text-[10px] text-[#d8b4ba] font-mono">/ Design flow canvas</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => setViewMode('website')}
-              className="ui-btn !min-h-9 !border-[#31553f] !bg-[#12291f] !text-[#e9f2ea] hover:!bg-[#1a3a2b] en-focus-ring"
+              className="ui-btn !min-h-9 !border-[#383b48] !bg-[#181920] !text-[#e9f2ea] hover:!bg-[#22232c] en-focus-ring"
             >
               <Monitor className="w-4 h-4" aria-hidden="true" />
               Back to workspace
@@ -398,7 +398,7 @@ export default function App() {
   // Standalone Full-Bleed Landing Page
   if (viewMode !== 'flow' && activeTab === 'landing') {
     return (
-      <div className="min-h-screen bg-[#070e0b] text-[#e3ede6] selection:bg-lime-200 selection:text-[#173d30]">
+      <div className="min-h-screen bg-[#050507] text-[#fef2f2] selection:bg-red-500 selection:text-white">
         <LandingView
           selectedVehicle={selectedVehicle}
           onSelectVehicle={setSelectedVehicle}
@@ -413,7 +413,7 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-lime-200 selection:text-[#173d30] relative isolate">
+    <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-red-500 selection:text-white relative isolate">
       <KineticBackground opacity={0.88} />
       <aside className="app-sidebar hidden lg:flex">
         <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('landing'); }}>
@@ -443,7 +443,7 @@ export default function App() {
         <div className="app-sidebar-bottom">
           <button
             type="button"
-            className="app-sidebar-link !min-h-9 !py-1 text-xs text-[#a5b6aa] hover:text-white mb-2"
+            className="app-sidebar-link !min-h-9 !py-1 text-xs text-[#d8b4ba] hover:text-white mb-2"
             onClick={() => setViewMode('flow')}
           >
             <LayoutGrid size={16} aria-hidden="true" />

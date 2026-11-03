@@ -150,7 +150,7 @@ export default function HomeView({
 
           <div className="workspace-tool-grid">
             <button type="button" className="workspace-tool-card" onClick={openDiagnosis}>
-              <span className="workspace-tool-icon workspace-tool-icon-green" aria-hidden="true"><Sparkles size={19} /></span>
+              <span className="workspace-tool-icon workspace-tool-icon-red" aria-hidden="true"><Sparkles size={19} /></span>
               <span>
                 <strong>Diagnosis guide</strong>
                 <small>Turn a symptom into a practical plan.</small>
@@ -158,7 +158,7 @@ export default function HomeView({
               <ChevronRight aria-hidden="true" size={18} />
             </button>
             <button type="button" className="workspace-tool-card" onClick={() => setActiveTab('acoustic')}>
-              <span className="workspace-tool-icon workspace-tool-icon-lime" aria-hidden="true"><Headphones size={19} /></span>
+              <span className="workspace-tool-icon workspace-tool-icon-crimson" aria-hidden="true"><Headphones size={19} /></span>
               <span>
                 <strong>Sound check</strong>
                 <small>Explore an illustrative engine sound workflow.</small>
@@ -174,7 +174,7 @@ export default function HomeView({
               <ChevronRight aria-hidden="true" size={18} />
             </button>
             <button type="button" className="workspace-tool-card" onClick={() => setActiveTab('garage')}>
-              <span className="workspace-tool-icon workspace-tool-icon-forest" aria-hidden="true"><Wrench size={19} /></span>
+              <span className="workspace-tool-icon workspace-tool-icon-steel" aria-hidden="true"><Wrench size={19} /></span>
               <span>
                 <strong>Garage records</strong>
                 <small>Keep service and family milestones together.</small>

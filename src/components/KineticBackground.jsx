@@ -2,28 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * KineticBackground - Refined Master Blueprint Edition
+ * KineticBackground - Deep Obsidian & Saturated Crimson Edition
  *
- * Implements the user's hand-drawn engineering design with:
- * 1. COMFORTABLE, REFINED SCALE:
- *    - Both gear wheels reduced by ~28% so they sit gracefully in the visual field
- *      without overwhelming the eyes or clashing with hero typography.
- *
- * 2. PRECISION TAPERED GEAR TEETH (True Involute Profile):
- *    - Eliminates tooth-on-tooth collision: Wheel 2 has a calibrated half-pitch angular
- *      offset so teeth roll smoothly into opposite tooth valleys.
- *    - Tapered 3D trapezoidal prism teeth with beveled wireframe edges.
- *
- * 3. FULL-BACKGROUND EDGE-TO-EDGE SQUARE DRAFTING GRID:
- *    - Spans 100% of the entire viewport with zero dead space.
- *    - Balanced, eye-friendly contrast: subtle ambient minor squares (0.65 units),
- *      crisp major structural lines every 4 units, intersection crosshairs (`+`),
- *      and extended blueprint construction lines with terminal datum dots from sketch.
- *
- * 4. FLAWLESS DEPTH SORTING & TRANSLUCENCY:
- *    - `depthWrite: false` on all translucent layers to eliminate z-fighting or flickering.
- *    - Gentle holographic scan wave and breathing kinetic mesh beacon.
- *    - 100% autonomous, non-interactive, and battery-efficient.
+ * Implements high-impact deep color grading:
+ * 1. BLACK: True inky obsidian void with deep velvety wine & dark blood crimson radial ambiances.
+ * 2. GREY: Smoked titanium, forged carbon, and razor-sharp polished silver-chrome gear wireframes.
+ * 3. RED: Saturated, rich blood-crimson and electric ruby sparks for the contact mesh node,
+ *    telemetry lasers, and acoustic combustion harmonic waveforms.
  */
 export default function KineticBackground({ opacity = 0.95 }) {
   const containerRef = useRef(null);
@@ -56,26 +41,34 @@ export default function KineticBackground({ opacity = 0.95 }) {
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // Enginium Signature Palette (Harmonized for visual comfort)
-    const COLOR_EMERALD = 0x10b981; // #10b981 Primary brand
-    const COLOR_LIME = 0xc7df9b;    // #c7df9b Accent lime
-    const COLOR_MINT = 0x2dd4bf;    // #2dd4bf Diagnostic cyan/mint
+    // =========================================================================
+    // DEEP COLOR PALETTE
+    // =========================================================================
+    const COLOR_GRID_MINOR = 0x222633;     // Deep smoked graphite
+    const COLOR_GRID_MAJOR = 0x42485c;     // Structural cold steel
+    const COLOR_GRID_EXT = 0x586075;       // Extended construction lines
+    const COLOR_CHROME_SHARP = 0xf1f5f9;   // Razor-sharp polished silver-white tooth bevels
+    const COLOR_TITANIUM = 0x8a92a6;       // Titanium gear rim loops
+    const COLOR_CARBON = 0x161822;         // Forged carbon translucent face
+
+    const COLOR_RED_CORE = 0xff1a2e;       // Intense high-energy ruby laser
+    const COLOR_RED_CRIMSON = 0xe11d48;    // Saturated deep crimson
+    const COLOR_RED_WINE = 0x9f1239;       // Deep velvety wine red
 
     const worldGroup = new THREE.Group();
     scene.add(worldGroup);
 
     // =========================================================================
-    // 1. FULL-BACKGROUND SQUARE DRAFTING GRID (100% Viewport Coverage)
+    // 1. FULL-BACKGROUND SQUARE DRAFTING GRID (Deep Inky Steel with Crimson Accents)
     // =========================================================================
     const gridGroup = new THREE.Group();
     gridGroup.position.set(0, 0, -2.2);
     worldGroup.add(gridGroup);
 
-    // Extensive bounds ensuring full bleed on mobile, tablet, 16:9 and 32:9 ultrawides
     const xSpan = 24;
     const ySpan = 15;
     const cellStep = 0.65;
-    const majorInterval = 4; // Major line every 4 cells (2.6 units)
+    const majorInterval = 4;
 
     const minorLines = [];
     const majorLines = [];
@@ -95,7 +88,6 @@ export default function KineticBackground({ opacity = 0.95 }) {
     }
 
     let rowIndex = 0;
-    // Row indices matching sketch's long accent lines
     const accentRows = [-14, -8, -3, 3, 9, 14];
 
     for (let y = -ySpan; y <= ySpan + 0.001; y += cellStep) {
@@ -106,7 +98,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
         minorLines.push(new THREE.Vector3(-xSpan, y, 0), new THREE.Vector3(xSpan, y, 0));
       }
 
-      // Intersection Crosshairs `+` at major junctions
+      // Deep crimson crosshairs `+` at major intersections
       if (isMajor) {
         let ci = 0;
         for (let x = -xSpan; x <= xSpan + 0.001; x += cellStep) {
@@ -121,7 +113,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
         }
       }
 
-      // Sketch-specific long extended accent lines with terminal datum dots
+      // Extended lines with deep ruby terminal dots
       if (accentRows.includes(rowIndex)) {
         const leftExt = xSpan + (1.2 + ((rowIndex + 18) % 4) * 0.45);
         const rightExt = xSpan + (1.4 + ((rowIndex + 15) % 4) * 0.55);
@@ -133,84 +125,84 @@ export default function KineticBackground({ opacity = 0.95 }) {
       rowIndex++;
     }
 
-    // Two extended vertical lines matching sketch
+    // Extended vertical lines matching sketch
     extendedLines.push(new THREE.Vector3(-cellStep * 5, -ySpan - 1.5, 0), new THREE.Vector3(-cellStep * 5, ySpan + 1.5, 0));
     terminalDots.push(new THREE.Vector3(-cellStep * 5, -ySpan - 1.5, 0), new THREE.Vector3(-cellStep * 5, ySpan + 1.5, 0));
     extendedLines.push(new THREE.Vector3(cellStep * 6, -ySpan - 1.5, 0), new THREE.Vector3(cellStep * 6, ySpan + 1.5, 0));
     terminalDots.push(new THREE.Vector3(cellStep * 6, -ySpan - 1.5, 0), new THREE.Vector3(cellStep * 6, ySpan + 1.5, 0));
 
-    // Minor grid lines (very soft, comfortable background)
+    // Minor grid lines
     const minorGeo = track(new THREE.BufferGeometry().setFromPoints(minorLines));
     const minorMat = track(new THREE.LineBasicMaterial({
-      color: COLOR_EMERALD,
+      color: COLOR_GRID_MINOR,
       transparent: true,
-      opacity: 0.065,
+      opacity: 0.24,
       depthWrite: false,
     }));
     gridGroup.add(new THREE.LineSegments(minorGeo, minorMat));
 
-    // Major grid lines (clean drafting structure)
+    // Major grid lines
     const majorGeo = track(new THREE.BufferGeometry().setFromPoints(majorLines));
     const majorMat = track(new THREE.LineBasicMaterial({
-      color: COLOR_EMERALD,
+      color: COLOR_GRID_MAJOR,
       transparent: true,
-      opacity: 0.16,
+      opacity: 0.42,
       depthWrite: false,
     }));
     gridGroup.add(new THREE.LineSegments(majorGeo, majorMat));
 
-    // Sketch extended accent lines
+    // Extended accent lines
     const extGeo = track(new THREE.BufferGeometry().setFromPoints(extendedLines));
     const extMat = track(new THREE.LineBasicMaterial({
-      color: COLOR_LIME,
+      color: COLOR_GRID_EXT,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.52,
       depthWrite: false,
     }));
     gridGroup.add(new THREE.LineSegments(extGeo, extMat));
 
-    // Terminal dots on extended lines
+    // Terminal dots on extended lines (Electric Ruby Red)
     const dotsGeo = track(new THREE.BufferGeometry().setFromPoints(terminalDots));
     const dotsMat = track(new THREE.PointsMaterial({
-      color: COLOR_LIME,
-      size: 0.08,
+      color: COLOR_RED_CORE,
+      size: 0.085,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.95,
       sizeAttenuation: true,
       depthWrite: false,
     }));
     gridGroup.add(new THREE.Points(dotsGeo, dotsMat));
 
-    // Intersection crosshairs
+    // Intersection crosshairs (Deep Crimson)
     const crossGeo = track(new THREE.BufferGeometry().setFromPoints(crossTicks));
     const crossMat = track(new THREE.LineBasicMaterial({
-      color: COLOR_MINT,
+      color: COLOR_RED_CRIMSON,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.55,
       depthWrite: false,
     }));
     gridGroup.add(new THREE.LineSegments(crossGeo, crossMat));
 
-    // Soft scanning sweep beam on grid plane
+    // Soft scanning sweep beam on grid plane (Deep Crimson)
     const scanLineGeo = track(new THREE.BufferGeometry().setFromPoints([
       new THREE.Vector3(-xSpan, 0, 0.02),
       new THREE.Vector3(xSpan, 0, 0.02),
     ]));
     const scanLineMat = track(new THREE.LineBasicMaterial({
-      color: COLOR_LIME,
+      color: COLOR_RED_CRIMSON,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.28,
       depthWrite: false,
     }));
     const scanLine = new THREE.Line(scanLineGeo, scanLineMat);
     gridGroup.add(scanLine);
 
-    // Traveling telemetry laser pulses along extended horizontal lines
+    // Traveling laser packets (High-Speed Ruby Laser)
     const laserPackets = [];
     accentRows.forEach((rIndex, idx) => {
       const y = (rIndex - Math.floor(rowIndex / 2)) * cellStep;
-      const pGeo = track(new THREE.SphereGeometry(0.04, 8, 8));
-      const pMat = track(new THREE.MeshBasicMaterial({ color: COLOR_LIME, transparent: true, opacity: 0.75, depthWrite: false }));
+      const pGeo = track(new THREE.SphereGeometry(0.045, 8, 8));
+      const pMat = track(new THREE.MeshBasicMaterial({ color: COLOR_RED_CORE, transparent: true, opacity: 0.95, depthWrite: false }));
       const pMesh = new THREE.Mesh(pGeo, pMat);
       gridGroup.add(pMesh);
 
@@ -219,13 +211,13 @@ export default function KineticBackground({ opacity = 0.95 }) {
         y,
         minX: -xSpan - 1.2,
         maxX: xSpan + 1.2,
-        speed: 0.3 + idx * 0.08,
+        speed: 0.35 + idx * 0.08,
         progress: (idx * 0.2) % 1.0,
       });
     });
 
     // =========================================================================
-    // 2. PRECISION TAPERED GEAR TOOTH GEOMETRY (Involute Trapezoidal Prism)
+    // 2. PRECISION TAPERED GEAR TOOTH GEOMETRY
     // =========================================================================
     const createTaperedToothGeometry = (wBase, wTip, len, depth) => {
       const halfD = depth / 2;
@@ -256,7 +248,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     };
 
     // =========================================================================
-    // 3. ENHANCED GEAR FACTORY (Scaled to Comfortable Proportions)
+    // 3. MECHANICAL GEAR FACTORY (Smoked Titanium & Razor Chrome)
     // =========================================================================
     const createRefinedGear = ({
       radius = 1.75,
@@ -266,15 +258,15 @@ export default function KineticBackground({ opacity = 0.95 }) {
       toothLength = 0.24,
       toothBaseWidth = 0.17,
       toothTipWidth = 0.11,
-      primaryColor = COLOR_EMERALD,
-      accentColor = COLOR_LIME,
+      primaryColor = COLOR_TITANIUM,
+      accentColor = COLOR_CHROME_SHARP,
     }) => {
       const gearRoot = new THREE.Group();
       const outerR = radius;
       const innerR = radius - rimWidth;
       const halfDepth = axialDepth / 2;
 
-      // 1. Dual Rim Loops (Top & Bottom Axial Faces)
+      // Dual Rim Loops
       const topOuter = [];
       const botOuter = [];
       const topInner = [];
@@ -292,15 +284,15 @@ export default function KineticBackground({ opacity = 0.95 }) {
         botInner.push(new THREE.Vector3(cos * innerR, sin * innerR, -halfDepth));
       }
 
-      const rimMat = track(new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.85, depthWrite: false }));
-      const rimSubMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.55, depthWrite: false }));
+      const rimMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.92, depthWrite: false }));
+      const rimSubMat = track(new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.65, depthWrite: false }));
 
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(topOuter)), rimMat));
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(botOuter)), rimSubMat));
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(topInner)), rimSubMat));
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(botInner)), rimSubMat));
 
-      // Axial rim vertical connector struts (16 subtle links)
+      // Axial rim vertical connector struts
       const wallRibs = [];
       for (let w = 0; w < 16; w++) {
         const rad = (w / 16) * Math.PI * 2;
@@ -312,27 +304,27 @@ export default function KineticBackground({ opacity = 0.95 }) {
         );
       }
       const wallGeo = track(new THREE.BufferGeometry().setFromPoints(wallRibs));
-      gearRoot.add(new THREE.LineSegments(wallGeo, track(new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.24, depthWrite: false }))));
+      gearRoot.add(new THREE.LineSegments(wallGeo, track(new THREE.LineBasicMaterial({ color: COLOR_GRID_MAJOR, transparent: true, opacity: 0.32, depthWrite: false }))));
 
       // Translucent Ring Face Mesh
       const ringFaceGeo = track(new THREE.RingGeometry(innerR, outerR, 64));
       const ringFaceMat = track(new THREE.MeshBasicMaterial({
-        color: primaryColor,
+        color: COLOR_CARBON,
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.065,
+        opacity: 0.16,
         depthWrite: false,
       }));
       const topFace = new THREE.Mesh(ringFaceGeo, ringFaceMat);
       topFace.position.z = halfDepth;
       gearRoot.add(topFace);
 
-      // 2. Tapered Involute Gear Teeth
+      // Tapered Involute Gear Teeth
       const toothGeo = createTaperedToothGeometry(toothBaseWidth, toothTipWidth, toothLength, axialDepth);
       const toothEdgeGeo = track(new THREE.EdgesGeometry(toothGeo));
 
-      const toothMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.16, depthWrite: false }));
-      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.8, depthWrite: false }));
+      const toothMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.26, depthWrite: false }));
+      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.95, depthWrite: false }));
 
       const teethGroup = new THREE.Group();
       for (let i = 0; i < teethCount; i++) {
@@ -342,18 +334,18 @@ export default function KineticBackground({ opacity = 0.95 }) {
         const tooth = new THREE.Mesh(toothGeo, toothMat);
         tooth.add(new THREE.LineSegments(toothEdgeGeo, toothEdgeMat));
         tooth.position.set(Math.cos(angle) * toothDistance, Math.sin(angle) * toothDistance, 0);
-        tooth.rotation.z = angle - Math.PI / 2; // Point radially outward
+        tooth.rotation.z = angle - Math.PI / 2;
 
         teethGroup.add(tooth);
       }
       gearRoot.add(teethGroup);
 
-      // 3. Machined Lightening Pockets (6 Circular Windows in Web)
+      // Machined Lightening Pockets
       const holePocketsGroup = new THREE.Group();
       const holeRadius = rimWidth * 0.48;
       const holeCenterR = innerR - holeRadius - 0.06;
       const pocketRingGeo = track(new THREE.RingGeometry(holeRadius * 0.72, holeRadius, 24));
-      const pocketRingMat = track(new THREE.MeshBasicMaterial({ color: accentColor, side: THREE.DoubleSide, transparent: true, opacity: 0.2, depthWrite: false }));
+      const pocketRingMat = track(new THREE.MeshBasicMaterial({ color: accentColor, side: THREE.DoubleSide, transparent: true, opacity: 0.32, depthWrite: false }));
 
       for (let h = 0; h < 6; h++) {
         const ha = (h / 6) * Math.PI * 2;
@@ -363,18 +355,17 @@ export default function KineticBackground({ opacity = 0.95 }) {
       }
       gearRoot.add(holePocketsGroup);
 
-      // 4. Center Axle Hub with Ball Bearing Assembly
+      // Center Axle Hub with Ball Bearing Assembly
       const hubGroup = new THREE.Group();
       const hubOuterR = innerR * 0.36;
       const hubInnerR = innerR * 0.16;
 
       const hubRingsGeo = track(new THREE.RingGeometry(hubInnerR, hubOuterR, 32));
-      const hubRingsMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, side: THREE.DoubleSide, transparent: true, opacity: 0.22, depthWrite: false }));
+      const hubRingsMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, side: THREE.DoubleSide, transparent: true, opacity: 0.35, depthWrite: false }));
       hubGroup.add(new THREE.Mesh(hubRingsGeo, hubRingsMat));
 
-      // 8 Rolling Bearing Balls inside race
       const ballGeo = track(new THREE.SphereGeometry(0.035, 8, 8));
-      const ballMat = track(new THREE.MeshBasicMaterial({ color: accentColor, transparent: true, opacity: 0.8, depthWrite: false }));
+      const ballMat = track(new THREE.MeshBasicMaterial({ color: COLOR_CHROME_SHARP, transparent: true, opacity: 0.95, depthWrite: false }));
       const bearingRaceR = (hubOuterR + hubInnerR) / 2;
 
       for (let b = 0; b < 8; b++) {
@@ -384,7 +375,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
         hubGroup.add(ball);
       }
 
-      // 4 Structural web spokes connecting hub to rim
+      // 4 Structural web spokes
       const spokes = [];
       for (let s = 0; s < 4; s++) {
         const sa = (s * Math.PI) / 2;
@@ -401,17 +392,13 @@ export default function KineticBackground({ opacity = 0.95 }) {
     };
 
     // =========================================================================
-    // 4. FIXED ROTATION POINT & GEAR WHEEL ANCHORING (Comfortable Sizing)
+    // 4. FIXED ROTATION POINT & GEAR WHEEL ANCHORING
     // =========================================================================
-    // Fixed Contact Point in World Coordinates
     const fixedContactPoint = new THREE.Vector3(0.5, -0.4, 0);
 
-    // -------------------------------------------------------------------------
-    // WHEEL 1 (Lower Horizontal Gear Ring in Perspective - Scaled Down)
-    // -------------------------------------------------------------------------
-    const wheel1Radius = 1.75; // ~28% smaller, comfortable for eyes
+    const wheel1Radius = 1.75;
     const wheel1Teeth = 24;
-    const wheel1RotX = 1.22;   // Perspective tilt
+    const wheel1RotX = 1.22;
     const wheel1RotZ = -0.22;
 
     const gear1 = createRefinedGear({
@@ -422,14 +409,13 @@ export default function KineticBackground({ opacity = 0.95 }) {
       toothLength: 0.24,
       toothBaseWidth: 0.16,
       toothTipWidth: 0.10,
-      primaryColor: COLOR_EMERALD,
-      accentColor: COLOR_LIME,
+      primaryColor: COLOR_TITANIUM,
+      accentColor: COLOR_CHROME_SHARP,
     });
 
     const wheel1OrientationGroup = new THREE.Group();
     wheel1OrientationGroup.rotation.set(wheel1RotX, 0, wheel1RotZ, 'XYZ');
 
-    // Anchor Wheel 1 so its rim meets fixedContactPoint at angle 0
     const localContact1 = new THREE.Vector3(wheel1Radius, 0, 0);
     const worldOffset1 = localContact1.clone().applyEuler(wheel1OrientationGroup.rotation);
     const wheel1Center = fixedContactPoint.clone().sub(worldOffset1);
@@ -440,10 +426,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     wheel1OrientationGroup.add(wheel1SpinGroup);
     worldGroup.add(wheel1OrientationGroup);
 
-    // -------------------------------------------------------------------------
-    // WHEEL 2 (Upper Upright Inclined Gear Ring in Perspective - Scaled Down)
-    // -------------------------------------------------------------------------
-    const wheel2Radius = 1.85; // ~26% smaller, balanced ratio
+    const wheel2Radius = 1.85;
     const wheel2Teeth = 24;
     const wheel2Euler = new THREE.Euler(0.26, -0.38, -0.84, 'XYZ');
 
@@ -455,47 +438,45 @@ export default function KineticBackground({ opacity = 0.95 }) {
       toothLength: 0.24,
       toothBaseWidth: 0.16,
       toothTipWidth: 0.10,
-      primaryColor: COLOR_LIME,
-      accentColor: COLOR_MINT,
+      primaryColor: COLOR_CHROME_SHARP,
+      accentColor: COLOR_TITANIUM,
     });
 
     const wheel2OrientationGroup = new THREE.Group();
     wheel2OrientationGroup.rotation.copy(wheel2Euler);
 
-    // Anchor Wheel 2 so its bottom rim meets fixedContactPoint at angle -PI/2
     const localContact2 = new THREE.Vector3(0, -wheel2Radius, 0);
     const worldOffset2 = localContact2.clone().applyEuler(wheel2OrientationGroup.rotation);
     const wheel2Center = fixedContactPoint.clone().sub(worldOffset2);
     wheel2OrientationGroup.position.copy(wheel2Center);
 
     const wheel2SpinGroup = new THREE.Group();
-    // Calibrated half-pitch offset (PI / teeth) so teeth mesh directly into opposite valleys
     wheel2SpinGroup.rotation.z = Math.PI / wheel2Teeth;
     wheel2SpinGroup.add(gear2.root);
     wheel2OrientationGroup.add(wheel2SpinGroup);
     worldGroup.add(wheel2OrientationGroup);
 
     // =========================================================================
-    // 5. HERO MESH CONTACT NODE & KINETIC PULSE RINGS
+    // 5. HERO MESH CONTACT NODE & KINETIC PULSE RINGS (Deep Crimson Spark)
     // =========================================================================
     const meshNodeGroup = new THREE.Group();
     meshNodeGroup.position.copy(fixedContactPoint);
     worldGroup.add(meshNodeGroup);
 
-    // Core glowing contact spark
-    const meshCoreGeo = track(new THREE.SphereGeometry(0.075, 16, 16));
-    const meshCoreMat = track(new THREE.MeshBasicMaterial({ color: COLOR_LIME, transparent: true, opacity: 0.9, depthWrite: false }));
+    // Core glowing contact spark (Blazing Ruby Laser)
+    const meshCoreGeo = track(new THREE.SphereGeometry(0.08, 16, 16));
+    const meshCoreMat = track(new THREE.MeshBasicMaterial({ color: COLOR_RED_CORE, transparent: true, opacity: 0.98, depthWrite: false }));
     const meshCore = new THREE.Mesh(meshCoreGeo, meshCoreMat);
     meshNodeGroup.add(meshCore);
 
-    // Dual counter-rotating vernier alignment rings
+    // Dual counter-rotating vernier alignment rings (Deep Crimson & Wine)
     const ring1Geo = track(new THREE.RingGeometry(0.14, 0.18, 32));
-    const ring1Mat = track(new THREE.MeshBasicMaterial({ color: COLOR_LIME, side: THREE.DoubleSide, transparent: true, opacity: 0.45, depthWrite: false }));
+    const ring1Mat = track(new THREE.MeshBasicMaterial({ color: COLOR_RED_CRIMSON, side: THREE.DoubleSide, transparent: true, opacity: 0.55, depthWrite: false }));
     const meshRing1 = new THREE.Mesh(ring1Geo, ring1Mat);
     meshNodeGroup.add(meshRing1);
 
     const ring2Geo = track(new THREE.RingGeometry(0.25, 0.28, 32));
-    const ring2Mat = track(new THREE.MeshBasicMaterial({ color: COLOR_MINT, side: THREE.DoubleSide, transparent: true, opacity: 0.28, depthWrite: false }));
+    const ring2Mat = track(new THREE.MeshBasicMaterial({ color: COLOR_RED_WINE, side: THREE.DoubleSide, transparent: true, opacity: 0.38, depthWrite: false }));
     const meshRing2 = new THREE.Mesh(ring2Geo, ring2Mat);
     meshNodeGroup.add(meshRing2);
 
@@ -505,16 +486,16 @@ export default function KineticBackground({ opacity = 0.95 }) {
       new THREE.Vector3(0, -0.35, 0), new THREE.Vector3(0, 0.35, 0),
     ];
     const reticleGeo = track(new THREE.BufferGeometry().setFromPoints(reticlePoints));
-    const reticleMat = track(new THREE.LineBasicMaterial({ color: COLOR_LIME, transparent: true, opacity: 0.5, depthWrite: false }));
+    const reticleMat = track(new THREE.LineBasicMaterial({ color: COLOR_RED_CRIMSON, transparent: true, opacity: 0.65, depthWrite: false }));
     meshNodeGroup.add(new THREE.LineSegments(reticleGeo, reticleMat));
 
-    // Expanding kinetic shockwave pulses radiating from the mesh point
+    // Expanding kinetic shockwave pulses (Deep Crimson)
     const pulseCount = 3;
     const pulseRings = [];
     for (let k = 0; k < pulseCount; k++) {
       const pRingGeo = track(new THREE.RingGeometry(0.01, 0.035, 32));
       const pRingMat = track(new THREE.MeshBasicMaterial({
-        color: COLOR_LIME,
+        color: COLOR_RED_CRIMSON,
         side: THREE.DoubleSide,
         transparent: true,
         opacity: 0,
@@ -526,7 +507,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     }
 
     // =========================================================================
-    // 6. ATMOSPHERIC TELEMETRY PARTICLES & ACOUSTIC HARMONIC WAVE
+    // 6. ATMOSPHERIC PARTICLES & ACOUSTIC HARMONIC WAVE
     // =========================================================================
     const particleCount = 95;
     const particlePositions = new Float32Array(particleCount * 3);
@@ -538,16 +519,16 @@ export default function KineticBackground({ opacity = 0.95 }) {
     const particleGeo = track(new THREE.BufferGeometry());
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     const particleMat = track(new THREE.PointsMaterial({
-      color: COLOR_EMERALD,
+      color: COLOR_CHROME_SHARP,
       size: 0.04,
       transparent: true,
-      opacity: 0.32,
+      opacity: 0.35,
       sizeAttenuation: true,
       depthWrite: false,
     }));
     worldGroup.add(new THREE.Points(particleGeo, particleMat));
 
-    // Acoustic Harmonic Telemetry Wave in the deep background
+    // Acoustic Harmonic Telemetry Wave in the deep background (Deep Saturated Crimson)
     const wavePoints = [];
     const waveSegments = 140;
     for (let w = 0; w <= waveSegments; w++) {
@@ -555,7 +536,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
       wavePoints.push(new THREE.Vector3(wx, -3.0, -2.4));
     }
     const waveGeo = track(new THREE.BufferGeometry().setFromPoints(wavePoints));
-    const waveMat = track(new THREE.LineBasicMaterial({ color: COLOR_LIME, transparent: true, opacity: 0.16, depthWrite: false }));
+    const waveMat = track(new THREE.LineBasicMaterial({ color: COLOR_RED_CRIMSON, transparent: true, opacity: 0.3, depthWrite: false }));
     const waveLine = new THREE.Line(waveGeo, waveMat);
     worldGroup.add(waveLine);
 
@@ -586,7 +567,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     window.addEventListener('resize', handleResize);
 
     // =========================================================================
-    // 8. ANIMATION LOOP (Synchronized rotation at the fixed contact point)
+    // 8. ANIMATION LOOP
     // =========================================================================
     let lastTime = performance.now();
     let elapsed = 0;
@@ -598,38 +579,31 @@ export default function KineticBackground({ opacity = 0.95 }) {
       lastTime = now;
       elapsed += delta;
 
-      // Both wheels rotate in smooth synchronized counter-mesh
-      const gearSpeed = 0.20; // Silky, comfortable speed
+      const gearSpeed = 0.20;
       wheel1SpinGroup.rotation.z = elapsed * gearSpeed;
-      // Maintain half-pitch tooth mesh phase offset
       wheel2SpinGroup.rotation.z = (Math.PI / wheel2Teeth) - (elapsed * gearSpeed * (wheel1Radius / wheel2Radius));
 
-      // Hero mesh contact node animation
-      meshCore.scale.setScalar(1 + Math.sin(elapsed * 3.5) * 0.22);
+      meshCore.scale.setScalar(1 + Math.sin(elapsed * 3.5) * 0.25);
       meshRing1.rotation.z = elapsed * 0.4;
       meshRing2.rotation.z = -elapsed * 0.25;
 
-      // Radiating kinetic energy shockwave rings
       pulseRings.forEach((p) => {
         p.phase = (p.phase + delta * 0.4) % 1.0;
         const scale = 0.2 + p.phase * 2.2;
         p.mesh.scale.set(scale, scale, 1);
-        p.mesh.material.opacity = Math.sin((1 - p.phase) * Math.PI) * 0.28;
+        p.mesh.material.opacity = Math.sin((1 - p.phase) * Math.PI) * 0.38;
       });
 
-      // Traveling laser packets on extended grid lines
       laserPackets.forEach((lp) => {
         lp.progress = (lp.progress + delta * (lp.speed / 12)) % 1.0;
         lp.mesh.position.x = lp.minX + lp.progress * (lp.maxX - lp.minX);
         lp.mesh.position.y = lp.y;
       });
 
-      // Vertical sweeping scan line on grid
       const scanPeriod = 16;
       const scanProgress = (elapsed % scanPeriod) / scanPeriod;
       scanLine.position.y = ySpan - scanProgress * (ySpan * 2);
 
-      // Harmonic wave oscillation in background
       const wavePos = waveGeo.attributes.position;
       for (let w = 0; w <= waveSegments; w++) {
         const wx = wavePos.getX(w);
@@ -638,8 +612,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
       }
       wavePos.needsUpdate = true;
 
-      // Subtle atmospheric breathing in grid opacity
-      majorMat.opacity = 0.15 + Math.sin(elapsed * 1.0) * 0.03;
+      majorMat.opacity = 0.40 + Math.sin(elapsed * 1.0) * 0.05;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
@@ -692,15 +665,15 @@ export default function KineticBackground({ opacity = 0.95 }) {
       }}
       aria-hidden="true"
     >
-      {/* Deep chassis dark forest gradient background */}
+      {/* Deepest obsidian black void with velvety wine & blood-crimson radial aura */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 90% 75% at 50% 30%, rgba(16, 185, 129, 0.06) 0%, transparent 65%),
-            radial-gradient(ellipse 80% 65% at 85% 75%, rgba(199, 223, 155, 0.04) 0%, transparent 60%),
-            linear-gradient(180deg, #070e0b 0%, #091511 40%, #06110d 75%, #040907 100%)
+            radial-gradient(ellipse 90% 75% at 50% 30%, rgba(190, 18, 60, 0.08) 0%, transparent 65%),
+            radial-gradient(ellipse 80% 65% at 85% 75%, rgba(136, 19, 55, 0.06) 0%, transparent 60%),
+            linear-gradient(180deg, #020204 0%, #06070a 40%, #040406 75%, #010102 100%)
           `,
         }}
       />
@@ -717,12 +690,12 @@ export default function KineticBackground({ opacity = 0.95 }) {
         }}
       />
 
-      {/* Ambient edge vignette */}
+      {/* Deep inky black ambient edge vignette */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse at center, transparent 48%, rgba(4, 9, 7, 0.75) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 45%, rgba(1, 1, 2, 0.88) 100%)',
           pointerEvents: 'none',
         }}
       />
