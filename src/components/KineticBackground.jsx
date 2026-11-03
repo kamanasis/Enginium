@@ -280,8 +280,8 @@ export default function KineticBackground({ opacity = 0.95 }) {
         botInner.push(new THREE.Vector3(cos * innerR, sin * innerR, -halfDepth));
       }
 
-      const rimMat = track(new THREE.LineBasicMaterial({ color: rimColor, transparent: true, opacity: 0.95, depthWrite: false }));
-      const rimSubMat = track(new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.7, depthWrite: false }));
+      const rimMat = track(new THREE.LineBasicMaterial({ color: rimColor, transparent: true, opacity: 0.48, depthWrite: false }));
+      const rimSubMat = track(new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.28, depthWrite: false }));
 
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(topOuter)), rimMat));
       gearRoot.add(new THREE.LineLoop(track(new THREE.BufferGeometry().setFromPoints(botOuter)), rimSubMat));
@@ -320,7 +320,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
       const toothEdgeGeo = track(new THREE.EdgesGeometry(toothGeo));
 
       const toothMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.28, depthWrite: false }));
-      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.95, depthWrite: false }));
+      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.45, depthWrite: false }));
 
       const teethGroup = new THREE.Group();
       for (let i = 0; i < teethCount; i++) {
@@ -361,7 +361,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
       hubGroup.add(new THREE.Mesh(hubRingsGeo, hubRingsMat));
 
       const ballGeo = track(new THREE.SphereGeometry(0.035, 8, 8));
-      const ballMat = track(new THREE.MeshBasicMaterial({ color: COLOR_SILVER_RIM, transparent: true, opacity: 0.98, depthWrite: false }));
+      const ballMat = track(new THREE.MeshBasicMaterial({ color: COLOR_SILVER_RIM, transparent: true, opacity: 0.55, depthWrite: false }));
       const bearingRaceR = (hubOuterR + hubInnerR) / 2;
 
       for (let b = 0; b < 8; b++) {
@@ -390,7 +390,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     // =========================================================================
     // 4. FIXED ROTATION POINT & GEAR WHEEL ANCHORING
     // =========================================================================
-    const fixedContactPoint = new THREE.Vector3(0.5, -0.4, 0);
+    const fixedContactPoint = new THREE.Vector3(0.6, -1.1, -0.5);
 
     const wheel1Radius = 1.75;
     const wheel1Teeth = 24;
@@ -692,7 +692,10 @@ export default function KineticBackground({ opacity = 0.95 }) {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.92) 100%)',
+          background: `
+            radial-gradient(ellipse 75% 55% at 50% 34%, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 75%),
+            radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.92) 100%)
+          `,
           pointerEvents: 'none',
         }}
       />

@@ -250,6 +250,13 @@
   text-align: center;
   max-width: 980px;
   margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  padding: 28px 24px;
+  border-radius: 32px;
+  background: radial-gradient(ellipse 90% 75% at 50% 45%, rgba(3, 4, 7, 0.82) 0%, rgba(3, 4, 7, 0.5) 55%, transparent 90%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .en-kicker-badge {
@@ -289,6 +296,7 @@
   letter-spacing: -0.03em;
   color: #ffffff;
   margin-bottom: 24px;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 0, 0, 0.9);
 }
 
 .en-title-gradient {
@@ -300,10 +308,12 @@
 
 .en-hero-subtitle {
   font-size: clamp(1rem, 1.8vw, 1.25rem);
-  color: #94a3b8;
+  color: #e2e8f0;
+  font-weight: 450;
   max-width: 720px;
   margin: 0 auto 36px;
-  line-height: 1.65;
+  line-height: 1.68;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.98), 0 0 24px rgba(0, 0, 0, 0.95);
 }
 
 .en-hero-cta-group {
@@ -378,12 +388,13 @@
 }
 
 .en-telemetry-card {
-  background: rgba(9, 10, 15, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(10, 12, 18, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 14px;
   padding: 18px 16px;
   text-align: center;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   position: relative;
   overflow: hidden;
 }
@@ -507,7 +518,8 @@
 
 .en-section-desc {
   font-size: 1.0625rem;
-  color: #94a3b8;
+  color: #cbd5e1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 }
 
 /* Interactive Interactive Feature Tabs */
@@ -544,17 +556,25 @@
 
 /* Feature Stage Box */
 .en-feature-stage {
-  background: rgba(8, 9, 14, 0.94);
+  background: rgba(10, 12, 18, 0.95);
   border: 1px solid #2a2d39;
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 @media (min-width: 768px) {
   .en-feature-stage {
-    padding: 48px;
-  }
+  background: rgba(10, 12, 18, 0.95);
+  border: 1px solid #2a2d39;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
 }
 
 /* Grid of Systems */
@@ -577,7 +597,7 @@
 }
 
 .en-system-card {
-  background: rgba(9, 10, 15, 0.92);
+  background: rgba(10, 12, 18, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 24px;
@@ -585,6 +605,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-system-card:hover {
@@ -615,7 +637,7 @@
 
 .en-system-card p {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: #cbd5e1;
   line-height: 1.55;
   margin-bottom: 20px;
 }
@@ -644,12 +666,14 @@
 .en-part-preview-card {
   flex: 0 0 280px;
   scroll-snap-align: start;
-  background: rgba(9, 10, 15, 0.92);
+  background: rgba(10, 12, 18, 0.94);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.2s ease;
   cursor: pointer;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-part-preview-card:hover {
@@ -704,7 +728,9 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #2a2d39;
-  background: rgba(9, 10, 15, 0.92);
+  background: rgba(10, 12, 18, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-compare-table th,
@@ -739,14 +765,16 @@
 
 /* Call to Action Banner */
 .en-cta-banner {
-  background: linear-gradient(135deg, rgba(35, 10, 18, 0.95) 0%, rgba(13, 14, 20, 0.98) 100%);
-  border: 1px solid #4a4f5f;
+  background: linear-gradient(135deg, rgba(16, 18, 26, 0.96) 0%, rgba(8, 9, 14, 0.98) 100%);
+  border: 1px solid #282d3e;
   border-radius: 24px;
   padding: 56px 32px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .en-cta-banner::before {
@@ -769,7 +797,7 @@
 
 .en-cta-desc {
   font-size: 1.125rem;
-  color: #94a3b8;
+  color: #cbd5e1;
   max-width: 640px;
   margin: 0 auto 36px;
   line-height: 1.6;
