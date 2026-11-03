@@ -319,8 +319,8 @@ export default function KineticBackground({ opacity = 0.95 }) {
       const toothGeo = createTaperedToothGeometry(toothBaseWidth, toothTipWidth, toothLength, axialDepth);
       const toothEdgeGeo = track(new THREE.EdgesGeometry(toothGeo));
 
-      const toothMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.28, depthWrite: false }));
-      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.45, depthWrite: false }));
+      const toothMat = track(new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.16, depthWrite: false }));
+      const toothEdgeMat = track(new THREE.LineBasicMaterial({ color: accentColor, transparent: true, opacity: 0.24, depthWrite: false }));
 
       const teethGroup = new THREE.Group();
       for (let i = 0; i < teethCount; i++) {
@@ -390,7 +390,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     // =========================================================================
     // 4. FIXED ROTATION POINT & GEAR WHEEL ANCHORING
     // =========================================================================
-    const fixedContactPoint = new THREE.Vector3(0.9, -1.7, -0.6);
+    const fixedContactPoint = new THREE.Vector3(1.15, -2.05, -0.7);
 
     const wheel1Radius = 1.35;
     const wheel1Teeth = 24;

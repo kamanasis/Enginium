@@ -219,11 +219,9 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            <span className="en-title-white">The Digital Twin for</span> <br className="hidden sm:inline" />
-            <span className="en-title-gradient">Motorcycle Engineering</span> <br className="hidden sm:inline" />
-            <span className="en-title-sub">
-              &amp; Precision <span className="en-title-red-highlight">DIY</span> <span className="en-title-grey">Repair.</span>
-            </span>
+            <span className="en-hero-title-top">The Digital Twin for</span> <br className="hidden sm:inline" />
+            <span className="en-hero-title-main">Motorcycle Engineering</span> <br className="hidden sm:inline" />
+            <span className="en-hero-title-bottom">&amp; Precision DIY Repair.</span>
           </motion.h1>
 
           <motion.p
