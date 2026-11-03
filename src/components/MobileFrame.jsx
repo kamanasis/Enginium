@@ -34,7 +34,7 @@ export default function MobileFrame({ children }) {
         </div>
 
         {/* Custom Premium Status Bar */}
-        <div className="h-11 shrink-0 pt-3 px-8 flex justify-between items-center text-xs font-semibold select-none text-[#fca5a5] z-40 bg-[#0e0f14] border-b border-white/[0.06]">
+        <div className="h-11 shrink-0 pt-3 px-8 flex justify-between items-center text-xs font-semibold select-none text-zinc-300 z-40 bg-[#0e0f14] border-b border-white/[0.06]">
           <span>{time}</span>
           <div className="flex items-center gap-1.5">
             <Signal className="w-3.5 h-3.5" />

@@ -398,7 +398,7 @@ export default function App() {
   // Standalone Full-Bleed Landing Page
   if (viewMode !== 'flow' && activeTab === 'landing') {
     return (
-      <div className="min-h-screen bg-[#030305] text-[#fca5a5] selection:bg-red-600 selection:text-white">
+      <div className="min-h-screen bg-[#020204] text-slate-100 selection:bg-red-600 selection:text-white">
         <LandingView
           selectedVehicle={selectedVehicle}
           onSelectVehicle={setSelectedVehicle}

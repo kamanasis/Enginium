@@ -28,7 +28,7 @@ export default function Navbar({ activeTab, setActiveTab }) {
             onClick={() => setActiveTab(item.id)}
             aria-current={isActive ? 'page' : undefined}
             className={`flex flex-col items-center justify-center flex-none min-w-[62px] flex-1 h-full py-1.5 relative transition-all duration-200 en-focus-ring ${
-              isActive ? 'text-[#ff3344]' : 'text-[#828898] hover:text-[#f87171]'
+              isActive ? 'text-[#ff1744]' : 'text-[#828898] hover:text-white'
             }`}
           >
             {isActive && (

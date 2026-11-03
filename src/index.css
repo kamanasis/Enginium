@@ -8,10 +8,10 @@
   :root {
     color-scheme: dark;
     --en-bg: #030305;
-    --en-surface: #0e0f14;
-    --en-surface-strong: #14161f;
-    --en-border: #232530;
-    --en-lime: #ff2a3b;
+    --en-surface: #0c0e14;
+    --en-surface-strong: #12141c;
+    --en-border: #1f2330;
+    --en-lime: #ff1744;
     --en-muted: #94a3b8;
   }
 
@@ -440,7 +440,7 @@
 }
 
 .ui-title {
-  color: #fce7e8;
+  color: #ffffff;
   font-size: clamp(1.65rem, 2.7vw, 2.2rem);
   font-weight: 750;
   letter-spacing: -0.04em;
@@ -450,7 +450,7 @@
 
 .ui-eyebrow,
 .ui-label {
-  color: #ff4d6d;
+  color: #94a3b8;
   display: block;
   font-size: 0.72rem;
   font-weight: 800;
@@ -465,14 +465,17 @@
 }
 
 .ui-muted {
-  color: var(--en-muted);
+  color: #94a3b8;
   font-size: 0.9375rem;
   line-height: 1.55;
 }
 
 .ui-btn {
   align-items: center;
-  background: #161822; border: 1px solid #2a2e3d; border-radius: 12px; color: #fca5a5;
+  background: #12141c;
+  border: 1px solid #232736;
+  border-radius: 12px;
+  color: #ffffff;
   cursor: pointer;
   display: inline-flex;
   font-size: 0.88rem;
@@ -482,11 +485,13 @@
   line-height: 1.2;
   min-height: 44px;
   padding: 10px 16px;
-  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+  transition: all 160ms ease;
 }
 
 .ui-btn:hover:not(:disabled) {
-  background: #232636; border-color: #ff2a4b; color: #ffffff;
+  background: #181b26;
+  border-color: #ff1744;
+  color: #ffffff;
 }
 
 .ui-btn:active:not(:disabled) {
@@ -499,13 +504,17 @@
 }
 
 .ui-btn-primary {
-  background: var(--shell-lime);
-  border-color: var(--shell-lime);
-  color: var(--shell-forest-deep);
+  background: #141622;
+  border-color: #ff1744;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 23, 68, 0.25);
 }
 
 .ui-btn-primary:hover:not(:disabled) {
-  background: #ff4d6d; border-color: #ff4d6d; color: #ffffff;
+  background: #ff1744;
+  border-color: #ff1744;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 23, 68, 0.5);
 }
 
 .ui-btn-quiet {

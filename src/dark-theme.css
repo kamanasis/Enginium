@@ -18,14 +18,14 @@
 .app-shell .app-topbar {
   background: rgba(11, 12, 16, 0.92);
   border-bottom-color: rgba(255, 255, 255, 0.08);
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .app-topbar-label,
 .app-shell .app-mobile-brand,
 .app-shell .app-vehicle-picker,
 .app-shell .app-mode-switcher button {
-  color: #ff4d6d;
+  color: #94a3b8;
 }
 
 .app-shell .app-vehicle-picker {
@@ -57,13 +57,13 @@
 
 .app-shell .app-vehicle-menu-heading {
   background: #0e0f14;
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .app-vehicle-menu button {
   background: #14151c;
   border-top-color: #232634;
-  color: #fca5a5;
+  color: #ffffff;
 }
 
 .app-shell .app-vehicle-menu button:hover,
@@ -73,7 +73,7 @@
 
 .app-shell .app-vehicle-menu button small,
 .app-shell .app-vehicle-menu button > span:last-child {
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .app-mobile-nav {
@@ -82,7 +82,7 @@
 }
 
 .app-shell .app-mobile-nav button {
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .app-mobile-nav button.is-active {
@@ -105,7 +105,7 @@
 }
 
 .app-shell .preview-nav-item {
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .preview-nav-item:hover,
@@ -123,8 +123,8 @@
   --workspace-forest-deep: #0c0d13;
   --workspace-red: #ff3344;
   --workspace-lime: #ff3344;
-  --workspace-charcoal: #fce7e8;
-  --workspace-muted: #ff4d6d;
+  --workspace-charcoal: #ffffff;
+  --workspace-muted: #94a3b8;
   --workspace-border: #2c2f3b;
   --workspace-orange: #efb47f;
   --workspace-orange-soft: rgba(185, 106, 43, 0.16);
@@ -211,7 +211,7 @@
 
 .app-shell .tool-view {
   --tool-canvas: rgba(4, 5, 8, 0.78);
-  --tool-text: #f1f5f9;
+  --tool-text: #ffffff;
   --tool-muted: #94a3b8;
   --tool-border: #232632;
   --tool-panel: rgba(13, 14, 20, 0.92);
@@ -243,7 +243,7 @@
 .app-shell .tool-view select.ui-input {
   background: #101117;
   border-color: #2d303d;
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .ui-input::placeholder {
@@ -253,7 +253,7 @@
 .app-shell .tool-view .ui-btn {
   background: #161820;
   border-color: #2d303d;
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .ui-btn:hover:not(:disabled) {
@@ -276,13 +276,13 @@
 .app-shell .tool-view .ui-btn-quiet {
   background: transparent;
   border-color: transparent;
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .tool-view .ui-btn-quiet:hover:not(:disabled) {
   background: rgba(239, 68, 68, 0.1);
   border-color: #2d303d;
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .tool-notice,
@@ -308,13 +308,13 @@
 .app-shell .tool-view .learn-search-count {
   background: #12141c;
   border-color: #2d303d;
-  color: #e0b0b7;
+  color: #94a3b8;
 }
 
 .app-shell .tool-view .learn-quick-chip {
   background: #0e0f15;
   border-color: #282b36;
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .learn-quick-chip:hover {
@@ -351,7 +351,7 @@
 .app-shell .tool-view .acoustic-record {
   background: rgba(239, 68, 68, 0.1);
   border-color: #2d303d;
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .learn-module:hover,
@@ -372,7 +372,7 @@
 .app-shell .tool-view h3,
 .app-shell .tool-view h4,
 .app-shell .tool-view strong {
-  color: #fce7e8;
+  color: #ffffff;
 }
 
 .app-shell .tool-view .ui-tag {
@@ -390,5 +390,5 @@
 .app-shell .tool-view .ui-tag-demo {
   background: rgba(255, 255, 255, 0.06);
   border-color: #2d303d;
-  color: #e0b0b7;
+  color: #94a3b8;
 }
