@@ -620,7 +620,7 @@
 .workspace-hotspot:hover .workspace-hotspot-marker,
 .workspace-hotspot:focus-visible .workspace-hotspot-marker,
 .workspace-hotspot.is-selected .workspace-hotspot-marker {
-  background: #1f0f14;
+  background: #0d0f17;
   box-shadow: 0 0 0 4px rgba(255, 23, 68, 0.35);
 }
 

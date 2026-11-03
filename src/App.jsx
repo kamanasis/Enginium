@@ -142,7 +142,7 @@ export default function App() {
 
           <button
             onClick={() => setShowSplash(false)}
-            className="z-10 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-2xl px-8 py-3.5 text-xs font-black tracking-widest uppercase transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-500/40 glow-red active:scale-95"
+            className="z-10 bg-[#12141d] hover:bg-[#ff1744] text-[#ff1744] hover:text-white border border-[#ff1744] shadow-lg shadow-red-500/25 rounded-2xl px-8 py-3.5 text-xs font-black tracking-widest uppercase transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-500/40 glow-red active:scale-95"
           >
             <Play className="w-4 h-4 fill-black" />
             GET STARTED

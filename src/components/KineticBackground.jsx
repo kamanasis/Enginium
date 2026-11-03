@@ -47,7 +47,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     const COLOR_GRID_MINOR = 0x242938;     // Deep smoked graphite
     const COLOR_GRID_MAJOR = 0x48516b;     // Structural cold steel
     const COLOR_GRID_EXT = 0x5e6885;       // Extended construction lines
-    const COLOR_CHROME_SHARP = 0xff3355;   // Radiant ruby-chrome tooth edges
+    const COLOR_CHROME_SHARP = 0xc0c8d8;   // Radiant ruby-chrome tooth edges
     const COLOR_SILVER_RIM = 0xd8deeb;     // Polished silver rim loop
     const COLOR_TITANIUM = 0x6e7790;       // Titanium gear elements
     const COLOR_CARBON = 0x141620;         // Forged carbon translucent face
@@ -669,9 +669,8 @@ export default function KineticBackground({ opacity = 0.95 }) {
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(ellipse 90% 75% at 50% 30%, rgba(220, 20, 60, 0.12) 0%, transparent 65%),
-            radial-gradient(ellipse 80% 65% at 85% 75%, rgba(150, 10, 30, 0.08) 0%, transparent 60%),
-            linear-gradient(180deg, #010103 0%, #050609 40%, #030305 75%, #000000 100%)
+            radial-gradient(ellipse 85% 65% at 50% 25%, rgba(255, 255, 255, 0.02) 0%, transparent 65%),
+            linear-gradient(180deg, #000000 0%, #040507 40%, #07080c 75%, #000000 100%)
           `,
         }}
       />

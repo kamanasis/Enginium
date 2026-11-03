@@ -21,7 +21,7 @@ export default function MobileFrame({ children }) {
   }, []);
 
   return (
-    <div className="w-full min-h-0 flex-1 bg-[#07080c] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-950/20 via-[#0d0e14] to-[#050507] flex items-center justify-center p-2 sm:p-4 font-sans">
+    <div className="w-full min-h-0 flex-1 bg-[#07080c] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#181a24] via-[#0d0e14] to-[#050507] flex items-center justify-center p-2 sm:p-4 font-sans">
       {/* Premium Bezel / Mobile casing for Desktop rendering */}
       <div className="relative w-full max-w-[430px] h-[82vh] max-h-[880px] bg-[#0e0f14] rounded-[46px] shadow-[0_0_0_8px_#1f212c,_0_25px_70px_-15px_rgba(0,0,0,0.8)] border-4 border-[#2c2f3a] flex flex-col overflow-hidden transition-all duration-300">
         
