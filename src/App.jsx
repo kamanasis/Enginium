@@ -132,8 +132,8 @@ export default function App() {
             <span className="text-[10px] text-[#ff1744] tracking-[0.25em] font-extrabold uppercase bg-red-500/15 px-3.5 py-1.5 rounded-full border border-red-500/35">
               DIGITAL MECHANIC PLATFORM
             </span>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mt-2">
-              ENGIN<span className="text-[#ff1744]">IUM</span>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight mt-2 en-brand-text">
+              ENGINIUM
             </h1>
             <p className="text-xs md:text-sm text-zinc-400 max-w-[320px] mx-auto mt-1 leading-relaxed">
               Interactive diagnostics, parts manual, sound frequency analysis, and legacy documentation.
@@ -363,8 +363,8 @@ export default function App() {
         {/* Floating Switcher Bar */}
         <div className="bg-[#121319] border-b border-[#2c2f3b] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
           <div className="flex items-center gap-2">
-            <span className="font-black text-white tracking-widest text-sm flex items-center gap-1.5">
-              <span className="text-red-500">ENGIN</span>IUM
+            <span className="font-black tracking-widest text-sm flex items-center gap-1.5 en-brand-text">
+              ENGINIUM
             </span>
             <span className="text-[10px] text-[#d8b4ba] font-mono">/ Design flow canvas</span>
           </div>

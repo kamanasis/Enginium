@@ -51,6 +51,17 @@
     background: rgba(14, 15, 21, 0.85); border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  .en-brand-text {
+    font-size: 1.125rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 38%, #ff3b5c 56%, #dc2626 74%, #b91c1c 90%, #881337 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.45));
+    display: inline-block;
+  }
+
   .en-kicker {
     color: var(--en-muted);
     font-size: 0.625rem;

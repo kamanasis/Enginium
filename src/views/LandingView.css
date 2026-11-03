@@ -121,13 +121,23 @@
 .en-brand-text {
   font-size: 1.125rem;
   font-weight: 900;
-  letter-spacing: 0.1em;
-  color: #ffffff;
+  letter-spacing: 0.12em;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 38%, #ff3b5c 56%, #dc2626 74%, #b91c1c 90%, #881337 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.45));
+  display: inline-block;
+  transition: all 0.25s ease;
 }
 
 .en-brand-text span {
-  color: #ff1744;
-  text-shadow: 0 0 16px rgba(255, 23, 68, 0.65);
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.en-brand:hover .en-brand-text {
+  filter: drop-shadow(0 0 24px rgba(220, 38, 38, 0.7));
 }
 
 .en-nav-links {

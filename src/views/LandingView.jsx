@@ -120,7 +120,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               <Scan size={20} />
             </div>
             <div className="en-brand-text">
-              ENGIN<span>IUM</span>
+              ENGINIUM
             </div>
           </button>
 
@@ -718,8 +718,8 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               <div className="en-brand-icon">
                 <Scan size={18} />
               </div>
-              <strong className="text-white text-base tracking-wider font-extrabold">
-                ENGIN<span className="text-[#ff1744] font-bold">IUM</span>
+              <strong className="en-brand-text text-base tracking-wider font-extrabold">
+                ENGINIUM
               </strong>
             </div>
             <p className="text-xs text-slate-200 leading-relaxed max-w-sm mb-4">

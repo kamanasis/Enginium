@@ -99,8 +99,8 @@ export default function DesignBoardView({
                 <span className="text-[10px] text-[#ff1744] tracking-[0.25em] font-extrabold uppercase bg-red-500/10 px-3 py-1 rounded-full border border-red-500/30">
                   DIGITAL MECHANIC PLATFORM
                 </span>
-                <h1 className="text-4xl font-black tracking-tight text-white">
-                  ENGIN<span className="text-[#ff1744]">IUM</span>
+                <h1 className="text-4xl font-black tracking-tight en-brand-text">
+                  ENGINIUM
                 </h1>
                 <p className="text-xs text-zinc-400 leading-relaxed max-w-[260px]">
                   Interactive diagnostics, parts manual, and legacy documentation for single cylinder vehicles.
