@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import EngineeringBackdrop from './components/EngineeringBackdrop';
+import KineticBackground from './components/KineticBackground';
 import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
 import LearnView from './views/LearnView';
@@ -358,7 +358,8 @@ export default function App() {
   // If user selected FIGMA FLOW BOARD MODE
   if (viewMode === 'flow') {
     return (
-      <div className="h-screen flex flex-col bg-[#07100e]">
+      <div className="h-screen flex flex-col bg-[#07100e] relative isolate">
+        <KineticBackground opacity={0.75} />
         {/* Floating Switcher Bar */}
         <div className="bg-[#0b2118] border-b border-[#29483a] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
           <div className="flex items-center gap-2">
@@ -413,7 +414,7 @@ export default function App() {
 
   return (
     <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-lime-200 selection:text-[#173d30] relative isolate">
-      <EngineeringBackdrop />
+      <KineticBackground opacity={0.88} />
       <aside className="app-sidebar hidden lg:flex">
         <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('landing'); }}>
           <span className="app-brand-mark">EN</span>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Home, Compass, BookOpen, ShieldAlert, Activity, Scan, Users, User, Sparkles } from 'lucide-react';
+import { Home, Compass, BookOpen, ShieldAlert, Activity, Scan, Users, User } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   const navItems = [
-    { id: 'landing', label: 'Landing', icon: Sparkles },
     { id: 'hud', label: 'Inspect', icon: Scan, isPrimary: true },
     { id: 'home', label: 'Home', icon: Home },
     { id: 'garage', label: 'Garage', icon: ShieldAlert },

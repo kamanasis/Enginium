@@ -7,6 +7,7 @@ import {
   Menu, X, Sparkles, Layers, Sliders, Eye
 } from 'lucide-react';
 import EngineBlueprintAnimation from '../components/EngineBlueprintAnimation';
+import KineticBackground from '../components/KineticBackground';
 import { vehiclesData } from '../data/vehicles';
 import './LandingView.css';
 
@@ -108,12 +109,8 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
 
   return (
     <div className="en-landing">
-      {/* Dynamic Background */}
-      <div className="en-landing-ambient" aria-hidden="true">
-        <div className="en-ambient-glow-1" />
-        <div className="en-ambient-glow-2" />
-        <div className="en-landing-grid" />
-      </div>
+      {/* Smooth Themed Kinetic Background */}
+      <KineticBackground opacity={0.92} />
 
       {/* Top Navbar */}
       <header className="en-nav-header">
