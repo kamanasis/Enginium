@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default function EngineBlueprintAnimation({ themeColor = '#06b6d4', speed = 0.02 }) {
+export default function EngineBlueprintAnimation({ themeColor = '#ff1e38', speed = 0.02 }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {

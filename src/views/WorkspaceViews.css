@@ -245,7 +245,7 @@
 }
 
 .workspace-home-hero-figure::after {
-  background: linear-gradient(180deg, rgba(16, 46, 37, 0.04), rgba(16, 46, 37, 0.78));
+  background: linear-gradient(180deg, rgba(136, 19, 55, 0.04), rgba(10, 11, 16, 0.88));
   content: '';
   inset: 0;
   pointer-events: none;
@@ -371,7 +371,7 @@
 
 .workspace-tool-card:hover {
   border-color: #a5bcae;
-  box-shadow: 0 10px 22px rgba(31, 52, 43, 0.08);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
   transform: translateY(-2px);
 }
 
@@ -566,9 +566,9 @@
 
 .workspace-hud-viewport::after {
   background:
-    linear-gradient(90deg, rgba(10, 35, 27, 0.46) 1px, transparent 1px),
-    linear-gradient(rgba(10, 35, 27, 0.46) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(10, 35, 27, 0.2), rgba(10, 35, 27, 0.5));
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(136, 19, 55, 0.06), rgba(10, 11, 16, 0.6));
   background-size: 38px 38px, 38px 38px, auto;
   content: '';
   inset: 0;
@@ -902,7 +902,7 @@
 
 .workspace-fleet-card.is-active {
   border-color: #9db6a6;
-  box-shadow: 0 12px 30px rgba(36, 92, 70, 0.09);
+  box-shadow: 0 12px 30px rgba(220, 38, 38, 0.15);
 }
 
 .workspace-fleet-card h3 {
@@ -1258,7 +1258,7 @@
 }
 
 .workspace-dialog::backdrop {
-  background: rgba(16, 46, 37, 0.58);
+  background: rgba(14, 15, 22, 0.88);
 }
 
 .workspace-dialog-form {

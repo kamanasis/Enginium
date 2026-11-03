@@ -5,7 +5,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: transparent;
-  color: #fef2f2;
+  color: #fca5a5;
   overflow-x: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.5;
@@ -99,7 +99,7 @@
   gap: 12px;
   background: none;
   border: none;
-  color: #fff;
+  color: #ff2e4d;
   cursor: pointer;
   text-decoration: none;
   padding: 0;
@@ -126,7 +126,8 @@
 }
 
 .en-brand-text span {
-  color: #ff3344;
+  color: #ff1744;
+  text-shadow: 0 0 16px rgba(255, 23, 68, 0.65);
 }
 
 .en-nav-links {
@@ -144,7 +145,7 @@
 .en-nav-link {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #f87171;
   background: none;
   border: none;
   cursor: pointer;
@@ -153,7 +154,7 @@
 }
 
 .en-nav-link:hover {
-  color: #ffffff;
+  color: #ff2e4d;
 }
 
 .en-nav-actions {
@@ -169,13 +170,13 @@
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 0.8125rem;
-  font-weight: 750;
+  font-weight: 800;
   letter-spacing: 0.04em;
-  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #881337 100%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(225, 29, 72, 0.4), 0 2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 28px rgba(220, 38, 38, 0.5), 0 4px 15px rgba(0, 0, 0, 0.8);
   transition: all 0.2s ease;
 }
 
@@ -252,8 +253,8 @@
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(225, 29, 72, 0.12);
-  border: 1px solid rgba(225, 29, 72, 0.4);
+  background: rgba(159, 18, 57, 0.28);
+  border: 1px solid rgba(255, 23, 68, 0.55);
   color: #ff3344;
   font-size: 0.75rem;
   font-weight: 750;
@@ -281,22 +282,23 @@
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -0.03em;
-  color: #ffffff;
+  color: #ff2e4d;
   margin-bottom: 24px;
 }
 
 .en-title-gradient {
-  background: linear-gradient(135deg, #ffffff 35%, #ff2a3b 70%, #be123c 100%);
+  background: linear-gradient(135deg, #ffffff 5%, #ff3b5c 35%, #ff0038 70%, #99001f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(255, 0, 51, 0.35));
 }
 
 .en-hero-subtitle {
   font-size: clamp(1rem, 1.8vw, 1.25rem);
-  color: #cbd5e1;
+  color: #f87171;
   max-width: 720px;
   margin: 0 auto 36px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .en-hero-cta-group {
@@ -314,13 +316,13 @@
   gap: 10px;
   padding: 14px 28px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #e11d48 0%, #be123c 50%, #9f1239 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 45%, #7f1d1d 100%);
   color: #ffffff;
   font-size: 0.9375rem;
   font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  box-shadow: 0 0 35px rgba(225, 29, 72, 0.45), 0 4px 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 40px rgba(220, 38, 38, 0.55), 0 8px 30px rgba(0, 0, 0, 0.9);
   transition: all 0.25s ease;
 }
 
@@ -336,8 +338,8 @@
   gap: 10px;
   padding: 14px 28px;
   border-radius: 12px;
-  background: rgba(14, 16, 22, 0.85);
-  color: #fef2f2;
+  background: rgba(9, 10, 15, 0.92);
+  color: #fca5a5;
   border: 1px solid #2a2d39;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -349,7 +351,7 @@
 .en-btn-secondary-hero:hover {
   background: rgba(24, 26, 36, 0.9);
   border-color: #4a4f5f;
-  color: #fff;
+  color: #ff2e4d;
   transform: translateY(-2px);
 }
 
@@ -370,7 +372,7 @@
 }
 
 .en-telemetry-card {
-  background: rgba(13, 14, 20, 0.85);
+  background: rgba(9, 10, 15, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
   padding: 18px 16px;
@@ -394,14 +396,15 @@
 .en-telemetry-number {
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   font-weight: 900;
-  color: #ff3344;
+  color: #ff0033;
   letter-spacing: -0.02em;
+  text-shadow: 0 0 25px rgba(255, 0, 51, 0.55);
 }
 
 .en-telemetry-label {
   font-size: 0.75rem;
-  font-weight: 600;
-  color: #94a3b8;
+  font-weight: 700;
+  color: #ff4d6d;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 4px;
@@ -453,7 +456,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   background: rgba(10, 11, 16, 0.85);
-  border: 1px solid rgba(225, 29, 72, 0.4);
+  border: 1px solid rgba(255, 23, 68, 0.55);
   color: #ff3344;
 }
 
@@ -491,14 +494,17 @@
   font-size: clamp(1.8rem, 3.5vw, 2.75rem);
   font-weight: 850;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff 10%, #ff3b5c 45%, #ff0038 85%, #99001f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-top: 10px;
   margin-bottom: 16px;
 }
 
 .en-section-desc {
   font-size: 1.0625rem;
-  color: #cbd5e1;
+  color: #f87171;
 }
 
 /* Interactive Interactive Feature Tabs */
@@ -516,9 +522,9 @@
   gap: 8px;
   padding: 12px 20px;
   border-radius: 12px;
-  background: rgba(13, 14, 20, 0.85);
+  background: rgba(9, 10, 15, 0.92);
   border: 1px solid #2a2d39;
-  color: #cbd5e1;
+  color: #f87171;
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
@@ -535,7 +541,7 @@
 
 /* Feature Stage Box */
 .en-feature-stage {
-  background: rgba(13, 15, 21, 0.9);
+  background: rgba(8, 9, 14, 0.94);
   border: 1px solid #2a2d39;
   border-radius: 20px;
   padding: 32px;
@@ -568,7 +574,7 @@
 }
 
 .en-system-card {
-  background: rgba(13, 14, 20, 0.85);
+  background: rgba(9, 10, 15, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 24px;
@@ -579,8 +585,7 @@
 }
 
 .en-system-card:hover {
-  background: rgba(20, 22, 30, 0.9);
-  border-color: #ef4444;
+  background: rgba(18, 20, 28, 0.95); border-color: #ff1744; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 23, 68, 0.25);
   transform: translateY(-4px);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
 }
@@ -590,7 +595,7 @@
   height: 48px;
   border-radius: 12px;
   background: rgba(225, 29, 72, 0.16);
-  border: 1px solid rgba(225, 29, 72, 0.4);
+  border: 1px solid rgba(255, 23, 68, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -601,13 +606,13 @@
 .en-system-card h3 {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #ff2e4d;
   margin-bottom: 8px;
 }
 
 .en-system-card p {
   font-size: 0.875rem;
-  color: #cbd5e1;
+  color: #f87171;
   line-height: 1.55;
   margin-bottom: 20px;
 }
@@ -636,7 +641,7 @@
 .en-part-preview-card {
   flex: 0 0 280px;
   scroll-snap-align: start;
-  background: rgba(14, 16, 22, 0.85);
+  background: rgba(9, 10, 15, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 16px;
   overflow: hidden;
@@ -676,7 +681,7 @@
 .en-part-preview-title {
   font-size: 1rem;
   font-weight: 800;
-  color: #fff;
+  color: #ff2e4d;
   margin-bottom: 6px;
 }
 
@@ -696,7 +701,7 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #2a2d39;
-  background: rgba(13, 14, 20, 0.85);
+  background: rgba(9, 10, 15, 0.92);
 }
 
 .en-compare-table th,
@@ -707,17 +712,17 @@
 }
 
 .en-compare-table th {
-  background: rgba(9, 10, 14, 0.95);
+  background: rgba(6, 7, 11, 0.98);
   font-size: 0.8125rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #94a3b8;
+  color: #ff4d6d;
 }
 
 .en-compare-table td {
   font-size: 0.9375rem;
-  color: #fce7e8;
+  color: #fca5a5;
 }
 
 .en-compare-table tr:last-child td {
@@ -725,7 +730,7 @@
 }
 
 .en-highlight-cell {
-  background: rgba(225, 29, 72, 0.1);
+  background: rgba(185, 28, 28, 0.16);
   color: #ff3344 !important;
   font-weight: 700;
 }
@@ -755,14 +760,14 @@
 .en-cta-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 900;
-  color: #ffffff;
+  color: #ff2e4d;
   margin-bottom: 16px;
   letter-spacing: -0.02em;
 }
 
 .en-cta-desc {
   font-size: 1.125rem;
-  color: #cbd5e1;
+  color: #f87171;
   max-width: 620px;
   margin: 0 auto 36px;
 }
@@ -811,7 +816,7 @@
 .en-footer-col a,
 .en-footer-col button {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: #ff4d6d;
   background: none;
   border: none;
   padding: 0;
@@ -823,7 +828,7 @@
 
 .en-footer-col a:hover,
 .en-footer-col button:hover {
-  color: #fff;
+  color: #ff2e4d;
 }
 
 .en-footer-bottom {

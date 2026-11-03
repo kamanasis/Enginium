@@ -42,14 +42,13 @@
 
 @layer components {
   .en-panel {
-    background: linear-gradient(145deg, rgba(23, 44, 34, 0.94), rgba(15, 31, 24, 0.94));
+    background: linear-gradient(145deg, rgba(16, 17, 24, 0.94), rgba(9, 10, 15, 0.94));
     border: 1px solid var(--en-border);
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24), inset 0 1px rgba(255, 255, 255, 0.035);
   }
 
   .en-panel-soft {
-    background: rgba(18, 33, 27, 0.72);
-    border: 1px solid rgba(196, 224, 205, 0.12);
+    background: rgba(14, 15, 21, 0.85); border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .en-kicker {
@@ -290,7 +289,7 @@
 }
 
 .app-topbar-label {
-  color: #91a89a;
+  color: #ff4d6d;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -300,7 +299,7 @@
 .app-vehicle-picker {
   align-items: center;
   background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(196, 224, 205, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 11px;
   color: #fce7e8;
   cursor: pointer;
@@ -313,7 +312,7 @@
 }
 
 .app-live-dot {
-  background: #3f9361;
+  background: #ff1744; box-shadow: 0 0 8px #ff1744;
   border-radius: 999px;
   height: 7px;
   width: 7px;
@@ -333,8 +332,8 @@
 }
 
 .app-vehicle-menu-heading {
-  background: #0b1c16;
-  color: #91a89a;
+  background: #090a0f;
+  color: #ff4d6d;
   font-size: 0.65rem;
   font-weight: 850;
   letter-spacing: 0.1em;
@@ -346,8 +345,8 @@
   align-items: center;
   background: #121319;
   border: 0;
-  border-top: 1px solid #1d3a2e;
-  color: #e3eee5;
+  border-top: 1px solid #1f222e;
+  color: #fca5a5;
   cursor: pointer;
   display: flex;
   font-size: 0.69rem;
@@ -359,7 +358,7 @@
 
 .app-vehicle-menu button:hover,
 .app-vehicle-menu button.is-selected {
-  background: #19372a;
+  background: #251218;
 }
 
 .app-vehicle-menu button strong,
@@ -372,19 +371,19 @@
 }
 
 .app-vehicle-menu button small {
-  color: #91a89a;
+  color: #ff4d6d;
   margin-top: 3px;
 }
 
 .app-vehicle-menu button > span:last-child {
-  color: #91a89a;
+  color: #ff4d6d;
   font-size: 0.64rem;
 }
 
 .app-mode-switcher {
   align-items: center;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(196, 224, 205, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   display: flex;
   padding: 3px;
@@ -395,7 +394,7 @@
   background: transparent;
   border: 0;
   border-radius: 7px;
-  color: #91a89a;
+  color: #ff4d6d;
   cursor: pointer;
   display: inline-flex;
   font-size: 0.68rem;
@@ -433,7 +432,7 @@
 
 /* Shared workspace primitives used by the redesigned screens. */
 .ui-card {
-  background: rgba(18, 33, 27, 0.9);
+  background: rgba(11, 12, 17, 0.92);
   border: 1px solid var(--en-border);
   border-radius: 18px;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
@@ -451,7 +450,7 @@
 
 .ui-eyebrow,
 .ui-label {
-  color: #91a89a;
+  color: #ff4d6d;
   display: block;
   font-size: 0.72rem;
   font-weight: 800;
@@ -473,10 +472,7 @@
 
 .ui-btn {
   align-items: center;
-  background: #12291f;
-  border: 1px solid #31553f;
-  border-radius: 12px;
-  color: #dcebdd;
+  background: #161822; border: 1px solid #2a2e3d; border-radius: 12px; color: #fca5a5;
   cursor: pointer;
   display: inline-flex;
   font-size: 0.88rem;
@@ -490,8 +486,7 @@
 }
 
 .ui-btn:hover:not(:disabled) {
-  background: #1a3a2b;
-  border-color: #5d8d68;
+  background: #232636; border-color: #ff2a4b; color: #ffffff;
 }
 
 .ui-btn:active:not(:disabled) {
@@ -510,29 +505,25 @@
 }
 
 .ui-btn-primary:hover:not(:disabled) {
-  background: #e0f5a7;
-  border-color: #e0f5a7;
-  color: var(--shell-forest-deep);
+  background: #ff4d6d; border-color: #ff4d6d; color: #ffffff;
 }
 
 .ui-btn-quiet {
   background: transparent;
   border-color: transparent;
-  color: #a9bcae;
+  color: #f87171;
 }
 
 .ui-btn-quiet:hover:not(:disabled) {
-  background: rgba(155, 211, 159, 0.1);
-  border-color: #31553f;
-  color: #eef6ef;
+  background: rgba(225, 29, 72, 0.12); border-color: #ff3344;
+  color: #ffffff;
 }
 
 .ui-tag {
   align-items: center;
-  background: rgba(155, 211, 159, 0.12);
-  border: 1px solid #31553f;
+  background: rgba(136, 19, 55, 0.3); border: 1px solid rgba(225, 29, 72, 0.45);
   border-radius: 999px;
-  color: #b9e4ae;
+  color: #ff6b81;
   display: inline-flex;
   font-size: 0.72rem;
   font-weight: 800;
@@ -549,22 +540,19 @@
 }
 
 .ui-tag-demo {
-  background: rgba(148, 171, 157, 0.12);
-  border-color: #31553f;
-  color: #a9bcae;
+  background: rgba(255, 255, 255, 0.05); border-color: #2a2e3d;
+  color: #f87171;
 }
 
 .ui-tag-success {
-  background: rgba(155, 211, 159, 0.15);
-  border-color: #5b8867;
-  color: #b9e4ae;
+  background: rgba(136, 19, 55, 0.35); border-color: #ff2a4b;
+  color: #ff6b81;
 }
 
 .ui-input {
-  background: #0c2118;
-  border: 1px solid #31553f;
+  background: #090a0f; border: 1px solid #282c3c;
   border-radius: 12px;
-  color: #eef6ef;
+  color: #ffffff;
   font-size: 0.92rem;
   line-height: 1.4;
   min-height: 44px;
@@ -576,14 +564,13 @@
 .ui-input:focus,
 .app-sidebar button:focus-visible,
 .app-topbar button:focus-visible {
-  outline: 3px solid rgba(199, 223, 155, 0.72);
+  outline: 2px solid #ff1744; border-color: #ff1744;
   outline-offset: 2px;
 }
 
 .ui-empty {
   align-items: center;
-  background: rgba(15, 31, 24, 0.9);
-  border: 1px dashed #31553f;
+  background: rgba(12, 13, 19, 0.9); border: 1px dashed #3a3f54;
   border-radius: 16px;
   color: var(--en-muted);
   display: grid;
@@ -649,8 +636,8 @@
   }
 
   .app-mobile-nav {
-    background: rgba(8, 20, 16, 0.94);
-    border-bottom: 1px solid rgba(196, 224, 205, 0.13);
+    background: rgba(7, 8, 12, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     gap: 4px;
     overflow-x: auto;
@@ -665,7 +652,7 @@
     background: transparent;
     border: 0;
     border-radius: 9px;
-    color: #91a89a;
+    color: #ff4d6d;
     cursor: pointer;
     display: inline-flex;
     flex: 0 0 auto;

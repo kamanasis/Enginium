@@ -17,7 +17,7 @@
 
 .app-shell .app-topbar {
   background: rgba(11, 12, 16, 0.92);
-  border-bottom-color: rgba(196, 224, 205, 0.14);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
   color: #fce7e8;
 }
 
@@ -25,17 +25,17 @@
 .app-shell .app-mobile-brand,
 .app-shell .app-vehicle-picker,
 .app-shell .app-mode-switcher button {
-  color: #9caf9f;
+  color: #ff4d6d;
 }
 
 .app-shell .app-vehicle-picker {
   background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(196, 224, 205, 0.16);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .app-shell .app-mode-switcher {
   background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(196, 224, 205, 0.15);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .app-shell .app-mode-switcher button.is-active {
@@ -62,8 +62,8 @@
 
 .app-shell .app-vehicle-menu button {
   background: #14151c;
-  border-top-color: #1d3a2e;
-  color: #e3eee5;
+  border-top-color: #232634;
+  color: #fca5a5;
 }
 
 .app-shell .app-vehicle-menu button:hover,
@@ -77,8 +77,8 @@
 }
 
 .app-shell .app-mobile-nav {
-  background: rgba(8, 20, 16, 0.94);
-  border-bottom-color: rgba(196, 224, 205, 0.13);
+  background: rgba(7, 8, 12, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .app-shell .app-mobile-nav button {
@@ -91,15 +91,15 @@
 }
 
 .app-shell .app-preview-main {
-  background: #061b14;
+  background: #07080c;
 }
 
 .app-shell .app-preview-screen {
-  background: #07100e;
+  background: #090a0f;
 }
 
 .app-shell .preview-nav {
-  background: rgba(12, 31, 23, 0.94);
+  background: rgba(10, 11, 16, 0.94);
   border-color: #2c2f3b;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
@@ -118,13 +118,13 @@
 }
 
 .app-shell .workspace-view {
-  --workspace-canvas: rgba(7, 16, 14, 0.73);
+  --workspace-canvas: rgba(5, 5, 8, 0.82);
   --workspace-forest: #161722;
   --workspace-forest-deep: #0c0d13;
   --workspace-red: #ff3344;
   --workspace-lime: #ff3344;
   --workspace-charcoal: #fce7e8;
-  --workspace-muted: #9caf9f;
+  --workspace-muted: #ff4d6d;
   --workspace-border: #2c2f3b;
   --workspace-orange: #efb47f;
   --workspace-orange-soft: rgba(185, 106, 43, 0.16);
@@ -140,7 +140,7 @@
 .app-shell .workspace-session-note,
 .app-shell .workspace-observation-note,
 .app-shell .workspace-profile-callout {
-  background: rgba(15, 31, 24, 0.88);
+  background: rgba(11, 12, 18, 0.9);
   border-color: #2c2f3b;
   color: var(--workspace-charcoal);
 }
@@ -160,7 +160,7 @@
 }
 
 .app-shell .workspace-hud-observation {
-  background: rgba(12, 27, 21, 0.92);
+  background: rgba(11, 12, 18, 0.92);
   border-color: #2c2f3b;
 }
 
