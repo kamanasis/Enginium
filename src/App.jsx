@@ -124,16 +124,16 @@ export default function App() {
     if (showSplash) {
       return (
         <div className="flex-1 flex flex-col justify-center items-center text-center p-8 space-y-8 animate-fade-in relative z-25 min-h-[500px]">
-          <div className="absolute top-1/3 w-48 h-48 border border-cyan-500/20 rounded-full flex items-center justify-center animate-pulse-slow">
-            <div className="w-36 h-36 border border-cyan-400/30 rounded-full animate-ping"></div>
+          <div className="absolute top-1/3 w-48 h-48 border border-red-500/25 rounded-full flex items-center justify-center animate-pulse-slow">
+            <div className="w-36 h-36 border border-red-500/35 rounded-full animate-ping"></div>
           </div>
 
           <div className="z-10 space-y-3">
-            <span className="text-[10px] text-cyan-400 tracking-[0.25em] font-extrabold uppercase bg-cyan-500/10 px-3.5 py-1.5 rounded-full border border-cyan-500/30">
+            <span className="text-[10px] text-[#ff1744] tracking-[0.25em] font-extrabold uppercase bg-red-500/15 px-3.5 py-1.5 rounded-full border border-red-500/35">
               DIGITAL MECHANIC PLATFORM
             </span>
             <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mt-2">
-              ENGIN<span className="text-cyan-400">IUM</span>
+              ENGIN<span className="text-[#ff1744]">IUM</span>
             </h1>
             <p className="text-xs md:text-sm text-zinc-400 max-w-[320px] mx-auto mt-1 leading-relaxed">
               Interactive diagnostics, parts manual, sound frequency analysis, and legacy documentation.
@@ -142,7 +142,7 @@ export default function App() {
 
           <button
             onClick={() => setShowSplash(false)}
-            className="z-10 bg-cyan-500 hover:bg-cyan-400 text-black rounded-2xl px-8 py-3.5 text-xs font-black tracking-widest uppercase transition-all duration-300 flex items-center gap-2 shadow-lg shadow-cyan-500/30 glow-cyan active:scale-95"
+            className="z-10 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-2xl px-8 py-3.5 text-xs font-black tracking-widest uppercase transition-all duration-300 flex items-center gap-2 shadow-lg shadow-red-500/40 glow-red active:scale-95"
           >
             <Play className="w-4 h-4 fill-black" />
             GET STARTED
@@ -332,7 +332,7 @@ export default function App() {
                   <span className="text-[10px] text-zinc-500">Toll-Free Roadside Support</span>
                 </div>
               </div>
-              <span className="text-cyan-400 font-mono font-bold">1033</span>
+              <span className="text-[#ff1744] font-mono font-bold">1033</span>
             </a>
 
             <a 
@@ -346,7 +346,7 @@ export default function App() {
                   <span className="text-[10px] text-zinc-500">Police, Ambulance, Fire</span>
                 </div>
               </div>
-              <span className="text-cyan-400 font-mono font-bold">112</span>
+              <span className="text-[#ff1744] font-mono font-bold">112</span>
             </a>
           </div>
         </div>

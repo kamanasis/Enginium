@@ -327,7 +327,7 @@
   padding: 18px;
   border: 1px solid var(--tool-border);
   border-radius: 16px;
-  background: #24332d;
+  background: #0d0e15;
 }
 
 .acoustic-bar {
@@ -335,7 +335,7 @@
   height: var(--bar-height);
   min-height: 14px;
   border-radius: 999px;
-  background: #9cc36a;
+  background: #ff1744;
   opacity: 0.75;
   transform-origin: center;
 }
@@ -786,9 +786,7 @@
 
 .learn-3d-shell {
   overflow: hidden;
-  border: 1px solid #34483e;
-  border-radius: 16px;
-  background: #202f29;
+  border: 1px solid #232736; border-radius: 16px; background: #0c0d14;
 }
 
 .learn-3d-canvas {

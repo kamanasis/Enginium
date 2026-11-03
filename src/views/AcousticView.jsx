@@ -373,7 +373,7 @@ export default function AcousticView({ selectedVehicle, setActiveTab, setDiagnos
                 <strong>{inputMode === 'mic' ? 'Live Microphone Hardware (Web Audio Analyser)' : 'Pre-recorded Profile Library'}</strong>
               </div>
               {isRecording && inputMode === 'mic' && (
-                <div className="tool-inline text-xs font-mono text-cyan-400">
+                <div className="tool-inline text-xs font-mono text-[#ff1744]">
                   <span>{liveMetrics.peakHz} Hz</span>
                   <span>·</span>
                   <span>{liveMetrics.dbLevel} dB</span>

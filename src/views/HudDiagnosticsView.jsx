@@ -460,7 +460,7 @@ export default function HudDiagnosticsView({ selectedVehicle, setActiveTab, setD
             <div className="flex items-center justify-between w-full">
               <h2 id="inspection-report-title">Architectural Blueprint & Hotspots</h2>
               <span className="text-xs font-mono text-zinc-400 flex items-center gap-1.5">
-                <Cpu size={14} className="text-cyan-400" />
+                <Cpu size={14} className="text-[#ff1744]" />
                 {diagConfig.driveType}
               </span>
             </div>
@@ -475,17 +475,17 @@ export default function HudDiagnosticsView({ selectedVehicle, setActiveTab, setD
               />
 
               {/* Technical Blueprint Vector Overlay */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-cyan-500/30" xmlns="http://www.w3.org/2000/svg">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none stroke-red-500/30" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <pattern id="hud-grid" width="30" height="30" patternUnits="userSpaceOnUse">
-                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(6, 182, 212, 0.07)" strokeWidth="1" />
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 23, 68, 0.08)" strokeWidth="1" />
                   </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#hud-grid)" />
                 {/* Crosshairs & Target Marks */}
-                <circle cx="50%" cy="50%" r="90" fill="none" stroke="rgba(6, 182, 212, 0.12)" strokeDasharray="4 4" />
-                <line x1="20" y1="50%" x2="60" y2="50%" stroke="rgba(6, 182, 212, 0.2)" />
-                <line x1="calc(100% - 60px)" y1="50%" x2="calc(100% - 20px)" y2="50%" stroke="rgba(6, 182, 212, 0.2)" />
+                <circle cx="50%" cy="50%" r="90" fill="none" stroke="rgba(255, 23, 68, 0.15)" strokeDasharray="4 4" />
+                <line x1="20" y1="50%" x2="60" y2="50%" stroke="rgba(255, 23, 68, 0.25)" />
+                <line x1="calc(100% - 60px)" y1="50%" x2="calc(100% - 20px)" y2="50%" stroke="rgba(255, 23, 68, 0.25)" />
               </svg>
 
               {isRefreshing ? <div className="workspace-scan-sweep" aria-hidden="true" /> : null}

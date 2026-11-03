@@ -3,7 +3,7 @@ import { Cpu, Gauge } from 'lucide-react';
 import ThreeEngineViewer from './ThreeEngineViewer';
 
 export default function EngineeringStation({ selectedVehicle }) {
-  const [themeColor, setThemeColor] = useState('#06b6d4');
+  const [themeColor, setThemeColor] = useState('#ff1744');
   const [rpm, setRpm] = useState(1250);
   const [viewMode, setViewMode] = useState('blueprint'); // 'blueprint' | '3d'
   const [selectedPartId, setSelectedPartId] = useState('spark-plug');
@@ -54,7 +54,7 @@ export default function EngineeringStation({ selectedVehicle }) {
       }
 
       // Compass & HUD rings
-      ctx.strokeStyle = themeColor === '#ef4444' ? 'rgba(239, 68, 68, 0.15)' : 'rgba(6, 182, 212, 0.15)';
+      ctx.strokeStyle = 'rgba(255, 23, 68, 0.2)';
       ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.48, 0, Math.PI * 2);
@@ -221,7 +221,7 @@ export default function EngineeringStation({ selectedVehicle }) {
         <div>
           <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-black block">Live Engineering HUD</span>
           <h3 className="text-sm font-black text-white flex items-center gap-1.5">
-            <Cpu className="w-4 h-4 text-cyan-400" />
+            <Cpu className="w-4 h-4 text-[#ff1744]" />
             4-Stroke Engine Telemetry
           </h3>
         </div>
@@ -230,13 +230,13 @@ export default function EngineeringStation({ selectedVehicle }) {
         <div className="flex bg-zinc-900 border border-zinc-800 rounded-lg p-0.5 text-[10px] font-bold">
           <button
             onClick={() => setViewMode('blueprint')}
-            className={`px-2.5 py-1 rounded transition-colors ${viewMode === 'blueprint' ? 'bg-cyan-500 text-black' : 'text-zinc-400 hover:text-white'}`}
+            className={`px-2.5 py-1 rounded transition-colors ${viewMode === 'blueprint' ? 'bg-[#ff1744] text-white' : 'text-zinc-400 hover:text-white'}`}
           >
             Schematic
           </button>
           <button
             onClick={() => setViewMode('3d')}
-            className={`px-2.5 py-1 rounded transition-colors ${viewMode === '3d' ? 'bg-cyan-500 text-black' : 'text-zinc-400 hover:text-white'}`}
+            className={`px-2.5 py-1 rounded transition-colors ${viewMode === '3d' ? 'bg-[#ff1744] text-white' : 'text-zinc-400 hover:text-white'}`}
           >
             3D Orbit
           </button>
@@ -249,13 +249,13 @@ export default function EngineeringStation({ selectedVehicle }) {
           <div className="relative w-full h-[360px]">
             <canvas ref={canvasRef} className="w-full h-full block" />
             
-            {/* Color Scheme Switcher (Cyan, Red, Amber - matching the 3 right diagrams in Figma image!) */}
+            {/* Color Scheme Switcher (Red, Crimson, Amber - matching the 3 right diagrams in Figma image!) */}
             <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg border border-zinc-800 z-20">
               <span className="text-[9px] text-zinc-400 font-mono">THEME:</span>
               <button
-                onClick={() => setThemeColor('#06b6d4')}
-                className={`w-3.5 h-3.5 rounded-full bg-cyan-400 border transition-transform ${themeColor === '#06b6d4' ? 'scale-125 border-white' : 'border-transparent'}`}
-                title="Cyan Schematic"
+                onClick={() => setThemeColor('#ff1744')}
+                className={`w-3.5 h-3.5 rounded-full bg-[#ff1744] border transition-transform ${themeColor === '#ff1744' ? 'scale-125 border-white' : 'border-transparent'}`}
+                title="Red Schematic"
               />
               <button
                 onClick={() => setThemeColor('#ef4444')}
@@ -280,10 +280,10 @@ export default function EngineeringStation({ selectedVehicle }) {
       <div className="bg-[#12141c] border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-xl">
         <div className="flex justify-between items-center text-xs">
           <span className="font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
-            <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+            <Gauge className="w-3.5 h-3.5 text-[#ff1744]" />
             Engine Throttle RPM
           </span>
-          <span className="font-mono text-xs font-black text-cyan-400">{rpm} RPM</span>
+          <span className="font-mono text-xs font-black text-[#ff1744]">{rpm} RPM</span>
         </div>
 
         <input 
@@ -293,7 +293,7 @@ export default function EngineeringStation({ selectedVehicle }) {
           step="50"
           value={rpm}
           onChange={(e) => setRpm(Number(e.target.value))}
-          className="w-full accent-cyan-400 bg-zinc-800 h-1.5 rounded-lg cursor-pointer"
+          className="w-full accent-red-500 bg-zinc-800 h-1.5 rounded-lg cursor-pointer"
         />
 
         <div className="flex justify-between text-[9px] font-mono text-zinc-500">
@@ -308,8 +308,8 @@ export default function EngineeringStation({ selectedVehicle }) {
       <div className="bg-[#12141c] border border-zinc-800 rounded-2xl p-4 space-y-2.5 shadow-xl">
         <h4 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">4-Stroke Cycle Sequence</h4>
         <div className="grid grid-cols-4 gap-1.5 text-center text-[10px]">
-          <div className="bg-cyan-500/10 border border-cyan-500/30 p-2 rounded-xl">
-            <span className="font-mono text-[9px] text-cyan-400 block font-bold">STROKE 1</span>
+          <div className="bg-red-500/10 border border-red-500/30 p-2 rounded-xl">
+            <span className="font-mono text-[9px] text-[#ff1744] block font-bold">STROKE 1</span>
             <span className="font-extrabold text-zinc-200">INTAKE</span>
           </div>
           <div className="bg-blue-500/10 border border-blue-500/30 p-2 rounded-xl">
@@ -341,7 +341,7 @@ export default function EngineeringStation({ selectedVehicle }) {
           </div>
           <div className="bg-zinc-900/60 p-2.5 rounded-xl border border-zinc-800">
             <span className="text-[9px] text-zinc-500 uppercase font-mono block">Output</span>
-            <span className="font-bold text-cyan-400 text-[11px] block">{selectedVehicle.power}</span>
+            <span className="font-bold text-[#ff1744] text-[11px] block">{selectedVehicle.power}</span>
           </div>
           <div className="bg-zinc-900/60 p-2.5 rounded-xl border border-zinc-800">
             <span className="text-[9px] text-zinc-500 uppercase font-mono block">Oil Viscosity</span>

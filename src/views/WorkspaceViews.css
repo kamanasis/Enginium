@@ -408,7 +408,7 @@
 }
 
 .workspace-tool-icon-red {
-  background: rgba(199, 223, 155, 0.14);
+  background: rgba(225, 29, 72, 0.15);
   color: var(--workspace-red);
 }
 
@@ -418,7 +418,7 @@
 }
 
 .workspace-tool-icon-neutral {
-  background: rgba(165, 182, 170, 0.14);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--workspace-muted);
 }
 
@@ -578,7 +578,7 @@
 
 .workspace-scan-sweep {
   animation: workspace-scan 1.6s ease-in-out infinite;
-  background: rgba(212, 238, 138, 0.18);
+  background: rgba(225, 29, 72, 0.18);
   border-bottom: 1px solid var(--workspace-lime);
   height: 20%;
   left: 0;
@@ -620,12 +620,12 @@
 .workspace-hotspot:hover .workspace-hotspot-marker,
 .workspace-hotspot:focus-visible .workspace-hotspot-marker,
 .workspace-hotspot.is-selected .workspace-hotspot-marker {
-  background: #264333;
-  box-shadow: 0 0 0 4px rgba(199, 223, 155, 0.2);
+  background: #1f0f14;
+  box-shadow: 0 0 0 4px rgba(255, 23, 68, 0.35);
 }
 
 .workspace-hotspot-warning { color: var(--workspace-lime); }
-.workspace-hotspot-success { color: #eaf4d7; }
+.workspace-hotspot-success { color: #ff3355; }
 
 .workspace-hotspot-marker {
   align-items: center;
@@ -714,7 +714,7 @@
 
 .workspace-observation-note {
   align-items: flex-start;
-  background: rgba(199, 223, 155, 0.09);
+  background: rgba(225, 29, 72, 0.12);
   border-radius: 11px;
   color: var(--workspace-red);
   display: flex;
@@ -759,12 +759,12 @@
 
 .workspace-subsystem-row:hover,
 .workspace-subsystem-row.is-selected {
-  background: rgba(199, 223, 155, 0.08);
+  background: rgba(225, 29, 72, 0.12);
 }
 
 .workspace-subsystem-icon {
   align-items: center;
-  background: rgba(199, 223, 155, 0.1);
+  background: rgba(225, 29, 72, 0.15);
   border-radius: 11px;
   color: var(--workspace-red);
   display: inline-flex;
@@ -901,7 +901,7 @@
 }
 
 .workspace-fleet-card.is-active {
-  border-color: #9db6a6;
+  border-color: #2c3142;
   box-shadow: 0 12px 30px rgba(220, 38, 38, 0.15);
 }
 
@@ -1278,7 +1278,7 @@
 }
 
 .workspace-dialog-note {
-  background: rgba(199, 223, 155, 0.09);
+  background: rgba(225, 29, 72, 0.12);
   border-radius: 10px;
   color: var(--workspace-muted);
   font-size: 0.9rem;

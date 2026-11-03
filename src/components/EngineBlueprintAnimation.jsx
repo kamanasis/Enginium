@@ -60,7 +60,7 @@ export default function EngineBlueprintAnimation({ themeColor = '#ff1e38', speed
       const pistonY = crankY - Math.sqrt(rodLength * rodLength - dx * dx);
 
       // Draw circular technical interface/compass scale around engine
-      ctx.strokeStyle = 'rgba(6, 182, 212, 0.08)';
+      ctx.strokeStyle = 'rgba(255, 23, 68, 0.12)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(cx, cy, size * 0.45, 0, Math.PI * 2);
