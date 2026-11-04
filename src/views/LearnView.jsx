@@ -71,6 +71,7 @@ export default function LearnView({
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [showAllParts, setShowAllParts] = useState(false);
   const [show3D, setShow3D] = useState(false);
 
   const getMatchSnippet = (part, query) => {
@@ -165,7 +166,8 @@ export default function LearnView({
 
   const renderParts = () => {
     const isSearching = searchTerm.trim().length > 0;
-    const isAll = categoryFilter === 'All';
+    const isFiltered = categoryFilter !== 'All';
+    const shouldShowList = isSearching || isFiltered || showAllParts;
 
     const renderPartButton = (part) => {
       const isSelected = effectivePart?.id === part.id;
@@ -218,6 +220,16 @@ export default function LearnView({
                   <X size={16} aria-hidden="true" />
                 </button>
               )}
+              {!searchTerm && categoryFilter === 'All' && (
+                <button
+                  type="button"
+                  className="ui-btn ui-btn-quiet learn-toggle-list-btn"
+                  onClick={() => setShowAllParts(!showAllParts)}
+                  style={{ fontSize: '0.75rem', padding: '3px 8px', marginLeft: '6px' }}
+                >
+                  {showAllParts ? 'Hide directory' : 'Browse directory'}
+                </button>
+              )}
             </div>
           </div>
 
@@ -258,28 +270,30 @@ export default function LearnView({
           </div>
         </div>
 
-        <div className="learn-parts-layout">
-          <div className="learn-part-list" aria-label="Vehicle parts">
-            {filteredParts.length === 0 ? (
-              <div className="ui-empty">
-                No components match "{searchTerm}".
-                <br />
-                <button
-                  type="button"
-                  className="ui-btn ui-btn-quiet"
-                  style={{ marginTop: '10px' }}
-                  onClick={() => {
-                    setSearchTerm('');
-                    setCategoryFilter('All');
-                  }}
-                >
-                  Reset search & filters
-                </button>
-              </div>
-            ) : (
-              filteredParts.map(renderPartButton)
-            )}
-          </div>
+        <div className={`learn-parts-layout ${shouldShowList ? 'has-list' : 'no-list'}`}>
+          {shouldShowList && (
+            <div className="learn-part-list" aria-label="Vehicle parts">
+              {filteredParts.length === 0 ? (
+                <div className="ui-empty">
+                  No components match "{searchTerm}".
+                  <br />
+                  <button
+                    type="button"
+                    className="ui-btn ui-btn-quiet"
+                    style={{ marginTop: '10px' }}
+                    onClick={() => {
+                      setSearchTerm('');
+                      setCategoryFilter('All');
+                    }}
+                  >
+                    Reset search & filters
+                  </button>
+                </div>
+              ) : (
+                filteredParts.map(renderPartButton)
+              )}
+            </div>
+          )}
 
         {effectivePart ? (
           <article className="ui-card learn-detail">

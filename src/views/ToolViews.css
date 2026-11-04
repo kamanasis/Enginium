@@ -581,6 +581,24 @@
   margin-top: 40px;
 }
 
+.learn-parts-layout.no-list {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.learn-toggle-list-btn {
+  background: var(--tool-inset);
+  border: 1px solid var(--tool-border);
+  color: var(--tool-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.learn-toggle-list-btn:hover {
+  color: #ffffff;
+  border-color: #ff1744;
+}
+
 .learn-part-list {
   display: flex;
   flex-direction: column;
