@@ -316,7 +316,7 @@
   background: linear-gradient(180deg, #ffffff 40%, #f1f5f9 75%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
+  display: block;
 }
 
 .en-hero-title-main {
@@ -324,14 +324,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 35px rgba(220, 38, 38, 0.55)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.95));
-  display: inline-block;
+  display: block;
 }
 
 .en-hero-title-bottom {
   background: linear-gradient(180deg, #e2e8f0 20%, #94a3b8 65%, #64748b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
+  display: block;
 }
 
 .en-title-white {
@@ -911,16 +911,244 @@
 
 @media (min-width: 640px) {
   .en-footer-bottom {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.8125rem;
-  color: #64748b;
+    flex-direction: row;
+  }
 }
+
+/* =========================================================================
+   DEDICATED MOBILE PHONE OPTIMIZATIONS (<= 640px)
+   Strictly isolated to phone viewports to preserve desktop & tablet layout
+   ========================================================================= */
+@media (max-width: 640px) {
+  /* Prevent horizontal scrolling on mobile viewports */
+  .en-landing {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Compact Navbar */
+  .en-nav-container {
+    padding: 0 16px;
+    height: 62px;
+  }
+
+  .en-brand {
+    gap: 8px;
+  }
+
+  .en-brand-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .en-brand-text {
+    font-size: 0.9375rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hide top launch button on small screens so brand & hamburger have ample space */
+  .en-nav-actions .en-btn-launch {
+    display: none;
+  }
+
+  .en-mobile-menu-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .en-mobile-drawer {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  /* Hero Section: Proportional phone spacing & sizing */
+  .en-hero-section {
+    padding: 28px 16px 40px;
+    min-height: auto;
+  }
+
+  .en-kicker-badge {
+    font-size: 0.6875rem;
+    padding: 5px 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .en-hero-title {
+    font-size: clamp(1.75rem, 8vw, 2.35rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px;
+  }
+
+  .en-hero-title-top,
+  .en-hero-title-main,
+  .en-hero-title-bottom {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .en-hero-subtitle {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0 auto 28px;
+    padding: 0 4px;
+  }
+
+  /* Full-width Stacked Hero Action Buttons */
+  .en-hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .en-btn-primary-hero,
+  .en-btn-secondary-hero {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.875rem;
+    border-radius: 10px;
+  }
+
+  /* Telemetry Grid: 2 columns with tight spacing */
+  .en-telemetry-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .en-telemetry-card {
+    padding: 14px 10px;
+    border-radius: 12px;
+  }
+
+  .en-telemetry-number {
+    font-size: 1.35rem;
+  }
+
+  .en-telemetry-label {
+    font-size: 0.6875rem;
+  }
+
+  /* Blueprint Container: Scaled for phone screens */
+  .en-blueprint-container {
+    height: 310px;
+    border-radius: 16px;
+    margin-top: 6px;
+  }
+
+  .en-blueprint-hud-overlay {
+    padding: 12px;
+  }
+
+  .en-hud-pill {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+  }
+
+  .en-hud-metric-box {
+    padding: 6px 10px;
+    font-size: 0.65rem;
+    border-radius: 8px;
+  }
+
+  .en-hud-metric-box .text-base {
+    font-size: 0.8125rem !important;
+  }
+
+  /* Sections & Content Blocks */
+  .en-section {
+    padding: 48px 16px;
+  }
+
+  .en-section-header {
+    margin-bottom: 36px;
+  }
+
+  .en-section-title {
+    font-size: clamp(1.45rem, 6.5vw, 1.95rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .en-section-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  /* Feature Navigation Tabs: 2-column pills */
+  .en-feature-tabs {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .en-tab-btn {
+    padding: 9px 12px;
+    font-size: 0.75rem;
+    flex: 1 1 calc(50% - 6px);
+    justify-content: center;
+  }
+
+  .en-feature-stage {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  /* Systems Grid Cards */
+  .en-systems-grid {
+    gap: 14px;
+  }
+
+  .en-system-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .en-system-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .en-system-card p {
+    font-size: 0.8125rem;
+    margin-bottom: 16px;
+  }
+
+  /* Comparison Table on Mobile */
+  .en-compare-table {
+    min-width: 560px;
+  }
+
+  /* CTA Banner */
+  .en-cta-banner {
+    padding: 36px 16px;
+    border-radius: 18px;
+  }
+
+  .en-cta-title {
+    font-size: clamp(1.5rem, 6.5vw, 2rem);
+    line-height: 1.2;
+  }
+
+  .en-cta-desc {
+    font-size: 0.9375rem;
+    margin-bottom: 24px;
+  }
+
+  /* Footer */
+  .en-landing-footer {
+    padding: 44px 16px 28px;
+  }
+
+  .en-footer-container {
+    gap: 28px;
+  }
 }

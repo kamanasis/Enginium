@@ -547,8 +547,8 @@ export default function KineticBackground({ opacity = 0.95 }) {
       camera.aspect = w / h;
 
       if (w < 768) {
-        camera.position.z = 11.2;
-        worldGroup.position.set(0.05, 0.2, 0);
+        camera.position.z = 12.0;
+        worldGroup.position.set(0.0, -0.65, 0);
       } else if (w < 1200) {
         camera.position.z = 9.4;
         worldGroup.position.set(0.35, 0.05, 0);
