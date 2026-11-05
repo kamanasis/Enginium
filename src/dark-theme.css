@@ -230,7 +230,6 @@
 .app-shell .tool-view .diagnose-cause,
 .app-shell .tool-view .diagnose-list li,
 .app-shell .tool-view .acoustic-profile,
-.app-shell .tool-view .learn-part-button,
 .app-shell .tool-view .learn-module,
 .app-shell .tool-view .tool-unavailable,
 .app-shell .tool-view .ui-empty {
@@ -355,7 +354,6 @@
 }
 
 .app-shell .tool-view .learn-module:hover,
-.app-shell .tool-view .learn-part-button:hover,
 .app-shell .tool-view .acoustic-profile:hover {
   background: #1f222d;
   border-color: #ff3344;

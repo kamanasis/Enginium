@@ -70,80 +70,99 @@
   100% { transform: translate(50px, 40px) scale(0.9); }
 }
 
-/* Nav Header */
+/* Innovative Floating Capsule Telemetry Dock */
 .en-nav-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  width: 100%;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(8, 9, 13, 0.88);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.25s ease;
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .en-nav-container {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 72px;
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1120px;
+  height: 58px;
+  padding: 0 12px 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(9, 10, 16, 0.82);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 20px rgba(220, 38, 38, 0.04);
 }
 
 .en-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: none;
   border: none;
   color: #ffffff;
   cursor: pointer;
   text-decoration: none;
   padding: 0;
+  transition: opacity 0.2s ease;
 }
 
-.en-brand-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #242630 0%, #16171e 100%);
-  border: 1px solid #444857;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ff3344;
-  box-shadow: 0 0 20px rgba(225, 29, 72, 0.35);
+.en-brand:hover {
+  opacity: 0.95;
+}
+
+.en-brand-emblem {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.4));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.en-brand:hover .en-brand-emblem {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 16px rgba(255, 23, 68, 0.7));
 }
 
 .en-brand-text {
-  font-size: 1.125rem;
-  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.en-brand-name {
+  font-size: 0.9375rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.en-brand-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
-  background: linear-gradient(90deg, #ffffff 0%, #ffffff 38%, #ff3b5c 56%, #dc2626 74%, #b91c1c 90%, #881337 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.45));
-  display: inline-block;
-  transition: all 0.25s ease;
-}
-
-.en-brand-text span {
-  background: inherit;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.en-brand:hover .en-brand-text {
-  filter: drop-shadow(0 0 24px rgba(220, 38, 38, 0.7));
+  color: #ff1744;
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .en-nav-links {
   display: none;
   align-items: center;
-  gap: 28px;
+  gap: 4px;
 }
 
 @media (min-width: 900px) {
@@ -153,48 +172,82 @@
 }
 
 .en-nav-link {
-  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.775rem;
   font-weight: 600;
   color: #94a3b8;
-  background: none;
-  border: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
   cursor: pointer;
-  transition: color 0.2s ease;
-  padding: 6px 0;
+  transition: all 0.18s ease;
+  padding: 5px 11px;
+}
+
+.en-nav-idx {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.65rem;
+  color: #475569;
+  letter-spacing: 0.04em;
+  transition: color 0.18s ease;
 }
 
 .en-nav-link:hover {
   color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.en-nav-link:hover .en-nav-idx {
+  color: #ff1744;
 }
 
 .en-nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .en-btn-launch {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-size: 0.8125rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  background: #141622;
+  gap: 7px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-size: 0.775rem;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  background: linear-gradient(180deg, #222533 0%, #10121a 100%);
   color: #ffffff;
-  border: 1px solid #ff1744;
+  border: 1px solid rgba(255, 23, 68, 0.5);
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(255, 23, 68, 0.25), 0 4px 15px rgba(0, 0, 0, 0.8);
-  transition: all 0.2s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 2px 10px rgba(0, 0, 0, 0.5),
+    0 0 12px rgba(255, 23, 68, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-btn-launch-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #ff1744;
+  box-shadow: 0 0 8px #ff1744;
+  animation: enPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .en-btn-launch:hover {
-  background: #ff1744;
-  color: #ffffff;
+  background: linear-gradient(180deg, #2d3144 0%, #151822 100%);
+  border-color: #ff1744;
   transform: translateY(-1px);
-  box-shadow: 0 4px 25px rgba(255, 23, 68, 0.55);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(255, 23, 68, 0.4);
 }
 
 .en-mobile-menu-btn {
@@ -369,49 +422,87 @@
 }
 
 .en-btn-primary-hero {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 28px;
-  border-radius: 12px;
-  background: #141622;
+  padding: 13px 26px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #181a24 0%, #0d0e14 100%);
   color: #ffffff;
-  font-size: 0.9375rem;
-  font-weight: 800;
-  border: 1px solid #ff1744;
+  font-size: 0.9rem;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(220, 38, 38, 0.55);
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(255, 23, 68, 0.3), 0 8px 30px rgba(0, 0, 0, 0.8);
-  transition: all 0.25s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 0 20px -4px rgba(220, 38, 38, 0.35);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-btn-primary-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  pointer-events: none;
 }
 
 .en-btn-primary-hero:hover {
-  background: #ff1744;
+  background: linear-gradient(180deg, #222533 0%, #11131c 100%);
+  border-color: #ff1744;
   color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 35px rgba(255, 23, 68, 0.6);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    0 8px 24px -2px rgba(220, 38, 38, 0.45),
+    0 0 28px rgba(255, 23, 68, 0.35);
+}
+
+.en-btn-primary-hero svg:last-child {
+  transition: transform 0.2s ease;
+}
+
+.en-btn-primary-hero:hover svg:last-child {
+  transform: translateX(3px);
 }
 
 .en-btn-secondary-hero {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 28px;
-  border-radius: 12px;
-  background: #0d0f16;
-  color: #ffffff;
-  border: 1px solid #232736;
-  font-size: 0.9375rem;
-  font-weight: 700;
+  padding: 13px 26px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(22, 24, 32, 0.85) 0%, rgba(12, 13, 18, 0.95) 100%);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  transition: all 0.25s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .en-btn-secondary-hero:hover {
-  background: #161824;
-  border-color: #3b4256;
+  background: linear-gradient(180deg, rgba(28, 31, 42, 0.9) 0%, rgba(16, 18, 24, 0.98) 100%);
+  border-color: rgba(255, 255, 255, 0.16);
   color: #ffffff;
-  transform: translateY(-2px);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Kinetic Telemetry Bar */
@@ -1151,4 +1242,636 @@
   .en-footer-container {
     gap: 28px;
   }
+}
+
+/* Tactical Avionics Actuators (Hero CTAs) */
+.en-actuator-primary {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 12px 24px;
+  background: linear-gradient(180deg, #181b26 0%, #0c0e14 100%);
+  border: 1px solid rgba(255, 23, 68, 0.55);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    0 0 24px -4px rgba(220, 38, 38, 0.35);
+  overflow: hidden;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-actuator-bracket {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-color: #ff1744;
+  pointer-events: none;
+  transition: transform 0.24s ease;
+}
+
+.en-actuator-bracket-tl {
+  top: 3px;
+  left: 3px;
+  border-top: 1.5px solid #ff1744;
+  border-left: 1.5px solid #ff1744;
+}
+
+.en-actuator-bracket-br {
+  bottom: 3px;
+  right: 3px;
+  border-bottom: 1.5px solid #ff1744;
+  border-right: 1.5px solid #ff1744;
+}
+
+.en-actuator-scanner {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.2), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+.en-actuator-primary:hover .en-actuator-scanner {
+  animation: enScannerPass 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.en-actuator-primary:hover .en-actuator-bracket-tl {
+  transform: translate(2px, 2px);
+}
+
+.en-actuator-primary:hover .en-actuator-bracket-br {
+  transform: translate(-2px, -2px);
+}
+
+.en-actuator-primary:hover {
+  background: linear-gradient(180deg, #222636 0%, #10121a 100%);
+  border-color: #ff1744;
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 30px rgba(0, 0, 0, 0.7),
+    0 0 32px rgba(255, 23, 68, 0.45);
+}
+
+.en-actuator-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.en-actuator-topline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.en-actuator-diode {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #ff1744;
+  box-shadow: 0 0 6px #ff1744;
+}
+
+.en-actuator-sub {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.en-actuator-main {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #ffffff;
+}
+
+.en-actuator-text {
+  font-size: 0.9375rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+}
+
+.en-actuator-arrow {
+  color: #ff3355;
+  transition: transform 0.2s ease;
+}
+
+.en-actuator-primary:hover .en-actuator-arrow {
+  transform: translateX(4px);
+}
+
+.en-actuator-secondary {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 12px 24px;
+  background: linear-gradient(180deg, rgba(20, 22, 32, 0.75) 0%, rgba(11, 12, 17, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-actuator-secondary:hover {
+  background: linear-gradient(180deg, rgba(28, 31, 44, 0.85) 0%, rgba(15, 17, 24, 0.95) 100%);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 6px 22px rgba(0, 0, 0, 0.55);
+}
+
+.en-actuator-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.55rem;
+  font-weight: 750;
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.en-actuator-secondary .en-actuator-icon {
+  color: #94a3b8;
+}
+
+@keyframes enScannerPass {
+  0% { left: -60%; }
+  100% { left: 140%; }
+}
+
+
+/* ========================================================
+   CLEAN LUXURY STARTUP DESIGN (Apple / Linear / Porsche Standard)
+   ======================================================== */
+
+/* Floating Sleek Frosted Glass Navbar */
+.en-nav-header {
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.en-nav-container {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1060px;
+  height: 52px;
+  padding: 0 10px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 11, 16, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: all 0.25s ease;
+}
+
+.en-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.en-brand:hover {
+  opacity: 0.9;
+}
+
+.en-brand-emblem {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.en-brand:hover .en-brand-emblem {
+  transform: scale(1.05);
+}
+
+.en-brand-text {
+  font-size: 0.875rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.en-nav-links {
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (min-width: 900px) {
+  .en-nav-links {
+    display: flex;
+  }
+}
+
+.en-nav-link {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #94a3b8;
+  background: transparent;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: all 0.15s ease;
+}
+
+.en-nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.en-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Launch Twin Capsule Trigger */
+.en-btn-launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  background: #ffffff;
+  color: #09090b;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-btn-launch:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
+}
+
+.en-btn-launch svg {
+  transition: transform 0.18s ease;
+}
+
+.en-btn-launch:hover svg {
+  transform: translateX(2px);
+}
+
+/* Hero CTA Group - Confident, Clean, High-Contrast */
+.en-hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.en-hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #09090b;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  box-shadow: 
+    0 4px 20px rgba(255, 255, 255, 0.16),
+    0 10px 30px rgba(0, 0, 0, 0.7);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-hero-btn-primary:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(255, 255, 255, 0.26),
+    0 14px 40px rgba(0, 0, 0, 0.85);
+}
+
+.en-hero-btn-primary svg:last-child {
+  transition: transform 0.2s ease;
+}
+
+.en-hero-btn-primary:hover svg:last-child {
+  transform: translateX(3px);
+}
+
+.en-hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-hero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+}
+
+/* ========================================================
+   FLOATING DYNAMIC ISLAND & PRO HERO LAUNCHER
+   ======================================================== */
+.en-nav-header {
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.en-dynamic-island {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px 6px 14px;
+  background: rgba(10, 12, 17, 0.85);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  box-shadow: 
+    0 16px 36px -10px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-island-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.en-island-brand-text {
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+}
+
+.en-island-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.en-island-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.en-island-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.en-island-vehicle {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.en-island-chip {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.58rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  color: #ff1744;
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.en-island-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.en-island-link {
+  font-size: 0.78rem;
+  font-weight: 550;
+  color: #94a3b8;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: all 0.15s ease;
+}
+
+.en-island-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.en-island-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: #ffffff;
+  color: #09090b;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-island-launch-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
+}
+
+/* Hero Double Action Launcher Hub */
+.en-hero-launcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.en-launcher-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #09090b;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 
+    0 4px 20px rgba(255, 255, 255, 0.18),
+    0 10px 30px rgba(0, 0, 0, 0.75);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.en-launcher-primary:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(255, 255, 255, 0.28),
+    0 14px 40px rgba(0, 0, 0, 0.85);
+}
+
+.en-launcher-primary .en-launcher-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #09090b;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.en-launcher-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: rgba(18, 20, 28, 0.7);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.en-launcher-secondary:hover {
+  background: rgba(26, 29, 40, 0.85);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+}
+
+.en-launcher-secondary .en-launcher-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.en-launcher-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.en-launcher-title {
+  font-size: 0.9375rem;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.en-launcher-sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
+.en-launcher-primary .en-launcher-sub {
+  color: #64748b;
+}
+
+.en-launcher-arrow {
+  color: #09090b;
+  transition: transform 0.2s ease;
+  margin-left: 4px;
+}
+
+.en-launcher-primary:hover .en-launcher-arrow {
+  transform: translateX(4px);
 }

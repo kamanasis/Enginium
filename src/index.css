@@ -52,14 +52,12 @@
   }
 
   .en-brand-text {
-    font-size: 1.125rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    background: linear-gradient(90deg, #ffffff 0%, #ffffff 38%, #ff3b5c 56%, #dc2626 74%, #b91c1c 90%, #881337 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 16px rgba(220, 38, 38, 0.45));
-    display: inline-block;
+    font-size: 1.0625rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
   }
 
   .en-kicker {
@@ -76,12 +74,12 @@
   }
 }
 
-/* Professional application shell */
+/* High-Precision Architectural Application Shell */
 .app-shell {
-  --shell-forest: #241215;
-  --shell-forest-deep: #180c0e;
-  --shell-lime: #ff3344;
-  --shell-canvas: #050507;
+  --shell-forest: #08090d;
+  --shell-forest-deep: #050608;
+  --shell-lime: #ff1744;
+  --shell-canvas: #040406;
   background: var(--shell-canvas);
 }
 
@@ -90,13 +88,17 @@
 }
 
 .app-sidebar {
-  background: var(--shell-forest);
+  background: linear-gradient(180deg, rgba(9, 10, 15, 0.98) 0%, rgba(5, 6, 8, 0.99) 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: #fff;
   display: flex;
-  flex: 0 0 252px;
+  flex: 0 0 248px;
   flex-direction: column;
   min-height: 100vh;
-  padding: 28px 18px 20px;
+  padding: 24px 14px 20px;
   position: relative;
   z-index: 20;
 }
@@ -112,102 +114,162 @@
   font: inherit;
 }
 
+/* Machined Aerospace Brand Header in Sidebar */
 .app-brand {
   align-items: center;
   background: transparent;
   border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   color: #fff;
   cursor: pointer;
   display: flex;
-  gap: 11px;
-  padding: 0 10px 28px;
+  gap: 12px;
+  padding: 0 6px 20px;
+  margin-bottom: 18px;
   text-align: left;
+  transition: opacity 0.2s ease;
 }
 
-.app-brand-mark {
-  align-items: center;
-  background: var(--shell-lime);
-  border-radius: 13px;
-  color: var(--shell-forest-deep);
-  display: inline-flex;
-  flex: 0 0 auto;
-  font-size: 0.77rem;
-  font-weight: 900;
-  height: 38px;
-  justify-content: center;
-  letter-spacing: -0.04em;
-  width: 38px;
+.app-brand:hover {
+  opacity: 0.92;
 }
 
-.app-brand strong,
-.app-brand small {
-  display: block;
+.app-brand-emblem {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.4));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
 }
 
-.app-brand strong {
-  font-size: 0.92rem;
-  letter-spacing: 0.04em;
+.app-brand:hover .app-brand-emblem {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 16px rgba(255, 23, 68, 0.65));
 }
 
-.app-brand small {
-  color: rgba(255, 255, 255, 0.56);
-  font-size: 0.68rem;
-  margin-top: 3px;
+.app-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.app-sidebar-section {
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 0.63rem;
-  font-weight: 800;
+.app-brand-title {
+  font-size: 0.9375rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.app-brand-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
-  margin: 6px 11px 9px;
+  color: #ff1744;
+  text-transform: uppercase;
+}
+
+.app-mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-mobile-brand .app-brand-title {
+  font-size: 0.875rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+}
+
+/* Technical Monospace Section Headers */
+.app-sidebar-section {
+  color: #475569;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.625rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  margin: 4px 8px 8px;
   text-transform: uppercase;
 }
 
 .app-sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
+/* Production-Grade Refined Navigation Rows (Linear / Raycast Standard) */
 .app-sidebar-link {
   align-items: center;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 12px;
-  color: rgba(255, 255, 255, 0.67);
+  border-radius: 8px;
+  color: #94a3b8;
   cursor: pointer;
   display: flex;
-  gap: 12px;
-  min-height: 44px;
-  padding: 0 12px;
+  gap: 11px;
+  min-height: 38px;
+  padding: 0 10px;
   text-align: left;
-  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  position: relative;
+  transition: all 160ms cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
 }
 
-.app-sidebar-link:hover,
-.app-sidebar-link.is-active {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+.app-sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .app-sidebar-link.is-active {
-  border-color: rgba(255, 23, 68, 0.35);
-  box-shadow: inset 3px 0 var(--shell-lime);
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.14) 0%, rgba(20, 22, 32, 0.5) 100%);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.app-sidebar-link.is-active::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 7px;
+  bottom: 7px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: #ff1744;
+  box-shadow: 0 0 10px #ff1744;
+}
+
+.app-sidebar-link svg {
+  color: #64748b;
+  transition: color 160ms ease, transform 160ms ease;
+  flex-shrink: 0;
+}
+
+.app-sidebar-link:hover svg {
+  color: #cbd5e1;
+}
+
+.app-sidebar-link.is-active svg {
+  color: #ff3355;
+  filter: drop-shadow(0 0 6px rgba(255, 23, 68, 0.5));
 }
 
 .app-sidebar-link span:not(.app-sidebar-dot) {
   flex: 1;
-  font-size: 0.84rem;
-  font-weight: 650;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .app-sidebar-dot {
-  background: var(--shell-lime);
+  background: #ff1744;
   border-radius: 999px;
-  height: 6px;
-  width: 6px;
+  height: 5px;
+  width: 5px;
+  box-shadow: 0 0 8px #ff1744;
+  animation: enPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .app-sidebar-bottom {
@@ -805,4 +867,737 @@
   .animate-ping-slow {
     animation: none !important;
   }
+}
+
+/* Modular Avionics Rail Sidebar */
+.app-sidebar-header {
+  margin-bottom: 20px;
+}
+
+.app-brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.app-brand-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.52rem;
+  font-weight: 750;
+  color: #ff1744;
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.08em;
+}
+
+.app-sidebar-unit-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.app-sidebar-unit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  flex-shrink: 0;
+}
+
+.app-sidebar-unit-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.app-sidebar-unit-lbl {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.app-sidebar-unit-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-sidebar-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #475569;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  margin: 4px 6px 10px;
+  text-transform: uppercase;
+}
+
+.app-sidebar-sec-num {
+  color: #334155;
+  font-size: 0.55rem;
+}
+
+.app-sidebar-channel {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.04em;
+  width: 36px;
+  flex-shrink: 0;
+  transition: color 0.16s ease;
+}
+
+.app-sidebar-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+  transition: all 0.16s ease;
+}
+
+.app-sidebar-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.app-sidebar-live-diode {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #ff1744;
+  box-shadow: 0 0 8px #ff1744;
+  flex-shrink: 0;
+  animation: enPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.app-sidebar-link:hover .app-sidebar-channel {
+  color: #94a3b8;
+}
+
+.app-sidebar-link:hover .app-sidebar-icon-wrap {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.app-sidebar-link.is-active .app-sidebar-channel {
+  color: #ff1744;
+  font-weight: 850;
+}
+
+.app-sidebar-link.is-active .app-sidebar-icon-wrap {
+  background: rgba(255, 23, 68, 0.12);
+  border-color: rgba(255, 23, 68, 0.35);
+  box-shadow: 0 0 10px rgba(255, 23, 68, 0.25);
+}
+
+/* ========================================================
+   LINEAR / RAYCAST HIGH-END SIDEBAR & SHELL
+   ======================================================== */
+.app-shell {
+  --shell-forest: #07080b;
+  --shell-forest-deep: #050608;
+  --shell-lime: #ff1744;
+  --shell-canvas: #030406;
+  background: var(--shell-canvas);
+}
+
+.app-sidebar {
+  background: #08090d;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  color: #fff;
+  display: flex;
+  flex: 0 0 240px;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px 12px 18px;
+  position: relative;
+  z-index: 20;
+}
+
+.app-brand {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  padding: 4px 8px 18px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
+  transition: opacity 0.15s ease;
+}
+
+.app-brand:hover {
+  opacity: 0.9;
+}
+
+.app-brand-title {
+  font-size: 0.875rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.app-brand-tag {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
+.app-sidebar-section {
+  color: #475569;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  margin: 6px 10px 8px;
+  text-transform: uppercase;
+}
+
+.app-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.app-sidebar-link {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 7px;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  min-height: 36px;
+  padding: 0 10px;
+  text-align: left;
+  position: relative;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.app-sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+}
+
+.app-sidebar-link.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.app-sidebar-link.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 2.5px;
+  border-radius: 0 2px 2px 0;
+  background: #ff1744;
+}
+
+.app-sidebar-link svg {
+  color: #64748b;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.app-sidebar-link:hover svg {
+  color: #cbd5e1;
+}
+
+.app-sidebar-link.is-active svg {
+  color: #ffffff;
+}
+
+.app-sidebar-dot {
+  background: #ff1744;
+  border-radius: 999px;
+  height: 5px;
+  width: 5px;
+  box-shadow: 0 0 6px #ff1744;
+}
+
+/* ========================================================
+   SLIM 56PX PRO TOOL ICON RAIL (Figma / Arc / Linear Pro)
+   ======================================================== */
+.app-shell {
+  --shell-forest: #08090d;
+  --shell-forest-deep: #050608;
+  --shell-lime: #ff1744;
+  --shell-canvas: #030406;
+  background: var(--shell-canvas);
+}
+
+.app-sidebar {
+  background: rgba(8, 9, 13, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  flex: 0 0 58px;
+  width: 58px;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 14px 0 16px;
+  position: relative;
+  z-index: 30;
+}
+
+.app-rail-brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.app-rail-brand:hover {
+  transform: scale(1.08);
+}
+
+.app-rail-divider {
+  width: 28px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 0 12px;
+}
+
+.app-rail-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.app-rail-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-rail-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.16s ease, transform 0.16s ease;
+}
+
+.app-rail-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+}
+
+.app-rail-btn:hover .app-rail-icon-box {
+  transform: scale(1.08);
+}
+
+.app-rail-btn.is-active {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.app-rail-active-pip {
+  position: absolute;
+  left: -8px;
+  top: 12px;
+  bottom: 12px;
+  width: 3.5px;
+  border-radius: 0 3px 3px 0;
+  background: #ff1744;
+  box-shadow: 0 0 10px #ff1744;
+}
+
+/* Floating Tooltip Flyout */
+.app-rail-tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+  background: rgba(14, 16, 24, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding: 5px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+}
+
+.app-rail-btn:hover .app-rail-tooltip,
+.app-rail-brand:hover .app-rail-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.app-rail-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 0 8px;
+}
+
+.app-rail-sos {
+  color: #ff3355 !important;
+}
+
+.app-rail-sos:hover {
+  background: rgba(255, 23, 68, 0.15) !important;
+  border-color: rgba(255, 23, 68, 0.35) !important;
+}
+
+/* ========================================================
+   DUAL-MODE COLLAPSIBLE / EXPANDABLE SIDEBAR
+   (Strictly desktop lg:flex only; Phone view untouched)
+   ======================================================== */
+.app-sidebar {
+  background: rgba(8, 9, 13, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 30;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), flex-basis 0.22s cubic-bezier(0.16, 1, 0.3, 1), padding 0.22s ease;
+  overflow-x: hidden;
+}
+
+/* 1. COLLAPSED STATE (Icons only - exactly as user screenshot) */
+.app-sidebar.is-collapsed {
+  flex: 0 0 58px;
+  width: 58px;
+  align-items: center;
+  padding: 14px 0 16px;
+}
+
+.app-sidebar.is-collapsed .app-sidebar-header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.app-sidebar.is-collapsed .app-rail-divider {
+  width: 28px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 0 12px;
+}
+
+.app-sidebar.is-collapsed .app-rail-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.app-sidebar.is-collapsed .app-rail-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 0 8px;
+}
+
+.app-rail-expand-trigger {
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.app-rail-expand-trigger:hover {
+  color: #ffffff;
+}
+
+/* 2. EXPANDED STATE (Full menus with titles and collapse toggle) */
+.app-sidebar.is-expanded {
+  flex: 0 0 240px;
+  width: 240px;
+  align-items: stretch;
+  padding: 16px 12px 18px;
+}
+
+.app-expanded-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2px 4px 6px;
+}
+
+.app-expanded-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.app-expanded-brand-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-expanded-brand-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.app-expanded-brand-tag {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
+.app-sidebar-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.app-sidebar-collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.app-sidebar.is-expanded .app-rail-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 12px 0 10px;
+}
+
+.app-expanded-section-label {
+  color: #475569;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 4px 10px 8px;
+  text-transform: uppercase;
+}
+
+.app-sidebar.is-expanded .app-rail-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  width: 100%;
+}
+
+.app-expanded-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.app-expanded-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.app-expanded-nav-label {
+  font-size: 0.8125rem;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.app-expanded-nav-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #ff1744;
+  box-shadow: 0 0 6px #ff1744;
+  flex-shrink: 0;
+}
+
+.app-expanded-nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.07);
+  color: #f1f5f9;
+}
+
+.app-expanded-nav-item:hover .app-expanded-nav-icon {
+  color: #cbd5e1;
+}
+
+.app-expanded-nav-item.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.app-expanded-nav-item.is-active .app-expanded-nav-icon {
+  color: #ff3355;
+}
+
+.app-expanded-nav-item.is-active .app-expanded-nav-label {
+  font-weight: 650;
+}
+
+.app-expanded-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 2.5px;
+  border-radius: 0 2px 2px 0;
+  background: #ff1744;
+  box-shadow: 0 0 6px #ff1744;
+}
+
+.app-sidebar.is-expanded .app-rail-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.app-expanded-sos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 23, 68, 0.1);
+  border: 1px solid rgba(255, 23, 68, 0.25);
+  color: #ff4d6d;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.app-expanded-sos small {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 750;
+  background: #ff1744;
+  color: #ffffff;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.app-expanded-sos:hover {
+  background: rgba(255, 23, 68, 0.18);
+  border-color: rgba(255, 23, 68, 0.4);
+}
+
+.app-expanded-version {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.6rem;
+  color: #475569;
+  text-align: center;
+  margin-top: 4px;
 }

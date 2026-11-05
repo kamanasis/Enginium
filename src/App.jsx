@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import KineticBackground from './components/KineticBackground';
+import EnginiumLogoMark from './components/EnginiumLogoMark';
 import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
 import LearnView from './views/LearnView';
@@ -14,6 +15,7 @@ import LandingView from './views/LandingView';
 import { vehiclesData } from './data/vehicles';
 import {
   ShieldAlert, X, PhoneCall, Play, Monitor, LayoutGrid,
+  PanelLeftClose, PanelLeftOpen,
   Compass, ChevronDown, Activity, Zap, BookOpen, Users, User, Scan,
   Sparkles,
 } from 'lucide-react';
@@ -21,6 +23,7 @@ import {
 export default function App() {
   // Viewport mode: 'website' (Full responsive desktop) | 'app' (Mobile phone frame) | 'flow' (Figma canvas)
   const [viewMode, setViewMode] = useState('website');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Navigation & Splash: Landing page is the primary entrance
   const [showSplash, setShowSplash] = useState(false);
@@ -415,54 +418,168 @@ export default function App() {
   return (
     <div className="app-shell min-h-screen text-white flex font-sans overflow-x-hidden selection:bg-red-500 selection:text-white relative isolate">
       <KineticBackground opacity={0.88} />
-      <aside className="app-sidebar hidden lg:flex">
-        <button className="app-brand" type="button" onClick={() => { setShowSplash(false); setActiveTab('landing'); }}>
-          <span className="app-brand-mark">EN</span>
-          <span><strong>ENGINIUM</strong><small>Vehicle care, made clear.</small></span>
-        </button>
-        <div className="app-sidebar-section">Workspace</div>
-        <nav className="app-sidebar-nav" aria-label="Main navigation">
+      <aside className={`app-sidebar hidden lg:flex ${sidebarOpen ? 'is-expanded' : 'is-collapsed'}`}>
+        {/* Sidebar Header: Brand + Collapse/Expand Action */}
+        <div className="app-sidebar-header">
+          {!sidebarOpen ? (
+            <button 
+              className="app-rail-brand" 
+              type="button" 
+              onClick={() => setSidebarOpen(true)}
+              title="Open full menu"
+              aria-label="Expand sidebar menu"
+            >
+              <EnginiumLogoMark size={26} className="app-brand-emblem" />
+              <span className="app-rail-tooltip">Expand Menu</span>
+            </button>
+          ) : (
+            <div className="app-expanded-brand-row">
+              <button 
+                className="app-expanded-brand" 
+                type="button" 
+                onClick={() => { setShowSplash(false); setActiveTab('landing'); }}
+                title="Enginium Digital Twin"
+              >
+                <EnginiumLogoMark size={28} className="app-brand-emblem" />
+                <div className="app-expanded-brand-copy">
+                  <strong className="app-expanded-brand-title">ENGINIUM</strong>
+                  <span className="app-expanded-brand-tag">Precision Digital Twin</span>
+                </div>
+              </button>
+              <button 
+                className="app-sidebar-collapse-btn" 
+                type="button" 
+                onClick={() => setSidebarOpen(false)}
+                title="Collapse to icons"
+                aria-label="Collapse sidebar to icons"
+              >
+                <PanelLeftClose size={17} />
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="app-rail-divider" />
+
+        {/* Section title when expanded */}
+        {sidebarOpen && <div className="app-expanded-section-label">Workspace</div>}
+
+        {/* Navigation list */}
+        <nav className="app-rail-nav" aria-label="Main navigation">
           {desktopNavItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
-            return (
+            return !sidebarOpen ? (
+              // Collapsed mode: Icon-only (matching exact user screenshot)
               <button
                 type="button"
                 key={item.id}
-                className={`app-sidebar-link ${isActive ? 'is-active' : ''}`}
+                className={`app-rail-btn ${isActive ? 'is-active' : ''}`}
+                onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
+                aria-current={isActive ? 'page' : undefined}
+                aria-label={item.label}
+              >
+                <span className="app-rail-icon-box">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
+                <span className="app-rail-tooltip">{item.label}</span>
+                {isActive && <span className="app-rail-active-pip" />}
+              </button>
+            ) : (
+              // Expanded mode: Full row with icon and menu text
+              <button
+                type="button"
+                key={item.id}
+                className={`app-expanded-nav-item ${isActive ? 'is-active' : ''}`}
                 onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon size={18} aria-hidden="true" />
-                <span>{item.label}</span>
-                {item.id === 'hud' ? <span className="app-sidebar-dot" /> : null}
+                <span className="app-expanded-nav-icon">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
+                <span className="app-expanded-nav-label">{item.label}</span>
+                {isActive && <span className="app-expanded-nav-dot" />}
+                {isActive && <span className="app-expanded-active-indicator" />}
               </button>
             );
           })}
         </nav>
-        <div className="app-sidebar-bottom">
-          <button
-            type="button"
-            className="app-sidebar-link !min-h-9 !py-1 text-xs text-[#d8b4ba] hover:text-white mb-2"
-            onClick={() => setViewMode('flow')}
-          >
-            <LayoutGrid size={16} aria-hidden="true" />
-            <span>Design flow board</span>
-          </button>
-          <button type="button" className="app-sidebar-sos" onClick={() => setEmergencyMode(true)}>
-            <ShieldAlert size={17} />
-            <span>Roadside help</span>
-            <small>SOS</small>
-          </button>
-          <span className="app-sidebar-version">ENGINIUM / local preview</span>
+
+        {/* Bottom Actions */}
+        <div className="app-rail-bottom">
+          {!sidebarOpen ? (
+            // Collapsed bottom buttons
+            <>
+              <button
+                type="button"
+                className="app-rail-btn"
+                onClick={() => setViewMode('flow')}
+                aria-label="Design flow board"
+              >
+                <span className="app-rail-icon-box">
+                  <LayoutGrid size={17} aria-hidden="true" />
+                </span>
+                <span className="app-rail-tooltip">Design Flow Board</span>
+              </button>
+              
+              <button 
+                type="button" 
+                className="app-rail-btn app-rail-sos" 
+                onClick={() => setEmergencyMode(true)}
+                aria-label="Roadside emergency SOS"
+              >
+                <span className="app-rail-icon-box">
+                  <ShieldAlert size={17} />
+                </span>
+                <span className="app-rail-tooltip">Roadside Emergency SOS</span>
+              </button>
+
+              <button
+                type="button"
+                className="app-rail-btn app-rail-expand-trigger"
+                onClick={() => setSidebarOpen(true)}
+                title="Expand sidebar"
+                aria-label="Expand sidebar"
+              >
+                <span className="app-rail-icon-box">
+                  <PanelLeftOpen size={16} />
+                </span>
+                <span className="app-rail-tooltip">Expand Menus</span>
+              </button>
+            </>
+          ) : (
+            // Expanded bottom buttons
+            <>
+              <button
+                type="button"
+                className="app-expanded-nav-item !min-h-9 text-xs text-[#94a3b8] hover:text-white"
+                onClick={() => setViewMode('flow')}
+              >
+                <LayoutGrid size={16} aria-hidden="true" />
+                <span>Design flow board</span>
+              </button>
+              
+              <button 
+                type="button" 
+                className="app-expanded-sos" 
+                onClick={() => setEmergencyMode(true)}
+              >
+                <ShieldAlert size={16} />
+                <span>Roadside help</span>
+                <small>SOS</small>
+              </button>
+              
+              <span className="app-expanded-version">ENGINIUM v1.0</span>
+            </>
+          )}
         </div>
       </aside>
 
       <div className="app-main flex-1 flex flex-col min-w-0">
         <header className="app-topbar">
           <div className="app-mobile-brand">
-            <span className="app-brand-mark">EN</span>
-            <strong>ENGINIUM</strong>
+            <EnginiumLogoMark size={28} className="app-brand-emblem" />
+            <strong className="app-brand-title">ENGINIUM</strong>
           </div>
           <div className="app-topbar-context">
             <span className="app-topbar-label hidden sm:inline">Active profile</span>

@@ -169,6 +169,14 @@ export default function LearnView({
     const isFiltered = categoryFilter !== 'All';
     const shouldShowList = isSearching || isFiltered || showAllParts;
 
+    const CAD_ASSEMBLIES = [
+      { id: 'engine', name: 'Engine & Combustion Core', filterKeys: ['Engine'] },
+      { id: 'transmission', name: 'Transmission & Drive', filterKeys: ['Transmission'] },
+      { id: 'intake', name: 'Fuel, Intake & Exhaust', filterKeys: ['Fuel & Exhaust'] },
+      { id: 'electrical', name: 'Electrical & Ignition Circuit', filterKeys: ['Electrical'] },
+      { id: 'chassis', name: 'Chassis, Brakes & Suspension', filterKeys: ['Brakes', 'Suspension', 'Wheels', 'Chassis'] },
+    ];
+
     const renderPartButton = (part) => {
       const isSelected = effectivePart?.id === part.id;
       const matchSnippet = isSearching ? getMatchSnippet(part, searchTerm) : null;
@@ -176,13 +184,16 @@ export default function LearnView({
         <button
           type="button"
           key={part.id}
-          className={`learn-part-button ${isSelected ? 'is-active' : ''}`}
+          className={`cad-part-node ${isSelected ? 'is-active' : ''}`}
           onClick={() => setSelectedPart(part)}
         >
-          <span className="tool-inline">
-            {getIcon(part.icon)}
-            <span className="learn-part-btn-name">{part.name}</span>
-          </span>
+          <div className="cad-part-left">
+            <span className="cad-part-icon">{getIcon(part.icon)}</span>
+            <span className="cad-part-name">{part.name}</span>
+          </div>
+          <div className="cad-part-right">
+            <span className="cad-part-diff">{part.difficulty || 'DIY'}</span>
+          </div>
           {matchSnippet && (
             <div className="learn-part-match-snippet">
               <span className="learn-match-tag">Matched:</span> {matchSnippet}
@@ -272,7 +283,7 @@ export default function LearnView({
 
         <div className={`learn-parts-layout ${shouldShowList ? 'has-list' : 'no-list'}`}>
           {shouldShowList && (
-            <div className="learn-part-list" aria-label="Vehicle parts">
+            <div className="cad-assembly-tree" aria-label="Vehicle parts CAD tree">
               {filteredParts.length === 0 ? (
                 <div className="ui-empty">
                   No components match "{searchTerm}".
@@ -290,7 +301,23 @@ export default function LearnView({
                   </button>
                 </div>
               ) : (
-                filteredParts.map(renderPartButton)
+                CAD_ASSEMBLIES.map((assembly) => {
+                  const partsInAssembly = filteredParts.filter((p) =>
+                    assembly.filterKeys.includes(p.category)
+                  );
+                  if (partsInAssembly.length === 0) return null;
+                  return (
+                    <div key={assembly.id} className="cad-assembly-group">
+                      <div className="cad-assembly-header">
+                        <span className="cad-assembly-title">{assembly.name}</span>
+                        <span className="cad-assembly-count">{partsInAssembly.length} CAD NODES</span>
+                      </div>
+                      <div className="cad-assembly-nodes">
+                        {partsInAssembly.map(renderPartButton)}
+                      </div>
+                    </div>
+                  );
+                })
               )}
             </div>
           )}

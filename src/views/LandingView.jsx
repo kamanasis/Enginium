@@ -7,6 +7,7 @@ import {
   Menu, X, Sparkles, Layers, Sliders, Eye
 } from 'lucide-react';
 import EngineBlueprintAnimation from '../components/EngineBlueprintAnimation';
+import EnginiumLogoMark from '../components/EnginiumLogoMark';
 import KineticBackground from '../components/KineticBackground';
 import { vehiclesData } from '../data/vehicles';
 import './LandingView.css';
@@ -114,89 +115,53 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
 
       {/* Top Navbar */}
       <header className="en-nav-header">
-        <div className="en-nav-container">
-          <button type="button" className="en-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="en-brand-icon">
-              <Scan size={20} />
-            </div>
-            <div className="en-brand-text">
-              ENGINIUM
-            </div>
+        <div className="en-dynamic-island">
+          {/* Brand Mark */}
+          <button type="button" className="en-island-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <EnginiumLogoMark size={24} className="en-brand-emblem" />
+            <span className="en-island-brand-text">ENGINIUM</span>
           </button>
 
-          <nav className="en-nav-links" aria-label="Landing page sections">
-            <button type="button" className="en-nav-link" onClick={() => onNavigate('hud')}>
-              Digital Twin (HUD)
+          <div className="en-island-divider" />
+
+          {/* Active Vehicle Telemetry Capsule */}
+          <div className="en-island-telemetry">
+            <span className="en-island-live-dot" />
+            <span className="en-island-vehicle">{selectedVehicle?.name || 'Bajaj Pulsar 150'}</span>
+            <span className="en-island-chip">3D SYNCED</span>
+          </div>
+
+          <div className="en-island-divider hidden md:block" />
+
+          {/* Segmented Navigation Links */}
+          <nav className="en-island-nav hidden md:flex" aria-label="Landing page sections">
+            <button type="button" className="en-island-link" onClick={() => onNavigate('hud')}>
+              Digital Twin
             </button>
-            <button type="button" className="en-nav-link" onClick={() => onNavigate('acoustic')}>
-              Acoustic Lab
+            <button type="button" className="en-island-link" onClick={() => onNavigate('acoustic')}>
+              Acoustic
             </button>
-            <button type="button" className="en-nav-link" onClick={() => onNavigate('learn')}>
-              Parts Manual (41+)
+            <button type="button" className="en-island-link" onClick={() => onNavigate('learn')}>
+              41+ Parts
             </button>
-            <button type="button" className="en-nav-link" onClick={() => onNavigate('diagnose')}>
-              AI Diagnostics
+            <button type="button" className="en-island-link" onClick={() => onNavigate('diagnose')}>
+              Guide
             </button>
-            <button type="button" className="en-nav-link" onClick={() => onNavigate('garage')}>
-              Garage Passport
+            <button type="button" className="en-island-link" onClick={() => onNavigate('garage')}>
+              Garage
             </button>
           </nav>
 
-          <div className="en-nav-actions">
-            <button
-              type="button"
-              className="en-btn-launch"
-              onClick={() => onNavigate('hud')}
-            >
-              <span>Launch Twin</span>
-              <ArrowRight size={15} />
-            </button>
-            <button
-              type="button"
-              className="en-mobile-menu-btn"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+          {/* Action Trigger Pill */}
+          <button
+            type="button"
+            className="en-island-launch-btn"
+            onClick={() => onNavigate('hud')}
+          >
+            <span>Launch Studio</span>
+            <ArrowRight size={13} />
+          </button>
         </div>
-
-        {/* Mobile Dropdown Drawer */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="en-mobile-drawer"
-            >
-              <button type="button" className="en-nav-link" onClick={() => { setMobileMenuOpen(false); onNavigate('hud'); }}>
-                🔍 3D Digital Twin Inspector
-              </button>
-              <button type="button" className="en-nav-link" onClick={() => { setMobileMenuOpen(false); onNavigate('learn'); }}>
-                📚 41-Component Photographic Manual
-              </button>
-              <button type="button" className="en-nav-link" onClick={() => { setMobileMenuOpen(false); onNavigate('acoustic'); }}>
-                🎧 Acoustic Frequency Stethoscope
-              </button>
-              <button type="button" className="en-nav-link" onClick={() => { setMobileMenuOpen(false); onNavigate('diagnose'); }}>
-                ⚡ Step-by-Step AI Repair Guide
-              </button>
-              <button type="button" className="en-nav-link" onClick={() => { setMobileMenuOpen(false); onNavigate('garage'); }}>
-                🛡️ Garage Passport & History
-              </button>
-              <button
-                type="button"
-                className="en-btn-launch"
-                style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}
-                onClick={() => { setMobileMenuOpen(false); onNavigate('hud'); }}
-              >
-                Launch Studio
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
@@ -234,27 +199,38 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
           </motion.p>
 
           <motion.div
-            className="en-hero-cta-group"
+            className="en-hero-launcher"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <button
               type="button"
-              className="en-btn-primary-hero"
+              className="en-launcher-primary"
               onClick={() => onNavigate('hud')}
             >
-              <Scan size={18} />
-              <span>Launch Digital Twin</span>
-              <ArrowRight size={17} />
+              <span className="en-launcher-icon-wrap">
+                <Scan size={18} />
+              </span>
+              <div className="en-launcher-text">
+                <span className="en-launcher-title">Launch 3D Digital Twin</span>
+                <span className="en-launcher-sub">Interactive Exploded Engine · 60 FPS</span>
+              </div>
+              <ArrowRight size={16} className="en-launcher-arrow" />
             </button>
+
             <button
               type="button"
-              className="en-btn-secondary-hero"
+              className="en-launcher-secondary"
               onClick={() => onNavigate('learn')}
             >
-              <BookOpen size={18} />
-              <span>Browse 41+ Parts Manual</span>
+              <span className="en-launcher-icon-wrap">
+                <BookOpen size={18} />
+              </span>
+              <div className="en-launcher-text">
+                <span className="en-launcher-title">41-Part CAD Assemblies</span>
+                <span className="en-launcher-sub">Photographic DIY Specifications</span>
+              </div>
             </button>
           </motion.div>
 
@@ -715,9 +691,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
         <div className="en-footer-container">
           <div className="en-footer-col">
             <div className="flex items-center gap-3 mb-4">
-              <div className="en-brand-icon">
-                <Scan size={18} />
-              </div>
+              <EnginiumLogoMark size={28} className="en-brand-emblem" />
               <strong className="en-brand-text text-base tracking-wider font-extrabold">
                 ENGINIUM
               </strong>
