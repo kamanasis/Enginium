@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Compass, BookOpen, ShieldAlert, Activity, Scan, Users, User } from 'lucide-react';
+import { Home, Compass, BookOpen, ShieldAlert, Activity, Scan, User } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab }) {
   const navItems = [
@@ -9,7 +9,6 @@ export default function Navbar({ activeTab, setActiveTab }) {
     { id: 'diagnose', label: 'Guide', icon: Compass },
     { id: 'learn', label: 'Learn', icon: BookOpen },
     { id: 'acoustic', label: 'Sound', icon: Activity },
-    { id: 'community', label: 'Community', icon: Users },
     { id: 'profile', label: 'Settings', icon: User },
   ];
 

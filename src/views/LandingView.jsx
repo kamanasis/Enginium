@@ -718,7 +718,6 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             <h4>Garage</h4>
             <ul>
               <li><button type="button" onClick={() => onNavigate('garage')}>Service Passport</button></li>
-              <li><button type="button" onClick={() => onNavigate('community')}>Rider Community</button></li>
               <li><button type="button" onClick={() => onNavigate('profile')}>Settings & Backup</button></li>
             </ul>
           </div>

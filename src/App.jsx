@@ -6,7 +6,6 @@ import HomeView from './views/HomeView';
 import DiagnoseView from './views/DiagnoseView';
 import LearnView from './views/LearnView';
 import GarageView from './views/GarageView';
-import CommunityView from './views/CommunityView';
 import HudDiagnosticsView from './views/HudDiagnosticsView';
 import AcousticView from './views/AcousticView';
 import ProfileView from './views/ProfileView';
@@ -16,7 +15,7 @@ import { vehiclesData } from './data/vehicles';
 import {
   ShieldAlert, X, PhoneCall, Play, Monitor, LayoutGrid,
   PanelLeftClose, PanelLeftOpen,
-  Compass, ChevronDown, Activity, Zap, BookOpen, Users, User, Scan,
+  Compass, ChevronDown, Activity, Zap, BookOpen, User, Scan,
   Sparkles,
 } from 'lucide-react';
 
@@ -64,8 +63,6 @@ export default function App() {
   // Lifted GarageView States
   const [showMilestoneForm, setShowMilestoneForm] = useState(false);
 
-  // Lifted CommunityView States
-  const [showAddTipForm, setShowAddTipForm] = useState(false);
 
   // Global state for logged DIY actions with localStorage persistence
   const [serviceHistory, setServiceHistory] = useState(() => {
@@ -118,7 +115,6 @@ export default function App() {
     { id: 'garage', label: 'Garage', icon: ShieldAlert },
     { id: 'learn', label: 'Learn', icon: BookOpen },
     { id: 'acoustic', label: 'Sound profile', icon: Activity },
-    { id: 'community', label: 'Community', icon: Users },
     { id: 'profile', label: 'Settings', icon: User },
   ];
 
@@ -243,14 +239,6 @@ export default function App() {
             setShowMilestoneForm={setShowMilestoneForm}
             vehiclesList={vehiclesData}
             onSelectVehicle={setSelectedVehicle}
-          />
-        );
-      case 'community':
-        return (
-          <CommunityView
-            selectedVehicle={selectedVehicle}
-            showAddForm={showAddTipForm}
-            setShowAddForm={setShowAddTipForm}
           />
         );
       case 'profile':
