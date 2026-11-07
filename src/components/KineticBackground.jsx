@@ -115,9 +115,10 @@ export default function KineticBackground({ opacity = 0.95 }) {
       }
 
       // Extended lines with deep ruby terminal dots
-      if (accentRows.includes(rowIndex)) {
-        const leftExt = xSpan + (1.2 + ((rowIndex + 18) % 4) * 0.45);
-        const rightExt = xSpan + (1.4 + ((rowIndex + 15) % 4) * 0.55);
+      const rowOffset = Math.round(y / cellStep);
+      if (accentRows.includes(rowOffset)) {
+        const leftExt = xSpan + (1.2 + ((Math.abs(rowOffset) + 18) % 4) * 0.45);
+        const rightExt = xSpan + (1.4 + ((Math.abs(rowOffset) + 15) % 4) * 0.55);
 
         extendedLines.push(new THREE.Vector3(-leftExt, y, 0), new THREE.Vector3(rightExt, y, 0));
         terminalDots.push(new THREE.Vector3(-leftExt, y, 0), new THREE.Vector3(rightExt, y, 0));
@@ -201,7 +202,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
     // Traveling laser packets (High-Speed Ruby Laser)
     const laserPackets = [];
     accentRows.forEach((rIndex, idx) => {
-      const y = (rIndex - Math.floor(rowIndex / 2)) * cellStep;
+      const y = rIndex * cellStep;
       const pGeo = track(new THREE.SphereGeometry(0.045, 8, 8));
       const pMat = track(new THREE.MeshBasicMaterial({ color: COLOR_RED_CORE, transparent: true, opacity: 0.98, depthWrite: false }));
       const pMesh = new THREE.Mesh(pGeo, pMat);
@@ -558,7 +559,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
       }
 
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h, false);
+      renderer.setSize(w, h);
     };
 
     handleResize();
@@ -579,7 +580,7 @@ export default function KineticBackground({ opacity = 0.95 }) {
 
       const gearSpeed = 0.20;
       wheel1SpinGroup.rotation.z = elapsed * gearSpeed;
-      wheel2SpinGroup.rotation.z = (Math.PI / wheel2Teeth) - (elapsed * gearSpeed * (wheel1Radius / wheel2Radius));
+      wheel2SpinGroup.rotation.z = (Math.PI / wheel2Teeth) - (elapsed * gearSpeed * (wheel1Teeth / wheel2Teeth));
 
       meshCore.scale.setScalar(1 + Math.sin(elapsed * 3.5) * 0.25);
       meshRing1.rotation.z = elapsed * 0.4;
