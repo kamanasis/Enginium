@@ -613,13 +613,132 @@
 
 .learn-parts-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
-  margin-top: 40px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 20px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+@media (max-width: 960px) {
+  .learn-parts-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.learn-workbench-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  top: 16px;
+  z-index: 10;
+}
+
+.learn-workbench-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 10px;
+  background: rgba(14, 17, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+
+.learn-workbench-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.learn-workbench-tab {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: #8b95a7;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.learn-workbench-tab:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.learn-workbench-tab.is-active {
+  background: rgba(255, 23, 68, 0.15);
+  color: #ff1744;
+  border-color: rgba(255, 23, 68, 0.4);
+}
+
+.learn-workbench-chip {
+  font-family: ui-monospace, 'SF Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.learn-3d-shell.is-primary-workbench {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.learn-workbench-left .learn-3d-canvas.is-blueprint {
+  height: clamp(520px, 72vh, 680px);
+}
+
+@media (max-width: 960px) {
+  .learn-workbench-left .learn-3d-canvas.is-blueprint {
+    height: 380px;
+  }
+  .learn-workbench-left {
+    position: static;
+  }
+}
+
+.learn-detail-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.learn-detail-compact .learn-part-image {
+  height: 155px;
+}
+
+.learn-detail-compact .learn-detail-copy {
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.learn-detail-compact .learn-part-metrics {
+  gap: 10px;
+}
+
+.learn-detail-compact .diagnose-stat {
+  padding: 10px 12px;
+}
+
+.learn-detail-compact .diagnose-list li {
+  padding: 8px 0;
+  font-size: 0.86rem;
 }
 
 .learn-parts-layout.no-list {
-  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
 }
 
 .learn-toggle-list-btn {
@@ -1368,7 +1487,7 @@
 
 @container tools (min-width: 801px) {
   .learn-parts-layout {
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   }
 }
 
@@ -1394,6 +1513,10 @@
 @container tools (max-width: 780px) {
   .diagnose-layout,
   .acoustic-grid,
+  .profile-grid,
+  .learn-parts-layout {
+    grid-template-columns: 1fr;
+  }
   .profile-grid {
     grid-template-columns: 1fr;
   }

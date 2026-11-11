@@ -74,8 +74,15 @@ export default function LearnView({
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
-  const [showAllParts, setShowAllParts] = useState(false);
-  const [show3D, setShow3D] = useState(true);
+  const [leftTab, setLeftTab] = useState('3d');
+
+  const [prevInspection, setPrevInspection] = useState(inspectionRequest);
+  if (inspectionRequest !== prevInspection) {
+    setPrevInspection(inspectionRequest);
+    if (inspectionRequest) {
+      setLeftTab('3d');
+    }
+  }
 
   const getMatchSnippet = (part, query) => {
     if (!query) return null;
@@ -169,8 +176,6 @@ export default function LearnView({
 
   const renderParts = () => {
     const isSearching = searchTerm.trim().length > 0;
-    const isFiltered = categoryFilter !== 'All';
-    const shouldShowList = isSearching || isFiltered || showAllParts;
 
     const CAD_ASSEMBLIES = [
       { id: 'engine', name: 'Engine & Combustion Core', filterKeys: ['Engine'] },
@@ -238,10 +243,10 @@ export default function LearnView({
                 <button
                   type="button"
                   className="ui-btn ui-btn-quiet learn-toggle-list-btn"
-                  onClick={() => setShowAllParts(!showAllParts)}
+                  onClick={() => setLeftTab(leftTab === '3d' ? 'tree' : '3d')}
                   style={{ fontSize: '0.75rem', padding: '3px 8px', marginLeft: '6px' }}
                 >
-                  {showAllParts ? 'Hide directory' : 'Browse directory'}
+                  {leftTab === '3d' ? 'View CAD tree' : 'View 3D model'}
                 </button>
               )}
             </div>
@@ -257,7 +262,10 @@ export default function LearnView({
                 onClick={() => {
                   setSearchTerm(query);
                   const found = selectedVehicle.parts.find((p) => p.name.toLowerCase().includes(query.toLowerCase()));
-                  if (found) setSelectedPart(found);
+                  if (found) {
+                    setSelectedPart(found);
+                    setLeftTab('3d');
+                  }
                 }}
               >
                 {query}
@@ -284,135 +292,196 @@ export default function LearnView({
           </div>
         </div>
 
-        <div className={`learn-parts-layout ${shouldShowList ? 'has-list' : 'no-list'}`}>
-          {shouldShowList && (
-            <div className="cad-assembly-tree" aria-label="Vehicle parts CAD tree">
-              {filteredParts.length === 0 ? (
-                <div className="ui-empty">
-                  No components match "{searchTerm}".
-                  <br />
+        <div className="learn-parts-layout">
+          {/* LEFT WORKSTATION: 3D Section View Blueprint & CAD Tree Navigation */}
+          <div className="learn-workbench-left">
+            <div className="learn-workbench-nav">
+              <div className="learn-workbench-tabs">
+                <button
+                  type="button"
+                  className={`learn-workbench-tab ${leftTab === '3d' ? 'is-active' : ''}`}
+                  onClick={() => setLeftTab('3d')}
+                  aria-pressed={leftTab === '3d'}
+                >
+                  <Cpu size={14} aria-hidden="true" />
+                  3D Blueprint
+                </button>
+                <button
+                  type="button"
+                  className={`learn-workbench-tab ${leftTab === 'tree' ? 'is-active' : ''}`}
+                  onClick={() => setLeftTab('tree')}
+                  aria-pressed={leftTab === 'tree'}
+                >
+                  <Settings size={14} aria-hidden="true" />
+                  CAD Assembly Tree ({filteredParts.length})
+                </button>
+              </div>
+              <span className="learn-workbench-chip">
+                {leftTab === '3d' ? 'INTERACTIVE 3D' : `${filteredParts.length} NODES`}
+              </span>
+            </div>
+
+            {leftTab === '3d' ? (
+              <div className="learn-3d-shell is-primary-workbench">
+                <div className="learn-3d-canvas is-blueprint">
+                  <Suspense fallback={<div className="ui-empty">Loading 3D blueprint…</div>}>
+                    <BikeBlueprintViewer
+                      selectedPartId={effectivePart && BIKE_PART_IDS.has(effectivePart.id) ? effectivePart.id : null}
+                      markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])] : []}
+                      partNames={Object.fromEntries(selectedVehicle.parts.map((part) => [part.id, part.name]))}
+                      onSelectPart={(id) => {
+                        const found = selectedVehicle.parts.find((part) => part.id === id);
+                        if (found) setSelectedPart(found);
+                      }}
+                    />
+                  </Suspense>
+                </div>
+                <div className="learn-3d-footer">
+                  <span>
+                    {effectivePart && BIKE_PART_IDS.has(effectivePart.id)
+                      ? 'Scroll or pinch to zoom in & separate components. Tap any part to inspect.'
+                      : `The 3D blueprint has no 3D mesh for ${effectivePart?.name?.toLowerCase() || 'this component'} yet. Refer to the photo & guide.`}
+                  </span>
                   <button
                     type="button"
                     className="ui-btn ui-btn-quiet"
-                    style={{ marginTop: '10px' }}
-                    onClick={() => {
-                      setSearchTerm('');
-                      setCategoryFilter('All');
-                    }}
+                    onClick={() => setLeftTab('tree')}
                   >
-                    Reset search & filters
+                    Browse CAD Tree
                   </button>
                 </div>
-              ) : (
-                CAD_ASSEMBLIES.map((assembly) => {
-                  const partsInAssembly = filteredParts.filter((p) =>
-                    assembly.filterKeys.includes(p.category)
-                  );
-                  if (partsInAssembly.length === 0) return null;
-                  return (
-                    <div key={assembly.id} className="cad-assembly-group">
-                      <div className="cad-assembly-header">
-                        <span className="cad-assembly-title">{assembly.name}</span>
-                        <span className="cad-assembly-count">{partsInAssembly.length} CAD NODES</span>
+              </div>
+            ) : (
+              <div className="cad-assembly-tree" aria-label="Vehicle parts CAD tree">
+                {filteredParts.length === 0 ? (
+                  <div className="ui-empty">
+                    No components match "{searchTerm}".
+                    <br />
+                    <button
+                      type="button"
+                      className="ui-btn ui-btn-quiet"
+                      style={{ marginTop: '10px' }}
+                      onClick={() => {
+                        setSearchTerm('');
+                        setCategoryFilter('All');
+                      }}
+                    >
+                      Reset search & filters
+                    </button>
+                  </div>
+                ) : (
+                  CAD_ASSEMBLIES.map((assembly) => {
+                    const partsInAssembly = filteredParts.filter((p) =>
+                      assembly.filterKeys.includes(p.category)
+                    );
+                    if (partsInAssembly.length === 0) return null;
+                    return (
+                      <div key={assembly.id} className="cad-assembly-group">
+                        <div className="cad-assembly-header">
+                          <span className="cad-assembly-title">{assembly.name}</span>
+                          <span className="cad-assembly-count">{partsInAssembly.length} CAD NODES</span>
+                        </div>
+                        <div className="cad-assembly-nodes">
+                          {partsInAssembly.map(renderPartButton)}
+                        </div>
                       </div>
-                      <div className="cad-assembly-nodes">
-                        {partsInAssembly.map(renderPartButton)}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          )}
-
-        {effectivePart ? (
-          <article className="ui-card learn-detail">
-            <div className="tool-meta tool-meta-split">
-              <div><span className="ui-eyebrow">Selected part · {selectedVehicle.name}</span><h2>{effectivePart.name}</h2></div>
-              <span className="ui-tag ui-tag-success">{effectivePart.difficulty} DIY</span>
-            </div>
-
-            {effectivePart.image && (
-              <div className="learn-part-image-wrap">
-                <img
-                  key={effectivePart.image}
-                  src={effectivePart.image}
-                  alt={`Reference photo of ${effectivePart.name}`}
-                  className="learn-part-image"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const fallback = e.currentTarget.nextElementSibling;
-                    if (fallback) fallback.style.display = 'flex';
-                  }}
-                />
-                <div className="learn-part-image-fallback" style={{ display: 'none' }}>
-                  <ImageOff size={24} aria-hidden="true" />
-                  <span>Image unavailable</span>
-                </div>
-                {effectivePart.imageCredit && (
-                  <span className="learn-part-image-credit">📷 {effectivePart.imageCredit}</span>
+                    );
+                  })
                 )}
               </div>
             )}
+          </div>
 
-            {inspectionRequest?.targetPartId === effectivePart.id && (
-              <div className="tool-notice" role="note">
-                <Crosshair size={17} aria-hidden="true" />
+          {/* RIGHT PANEL: Compressed Component Information */}
+          {effectivePart ? (
+            <article className="ui-card learn-detail learn-detail-compact">
+              <div className="tool-meta tool-meta-split">
                 <div>
-                  <strong>Suggested by your diagnosis</strong>
-                  {inspectionRequest.reason || 'This part was flagged as worth inspecting first.'} This is a possibility to check, not a confirmed fault.
+                  <span className="ui-eyebrow">Selected part · {selectedVehicle.name}</span>
+                  <h2>{effectivePart.name}</h2>
+                </div>
+                <span className="ui-tag ui-tag-success">{effectivePart.difficulty} DIY</span>
+              </div>
+
+              {effectivePart.image && (
+                <div className="learn-part-image-wrap">
+                  <img
+                    key={effectivePart.image}
+                    src={effectivePart.image}
+                    alt={`Reference photo of ${effectivePart.name}`}
+                    className="learn-part-image"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      const fallback = e.currentTarget.nextElementSibling;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                  <div className="learn-part-image-fallback" style={{ display: 'none' }}>
+                    <ImageOff size={24} aria-hidden="true" />
+                    <span>Image unavailable</span>
+                  </div>
+                  {effectivePart.imageCredit && (
+                    <span className="learn-part-image-credit">📷 {effectivePart.imageCredit}</span>
+                  )}
+                </div>
+              )}
+
+              {inspectionRequest?.targetPartId === effectivePart.id && (
+                <div className="tool-notice" role="note">
+                  <Crosshair size={17} aria-hidden="true" />
+                  <div>
+                    <strong>Suggested by your diagnosis</strong>
+                    {inspectionRequest.reason || 'This part was flagged as worth inspecting first.'} This is a possibility to check, not a confirmed fault.
+                  </div>
+                </div>
+              )}
+
+              <div className="learn-detail-copy">
+                <strong>Purpose</strong>
+                <br />
+                {effectivePart.function}
+              </div>
+
+              <div className="ui-grid-two learn-part-metrics">
+                <div className="diagnose-stat">
+                  <span className="ui-label">Symptoms</span>
+                  <strong>{effectivePart.symptoms}</strong>
+                </div>
+                <div className="diagnose-stat">
+                  <span className="ui-label">Check interval</span>
+                  <strong>{effectivePart.interval}</strong>
                 </div>
               </div>
-            )}
 
-            <div className="learn-detail-copy"><strong>Purpose</strong><br />{effectivePart.function}</div>
-            <div className="ui-grid-two learn-part-metrics">
-              <div className="diagnose-stat"><span className="ui-label">Symptoms</span><strong>{effectivePart.symptoms}</strong></div>
-              <div className="diagnose-stat"><span className="ui-label">Check interval</span><strong>{effectivePart.interval}</strong></div>
-            </div>
-            {effectivePart.safety && <div className="tool-notice"><ShieldAlert size={17} aria-hidden="true" /><div><strong>Safety first</strong>{effectivePart.safety}</div></div>}
-
-            <div>
-               <div className="tool-meta learn-guide-heading"><h3>Repair guide</h3><span className="ui-muted">{effectivePart.cost}</span></div>
-               <ol className="diagnose-list">{effectivePart.diySteps.map((step) => <li key={step}>{step}</li>)}</ol>
-               <p className="ui-muted learn-tools"><strong>Tools:</strong> {effectivePart.tools.join(' · ')}</p>
-            </div>
-
-            <div className="learn-3d-shell">
-              {!show3D ? (
-                <div className="learn-3d-footer">
-                  <span><strong>Interactive 3D blueprint</strong><br />Click to open the 3D model.</span>
-                  <button type="button" className="ui-btn ui-btn-primary" onClick={() => setShow3D(true)}>Explore in 3D</button>
+              {effectivePart.safety && (
+                <div className="tool-notice">
+                  <ShieldAlert size={17} aria-hidden="true" />
+                  <div>
+                    <strong>Safety first</strong>
+                    {effectivePart.safety}
+                  </div>
                 </div>
-              ) : (
-                <>
-                  <div className="learn-3d-canvas is-blueprint">
-                    <Suspense fallback={<div className="ui-empty">Loading the 3D blueprint…</div>}>
-                      <BikeBlueprintViewer
-                        selectedPartId={BIKE_PART_IDS.has(effectivePart.id) ? effectivePart.id : null}
-                        markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])] : []}
-                        partNames={Object.fromEntries(selectedVehicle.parts.map((part) => [part.id, part.name]))}
-                        onSelectPart={(id) => {
-                          const found = selectedVehicle.parts.find((part) => part.id === id);
-                          if (found) setSelectedPart(found);
-                        }}
-                      />
-                    </Suspense>
-                  </div>
-                  <div className="learn-3d-footer">
-                    <span>
-                      {BIKE_PART_IDS.has(effectivePart.id)
-                        ? 'Zoom in on the highlighted part to separate the assembly; zoom out to reassemble it.'
-                        : `The 3D blueprint has no ${effectivePart.name.toLowerCase()} model yet. Refer to the photo and repair guide above.`}
-                    </span>
-                    <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setShow3D(false)}>Hide 3D</button>
-                  </div>
-                </>
               )}
-            </div>
-          </article>
-        ) : <div className="ui-empty">Choose a part to see its guide.</div>}
-      </div>
+
+              <div>
+                <div className="tool-meta learn-guide-heading">
+                  <h3>Repair guide</h3>
+                  <span className="ui-muted">{effectivePart.cost}</span>
+                </div>
+                <ol className="diagnose-list">
+                  {effectivePart.diySteps.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+                <p className="ui-muted learn-tools">
+                  <strong>Tools:</strong> {effectivePart.tools.join(' · ')}
+                </p>
+              </div>
+            </article>
+          ) : (
+            <div className="ui-empty">Choose a part to see its guide.</div>
+          )}
+        </div>
     </>
     );
   };
