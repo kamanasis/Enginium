@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AlertTriangle, CheckCircle2, Send, Sparkles, Wrench } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Crosshair, Send, Sparkles, Wrench } from 'lucide-react';
+import { UNKNOWN_SYMPTOM_HELP, buildDiagnosis, buildStopResult, classifySymptom } from '../data/diagnosis';
 import './ToolViews.css';
 
 const DEFAULT_STEPS = [
@@ -21,6 +22,7 @@ export default function DiagnoseView({
   setActiveDiagnosis,
   loading,
   setLoading,
+  onInspectPart,
 }) {
   const [inputValue, setInputValue] = useState('');
   const [diagnosticQuestions, setDiagnosticQuestions] = useState([]);
@@ -60,17 +62,16 @@ export default function DiagnoseView({
     setMessages((previous) => [...previous, { id: `${Date.now()}-${previous.length}`, ...message }]);
   };
 
-  const startQuestionFlow = () => {
-    setDiagnosticQuestions([
-      { id: 'starter', text: 'Does the starter motor crank normally when pressing the ignition?' },
-      { id: 'cold', text: 'Does this issue happen only in the morning when the engine is cold?' },
-      { id: 'age', text: 'Was the vehicle battery replaced in the last 18 months?' },
-    ]);
+  const familyRef = useRef(null);
+
+  const startQuestionFlow = (family) => {
+    familyRef.current = family;
+    setDiagnosticQuestions(family.questions);
     setCurrentQuestionIndex(0);
     setAnswersLog({});
     addMessage({
       sender: 'ai',
-      text: 'This is a deterministic demo questionnaire. I will use your answers to show a sample inspection path, not a live AI assessment.',
+      text: `This sounds like ${family.label.toLowerCase()} on your ${selectedVehicle.name}. Several causes are possible, so a few quick questions will help rank what to check first. Answer "Not sure" if you do not know.`,
     });
   };
 
@@ -79,39 +80,26 @@ export default function DiagnoseView({
     setDiagnosticQuestions([]);
     queueTimer(() => {
       setLoading(false);
+      const diagnosis = buildDiagnosis(familyRef.current, answers, selectedVehicle);
+      if (!diagnosis) {
+        addMessage({
+          sender: 'ai',
+          text: `The parts list for ${selectedVehicle.name} does not include anything I can point to for this symptom yet. Please have a qualified mechanic look at it.`,
+        });
+        return;
+      }
       addMessage({
         sender: 'ai',
-        text: `Demo result for ${selectedVehicle.name}: the answers suggest checking battery health and terminal condition first.`,
+        text: `Based on your answers, the first thing worth inspecting on your ${selectedVehicle.name} is the ${diagnosis.confidenceList[0].name.toLowerCase()}. This is a ranked possibility from simple rules, not a confirmed fault.`,
       });
-      setActiveDiagnosis({
-        cause: 'Weak battery / terminal oxidation',
-        confidenceList: [
-          { name: 'Weak battery cell', confidence: '82%' },
-          { name: 'Loose or oxidized terminals', confidence: '61%' },
-          { name: 'Fouled spark plug electrode', confidence: '34%' },
-        ],
-        difficulty: 'Basic DIY',
-        repairTime: '15 mins',
-        partCost: '₹1,400',
-        laborCost: '₹50',
-        canDrive: 'Yes, but complete the checks before a long ride.',
-        warning: 'A weak battery can affect starting and ignition behavior. This demo cannot verify voltage or safety in your vehicle.',
-        diySteps: [
-          'Locate the battery with the engine off and side panel secured.',
-          'Inspect terminal leads for looseness or blue/white corrosion.',
-          'Measure resting voltage with a multimeter; use the vehicle manual for the correct threshold.',
-          'Have a technician test the battery under load if the symptom remains.',
-        ],
-        tools: ['8mm spanner', 'Multimeter', 'Protective gloves'],
-        demoAnswers: answers,
-      });
-    }, 900);
+      setActiveDiagnosis({ ...diagnosis, demoAnswers: answers });
+    }, 600);
   };
 
-  const handleQuestionAnswer = (answerText, isYes) => {
+  const handleQuestionAnswer = (answerText, answerValue) => {
     if (loading) return;
     const currentQuestion = diagnosticQuestions[currentQuestionIndex];
-    const nextAnswers = { ...answersLog, [currentQuestion.id]: isYes };
+    const nextAnswers = { ...answersLog, [currentQuestion.id]: answerValue };
     setAnswersLog(nextAnswers);
     addMessage({ sender: 'user', text: answerText });
 
@@ -134,37 +122,21 @@ export default function DiagnoseView({
 
     queueTimer(() => {
       setLoading(false);
-      const query = cleanText.toLowerCase();
-      if (query.includes('start') || query.includes('crank') || query.includes('battery')) {
-        startQuestionFlow();
+      const outcome = classifySymptom(cleanText);
+
+      if (outcome.type === 'stop') {
+        addMessage({ sender: 'ai', text: outcome.stop.message });
+        setActiveDiagnosis(buildStopResult(outcome.stop));
         return;
       }
 
-      addMessage({
-        sender: 'ai',
-        text: `Demo intake for ${selectedVehicle.name}: this pattern can relate to a dirty spark plug or intake filter. Start with a visual check before replacing parts.`,
-      });
-      setActiveDiagnosis({
-        cause: 'Possible spark plug fouling',
-        confidenceList: [
-          { name: 'Fouled spark plug', confidence: '75%' },
-          { name: 'Dirty air intake filter', confidence: '45%' },
-        ],
-        difficulty: 'Basic DIY',
-        repairTime: '15 mins',
-        partCost: '₹180',
-        laborCost: '₹80',
-        canDrive: 'Short local ride only if the engine runs smoothly.',
-        warning: 'A remote demo cannot confirm a safe-to-drive condition. Stop if there is smoke, a fuel smell, loss of control, or worsening noise.',
-        diySteps: [
-          'Let the engine cool and locate the spark plug cap.',
-          'Inspect the cap and plug area for moisture, damage, or heavy soot.',
-          'Use the correct plug socket and vehicle specification for any adjustment.',
-          'If the symptom returns, have ignition and intake systems tested.',
-        ],
-        tools: ['Correct spark-plug socket', 'Torch', 'Vehicle specification sheet'],
-      });
-    }, 700);
+      if (outcome.type === 'family') {
+        startQuestionFlow(outcome.family);
+        return;
+      }
+
+      addMessage({ sender: 'ai', text: UNKNOWN_SYMPTOM_HELP });
+    }, 500);
   };
 
   useEffect(() => {
@@ -176,13 +148,13 @@ export default function DiagnoseView({
     const tools = activeDiagnosis.tools || DEFAULT_TOOLS;
     onAddServiceRecord({
       id: Date.now(),
-      title: `${activeDiagnosis.cause} (demo check)`,
+      title: `${activeDiagnosis.cause} (rule-based check)`,
       desc: `Added from this local session. Estimated parts: ${activeDiagnosis.partCost || 'not provided'}. Tools: ${tools.join(', ')}.`,
       date: new Date().toISOString().split('T')[0],
     });
     addMessage({
       sender: 'system',
-      text: "Added this demo check to the current Digital Garage session. It is not a permanent or cloud-synced record.",
+      text: "Added this check to the current Digital Garage session. It is not a permanent or cloud-synced record.",
     });
   };
 
@@ -198,13 +170,13 @@ export default function DiagnoseView({
           <div>
             <span className="ui-eyebrow">Diagnosis</span>
             <h1 className="ui-title">Investigate a symptom</h1>
-            <p className="ui-muted">{selectedVehicle.name} · Describe what you noticed and follow a demo inspection path.</p>
+            <p className="ui-muted">{selectedVehicle.name} · Describe what you noticed and see which part to inspect first.</p>
           </div>
         </header>
 
         <div className="tool-notice" role="note">
           <Sparkles size={19} aria-hidden="true" />
-          <div><strong>Local demo</strong> Results follow a fixed questionnaire, not live AI or vehicle data. Photo, audio and document attachments are unavailable; describe the symptom in text. Do not rely on the result to confirm riding safety.</div>
+          <div><strong>Rule-based guide</strong> Results come from fixed rules and your answers, not a live AI model or live vehicle data. Photo, audio and document attachments are unavailable; describe the symptom in text. Do not rely on the result to confirm riding safety.</div>
         </div>
 
         <div className="diagnose-layout">
@@ -231,10 +203,11 @@ export default function DiagnoseView({
                   <div className="diagnose-step-actions">
                     <button type="button" className="ui-btn ui-btn-primary" onClick={() => handleQuestionAnswer('Yes', true)} disabled={loading}>Yes</button>
                     <button type="button" className="ui-btn" onClick={() => handleQuestionAnswer('No', false)} disabled={loading}>No</button>
+                    <button type="button" className="ui-btn ui-btn-quiet diagnose-step-unsure" onClick={() => handleQuestionAnswer('Not sure', null)} disabled={loading}>Not sure</button>
                   </div>
                 </div>
               )}
-              {loading && <div className="diagnose-message" role="status">Preparing the local demo result…</div>}
+              {loading && <div className="diagnose-message" role="status">Working through the symptom…</div>}
               <div ref={messagesEndRef} />
             </div>
 
@@ -266,23 +239,49 @@ export default function DiagnoseView({
               <section className="ui-card diagnose-result">
                 <div className="diagnose-result-header">
                   <div>
-                     <span className="ui-eyebrow">Sample result</span>
+                     <span className="ui-eyebrow">{activeDiagnosis.familyLabel || 'Rule-based result'}</span>
                     <h2>{activeDiagnosis.cause}</h2>
                   </div>
                   <span className="ui-tag ui-tag-success">{activeDiagnosis.difficulty || 'Review'}</span>
                 </div>
 
                 <div className="diagnose-stats">
-                  <div className="diagnose-stat"><span className="ui-label">Time</span><strong>{activeDiagnosis.repairTime || 'Check'}</strong></div>
+                  <div className="diagnose-stat"><span className="ui-label">Time</span><strong>{activeDiagnosis.repairTime || 'Not estimated'}</strong></div>
                   <div className="diagnose-stat"><span className="ui-label">Parts</span><strong>{activeDiagnosis.partCost || 'Ask a shop'}</strong></div>
                   <div className="diagnose-stat"><span className="ui-label">Drive note</span><strong>{activeDiagnosis.canDrive || 'Inspect first'}</strong></div>
                 </div>
 
                 {activeDiagnosis.confidenceList?.length > 0 && (
                   <div>
-                    <span className="ui-label">Possible causes · not a measurement</span>
+                    <span className="ui-label">Possible causes · rule match, not a probability</span>
                     <ul className="diagnose-causes">
-                      {activeDiagnosis.confidenceList.map((item) => <li key={item.name} className="diagnose-cause"><span>{item.name}</span><strong>{item.confidence}</strong></li>)}
+                      {activeDiagnosis.confidenceList.map((item) => (
+                        <li key={item.partId} className="diagnose-cause diagnose-cause-rich">
+                          <div>
+                            <span>{item.name}</span>
+                            {item.reason && <small className="ui-muted">{item.reason}</small>}
+                          </div>
+                          <div className="diagnose-cause-actions">
+                            <strong>{item.confidence}</strong>
+                            {onInspectPart && (
+                              <button
+                                type="button"
+                                className="ui-btn ui-btn-quiet"
+                                aria-label={`Locate ${item.name} in 3D`}
+                                onClick={() => onInspectPart({
+                                  vehicleId: selectedVehicle.id,
+                                  targetPartId: item.partId,
+                                  reason: item.reason,
+                                  inspectionLevel: 'component',
+                                  relatedPartIds: activeDiagnosis.confidenceList.filter((other) => other.partId !== item.partId).map((other) => other.partId),
+                                })}
+                              >
+                                <Crosshair size={14} aria-hidden="true" /> Locate
+                              </button>
+                            )}
+                          </div>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 )}
@@ -298,10 +297,15 @@ export default function DiagnoseView({
                 </div>
 
                 {activeDiagnosis.warning && <div className="diagnose-warning"><strong><AlertTriangle size={15} aria-hidden="true" /> Safety context</strong>{activeDiagnosis.warning}</div>}
-                <button type="button" className="ui-btn ui-btn-primary" onClick={handleSaveRepair}><CheckCircle2 size={16} aria-hidden="true" /> Add check to Digital Garage</button>
+                {activeDiagnosis.inspectionRequest && onInspectPart && (
+                  <button type="button" className="ui-btn ui-btn-primary" onClick={() => onInspectPart(activeDiagnosis.inspectionRequest)}>
+                    <Crosshair size={16} aria-hidden="true" /> Locate {activeDiagnosis.confidenceList[0].name} in 3D
+                  </button>
+                )}
+                <button type="button" className="ui-btn" onClick={handleSaveRepair}><CheckCircle2 size={16} aria-hidden="true" /> Add check to Digital Garage</button>
               </section>
             ) : (
-               <div className="diagnose-placeholder"><Wrench size={22} aria-hidden="true" /><p className="ui-muted">Your sample result, steps and safety notes will appear here.</p></div>
+               <div className="diagnose-placeholder"><Wrench size={22} aria-hidden="true" /><p className="ui-muted">Your result, steps and safety notes will appear here.</p></div>
              )}
           </aside>
         </div>

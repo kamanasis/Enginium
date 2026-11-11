@@ -1,0 +1,221 @@
+/* Blueprint viewer. Self-contained: no Tailwind, so it also works in the standalone preview. */
+.bp-viewer {
+  --bp-red: #ff1744;
+  --bp-red-soft: rgba(255, 23, 68, 0.35);
+  --bp-ink: #05060a;
+  --bp-line: #1e2330;
+  --bp-text: #cbd5e1;
+  --bp-muted: #8b95a7;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  overflow: hidden;
+  border: 1px solid var(--bp-line);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(255, 23, 68, 0.1), transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(148, 163, 184, 0.07), transparent 55%),
+    var(--bp-ink);
+  color: var(--bp-text);
+  font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  cursor: grab;
+  outline-offset: 2px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.bp-viewer:active { cursor: grabbing; }
+.bp-viewer:focus-visible { outline: 2px solid var(--bp-red); }
+
+.bp-stage { position: absolute; inset: 0; }
+
+.bp-hud {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--bp-muted);
+  pointer-events: none;
+}
+.bp-hud-tl { top: 0; left: 0; max-width: calc(100% - 128px); }
+.bp-hud-tr { top: 0; right: 0; align-items: flex-end; }
+.bp-hud b { color: var(--bp-red); font-weight: 700; }
+.bp-hud-warn { color: #d9a441; }
+
+.bp-bar {
+  display: block;
+  width: 96px;
+  height: 3px;
+  background: rgba(148, 163, 184, 0.2);
+  overflow: hidden;
+}
+.bp-bar i {
+  display: block;
+  height: 100%;
+  background: var(--bp-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Markers: numbered circles like the reference blueprint. */
+.bp-markers { position: absolute; inset: 0; pointer-events: none; }
+
+.bp-marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bp-marker-dot {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 2px solid var(--bp-red);
+  border-radius: 50%;
+  background: rgba(5, 6, 10, 0.72);
+  box-shadow: 0 0 0 1px rgba(5, 6, 10, 0.8);
+  pointer-events: auto;
+  cursor: pointer;
+}
+.bp-marker:not(.is-primary) .bp-marker-dot { opacity: 0.75; transform: scale(0.88); }
+
+.bp-marker-num { color: #fff; font-size: 13px; font-weight: 700; }
+
+.bp-marker-ring {
+  position: absolute;
+  inset: -6px;
+  border: 2px solid var(--bp-red);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.bp-marker.is-primary .bp-marker-ring { animation: bp-pulse 1.4s ease-out infinite; }
+.bp-marker.is-primary .bp-marker-dot { animation: bp-blink 1.4s ease-in-out infinite; }
+
+.bp-marker.is-primary { z-index: 3; }
+.bp-marker:hover, .bp-marker:focus-visible { z-index: 4; }
+
+.bp-marker-label {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  border: 1px solid var(--bp-red-soft);
+  border-radius: 4px;
+  background: rgba(5, 6, 10, 0.82);
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.bp-marker.is-primary .bp-marker-label,
+.bp-marker:hover .bp-marker-label,
+.bp-marker:focus-visible .bp-marker-label { opacity: 1; }
+.bp-marker:focus-visible .bp-marker-dot { outline: 2px solid #fff; outline-offset: 2px; }
+
+@keyframes bp-pulse {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2); opacity: 0; }
+}
+@keyframes bp-blink {
+  0%, 100% { background: rgba(5, 6, 10, 0.72); }
+  50% { background: rgba(255, 23, 68, 0.35); }
+}
+
+.bp-controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+}
+.bp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--bp-line);
+  border-radius: 8px;
+  background: rgba(5, 6, 10, 0.8);
+  color: var(--bp-text);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.bp-btn:hover { border-color: var(--bp-red); color: #fff; }
+.bp-btn:focus-visible { outline: 2px solid var(--bp-red); outline-offset: 2px; }
+@media (pointer: coarse) { .bp-btn { min-width: 44px; height: 44px; } }
+
+.bp-hint {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  max-width: calc(100% - 230px);
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--bp-muted);
+  pointer-events: none;
+}
+@media (max-width: 560px) { .bp-hint { display: none; } }
+@media (max-width: 480px) { .bp-hud-model { display: none; } }
+
+.bp-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.bp-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px;
+  text-align: center;
+  background: var(--bp-ink);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.bp-fallback strong { color: #fff; }
+.bp-viewer[data-unavailable='true'] .bp-fallback { display: flex; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-marker.is-primary .bp-marker-ring,
+  .bp-marker.is-primary .bp-marker-dot { animation: none; }
+  .bp-marker.is-primary .bp-marker-ring { opacity: 0.8; inset: -4px; }
+}

@@ -59,6 +59,26 @@ export default function App() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizScore, setQuizScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [inspectionRequest, setInspectionRequest] = useState(null);
+  const [previousTab, setPreviousTab] = useState(activeTab);
+
+  if (previousTab !== activeTab) {
+    setPreviousTab(activeTab);
+    if (previousTab === 'learn' && inspectionRequest) {
+      setInspectionRequest(null);
+    }
+  }
+
+  const handleInspectPart = (request) => {
+    if (!request || request.vehicleId !== selectedVehicle.id) return;
+    const part = selectedVehicle.parts.find((p) => p.id === request.targetPartId);
+    if (!part) return;
+    setSelectedPart(part);
+    setActiveSegment('parts');
+    setInspectionRequest(request);
+    setActiveTab('learn');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Lifted GarageView States
   const [showMilestoneForm, setShowMilestoneForm] = useState(false);
@@ -189,6 +209,7 @@ export default function App() {
             setActiveDiagnosis={setActiveDiagnosis}
             loading={loading}
             setLoading={setLoading}
+            onInspectPart={handleInspectPart}
           />
         );
       case 'acoustic':
@@ -226,6 +247,7 @@ export default function App() {
             setQuizScore={setQuizScore}
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
+            inspectionRequest={inspectionRequest}
           />
         );
       case 'garage':

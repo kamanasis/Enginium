@@ -248,6 +248,43 @@
   line-height: 1.55;
 }
 
+.diagnose-cause-rich {
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.diagnose-cause-rich small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #8b95a7;
+}
+
+.diagnose-cause-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.diagnose-cause-actions strong {
+  font-family: ui-monospace, monospace;
+  color: var(--tool-red, #ff1744);
+}
+
+.diagnose-cause-actions .ui-btn {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.diagnose-step-unsure {
+  opacity: 0.8;
+}
+
 .diagnose-list li {
   justify-content: flex-start;
   align-items: baseline;
@@ -882,6 +919,10 @@
 
 .learn-3d-canvas {
   height: 280px;
+}
+
+.learn-3d-canvas.is-blueprint {
+  height: clamp(380px, 64vh, 580px);
 }
 
 .learn-3d-canvas canvas {

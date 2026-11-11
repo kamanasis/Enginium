@@ -6,6 +6,7 @@ import {
   ChevronRight,
   CircleDot,
   Cpu,
+  Crosshair,
   Disc,
   Droplet,
   Flame,
@@ -22,9 +23,10 @@ import {
   X,
   Zap,
 } from 'lucide-react';
+import { BIKE_PART_IDS } from '../data/bikeParts';
 import './ToolViews.css';
 
-const ThreeEngineViewer = lazy(() => import('../components/ThreeEngineViewer'));
+const BikeBlueprintViewer = lazy(() => import('../components/BikeBlueprintViewer'));
 
 const POPULAR_SEARCHES = ['Spark Plug', 'Engine Oil', 'Carburetor', 'Brake Pads', 'Battery', 'Drive Chain', 'Air Filter', 'Clutch'];
 
@@ -68,11 +70,12 @@ export default function LearnView({
   setQuizScore,
   selectedAnswer,
   setSelectedAnswer,
+  inspectionRequest,
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [showAllParts, setShowAllParts] = useState(false);
-  const [show3D, setShow3D] = useState(false);
+  const [show3D, setShow3D] = useState(true);
 
   const getMatchSnippet = (part, query) => {
     if (!query) return null;
@@ -352,6 +355,16 @@ export default function LearnView({
               </div>
             )}
 
+            {inspectionRequest?.targetPartId === effectivePart.id && (
+              <div className="tool-notice" role="note">
+                <Crosshair size={17} aria-hidden="true" />
+                <div>
+                  <strong>Suggested by your diagnosis</strong>
+                  {inspectionRequest.reason || 'This part was flagged as worth inspecting first.'} This is a possibility to check, not a confirmed fault.
+                </div>
+              </div>
+            )}
+
             <div className="learn-detail-copy"><strong>Purpose</strong><br />{effectivePart.function}</div>
             <div className="ui-grid-two learn-part-metrics">
               <div className="diagnose-stat"><span className="ui-label">Symptoms</span><strong>{effectivePart.symptoms}</strong></div>
@@ -367,15 +380,33 @@ export default function LearnView({
 
             <div className="learn-3d-shell">
               {!show3D ? (
-                <div className="learn-3d-footer"><span><strong>Contained 3D parts view</strong><br />Loads only when you choose to explore.</span><button type="button" className="ui-btn" onClick={() => setShow3D(true)}>Explore in 3D</button></div>
+                <div className="learn-3d-footer">
+                  <span><strong>Interactive 3D blueprint</strong><br />Click to open the 3D model.</span>
+                  <button type="button" className="ui-btn ui-btn-primary" onClick={() => setShow3D(true)}>Explore in 3D</button>
+                </div>
               ) : (
                 <>
-                  <div className="learn-3d-canvas">
-                    <Suspense fallback={<div className="ui-empty">Loading the optional 3D illustration…</div>}>
-                      <ThreeEngineViewer selectedPartId={effectivePart.id} onSelectPart={(id) => { const found = selectedVehicle.parts.find((part) => part.id === id); if (found) setSelectedPart(found); }} />
+                  <div className="learn-3d-canvas is-blueprint">
+                    <Suspense fallback={<div className="ui-empty">Loading the 3D blueprint…</div>}>
+                      <BikeBlueprintViewer
+                        selectedPartId={BIKE_PART_IDS.has(effectivePart.id) ? effectivePart.id : null}
+                        markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])] : []}
+                        partNames={Object.fromEntries(selectedVehicle.parts.map((part) => [part.id, part.name]))}
+                        onSelectPart={(id) => {
+                          const found = selectedVehicle.parts.find((part) => part.id === id);
+                          if (found) setSelectedPart(found);
+                        }}
+                      />
                     </Suspense>
                   </div>
-                  <div className="learn-3d-footer"><span>Drag the illustration to inspect a part.</span><button type="button" className="ui-btn ui-btn-quiet" onClick={() => setShow3D(false)}>Close 3D</button></div>
+                  <div className="learn-3d-footer">
+                    <span>
+                      {BIKE_PART_IDS.has(effectivePart.id)
+                        ? 'Zoom in on the highlighted part to separate the assembly; zoom out to reassemble it.'
+                        : `The 3D blueprint has no ${effectivePart.name.toLowerCase()} model yet. Refer to the photo and repair guide above.`}
+                    </span>
+                    <button type="button" className="ui-btn ui-btn-quiet" onClick={() => setShow3D(false)}>Hide 3D</button>
+                  </div>
                 </>
               )}
             </div>
