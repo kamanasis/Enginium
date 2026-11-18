@@ -95,3 +95,192 @@ export const BIKE_PARTS = [
 export const BIKE_PART_IDS = new Set(
   BIKE_PARTS.filter((part) => part.selectable !== false).map((part) => part.id),
 );
+
+/**
+ * Universal cross-model translation table connecting vehicle catalogue parts
+ * to their respective physical wireframe nodes in the 3D blueprint viewer.
+ */
+export const VEHICLE_PART_TO_3D = {
+  // Wheels, Rims & Tyres
+  'front-wheel': 'front-tyre',
+  'front-tyre': 'front-tyre',
+  'rear-wheel': 'rear-tyre',
+  'rear-tyre': 'rear-tyre',
+  'wheel-bearings': 'wheel-bearings',
+  'steering-bearings': 'wheel-bearings',
+
+  // Brakes, Shoes & CBS Equalizer
+  'front-drum-brake': 'front-brake-disc',
+  'front-brake-disc': 'front-brake-disc',
+  'rear-drum-brake': 'rear-brake-drum',
+  'rear-brake-drum': 'rear-brake-drum',
+  'brake-pads': 'brake-pads',
+  'cbs-equalizer': 'brake-pads',
+  'brake-rod-linkage': 'rear-brake-drum',
+  'brake-cable-rod': 'rear-brake-drum',
+  'cush-drive': 'rear-brake-drum',
+
+  // Suspension & Swingarm
+  'front-telescopic-forks': 'telescopic-forks',
+  'telescopic-forks': 'telescopic-forks',
+  'rear-shock-absorber': 'rear-shock-absorbers',
+  'rear-shock-absorbers': 'rear-shock-absorbers',
+  'rear-nitrox-shocks': 'rear-shock-absorbers',
+  'swingarm': 'swingarm',
+
+  // Frame, Chassis & Stands
+  'chassis-frame': 'main-chassis',
+  'main-chassis': 'main-chassis',
+  'center-side-stand': 'main-chassis',
+  'stands-footpegs': 'main-chassis',
+  'side-stand': 'main-chassis',
+  'main-stand': 'main-chassis',
+  'seat': 'main-chassis',
+  'utility-box': 'main-chassis',
+
+  // Cockpit, Lights & Switches
+  'led-headlight': 'headlight-assembly',
+  'headlight-assembly': 'headlight-assembly',
+  'instrument-cluster': 'instrument-cluster',
+  'multi-switchgear': 'switchgear-throttle',
+  'switchgear-throttle': 'switchgear-throttle',
+
+  // Electrical, Starter & Regulators
+  'battery': 'battery',
+  'wiring-harness': 'wiring-harness',
+  'acg-starter': 'starter-motor',
+  'starter-motor': 'starter-motor',
+  'stator-magneto': 'stator-magneto',
+  'cooling-fan': 'stator-magneto',
+  'ecu-module': 'regulator-rectifier',
+  'cdi-unit': 'regulator-rectifier',
+  'cdi-bcu': 'regulator-rectifier',
+  'regulator-rectifier': 'regulator-rectifier',
+  'ignition-coil': 'ignition-coil',
+
+  // Engine, Valves & Lubrication
+  'spark-plug': 'spark-plug',
+  'cylinder-block': 'cylinder-block',
+  'piston-rings': 'cylinder-block',
+  'valves-tappets': 'valves-tappets',
+  'camshaft-timing': 'camshaft-timing',
+  'crankcase': 'cylinder-block',
+  'crankshaft': 'crankshaft',
+  'variator-rollers': 'crankshaft',
+  'engine-oil': 'cylinder-block',
+  'oil-filter': 'cylinder-block',
+
+  // Fuel Induction & Exhaust
+  'fuel-tank': 'fuel-tank',
+  'fuel-pump': 'fuel-cock',
+  'fuel-cock': 'fuel-cock',
+  'throttle-body': 'carburetor',
+  'carburetor-fi': 'carburetor',
+  'carburetor': 'carburetor',
+  'air-filter': 'air-filter',
+  'exhaust-muffler': 'exhaust-muffler',
+  'oxygen-sensor': 'exhaust-muffler',
+  'catalytic-converter': 'exhaust-muffler',
+
+  // Drive, Belt, Gearbox & Clutch
+  'v-belt': 'chain',
+  'chain': 'chain',
+  'centrifugal-clutch': 'clutch-assembly',
+  'clutch-bell': 'clutch-assembly',
+  'clutch-assembly': 'clutch-assembly',
+  'clutch-cable': 'clutch-cable',
+  'final-gearbox': 'gearbox',
+  'gearbox': 'gearbox',
+};
+
+export const D3_TO_VEHICLE_PARTS = {
+  'front-tyre': ['front-tyre', 'front-wheel'],
+  'rear-tyre': ['rear-tyre', 'rear-wheel'],
+  'main-chassis': ['main-chassis', 'chassis-frame', 'center-side-stand', 'stands-footpegs'],
+  'telescopic-forks': ['telescopic-forks', 'front-telescopic-forks'],
+  'rear-shock-absorbers': ['rear-shock-absorbers', 'rear-shock-absorber', 'rear-nitrox-shocks'],
+  'front-brake-disc': ['front-brake-disc', 'front-drum-brake', 'brake-pads'],
+  'rear-brake-drum': ['rear-brake-drum', 'rear-drum-brake', 'cush-drive', 'brake-rod-linkage', 'brake-cable-rod'],
+  'brake-pads': ['brake-pads', 'front-drum-brake', 'cbs-equalizer'],
+  'wheel-bearings': ['wheel-bearings', 'steering-bearings'],
+  'headlight-assembly': ['headlight-assembly', 'led-headlight'],
+  'switchgear-throttle': ['switchgear-throttle', 'multi-switchgear'],
+  'instrument-cluster': ['instrument-cluster', 'multi-switchgear'],
+  'fuel-tank': ['fuel-tank'],
+  'fuel-cock': ['fuel-cock', 'fuel-pump'],
+  'carburetor': ['carburetor', 'throttle-body', 'carburetor-fi'],
+  'air-filter': ['air-filter'],
+  'exhaust-muffler': ['exhaust-muffler', 'oxygen-sensor', 'catalytic-converter'],
+  'cylinder-block': ['cylinder-block', 'piston-rings', 'engine-oil'],
+  'spark-plug': ['spark-plug'],
+  'valves-tappets': ['valves-tappets'],
+  'camshaft-timing': ['camshaft-timing'],
+  'crankshaft': ['crankshaft', 'variator-rollers'],
+  'clutch-assembly': ['clutch-assembly', 'centrifugal-clutch', 'clutch-bell'],
+  'gearbox': ['gearbox', 'final-gearbox'],
+  'stator-magneto': ['stator-magneto', 'cooling-fan', 'acg-starter'],
+  'starter-motor': ['starter-motor', 'acg-starter'],
+  'battery': ['battery'],
+  'ignition-coil': ['ignition-coil', 'spark-plug', 'wiring-harness'],
+  'regulator-rectifier': ['regulator-rectifier', 'ecu-module', 'cdi-unit', 'cdi-bcu'],
+  'wiring-harness': ['wiring-harness'],
+  'chain': ['chain', 'v-belt'],
+  'clutch-cable': ['clutch-cable', 'cbs-equalizer', 'rear-drum-brake', 'centrifugal-clutch'],
+  'swingarm': ['swingarm', 'rear-shock-absorber', 'rear-nitrox-shocks', 'rear-wheel'],
+};
+
+/**
+ * Resolves a vehicle part ID to its corresponding 3D blueprint node ID.
+ * @param {string|null} vehiclePartId
+ * @returns {string|null}
+ */
+export function resolveBlueprintPartId(vehiclePartId) {
+  if (!vehiclePartId) return null;
+  if (BIKE_PART_IDS.has(vehiclePartId)) return vehiclePartId;
+  const mapped = VEHICLE_PART_TO_3D[vehiclePartId];
+  if (mapped && BIKE_PART_IDS.has(mapped)) return mapped;
+  return null;
+}
+
+/**
+ * Resolves a 3D blueprint node ID to the matching catalogue part in the selected vehicle.
+ * @param {string|null} d3Id
+ * @param {Array<Object>} vehicleParts
+ * @returns {Object|null}
+ */
+export function resolveVehiclePart(d3Id, vehicleParts) {
+  if (!d3Id || !Array.isArray(vehicleParts) || vehicleParts.length === 0) return null;
+  // 1. Direct ID match
+  const direct = vehicleParts.find((p) => p.id === d3Id);
+  if (direct) return direct;
+  // 2. Candidate mapping match
+  const candidates = D3_TO_VEHICLE_PARTS[d3Id] || [];
+  for (const cId of candidates) {
+    const match = vehicleParts.find((p) => p.id === cId);
+    if (match) return match;
+  }
+  return null;
+}
+
+/**
+ * Generates an ID-to-display-name map so 3D blueprint nodes display the active vehicle's authentic part names.
+ * @param {Array<Object>} vehicleParts
+ * @returns {Record<string, string>}
+ */
+export function getVehicleBlueprintNames(vehicleParts) {
+  const names = {};
+  if (!Array.isArray(vehicleParts)) return names;
+  for (const p of vehicleParts) {
+    names[p.id] = p.name;
+    const d3Id = VEHICLE_PART_TO_3D[p.id];
+    if (d3Id && !names[d3Id]) names[d3Id] = p.name;
+  }
+  for (const part of BIKE_PARTS) {
+    if (!names[part.id]) {
+      const vPart = resolveVehiclePart(part.id, vehicleParts);
+      if (vPart) names[part.id] = vPart.name;
+    }
+  }
+  return names;
+}
+

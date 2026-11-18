@@ -23,8 +23,21 @@ const START_DIRECTION = new THREE.Vector3(0.2, 0.24, 1).normalize();
 const SAME_GROUP_BOOST = 1.25;
 const BLINK_HZ = 1.4;
 
-// Long or large parts are picked through their lines instead of a bounding box.
-const NO_PROXY = new Set(['main-chassis', 'wiring-harness', 'clutch-cable', 'exhaust-muffler', 'seat']);
+// Thin curves, open loops, or hollow frames use high-precision LineSegments picking with generous threshold
+// rather than an oversized solid AABB box that would create invisible blocking walls for adjacent parts.
+const LINE_ONLY_PARTS = new Set([
+  'main-chassis',
+  'wiring-harness',
+  'clutch-cable',
+  'exhaust-muffler',
+  'chain',
+  'front-tyre',
+  'rear-tyre',
+  'telescopic-forks',
+  'swingarm',
+  'rear-shock-absorbers',
+  'seat',
+]);
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const smooth = (v) => {
@@ -135,15 +148,23 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     };
 
     if (meta.selectable !== false) {
-      if (NO_PROXY.has(meta.id)) {
-        lines.userData = { partId: meta.id, volume: 1e6 };
-        pickTargets.push(lines);
-      } else {
-        const proxyGeometry = new THREE.BoxGeometry(Math.max(size.x + 0.06, 0.14), Math.max(size.y + 0.06, 0.14), Math.max(size.z + 0.06, 0.14));
+      // Lines are always pickable with high-precision line threshold for direct wire hits
+      lines.userData = { partId: meta.id, isLine: true };
+      pickTargets.push(lines);
+
+      // Compact/volumetric parts also get an interior proxy box for interior clicks
+      if (!LINE_ONLY_PARTS.has(meta.id)) {
+        const pad = 0.05;
+        const minDim = 0.12;
+        const proxyGeometry = new THREE.BoxGeometry(
+          Math.max(size.x + pad, minDim),
+          Math.max(size.y + pad, minDim),
+          Math.max(size.z + pad, minDim)
+        );
         const proxy = new THREE.Mesh(proxyGeometry, new THREE.MeshBasicMaterial({ visible: false }));
         proxy.position.copy(center);
         const p = proxyGeometry.parameters;
-        proxy.userData = { partId: meta.id, volume: p.width * p.height * p.depth };
+        proxy.userData = { partId: meta.id, isLine: false, volume: p.width * p.height * p.depth };
         group.add(proxy);
         pickTargets.push(proxy);
       }
@@ -161,7 +182,7 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
   let last = performance.now();
 
   const raycaster = new THREE.Raycaster();
-  raycaster.params.Line.threshold = 0.05;
+  raycaster.params.Line.threshold = 0.14;
   const ndc = new THREE.Vector2();
   const tmpDir = new THREE.Vector3();
   const tmpDelta = new THREE.Vector3();
@@ -207,32 +228,83 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
   };
   controls.addEventListener('start', onControlStart);
 
-  function pickAt(clientX, clientY) {
-    const rect = dom.getBoundingClientRect();
-    ndc.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
-    raycaster.setFromCamera(ndc, camera);
-    let bestId = null;
-    let bestVolume = Infinity;
-    for (const hit of raycaster.intersectObjects(pickTargets, false)) {
-      const { partId, volume } = hit.object.userData;
-      if (volume < bestVolume) {
-        bestVolume = volume;
-        bestId = partId;
+  function evaluateHits(ray, hits) {
+    if (!hits || hits.length === 0) return null;
+
+    const partBest = new Map();
+    for (const h of hits) {
+      const id = h.object.userData.partId;
+      if (!id) continue;
+      const isLine = Boolean(h.object.userData.isLine);
+      const rayDist = isLine ? ray.distanceToPoint(h.point) : 0.015;
+      const depth = h.distance;
+
+      const cur = partBest.get(id);
+      if (!cur || rayDist < cur.rayDist || (Math.abs(rayDist - cur.rayDist) < 0.02 && depth < cur.depth)) {
+        partBest.set(id, { id, rayDist, depth, isLine, point: h.point });
       }
     }
-    return bestId;
+
+    const list = Array.from(partBest.values());
+    if (list.length === 1) return list[0].id;
+
+    list.sort((a, b) => {
+      // If one candidate is significantly closer perpendicular to the ray, prefer it
+      const diffRay = a.rayDist - b.rayDist;
+      if (Math.abs(diffRay) > 0.035) return diffRay;
+      // If ray distances are comparable, the part closer in depth to the camera wins
+      const diffDepth = a.depth - b.depth;
+      if (Math.abs(diffDepth) > 0.35) return diffDepth;
+      return diffRay;
+    });
+
+    return list[0].id;
+  }
+
+  function pickAt(clientX, clientY) {
+    const rect = dom.getBoundingClientRect();
+    if (!rect.width || !rect.height) return null;
+
+    // 1. Primary ray directly at cursor
+    ndc.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    let hits = raycaster.intersectObjects(pickTargets, false);
+    let best = evaluateHits(raycaster.ray, hits);
+    if (best) return best;
+
+    // 2. Fuzzy multi-sample neighborhood (offsets in 8 directions)
+    // Ensures clicking near thin lines or small parts immediately snaps and registers
+    const offsets = [
+      [8, 0], [-8, 0], [0, 8], [0, -8],
+      [12, 8], [-12, -8], [8, -12], [-8, 12],
+    ];
+    for (let i = 0; i < offsets.length; i += 1) {
+      const [ox, oy] = offsets[i];
+      ndc.set(((clientX + ox - rect.left) / rect.width) * 2 - 1, -((clientY + oy - rect.top) / rect.height) * 2 + 1);
+      raycaster.setFromCamera(ndc, camera);
+      hits = raycaster.intersectObjects(pickTargets, false);
+      best = evaluateHits(raycaster.ray, hits);
+      if (best) return best;
+    }
+
+    return null;
   }
 
   let downAt = null;
   const onPointerDown = (event) => {
+    // Only respond to left button (0) or touch/pen (where button may be 0 or undefined)
+    if (event.button !== undefined && event.button !== 0) return;
     downAt = { x: event.clientX, y: event.clientY, t: performance.now() };
   };
   const onPointerUp = (event) => {
     if (!downAt) return;
+    if (event.button !== undefined && event.button !== 0) return;
     const moved = Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y);
-    const quick = performance.now() - downAt.t < 600;
+    const duration = performance.now() - downAt.t;
     downAt = null;
-    if (moved > 6 || !quick) return; // a drag is a rotation, not a selection
+    // 14px threshold allows natural finger/trackpad tap tolerance without triggering false drag cancellations
+    // 1000ms duration accommodates deliberate, thoughtful clicks
+    if (moved > 14 || duration > 1000) return;
     const id = pickAt(event.clientX, event.clientY);
     if (id) onSelect?.(id);
   };
@@ -243,7 +315,7 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     window.setTimeout(() => {
       hoverBusy = false;
       if (!disposed) dom.style.cursor = pickAt(event.clientX, event.clientY) ? 'pointer' : 'grab';
-    }, 50);
+    }, 40);
   };
   dom.addEventListener('pointerdown', onPointerDown);
   dom.addEventListener('pointerup', onPointerUp);

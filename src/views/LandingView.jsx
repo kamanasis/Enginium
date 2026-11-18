@@ -626,31 +626,76 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
           <table className="en-compare-table">
             <thead>
               <tr>
-                <th style={{ width: '30%' }}>Feature Dimension</th>
-                <th style={{ width: '35%' }}>Greasy Paper Manuals & Generic Forums</th>
-                <th className="en-highlight-cell" style={{ width: '35%' }}>Enginium Interactive Digital Twin</th>
+                <th style={{ width: '28%' }}>Feature Dimension</th>
+                <th style={{ width: '36%' }}>Greasy Paper Manuals & Generic Forums</th>
+                <th className="en-highlight-col" style={{ width: '36%' }}>
+                  <div className="en-compare-head-badge">
+                    <span className="en-compare-head-dot" aria-hidden="true" />
+                    <span>Enginium Interactive Digital Twin</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Component Reference</strong></td>
-                <td>Black-and-white flat schematics from the 1980s</td>
-                <td className="en-highlight-cell">High-resolution authentic photography & 3D wireframe models</td>
+                <td>
+                  <div className="en-compare-cell is-negative">
+                    <XCircle size={15} className="en-compare-icon is-neg" aria-hidden="true" />
+                    <span>Black-and-white flat schematics from the 1980s</span>
+                  </div>
+                </td>
+                <td className="en-highlight-cell">
+                  <div className="en-compare-cell is-positive">
+                    <CheckCircle2 size={15} className="en-compare-icon is-pos" aria-hidden="true" />
+                    <span>High-resolution authentic photography & 3D wireframe models</span>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><strong>Acoustic Diagnostics</strong></td>
-                <td>Vague text descriptions like "listen for clatter"</td>
-                <td className="en-highlight-cell">Live frequency FFT spectrum stethoscope with audio comparisons</td>
+                <td>
+                  <div className="en-compare-cell is-negative">
+                    <XCircle size={15} className="en-compare-icon is-neg" aria-hidden="true" />
+                    <span>Vague text descriptions like &ldquo;listen for clatter&rdquo;</span>
+                  </div>
+                </td>
+                <td className="en-highlight-cell">
+                  <div className="en-compare-cell is-positive">
+                    <CheckCircle2 size={15} className="en-compare-icon is-pos" aria-hidden="true" />
+                    <span>Live frequency FFT spectrum stethoscope with audio comparisons</span>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><strong>Troubleshooting Speed</strong></td>
-                <td>Browsing 300 pages of fine print index tables</td>
-                <td className="en-highlight-cell">Instant symptom matrix search with confidence scores & DIY intervals</td>
+                <td>
+                  <div className="en-compare-cell is-negative">
+                    <XCircle size={15} className="en-compare-icon is-neg" aria-hidden="true" />
+                    <span>Browsing 300 pages of fine print index tables</span>
+                  </div>
+                </td>
+                <td className="en-highlight-cell">
+                  <div className="en-compare-cell is-positive">
+                    <CheckCircle2 size={15} className="en-compare-icon is-pos" aria-hidden="true" />
+                    <span>Instant symptom matrix search with confidence scores & DIY intervals</span>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><strong>Maintenance Records</strong></td>
-                <td>Lost paper slips and fading odometer receipts</td>
-                <td className="en-highlight-cell">Immutable digital garage passport with milestone achievements</td>
+                <td>
+                  <div className="en-compare-cell is-negative">
+                    <XCircle size={15} className="en-compare-icon is-neg" aria-hidden="true" />
+                    <span>Lost paper slips and fading odometer receipts</span>
+                  </div>
+                </td>
+                <td className="en-highlight-cell">
+                  <div className="en-compare-cell is-positive">
+                    <CheckCircle2 size={15} className="en-compare-icon is-pos" aria-hidden="true" />
+                    <span>Immutable digital garage passport with milestone achievements</span>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -848,45 +848,126 @@
   letter-spacing: 0.08em;
 }
 
-/* Traditional vs Enginium Comparison Table */
+/* Traditional vs Enginium Comparison Table - High Legibility & Comfort */
 .en-compare-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #1f2332;
-  background: #090b12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 12, 18, 0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: 
+    0 24px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
-.en-compare-table th,
-.en-compare-table td {
-  font-size: 0.9375rem;
-  color: #cbd5e1;
+.en-compare-table thead tr {
+  background: rgba(15, 18, 26, 0.96);
 }
 
 .en-compare-table th {
-  background: #08090d;
-  font-size: 0.8125rem;
+  padding: 16px 22px;
+  font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #94a3b8;
+  letter-spacing: 0.09em;
+  color: #8b95a7;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
 }
 
 .en-compare-table td {
-  font-size: 0.9375rem;
-  color: #cbd5e1;
+  padding: 16px 22px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.18s ease;
 }
 
-.en-compare-table tr:last-child td {
+.en-compare-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.en-compare-table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.en-highlight-cell {
-  background: rgba(185, 28, 28, 0.16);
-  color: #ff3344 !important;
-  font-weight: 700;
+.en-compare-table td strong {
+  color: #e2e8f0;
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+/* Enginium Column - Clean white text with brand red accents, gentle on the eye */
+.en-compare-table th.en-highlight-col {
+  background: rgba(255, 23, 68, 0.06);
+  border-left: 1px solid rgba(255, 23, 68, 0.22);
+  border-right: 1px solid rgba(255, 23, 68, 0.22);
+}
+
+.en-compare-head-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.en-compare-head-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff1744;
+  box-shadow: 0 0 10px #ff1744;
+  flex-shrink: 0;
+  animation: enPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.en-compare-table td.en-highlight-cell {
+  background: rgba(255, 23, 68, 0.035);
+  border-left: 1px solid rgba(255, 23, 68, 0.16);
+  border-right: 1px solid rgba(255, 23, 68, 0.16);
+  color: #f8fafc !important;
+}
+
+.en-compare-table tbody tr:hover td.en-highlight-cell {
+  background: rgba(255, 23, 68, 0.065);
+}
+
+/* Compare Row Item Alignment & Icons */
+.en-compare-cell {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.en-compare-icon {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.en-compare-icon.is-neg {
+  color: #64748b;
+  opacity: 0.75;
+}
+
+.en-compare-icon.is-pos {
+  color: #ff3355;
+  filter: drop-shadow(0 0 6px rgba(255, 23, 68, 0.45));
+}
+
+.en-compare-cell.is-positive span {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.en-compare-cell.is-negative span {
+  color: #8b95a7;
 }
 
 /* Call to Action Banner */

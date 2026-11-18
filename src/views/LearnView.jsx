@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useMemo, useState } from 'react';
 import {
   Activity,
   Award,
@@ -25,7 +25,11 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { BIKE_PART_IDS } from '../data/bikeParts';
+import {
+  resolveBlueprintPartId,
+  resolveVehiclePart,
+  getVehicleBlueprintNames,
+} from '../data/bikeParts';
 import './ToolViews.css';
 
 const BikeBlueprintViewer = lazy(() => import('../components/BikeBlueprintViewer'));
@@ -135,6 +139,13 @@ export default function LearnView({
     || selectedVehicle.parts.find((part) => part.id === selectedPart?.id)
     || filteredParts[0]
     || selectedVehicle.parts[0];
+
+  const activeBlueprintId = effectivePart ? resolveBlueprintPartId(effectivePart.id) : null;
+  const vehicleParts = selectedVehicle?.parts;
+  const vehicleBlueprintNames = useMemo(
+    () => getVehicleBlueprintNames(vehicleParts || []),
+    [vehicleParts]
+  );
 
 
   const getIcon = (iconName) => {
@@ -343,11 +354,11 @@ export default function LearnView({
                 <div className="learn-3d-canvas is-blueprint">
                   <Suspense fallback={<div className="ui-empty">Loading 3D blueprint…</div>}>
                     <BikeBlueprintViewer
-                      selectedPartId={effectivePart && BIKE_PART_IDS.has(effectivePart.id) ? effectivePart.id : null}
-                      markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])] : []}
-                      partNames={Object.fromEntries(selectedVehicle.parts.map((part) => [part.id, part.name]))}
+                      selectedPartId={activeBlueprintId}
+                      markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])].map(resolveBlueprintPartId).filter(Boolean) : []}
+                      partNames={vehicleBlueprintNames}
                       onSelectPart={(id) => {
-                        const found = selectedVehicle.parts.find((part) => part.id === id);
+                        const found = resolveVehiclePart(id, selectedVehicle?.parts || []);
                         if (found) setSelectedPart(found);
                       }}
                       isEnlarged={isBlueprintEnlarged}
@@ -357,7 +368,7 @@ export default function LearnView({
                 </div>
                 <div className="learn-3d-footer">
                   <span>
-                    {effectivePart && BIKE_PART_IDS.has(effectivePart.id)
+                    {activeBlueprintId
                       ? 'Scroll or pinch to zoom in & separate components. Tap any part to inspect.'
                       : `The 3D blueprint has no 3D mesh for ${effectivePart?.name?.toLowerCase() || 'this component'} yet. Refer to the photo & guide.`}
                   </span>
