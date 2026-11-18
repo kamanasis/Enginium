@@ -27,7 +27,7 @@
       linear-gradient(180deg, #06070a 0%, #030305 52%, #010102 100%);
     color: #f1f5f9;
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
+    overflow-x: clip;
     min-width: 320px;
   }
 
@@ -1360,11 +1360,22 @@ button kbd,
   color: #fff;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  position: relative;
-  z-index: 30;
+  height: 100vh;
+  max-height: 100vh;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  flex-shrink: 0;
+  z-index: 40;
   transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), flex-basis 0.22s cubic-bezier(0.16, 1, 0.3, 1), padding 0.22s ease;
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 /* 1. COLLAPSED STATE (Icons only - exactly as user screenshot) */

@@ -25,9 +25,51 @@
       "subject": "unsorted"
     },
     {
+      "id": "inline:clicking-collapse-button-returns-sidebar-to-coll-70b29314",
+      "statement": "Clicking collapse button returns sidebar to collapsed icon rail",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:clicking-expand-menu-opens-expanded-sidebar-with-7cbd0782",
+      "statement": "Clicking expand menu opens expanded sidebar with collapse button",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:clicking-launch-studio-enters-workspace-with-fix-d9d0e2dc",
+      "statement": "Clicking Launch Studio enters workspace with fixed sidebar",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:navigating-to-learn-tab-displays-mechanical-prin-e1709d76",
+      "statement": "Navigating to Learn tab displays mechanical principles and systems",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:navigating-to-overview-tab-shows-system-overview-65781c2f",
+      "statement": "Navigating to Overview tab shows system overview content",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
       "id": "inline:phone-preview-users-can-return-to-the-full-works-359bbad1",
       "statement": "Phone preview users can return to the full workspace without losing the…",
       "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:scrolling-page-keeps-sidebar-fixed-in-viewport-b63a563c",
+      "statement": "Scrolling page keeps sidebar fixed in viewport",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:scrolling-to-bottom-element-keeps-sidebar-button-f3acfd17",
+      "statement": "Scrolling to bottom element keeps sidebar button pinned at top",
+      "status": "proposed",
       "subject": "unsorted"
     },
     {

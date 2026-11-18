@@ -28,6 +28,101 @@
       },
       "updatedAt": 1791692191076
     },
+    "inline:clicking-collapse-button-returns-sidebar-to-coll-70b29314": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Expand sidebar menu",
+          "role": "button"
+        }
+      },
+      "declaredAt": 1794991755984,
+      "id": "inline:clicking-collapse-button-returns-sidebar-to-coll-70b29314",
+      "state": "bound",
+      "statement": "Clicking collapse button returns sidebar to collapsed icon rail",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794991756016
+    },
+    "inline:clicking-expand-menu-opens-expanded-sidebar-with-7cbd0782": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Collapse sidebar to icons",
+          "role": "button"
+        }
+      },
+      "declaredAt": 1794991746907,
+      "id": "inline:clicking-expand-menu-opens-expanded-sidebar-with-7cbd0782",
+      "provenBy": {
+        "at": 1794991749208,
+        "grade": "presence",
+        "runId": "drive-1610db253b829768",
+        "verdictId": "reticle_act_and_wait:1794991749208"
+      },
+      "state": "proved",
+      "statement": "Clicking expand menu opens expanded sidebar with collapse button",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1794991749249
+    },
+    "inline:clicking-launch-studio-enters-workspace-with-fix-d9d0e2dc": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "role": "complementary"
+        }
+      },
+      "declaredAt": 1794991713129,
+      "id": "inline:clicking-launch-studio-enters-workspace-with-fix-d9d0e2dc",
+      "provenBy": {
+        "at": 1794991716182,
+        "grade": "presence",
+        "runId": "drive-1610db253b829768",
+        "verdictId": "reticle_act_and_wait:1794991716182"
+      },
+      "state": "proved",
+      "statement": "Clicking Launch Studio enters workspace with fixed sidebar",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/views/LandingView.jsx"
+        ]
+      },
+      "updatedAt": 1794991716227
+    },
+    "inline:navigating-to-learn-tab-displays-mechanical-prin-e1709d76": {
+      "binding": {
+        "contains": "Principles & Systems",
+        "kind": "text"
+      },
+      "declaredAt": 1794991833092,
+      "id": "inline:navigating-to-learn-tab-displays-mechanical-prin-e1709d76",
+      "state": "bound",
+      "statement": "Navigating to Learn tab displays mechanical principles and systems",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794991833124
+    },
+    "inline:navigating-to-overview-tab-shows-system-overview-65781c2f": {
+      "binding": {
+        "contains": "Vehicle Specs & System Telemetry",
+        "kind": "text"
+      },
+      "declaredAt": 1794991779628,
+      "id": "inline:navigating-to-overview-tab-shows-system-overview-65781c2f",
+      "state": "bound",
+      "statement": "Navigating to Overview tab shows system overview content",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794991779668
+    },
     "inline:phone-preview-users-can-return-to-the-full-works-359bbad1": {
       "binding": {
         "kind": "element",
@@ -53,6 +148,38 @@
         ]
       },
       "updatedAt": 1791693368480
+    },
+    "inline:scrolling-page-keeps-sidebar-fixed-in-viewport-b63a563c": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "role": "complementary"
+        },
+        "state": "inViewport"
+      },
+      "declaredAt": 1794991729906,
+      "id": "inline:scrolling-page-keeps-sidebar-fixed-in-viewport-b63a563c",
+      "state": "bound",
+      "statement": "Scrolling page keeps sidebar fixed in viewport",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794991729957
+    },
+    "inline:scrolling-to-bottom-element-keeps-sidebar-button-f3acfd17": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Expand sidebar menu",
+          "role": "button"
+        }
+      },
+      "declaredAt": 1794991812124,
+      "id": "inline:scrolling-to-bottom-element-keeps-sidebar-button-f3acfd17",
+      "state": "bound",
+      "statement": "Scrolling to bottom element keeps sidebar button pinned at top",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794991812191
     },
     "inline:the-preview-mode-switcher-opens-a-usable-phone-p-4a7c5b40": {
       "binding": {
