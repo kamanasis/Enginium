@@ -547,7 +547,7 @@
   align-items: center;
   background: #12141c;
   border: 1px solid #232736;
-  border-radius: 12px;
+  border-radius: 0;
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
@@ -559,6 +559,38 @@
   min-height: 44px;
   padding: 10px 16px;
   transition: all 160ms ease;
+}
+
+/* Sharpened edge for buttons (0px radius) - preserves all coloring and other styles */
+button:not(.bp-marker-dot):not([class*="unit-dot"]):not([class*="hotspot-marker"]):not([class*="pulse"]):not([class*="toggle"]):not([class*="switch"]),
+.ui-btn,
+.bp-btn,
+.bp-hud-enlarge-btn,
+.bp-fullscreen-exit-floating,
+.learn-workbench-tab,
+.learn-workbench-enlarge-btn,
+.learn-footer-enlarge-btn,
+.learn-filter,
+.learn-quick-chip,
+.learn-toggle-list-btn,
+.cad-part-node,
+.en-hero-btn-primary,
+.en-hero-btn-secondary,
+.en-btn-launch,
+.en-btn-primary-hero,
+.en-btn-secondary-hero,
+.en-island-launch-btn,
+.en-mobile-menu-btn,
+.app-vehicle-trigger,
+.app-mode-switcher button,
+.app-sidebar-link,
+.app-sidebar-collapse-btn {
+  border-radius: 0 !important;
+}
+
+button kbd,
+.bp-fullscreen-exit-floating kbd {
+  border-radius: 0 !important;
 }
 
 .ui-btn:hover:not(:disabled) {

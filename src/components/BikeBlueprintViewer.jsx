@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { Minus, Plus, RotateCcw } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Maximize2, Minimize2, Minus, Plus, RotateCcw, X } from 'lucide-react';
 import { BIKE_MODEL, BIKE_PARTS, BIKE_PART_IDS } from '../data/bikeParts';
 import { createBikeScene } from '../viewer/bikeScene';
 import '../viewer/bikeBlueprint.css';
@@ -21,6 +21,8 @@ export default function BikeBlueprintViewer({
   partNames = {},
   onSelectPart,
   debug = false,
+  isEnlarged: controlledIsEnlarged,
+  onToggleEnlarge,
 }) {
   const wrapRef = useRef(null);
   const mountRef = useRef(null);
@@ -29,6 +31,67 @@ export default function BikeBlueprintViewer({
   const explodeBarRef = useRef(null);
   const markerEls = useRef(new Map());
   const onSelectRef = useRef(onSelectPart);
+
+  const [internalEnlarged, setInternalEnlarged] = useState(false);
+  const isEnlarged = controlledIsEnlarged !== undefined ? controlledIsEnlarged : internalEnlarged;
+
+  const toggleEnlarge = useCallback(() => {
+    const next = !isEnlarged;
+    if (onToggleEnlarge) {
+      onToggleEnlarge(next);
+    } else {
+      setInternalEnlarged(next);
+    }
+
+    try {
+      if (next) {
+        if (!document.fullscreenElement && wrapRef.current?.requestFullscreen) {
+          wrapRef.current.requestFullscreen().catch(() => {});
+        }
+      } else {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    } catch {
+      // safe fallback
+    }
+  }, [isEnlarged, onToggleEnlarge]);
+
+  // Global escape key handler when enlarged
+  useEffect(() => {
+    if (!isEnlarged) return undefined;
+    const onGlobalKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        toggleEnlarge();
+      }
+    };
+    window.addEventListener('keydown', onGlobalKeyDown);
+    return () => window.removeEventListener('keydown', onGlobalKeyDown);
+  }, [isEnlarged, toggleEnlarge]);
+
+  // Lock body scroll during full-screen enlargement
+  useEffect(() => {
+    if (isEnlarged) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [isEnlarged]);
+
+  // Synchronize with native browser fullscreen changes
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement && isEnlarged) {
+        if (onToggleEnlarge) onToggleEnlarge(false);
+        else setInternalEnlarged(false);
+      }
+    };
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, [isEnlarged, onToggleEnlarge]);
 
   useEffect(() => {
     onSelectRef.current = onSelectPart;
@@ -90,10 +153,19 @@ export default function BikeBlueprintViewer({
 
   const handleKeyDown = (event) => {
     const scene = sceneRef.current;
+    if (event.key === 'Escape') {
+      if (isEnlarged) {
+        toggleEnlarge();
+        event.preventDefault();
+        return;
+      }
+      if (scene) scene.reassemble();
+      return;
+    }
     if (!scene) return;
     if (event.key === '+' || event.key === '=') scene.zoomBy(0.75);
     else if (event.key === '-' || event.key === '_') scene.zoomBy(1.33);
-    else if (event.key === 'Escape' || event.key === '0') scene.reassemble();
+    else if (event.key === '0') scene.reassemble();
     else return;
     event.preventDefault();
   };
@@ -105,7 +177,7 @@ export default function BikeBlueprintViewer({
   return (
     <div
       ref={wrapRef}
-      className="bp-viewer"
+      className={`bp-viewer ${isEnlarged ? 'is-enlarged' : ''}`}
       tabIndex={0}
       role="group"
       aria-label="Interactive 3D blueprint of the motorcycle"
@@ -113,15 +185,50 @@ export default function BikeBlueprintViewer({
     >
       <div ref={mountRef} className="bp-stage" />
 
+      {isEnlarged && (
+        <>
+          <div className="bp-hud-center-pill">
+            <span className="bp-hud-center-dot" />
+            <span className="bp-hud-center-tag">FULLSCREEN CAD BLUEPRINT</span>
+            {selectedPartId && (
+              <span className="bp-hud-center-part">· {nameOf(selectedPartId)}</span>
+            )}
+          </div>
+          <button
+            type="button"
+            className="bp-fullscreen-exit-floating"
+            onClick={toggleEnlarge}
+            aria-label="Exit fullscreen mode"
+            title="Exit fullscreen mode (Esc)"
+          >
+            <X size={15} aria-hidden="true" />
+            <span>Exit Fullscreen</span>
+            <kbd>ESC</kbd>
+          </button>
+        </>
+      )}
+
       <div className="bp-hud bp-hud-tl" aria-hidden="true">
-        <span>CAD_VIEW: ORBIT</span>
+        <span>CAD_VIEW: ORBIT {isEnlarged ? '(FULLSCREEN)' : ''}</span>
         <span className="bp-hud-model">MODEL: {BIKE_MODEL.code}</span>
         <span className="bp-hud-warn">STYLISED, NOT MANUFACTURER CAD</span>
       </div>
-      <div className="bp-hud bp-hud-tr" aria-hidden="true">
-        <span>EXPLODE <b ref={explodeTextRef}>0%</b></span>
-        <span className="bp-bar"><i ref={explodeBarRef} /></span>
-        <span>PARTS: {PART_COUNT}</span>
+      <div className="bp-hud bp-hud-tr">
+        <div className="bp-hud-tr-top">
+          <span aria-hidden="true">EXPLODE <b ref={explodeTextRef}>0%</b></span>
+          <button
+            type="button"
+            className="bp-hud-enlarge-btn"
+            onClick={toggleEnlarge}
+            aria-label={isEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
+            title={isEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
+          >
+            {isEnlarged ? <Minimize2 size={12} aria-hidden="true" /> : <Maximize2 size={12} aria-hidden="true" />}
+            <span>{isEnlarged ? 'EXIT' : 'ENLARGE'}</span>
+          </button>
+        </div>
+        <span className="bp-bar" aria-hidden="true"><i ref={explodeBarRef} /></span>
+        <span aria-hidden="true">PARTS: {PART_COUNT}</span>
       </div>
 
       <div className="bp-markers">
@@ -151,9 +258,23 @@ export default function BikeBlueprintViewer({
         <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(0.7)} aria-label="Zoom in and separate parts"><Plus size={16} aria-hidden="true" /></button>
         <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(1.4)} aria-label="Zoom out"><Minus size={16} aria-hidden="true" /></button>
         <button type="button" className="bp-btn bp-btn-wide" onClick={() => sceneRef.current?.reassemble()}><RotateCcw size={15} aria-hidden="true" /> Reassemble</button>
+        <button
+          type="button"
+          className={`bp-btn bp-btn-wide bp-btn-enlarge ${isEnlarged ? 'is-active' : ''}`}
+          onClick={toggleEnlarge}
+          aria-label={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
+          title={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
+        >
+          {isEnlarged ? <Minimize2 size={15} aria-hidden="true" /> : <Maximize2 size={15} aria-hidden="true" />}
+          <span>{isEnlarged ? 'Minimize' : 'Enlarge'}</span>
+        </button>
       </div>
 
-      <p className="bp-hint" aria-hidden="true">Drag to rotate · scroll or pinch to zoom in and separate parts · tap a part</p>
+      <p className="bp-hint" aria-hidden="true">
+        {isEnlarged
+          ? 'Drag to rotate · scroll to zoom · tap any part to inspect · press ESC to exit'
+          : 'Drag to rotate · scroll or pinch to zoom in and separate parts · tap a part'}
+      </p>
       <p className="bp-sr" aria-live="polite">{summary}</p>
 
       <div className="bp-fallback" role="status">

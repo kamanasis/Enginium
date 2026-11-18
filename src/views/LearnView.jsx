@@ -14,6 +14,8 @@ import {
   Gauge,
   HelpCircle,
   ImageOff,
+  Maximize2,
+  Minimize2,
   RefreshCw,
   Search,
   Settings,
@@ -75,6 +77,7 @@ export default function LearnView({
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [leftTab, setLeftTab] = useState('3d');
+  const [isBlueprintEnlarged, setIsBlueprintEnlarged] = useState(false);
 
   const [prevInspection, setPrevInspection] = useState(inspectionRequest);
   if (inspectionRequest !== prevInspection) {
@@ -316,9 +319,23 @@ export default function LearnView({
                   CAD Assembly Tree ({filteredParts.length})
                 </button>
               </div>
-              <span className="learn-workbench-chip">
-                {leftTab === '3d' ? 'INTERACTIVE 3D' : `${filteredParts.length} NODES`}
-              </span>
+              <div className="learn-workbench-actions">
+                {leftTab === '3d' && (
+                  <button
+                    type="button"
+                    className="learn-workbench-enlarge-btn"
+                    onClick={() => setIsBlueprintEnlarged(!isBlueprintEnlarged)}
+                    title={isBlueprintEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
+                    aria-label={isBlueprintEnlarged ? 'Exit fullscreen' : 'Enlarge blueprint to full screen'}
+                  >
+                    {isBlueprintEnlarged ? <Minimize2 size={13} aria-hidden="true" /> : <Maximize2 size={13} aria-hidden="true" />}
+                    <span>{isBlueprintEnlarged ? 'Exit' : 'Enlarge'}</span>
+                  </button>
+                )}
+                <span className="learn-workbench-chip">
+                  {leftTab === '3d' ? 'INTERACTIVE 3D' : `${filteredParts.length} NODES`}
+                </span>
+              </div>
             </div>
 
             {leftTab === '3d' ? (
@@ -333,6 +350,8 @@ export default function LearnView({
                         const found = selectedVehicle.parts.find((part) => part.id === id);
                         if (found) setSelectedPart(found);
                       }}
+                      isEnlarged={isBlueprintEnlarged}
+                      onToggleEnlarge={setIsBlueprintEnlarged}
                     />
                   </Suspense>
                 </div>
@@ -342,13 +361,24 @@ export default function LearnView({
                       ? 'Scroll or pinch to zoom in & separate components. Tap any part to inspect.'
                       : `The 3D blueprint has no 3D mesh for ${effectivePart?.name?.toLowerCase() || 'this component'} yet. Refer to the photo & guide.`}
                   </span>
-                  <button
-                    type="button"
-                    className="ui-btn ui-btn-quiet"
-                    onClick={() => setLeftTab('tree')}
-                  >
-                    Browse CAD Tree
-                  </button>
+                  <div className="learn-3d-footer-actions">
+                    <button
+                      type="button"
+                      className="ui-btn ui-btn-quiet learn-footer-enlarge-btn"
+                      onClick={() => setIsBlueprintEnlarged(true)}
+                      title="Enlarge blueprint to full screen"
+                    >
+                      <Maximize2 size={13} aria-hidden="true" />
+                      Enlarge Screen
+                    </button>
+                    <button
+                      type="button"
+                      className="ui-btn ui-btn-quiet"
+                      onClick={() => setLeftTab('tree')}
+                    >
+                      Browse CAD Tree
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
