@@ -97,6 +97,99 @@
       },
       "updatedAt": 1794991716227
     },
+    "inline:clicking-vehicle-capsule-opens-vehicle-dropdown-d95ed538": {
+      "binding": {
+        "contains": "Active Digital Twin",
+        "kind": "text"
+      },
+      "declaredAt": 1795323178060,
+      "id": "inline:clicking-vehicle-capsule-opens-vehicle-dropdown-d95ed538",
+      "state": "bound",
+      "statement": "Clicking vehicle capsule opens vehicle dropdown switcher in navbar",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795323178120
+    },
+    "inline:enter-workspace-from-landing-page-b84aa2f6": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "role": "complementary"
+        }
+      },
+      "declaredAt": 1794994430184,
+      "id": "inline:enter-workspace-from-landing-page-b84aa2f6",
+      "provenBy": {
+        "at": 1795147122797,
+        "grade": "presence",
+        "runId": "drive-4b7fac6c221b3623",
+        "verdictId": "reticle_act_and_wait:1795147122797"
+      },
+      "state": "proved",
+      "statement": "Enter workspace from landing page",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/views/LandingView.jsx"
+        ]
+      },
+      "updatedAt": 1795147122823
+    },
+    "inline:navigate-to-learn-tab-e5d3d421": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Parts explorer",
+          "role": "tab"
+        }
+      },
+      "declaredAt": 1794994440453,
+      "id": "inline:navigate-to-learn-tab-e5d3d421",
+      "provenBy": {
+        "at": 1794994442517,
+        "grade": "presence",
+        "runId": "drive-1610db253b829768",
+        "verdictId": "reticle_act_and_wait:1794994442517"
+      },
+      "state": "proved",
+      "statement": "Navigate to Learn tab",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1794994442572
+    },
+    "inline:navigate-to-learn-tab-to-verify-button-and-chip-e43e86fb": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Parts explorer",
+          "role": "tab"
+        }
+      },
+      "declaredAt": 1795147185434,
+      "id": "inline:navigate-to-learn-tab-to-verify-button-and-chip-e43e86fb",
+      "provenBy": {
+        "at": 1795147185759,
+        "grade": "presence",
+        "runId": "drive-4b7fac6c221b3623",
+        "verdictId": "reticle_act_and_wait:1795147185759"
+      },
+      "state": "proved",
+      "statement": "Navigate to Learn tab to verify button and chip rounded corners",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/App.jsx"
+        ]
+      },
+      "updatedAt": 1795147185828
+    },
     "inline:navigating-to-learn-tab-displays-mechanical-prin-e1709d76": {
       "binding": {
         "contains": "Principles & Systems",
@@ -180,6 +273,70 @@
       "status": "proposed",
       "subject": "unsorted",
       "updatedAt": 1794991812191
+    },
+    "inline:search-for-key-switch-part-in-parts-explorer-10c6e52f": {
+      "binding": {
+        "contains": "Integrated 5-in-1 Multi-Function Key Switch",
+        "kind": "text"
+      },
+      "declaredAt": 1794994487944,
+      "id": "inline:search-for-key-switch-part-in-parts-explorer-10c6e52f",
+      "state": "bound",
+      "statement": "Search for key switch part in parts explorer",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1794994487990
+    },
+    "inline:select-key-switch-part-to-display-its-new-refere-07032060": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "alt": "Reference photo of Integrated 5-in-1 Multi-Function Key Switch",
+          "role": "img"
+        }
+      },
+      "declaredAt": 1794994527671,
+      "id": "inline:select-key-switch-part-to-display-its-new-refere-07032060",
+      "provenBy": {
+        "at": 1794994530237,
+        "grade": "presence",
+        "runId": "drive-1610db253b829768",
+        "verdictId": "reticle_act_and_wait:1794994530237"
+      },
+      "state": "proved",
+      "statement": "Select key switch part to display its new reference image",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/views/LearnView.jsx"
+        ]
+      },
+      "updatedAt": 1794994530287
+    },
+    "inline:switch-to-cad-assembly-tree-view-to-see-matching-64d1c1cd": {
+      "binding": {
+        "contains": "Integrated 5-in-1 Multi-Function Key Switch",
+        "kind": "text"
+      },
+      "declaredAt": 1794994514115,
+      "id": "inline:switch-to-cad-assembly-tree-view-to-see-matching-64d1c1cd",
+      "provenBy": {
+        "at": 1794994516207,
+        "grade": "presence",
+        "runId": "drive-1610db253b829768",
+        "verdictId": "reticle_act_and_wait:1794994516207"
+      },
+      "state": "proved",
+      "statement": "Switch to CAD assembly tree view to see matching part",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/views/LearnView.jsx"
+        ]
+      },
+      "updatedAt": 1794994516259
     },
     "inline:the-preview-mode-switcher-opens-a-usable-phone-p-4a7c5b40": {
       "binding": {

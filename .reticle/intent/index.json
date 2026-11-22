@@ -1,6 +1,12 @@
 {
   "entries": [
     {
+      "id": "flow:drive-clicking-launch-studio-enters-workspace-with-fix",
+      "statement": "Clicking Launch Studio enters workspace with fixed sidebar",
+      "status": "proposed",
+      "subject": "drive-clicking-launch-studio-enters-work"
+    },
+    {
       "id": "flow:drive-enginium-preview-exit",
       "statement": "enginium-preview-exit",
       "status": "proposed",
@@ -11,6 +17,12 @@
       "statement": "enginium-preview-exit",
       "status": "proposed",
       "subject": "drive-enginium-preview-exit-9c65e0"
+    },
+    {
+      "id": "flow:drive-enter-workspace-from-landing-page",
+      "statement": "Enter workspace from landing page",
+      "status": "proposed",
+      "subject": "drive-enter-workspace-from-landing-page"
     },
     {
       "id": "enginium-mobile-nav-access",
@@ -43,6 +55,30 @@
       "subject": "unsorted"
     },
     {
+      "id": "inline:clicking-vehicle-capsule-opens-vehicle-dropdown-d95ed538",
+      "statement": "Clicking vehicle capsule opens vehicle dropdown switcher in navbar",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:enter-workspace-from-landing-page-b84aa2f6",
+      "statement": "Enter workspace from landing page",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:navigate-to-learn-tab-e5d3d421",
+      "statement": "Navigate to Learn tab",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:navigate-to-learn-tab-to-verify-button-and-chip-e43e86fb",
+      "statement": "Navigate to Learn tab to verify button and chip rounded corners",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
       "id": "inline:navigating-to-learn-tab-displays-mechanical-prin-e1709d76",
       "statement": "Navigating to Learn tab displays mechanical principles and systems",
       "status": "proposed",
@@ -70,6 +106,24 @@
       "id": "inline:scrolling-to-bottom-element-keeps-sidebar-button-f3acfd17",
       "statement": "Scrolling to bottom element keeps sidebar button pinned at top",
       "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:search-for-key-switch-part-in-parts-explorer-10c6e52f",
+      "statement": "Search for key switch part in parts explorer",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:select-key-switch-part-to-display-its-new-refere-07032060",
+      "statement": "Select key switch part to display its new reference image",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:switch-to-cad-assembly-tree-view-to-see-matching-64d1c1cd",
+      "statement": "Switch to CAD assembly tree view to see matching part",
+      "status": "proved",
       "subject": "unsorted"
     },
     {
