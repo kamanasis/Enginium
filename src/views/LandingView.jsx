@@ -14,24 +14,12 @@ import './LandingView.css';
 
 export default function LandingView({ onNavigate, onSelectVehicle, selectedVehicle }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [vehicleMenuOpen, setVehicleMenuOpen] = useState(false);
   const [activeFeatureTab, setActiveFeatureTab] = useState('hud');
   const [activeSymptomTest, setActiveSymptomTest] = useState('slow-starting');
   const [acousticFrequency, setAcousticFrequency] = useState(140);
   const [isPlayingAudioSim, setIsPlayingAudioSim] = useState(false);
 
   const currentVehicle = selectedVehicle || vehiclesData[0];
-
-  useEffect(() => {
-    if (!vehicleMenuOpen) return;
-    const handleOutsideClick = (e) => {
-      if (!e.target.closest('.en-island-telemetry-container')) {
-        setVehicleMenuOpen(false);
-      }
-    };
-    window.addEventListener('click', handleOutsideClick);
-    return () => window.removeEventListener('click', handleOutsideClick);
-  }, [vehicleMenuOpen]);
 
   // Featured parts showcasing real photographic assets
   const featuredParts = (currentVehicle.parts || vehiclesData[0].parts).slice(0, 8);
@@ -135,117 +123,51 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             title="Enginium Digital Twin"
           >
-            <EnginiumLogoMark size={24} className="en-brand-emblem" />
+            <EnginiumLogoMark size={22} className="en-brand-emblem" />
             <span className="en-island-brand-text">ENGINIUM</span>
           </button>
-
-          <div className="en-island-divider" />
-
-          {/* Interactive Active Vehicle Telemetry Capsule */}
-          <div className="en-island-telemetry-container relative">
-            <button
-              type="button"
-              className={`en-island-telemetry ${vehicleMenuOpen ? 'is-active' : ''}`}
-              onClick={() => setVehicleMenuOpen(!vehicleMenuOpen)}
-              aria-expanded={vehicleMenuOpen}
-              aria-label="Select active vehicle profile"
-              title="Click to switch active vehicle digital twin"
-            >
-              <span className="en-island-live-dot-wrap">
-                <span className="en-island-live-dot" />
-                <span className="en-island-live-ping" />
-              </span>
-              <span className="en-island-vehicle">{currentVehicle?.name || 'Hero Splendor Plus'}</span>
-              <span className="en-island-chip">3D SYNCED</span>
-              <ChevronDown size={13} className={`en-island-chevron ${vehicleMenuOpen ? 'is-open' : ''}`} aria-hidden="true" />
-            </button>
-
-            {/* Vehicle Switcher Dropdown */}
-            <AnimatePresence>
-              {vehicleMenuOpen && (
-                <motion.div
-                  className="en-island-dropdown"
-                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                  transition={{ duration: 0.16, ease: "easeOut" }}
-                >
-                  <div className="en-island-dropdown-header">
-                    <span>Active Digital Twin</span>
-                    <span className="en-island-dropdown-badge">{vehiclesData.length} Models</span>
-                  </div>
-                  <div className="en-island-dropdown-list">
-                    {vehiclesData.map((vehicle) => {
-                      const isSelected = vehicle.id === currentVehicle.id;
-                      return (
-                        <button
-                          key={vehicle.id}
-                          type="button"
-                          className={`en-island-dropdown-item ${isSelected ? 'is-active' : ''}`}
-                          onClick={() => {
-                            onSelectVehicle(vehicle);
-                            setVehicleMenuOpen(false);
-                          }}
-                        >
-                          <div className="en-island-dropdown-info">
-                            <strong className="en-island-dropdown-title">{vehicle.name}</strong>
-                            <span className="en-island-dropdown-desc">
-                              {vehicle.make} · {vehicle.type} ({vehicle.engine?.split(',')[0]})
-                            </span>
-                          </div>
-                          {isSelected && (
-                            <span className="en-island-dropdown-current-tag">ACTIVE</span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div className="en-island-divider hidden md:block" />
 
           {/* Segmented Navigation Links */}
           <nav className="en-island-nav hidden md:flex" aria-label="Landing page sections">
             <button type="button" className="en-island-link" onClick={() => onNavigate('hud')}>
-              <span>Digital Twin</span>
+              Digital Twin
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('acoustic')}>
-              <span>Acoustic</span>
+              Acoustic
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('learn')}>
-              <span>41+ Parts</span>
+              41+ Parts
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('diagnose')}>
-              <span>Guide</span>
+              Guide
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('garage')}>
-              <span>Garage</span>
+              Garage
             </button>
           </nav>
 
           {/* Action Trigger Pill */}
-          <button
-            type="button"
-            className="en-island-launch-btn"
-            onClick={() => onNavigate('hud')}
-          >
-            <span>Launch Studio</span>
-            <ArrowRight size={13} className="en-island-arrow" />
-          </button>
+          <div className="en-island-actions">
+            <button
+              type="button"
+              className="en-island-launch-btn"
+              onClick={() => onNavigate('hud')}
+            >
+              <span>Launch Studio</span>
+              <ArrowRight size={13} className="en-island-arrow" />
+            </button>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            type="button"
-            className="en-island-mobile-toggle md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
+            {/* Mobile Menu Toggle Button */}
+            <button
+              type="button"
+              className="en-island-mobile-toggle md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Dropdown Menu Drawer */}
