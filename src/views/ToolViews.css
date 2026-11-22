@@ -575,7 +575,7 @@
 
 .learn-quick-chip {
   padding: 4px 11px;
-  border-radius: 0;
+  border-radius: 6px;
   font-size: 0.78rem;
   font-weight: 600;
   background: var(--tool-inset);
@@ -656,7 +656,7 @@
   padding: 6px 12px;
   font-size: 0.78rem;
   font-weight: 600;
-  border-radius: 0;
+  border-radius: 6px;
   border: 1px solid transparent;
   color: #8b95a7;
   background: transparent;
@@ -703,7 +703,7 @@
   padding: 5px 10px;
   font-size: 0.76rem;
   font-weight: 600;
-  border-radius: 0;
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cbd5e1;
   background: rgba(255, 255, 255, 0.04);
@@ -793,7 +793,7 @@
   background: var(--tool-inset);
   border: 1px solid var(--tool-border);
   color: var(--tool-muted);
-  border-radius: 0;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -2087,7 +2087,7 @@
   position: relative;
   width: 100%;
   padding: 7px 10px;
-  border-radius: 0;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.015);
   border: 1px solid rgba(255, 255, 255, 0.04);
   color: #cbd5e1;

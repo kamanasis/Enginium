@@ -547,7 +547,7 @@
   align-items: center;
   background: #12141c;
   border: 1px solid #232736;
-  border-radius: 0;
+  border-radius: 6px;
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
@@ -561,7 +561,7 @@
   transition: all 160ms ease;
 }
 
-/* Sharpened edge for buttons (0px radius) - preserves all coloring and other styles */
+/* Clean modern rounded edge (6px radius matching GitHub Primer design system) */
 button:not(.bp-marker-dot):not([class*="unit-dot"]):not([class*="hotspot-marker"]):not([class*="pulse"]):not([class*="toggle"]):not([class*="switch"]),
 .ui-btn,
 .bp-btn,
@@ -584,13 +584,20 @@ button:not(.bp-marker-dot):not([class*="unit-dot"]):not([class*="hotspot-marker"
 .app-vehicle-trigger,
 .app-mode-switcher button,
 .app-sidebar-link,
-.app-sidebar-collapse-btn {
-  border-radius: 0 !important;
+.app-sidebar-collapse-btn,
+.app-rail-btn,
+.app-rail-brand,
+.app-rail-sos,
+.app-rail-expand-trigger,
+.app-expanded-nav-item,
+.app-expanded-brand,
+.app-expanded-sos {
+  border-radius: 6px !important;
 }
 
 button kbd,
 .bp-fullscreen-exit-floating kbd {
-  border-radius: 0 !important;
+  border-radius: 4px !important;
 }
 
 .ui-btn:hover:not(:disabled) {
@@ -1222,7 +1229,7 @@ button kbd,
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 6px;
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -1257,7 +1264,7 @@ button kbd,
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 10px;
+  border-radius: 6px;
   background: transparent;
   border: 1px solid transparent;
   color: #64748b;
@@ -1528,7 +1535,7 @@ button kbd,
   width: 100%;
   min-height: 38px;
   padding: 0 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   background: transparent;
   border: 1px solid transparent;
   color: #94a3b8;
