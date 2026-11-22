@@ -1710,32 +1710,44 @@
    ======================================================== */
 .en-nav-header {
   position: fixed;
-  top: 14px;
+  top: 16px;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 999;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 0 16px;
   pointer-events: none;
 }
 
 .en-dynamic-island {
   pointer-events: auto;
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 6px 8px 6px 14px;
-  background: rgba(10, 12, 17, 0.85);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(16, 18, 26, 0.88) 0%, rgba(9, 11, 16, 0.94) 100%);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   box-shadow: 
-    0 16px 36px -10px rgba(0, 0, 0, 0.9),
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    0 20px 48px -12px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 30px -6px rgba(255, 23, 68, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-dynamic-island:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 24px 56px -12px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 35px -4px rgba(255, 23, 68, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .en-island-brand {
@@ -1746,7 +1758,18 @@
   border: none;
   color: #ffffff;
   cursor: pointer;
-  padding: 0;
+  padding: 4px 6px;
+  border-radius: 8px;
+  transition: all 0.18s ease;
+}
+
+.en-island-brand:hover .en-brand-emblem {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.en-island-brand:hover .en-island-brand-text {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
 }
 
 .en-island-brand-text {
@@ -1754,18 +1777,47 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   color: #ffffff;
+  transition: all 0.18s ease;
 }
 
 .en-island-divider {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+}
+
+/* Interactive Vehicle Capsule Trigger */
+.en-island-telemetry-container {
+  position: relative;
 }
 
 .en-island-telemetry {
   display: flex;
   align-items: center;
   gap: 7px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-island-telemetry:hover,
+.en-island-telemetry.is-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.en-island-live-dot-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
 }
 
 .en-island-live-dot {
@@ -1774,6 +1826,20 @@
   border-radius: 999px;
   background: #10b981;
   box-shadow: 0 0 8px #10b981;
+  z-index: 1;
+}
+
+.en-island-live-ping {
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.6);
+  animation: islandPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes islandPing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  70%, 100% { transform: scale(2.4); opacity: 0; }
 }
 
 .en-island-vehicle {
@@ -1788,12 +1854,134 @@
   font-weight: 750;
   letter-spacing: 0.08em;
   color: #ff1744;
-  background: rgba(255, 23, 68, 0.12);
-  border: 1px solid rgba(255, 23, 68, 0.3);
+  background: rgba(255, 23, 68, 0.14);
+  border: 1px solid rgba(255, 23, 68, 0.35);
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px -2px rgba(255, 23, 68, 0.3);
+}
+
+.en-island-chevron {
+  color: #64748b;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.en-island-telemetry:hover .en-island-chevron,
+.en-island-telemetry.is-active .en-island-chevron {
+  color: #cbd5e1;
+}
+
+.en-island-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* Floating Vehicle Switcher Dropdown */
+.en-island-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 290px;
+  background: rgba(11, 13, 19, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  z-index: 1000;
+  padding: 6px;
+}
+
+.en-island-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 4px;
+}
+
+.en-island-dropdown-badge {
+  font-size: 0.62rem;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
   padding: 1px 6px;
   border-radius: 4px;
 }
 
+.en-island-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.en-island-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.en-island-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.en-island-dropdown-item.is-active {
+  background: rgba(255, 23, 68, 0.12);
+  border-color: rgba(255, 23, 68, 0.35);
+}
+
+.en-island-dropdown-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.en-island-dropdown-title {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: #f1f5f9;
+}
+
+.en-island-dropdown-desc {
+  font-size: 0.6875rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.en-island-dropdown-current-tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #ff1744;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 23, 68, 0.18);
+  border: 1px solid rgba(255, 23, 68, 0.4);
+}
+
+/* Segmented Navigation Links */
 .en-island-nav {
   display: flex;
   align-items: center;
@@ -1801,22 +1989,26 @@
 }
 
 .en-island-link {
+  position: relative;
   font-size: 0.78rem;
-  font-weight: 550;
+  font-weight: 600;
   color: #94a3b8;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 999px;
   cursor: pointer;
-  padding: 5px 10px;
-  transition: all 0.15s ease;
+  padding: 5px 11px;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .en-island-link:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Action Trigger Button */
 .en-island-launch-btn {
   display: inline-flex;
   align-items: center;
@@ -1826,18 +2018,93 @@
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
   color: #09090b;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 2px 10px rgba(255, 255, 255, 0.2),
+    0 4px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .en-island-launch-btn:hover {
-  background: #f1f5f9;
+  background: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 18px rgba(255, 255, 255, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.en-island-arrow {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.en-island-launch-btn:hover .en-island-arrow {
+  transform: translateX(3px);
+}
+
+/* Mobile Toggle and Drawer */
+.en-island-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.en-island-mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.en-island-mobile-drawer {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 380px;
+  margin-top: 8px;
+  background: rgba(12, 14, 20, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+  padding: 8px;
+}
+
+.en-island-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.en-island-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.en-island-mobile-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Hero Double Action Launcher Hub */

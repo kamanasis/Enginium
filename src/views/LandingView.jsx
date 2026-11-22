@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Scan, Activity, BookOpen, Compass, ShieldAlert, Users,
   ChevronRight, ArrowRight, Play, CheckCircle2, XCircle,
   Cpu, Zap, Disc, RefreshCw, Flame, Gauge, Volume2, ShieldCheck,
-  Menu, X, Sparkles, Layers, Sliders, Eye
+  Menu, X, Sparkles, Layers, Sliders, Eye, ChevronDown
 } from 'lucide-react';
 import EngineBlueprintAnimation from '../components/EngineBlueprintAnimation';
 import EnginiumLogoMark from '../components/EnginiumLogoMark';
@@ -14,12 +14,24 @@ import './LandingView.css';
 
 export default function LandingView({ onNavigate, onSelectVehicle, selectedVehicle }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [vehicleMenuOpen, setVehicleMenuOpen] = useState(false);
   const [activeFeatureTab, setActiveFeatureTab] = useState('hud');
   const [activeSymptomTest, setActiveSymptomTest] = useState('slow-starting');
   const [acousticFrequency, setAcousticFrequency] = useState(140);
   const [isPlayingAudioSim, setIsPlayingAudioSim] = useState(false);
 
   const currentVehicle = selectedVehicle || vehiclesData[0];
+
+  useEffect(() => {
+    if (!vehicleMenuOpen) return;
+    const handleOutsideClick = (e) => {
+      if (!e.target.closest('.en-island-telemetry-container')) {
+        setVehicleMenuOpen(false);
+      }
+    };
+    window.addEventListener('click', handleOutsideClick);
+    return () => window.removeEventListener('click', handleOutsideClick);
+  }, [vehicleMenuOpen]);
 
   // Featured parts showcasing real photographic assets
   const featuredParts = (currentVehicle.parts || vehiclesData[0].parts).slice(0, 8);
@@ -117,18 +129,80 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
       <header className="en-nav-header">
         <div className="en-dynamic-island">
           {/* Brand Mark */}
-          <button type="button" className="en-island-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <button 
+            type="button" 
+            className="en-island-brand" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            title="Enginium Digital Twin"
+          >
             <EnginiumLogoMark size={24} className="en-brand-emblem" />
             <span className="en-island-brand-text">ENGINIUM</span>
           </button>
 
           <div className="en-island-divider" />
 
-          {/* Active Vehicle Telemetry Capsule */}
-          <div className="en-island-telemetry">
-            <span className="en-island-live-dot" />
-            <span className="en-island-vehicle">{selectedVehicle?.name || 'Bajaj Pulsar 150'}</span>
-            <span className="en-island-chip">3D SYNCED</span>
+          {/* Interactive Active Vehicle Telemetry Capsule */}
+          <div className="en-island-telemetry-container relative">
+            <button
+              type="button"
+              className={`en-island-telemetry ${vehicleMenuOpen ? 'is-active' : ''}`}
+              onClick={() => setVehicleMenuOpen(!vehicleMenuOpen)}
+              aria-expanded={vehicleMenuOpen}
+              aria-label="Select active vehicle profile"
+              title="Click to switch active vehicle digital twin"
+            >
+              <span className="en-island-live-dot-wrap">
+                <span className="en-island-live-dot" />
+                <span className="en-island-live-ping" />
+              </span>
+              <span className="en-island-vehicle">{currentVehicle?.name || 'Hero Splendor Plus'}</span>
+              <span className="en-island-chip">3D SYNCED</span>
+              <ChevronDown size={13} className={`en-island-chevron ${vehicleMenuOpen ? 'is-open' : ''}`} aria-hidden="true" />
+            </button>
+
+            {/* Vehicle Switcher Dropdown */}
+            <AnimatePresence>
+              {vehicleMenuOpen && (
+                <motion.div
+                  className="en-island-dropdown"
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                  transition={{ duration: 0.16, ease: "easeOut" }}
+                >
+                  <div className="en-island-dropdown-header">
+                    <span>Active Digital Twin</span>
+                    <span className="en-island-dropdown-badge">{vehiclesData.length} Models</span>
+                  </div>
+                  <div className="en-island-dropdown-list">
+                    {vehiclesData.map((vehicle) => {
+                      const isSelected = vehicle.id === currentVehicle.id;
+                      return (
+                        <button
+                          key={vehicle.id}
+                          type="button"
+                          className={`en-island-dropdown-item ${isSelected ? 'is-active' : ''}`}
+                          onClick={() => {
+                            onSelectVehicle(vehicle);
+                            setVehicleMenuOpen(false);
+                          }}
+                        >
+                          <div className="en-island-dropdown-info">
+                            <strong className="en-island-dropdown-title">{vehicle.name}</strong>
+                            <span className="en-island-dropdown-desc">
+                              {vehicle.make} · {vehicle.type} ({vehicle.engine?.split(',')[0]})
+                            </span>
+                          </div>
+                          {isSelected && (
+                            <span className="en-island-dropdown-current-tag">ACTIVE</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <div className="en-island-divider hidden md:block" />
@@ -136,19 +210,19 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
           {/* Segmented Navigation Links */}
           <nav className="en-island-nav hidden md:flex" aria-label="Landing page sections">
             <button type="button" className="en-island-link" onClick={() => onNavigate('hud')}>
-              Digital Twin
+              <span>Digital Twin</span>
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('acoustic')}>
-              Acoustic
+              <span>Acoustic</span>
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('learn')}>
-              41+ Parts
+              <span>41+ Parts</span>
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('diagnose')}>
-              Guide
+              <span>Guide</span>
             </button>
             <button type="button" className="en-island-link" onClick={() => onNavigate('garage')}>
-              Garage
+              <span>Garage</span>
             </button>
           </nav>
 
@@ -159,9 +233,76 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             onClick={() => onNavigate('hud')}
           >
             <span>Launch Studio</span>
-            <ArrowRight size={13} />
+            <ArrowRight size={13} className="en-island-arrow" />
+          </button>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            className="en-island-mobile-toggle md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
+
+        {/* Mobile Dropdown Menu Drawer */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className="en-island-mobile-drawer md:hidden"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
+              <div className="en-island-mobile-nav">
+                <button 
+                  type="button" 
+                  className="en-island-mobile-link"
+                  onClick={() => { onNavigate('hud'); setMobileMenuOpen(false); }}
+                >
+                  <Scan size={16} className="text-red-500" />
+                  <span>3D Digital Twin</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="en-island-mobile-link"
+                  onClick={() => { onNavigate('acoustic'); setMobileMenuOpen(false); }}
+                >
+                  <Volume2 size={16} className="text-amber-500" />
+                  <span>Acoustic Frequency Lab</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="en-island-mobile-link"
+                  onClick={() => { onNavigate('learn'); setMobileMenuOpen(false); }}
+                >
+                  <BookOpen size={16} className="text-blue-500" />
+                  <span>41+ Parts Manual</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="en-island-mobile-link"
+                  onClick={() => { onNavigate('diagnose'); setMobileMenuOpen(false); }}
+                >
+                  <Compass size={16} className="text-emerald-500" />
+                  <span>Diagnostic Guide</span>
+                </button>
+                <button 
+                  type="button" 
+                  className="en-island-mobile-link"
+                  onClick={() => { onNavigate('garage'); setMobileMenuOpen(false); }}
+                >
+                  <ShieldCheck size={16} className="text-purple-500" />
+                  <span>Garage & Service Passport</span>
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
