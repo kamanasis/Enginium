@@ -366,3 +366,40 @@
   .bp-marker.is-primary .bp-marker-dot { animation: none; }
   .bp-marker.is-primary .bp-marker-ring { opacity: 0.8; inset: -4px; }
 }
+
+.bp-dims {
+  position: absolute;
+  left: 12px;
+  top: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font: 600 9px/1.3 var(--bp-mono, ui-monospace, monospace);
+  letter-spacing: 0.08em;
+  color: #d9a441;
+  pointer-events: none;
+}
+
+.bp-place {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 62px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid #4fb477;
+  border-radius: 6px;
+  background: rgba(8, 4, 6, 0.82);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #d8d0d2;
+  pointer-events: none;
+}
+.bp-place b { color: #fff; font-size: 12px; }
+.bp-place small { color: #9a9094; font-size: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.bp-place.is-inferred { border-left-color: #d9a441; }
+.bp-place.is-approximate { border-left-color: #ff5a6e; }

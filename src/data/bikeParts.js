@@ -21,14 +21,40 @@
 //   source     where the placement comes from, in plain words
 
 export const BIKE_MODEL = {
-  id: 'placeholder-bike-v2',
-  code: 'PLACEHOLDER_BIKE_V2',
+  id: 'placeholder-bike-v3',
+  code: 'PLACEHOLDER_BIKE_V3',
   isPlaceholder: true,
-  note: 'Stylised placeholder, not manufacturer CAD. Left/right placement follows the Hero owner\'s manuals where they state it; see each part\'s placement level.',
+  note: 'Stylised placeholder, not manufacturer CAD. Overall proportions follow the published Hero Splendor+ dimensions (BIKE_SPEC); left/right placement follows the Hero documents where they state it, see each part\'s placement level.',
+};
+
+// Published dimensions the geometry is scaled to. Source: Hero Splendor+ FI
+// owner's manual (Dec 2021), specifications, pages 5 and 6 (checked against
+// the 91Wheels listing for length, width, height, wheelbase, clearance, seat).
+// These are for the fuel-injected (BS6, cast wheel, drum) variant. The
+// catalogue in vehicles.js also lists carburettor-era parts, so confirm the
+// exact variant before treating every number as that bike's.
+export const BIKE_SPEC = {
+  source: 'Hero Splendor+ FI owner\'s manual (Dec 2021), pp. 5-6',
+  lengthMm: 2000,
+  widthMm: 720,
+  heightMm: 1052,
+  wheelbaseMm: 1236,
+  seatHeightMm: 785,
+  groundClearanceMm: 165,
+  casterDeg: 26,
+  trailMm: 80,
+  tyreWidthMm: 80,
+  tyreAspectPercent: 100, // 80/100-18: sidewall height = 100% of the 80 mm width
+  rimInch: 18,
+  frontBrakeDrumMm: 130,
+  rearBrakeDrumMm: 130,
+  finalDriveTeeth: { front: 14, rear: 44 }, // 44/14 = 3.143 (manual); catalogue lists the same sprockets
+  engineCc: 97.2,
+  boreStrokeMm: [50.0, 49.5],
 };
 
 export const PLACEMENT_LEVELS = {
-  manual: 'Side or position stated in the Hero Splendor+ owner\'s manual (FI-era manuals, 2020 to 2023).',
+  manual: 'Side or position stated in a Hero document: the Splendor+ owner\'s manuals (FI era, 2020 to 2023), the Splendor PRO owner\'s manual (carburettor era) or the Splendor PRO parts catalogue (Feb 2017).',
   inferred: 'Not stated outright; follows from a manual procedure or standard layout of this bike class.',
   approximate: 'Not stated in the manuals I could read. Indicative only: check the real bike.',
 };
@@ -41,7 +67,7 @@ export const BIKE_PARTS = [
   // Chassis: the frame stays put as the reference everything separates from.
   { id: 'main-chassis', group: 'chassis', offset: [0, 0, 0], start: 0, placement: I, source: 'Centre-line diamond/cradle frame.' },
   { id: 'seat', group: 'chassis', offset: [-0.2, 1.0, 0], start: 0.05, selectable: false, placement: I, source: 'Centre-line, above the rear frame.' },
-  { id: 'swingarm', group: 'chassis', offset: [-0.8, -0.5, 0], start: 0.25, placement: I, source: 'Both sides of the rear wheel (manual: chain adjusters act on both sides of the swing arm).' },
+  { id: 'swingarm', group: 'chassis', offset: [-0.8, -0.5, 0], start: 0.25, placement: I, source: 'Both sides of the rear wheel (manual: chain adjusters on both sides of the swing arm; catalogue lists adjusters R and L). Pivot position is an estimate.' },
   { id: 'rear-shock-absorbers', group: 'chassis', offset: [-0.4, 1.0, 0], start: 0.2, placement: I, source: 'Twin rear shocks, one each side.' },
   { id: 'telescopic-forks', group: 'chassis', offset: [0.9, 0, 0], start: 0.2, placement: I, source: 'Twin telescopic fork legs, one each side.' },
   { id: 'switchgear-throttle', group: 'chassis', offset: [-0.3, 0.9, 0], start: 0.2, placement: M, source: 'Handlebar: clutch lever and clutch switch are on the left handlebar controls.' },
@@ -51,40 +77,40 @@ export const BIKE_PARTS = [
 
   // Fuel and intake
   { id: 'fuel-tank', group: 'fuel', offset: [0.1, 1.1, 0], start: 0, placement: M, source: 'Right side view lists the fuel tank; cap is in the top view.' },
-  { id: 'fuel-cock', group: 'fuel', offset: [0.3, -0.55, -0.7], start: 0.4, placement: A, source: 'The FI manuals have no fuel cock. Carburetted bikes usually carry it low on the tank, left side.' },
-  { id: 'carburetor', group: 'fuel', offset: [-0.4, 0.55, -0.4], start: 0.3, placement: A, source: 'Manuals are fuel-injected: throttle body is on the left side view. Carburetted layout assumed similar, behind the cylinder.' },
-  { id: 'air-filter', group: 'fuel', offset: [-1.0, 0.6, -0.9], start: 0.25, placement: I, source: 'Element is serviced by removing the LEFT side cover.' },
+  { id: 'fuel-cock', group: 'fuel', offset: [0.3, -0.55, -0.7], start: 0.4, placement: M, source: 'Splendor PRO owner\'s manual (carburettor model): "The three way fuel valve is on the left side of the carburetor", and it is listed in the left side view. The FI Splendor+ has no fuel cock.' },
+  { id: 'carburetor', group: 'fuel', offset: [-0.4, 0.55, -0.4], start: 0.3, placement: M, source: 'Splendor PRO owner\'s manual lists the carburettor in the left side view beside the fuel valve; the FI Splendor+ manual lists its throttle body there too. Fore-aft position (behind the cylinder head) follows from the intake path to the air cleaner.' },
+  { id: 'air-filter', group: 'fuel', offset: [-1.0, 0.6, -0.9], start: 0.25, placement: M, source: 'Splendor+ Xtec owner\'s manual (May 2024, p. 51): the air cleaner element is reached by removing the left side cover.' },
   { id: 'exhaust-muffler', group: 'fuel', offset: [-0.3, -0.65, 0.9], start: 0.2, placement: M, source: 'Right side view lists the exhaust muffler.' },
 
   // Engine
   { id: 'crankcase', group: 'engine', offset: [0, -0.25, 0], start: 0.1, selectable: false, placement: I, source: 'Centre of the bike, low.' },
   { id: 'cylinder-block', group: 'engine', offset: [0.25, 1.0, 0], start: 0.1, placement: I, source: 'Single cylinder, tilted forward above the crankcase.' },
-  { id: 'spark-plug', group: 'engine', offset: [0.3, 1.15, 0.7], start: 0.4, placement: A, source: 'Side is not stated in the manuals; kept on the right as in the app\'s own catalogue text.' },
-  { id: 'valves-tappets', group: 'engine', offset: [0.35, 1.0, -0.8], start: 0.5, placement: M, source: 'Valve clearance is checked by removing the cylinder head LEFT side cover.' },
+  { id: 'spark-plug', group: 'engine', offset: [0.3, 1.15, 0.7], start: 0.4, placement: A, source: 'No Hero document read (FI manual 2021, Splendor PRO manual, parts catalogue) says which side of the head the plug is on. The head has a side cover on both sides. Right side kept from the app\'s own catalogue text: check the real bike.' },
+  { id: 'valves-tappets', group: 'engine', offset: [0.35, 1.0, -0.8], start: 0.5, placement: M, source: 'Parts catalogue lists both "COVER,R CYLINDER HEAD SIDE" and "COVER,L CYLINDER HEAD SIDE"; the FI manual checks valve clearance through the LEFT cover.' },
   { id: 'camshaft-timing', group: 'engine', offset: [0.3, 1.6, 0], start: 0.5, placement: I, source: 'Timing mark is read on the LEFT crankcase cover; drive end on the left.' },
   { id: 'crankshaft', group: 'engine', offset: [-0.1, -0.9, -0.4], start: 0.5, placement: I, source: 'Across the crankcase.' },
-  { id: 'clutch-assembly', group: 'engine', offset: [-0.2, -0.25, 1.1], start: 0.4, placement: M, source: 'Clutch free play is adjusted via the RIGHT side; right crankcase cover holds the centrifugal filter.' },
-  { id: 'stator-magneto', group: 'engine', offset: [0, -0.1, -1.2], start: 0.4, placement: I, source: 'Timing mark sits on the LEFT crankcase cover, which also carries the alternator.' },
+  { id: 'clutch-assembly', group: 'engine', offset: [-0.2, -0.25, 1.1], start: 0.4, placement: M, source: 'Parts catalogue lists "COVER COMP.R CRANK CASE" (right crankcase cover); the manual adjusts clutch free play at the right and the kick starter is on the right.' },
+  { id: 'stator-magneto', group: 'engine', offset: [0, -0.1, -1.2], start: 0.4, placement: M, source: 'Splendor PRO parts catalogue (group E-7) lists the A.C. generator under "COVER L CRANKCASE"; the manual puts the timing mark on the left crankcase cover.' },
   { id: 'gearbox', group: 'engine', offset: [-0.4, -0.95, 0.2], start: 0.55, placement: I, source: 'Inside the crankcase, behind the crankshaft.' },
   { id: 'starter-motor', group: 'engine', offset: [0.4, -0.1, 1.0], start: 0.5, placement: M, source: 'Right side view lists the starter motor.' },
 
   // Electrical
   { id: 'battery', group: 'electrical', offset: [-0.5, -0.3, 1.0], start: 0.3, placement: M, source: 'Manual: "The battery is located behind the right side cover."' },
-  { id: 'ignition-coil', group: 'electrical', offset: [0.2, 0.8, -0.9], start: 0.5, placement: A, source: 'Not located in the manuals; under the tank, left of centre.' },
+  { id: 'ignition-coil', group: 'electrical', offset: [0.2, 0.8, -0.9], start: 0.5, placement: A, source: 'Not located in any Hero document read. The catalogue groups coil, CDI (carburettor models), regulator-rectifier, battery and harness on one plate with no sides. Drawn under the tank, left of centre.' },
   { id: 'regulator-rectifier', group: 'electrical', offset: [-1.0, 0.5, -1.0], start: 0.4, placement: A, source: 'Not located in the manuals.' },
   { id: 'wiring-harness', group: 'electrical', offset: [0, 0.3, -1.1], start: 0.4, placement: I, source: 'Runs the length of the frame; ECU and fuse boxes are on the battery clamp / left side.' },
   { id: 'headlight-assembly', group: 'electrical', offset: [0.9, 0.3, 0], start: 0.1, placement: I, source: 'Front, centre-line, above the front wheel.' },
   { id: 'instrument-cluster', group: 'electrical', offset: [0.3, 1.0, 0], start: 0.15, placement: I, source: 'Handlebar centre, above the headlamp.' },
 
   // Drive and controls
-  { id: 'chain', group: 'drive', offset: [-0.2, -0.55, -1.2], start: 0.35, placement: I, source: 'Manual does not give the side. Kick starter and clutch are on the right, so the sprocket and chain are on the left.' },
+  { id: 'chain', group: 'drive', offset: [-0.2, -0.55, -1.2], start: 0.35, placement: I, source: 'No document states the side outright. Catalogue lists "COVER REAR LEFT CRANKCASE" and upper and lower drive chain case halves; clutch and kick starter are on the right, so the 14T sprocket and chain are on the left.' },
   { id: 'clutch-cable', group: 'drive', offset: [0, 0.6, 1.1], start: 0.45, placement: I, source: 'Lever on the left handlebar; cable runs to the clutch cover.' },
   { id: 'kick-starter', group: 'drive', offset: [0, -0.3, 1.0], start: 0.4, selectable: false, placement: M, source: 'Right side view lists the kick starter pedal.' },
   { id: 'brake-pedal', group: 'drive', offset: [0.1, -0.4, 1.0], start: 0.4, selectable: false, placement: M, source: 'Right side view lists the rear brake pedal.' },
 
   // Wheels and brakes. Both brakes are 130 mm internal-expanding DRUMS.
   { id: 'front-tyre', group: 'wheels', offset: [1.7, 0, 0], start: 0.3, placement: I, source: 'Front wheel on the fork.' },
-  { id: 'front-brake-disc', group: 'wheels', offset: [1.7, 0, 1.0], start: 0.45, placement: M, source: 'Catalogue calls this a disc, but the owner\'s manual lists a 130 mm DRUM front brake, so a drum is drawn.' },
+  { id: 'front-brake-disc', group: 'wheels', offset: [1.7, 0, 1.0], start: 0.45, placement: M, source: 'Catalogue id says disc, but the owner\'s manual lists a 130 mm internal-expanding DRUM front brake, so a drum is drawn. Which side the brake arm sits on is not stated.' },
   { id: 'brake-pads', group: 'wheels', offset: [1.7, 0.35, 1.5], start: 0.5, placement: M, source: 'Shown as the two brake shoes inside the 130 mm front drum (catalogue id kept).' },
   { id: 'wheel-bearings', group: 'wheels', offset: [1.7, 0, -0.9], start: 0.5, placement: I, source: 'At the front hub.' },
   { id: 'rear-tyre', group: 'wheels', offset: [-1.7, 0, 0], start: 0.3, placement: I, source: 'Rear wheel on the swingarm.' },

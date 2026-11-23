@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Maximize2, Minimize2, Minus, Plus, RotateCcw, X } from 'lucide-react';
-import { BIKE_MODEL, BIKE_PARTS, BIKE_PART_IDS } from '../data/bikeParts';
+import { BIKE_MODEL, BIKE_PARTS, BIKE_PART_IDS, BIKE_SPEC, PLACEMENT_LEVELS } from '../data/bikeParts';
 import { createBikeScene } from '../viewer/bikeScene';
 import '../viewer/bikeBlueprint.css';
 
@@ -29,6 +29,7 @@ export default function BikeBlueprintViewer({
   const sceneRef = useRef(null);
   const explodeTextRef = useRef(null);
   const explodeBarRef = useRef(null);
+  const dimsRef = useRef(null);
   const markerEls = useRef(new Map());
   const onSelectRef = useRef(onSelectPart);
 
@@ -105,6 +106,7 @@ export default function BikeBlueprintViewer({
     if (explodeTextRef.current && explodeTextRef.current.textContent !== `${percent}%`) {
       explodeTextRef.current.textContent = `${percent}%`;
     }
+    if (dimsRef.current) dimsRef.current.style.opacity = String(Math.max(0, 1 - frame.explosion * 3).toFixed(2));
     if (explodeBarRef.current) explodeBarRef.current.style.transform = `scaleX(${frame.explosion.toFixed(3)})`;
     for (const marker of frame.markers) {
       const el = markerEls.current.get(marker.id);
@@ -150,6 +152,10 @@ export default function BikeBlueprintViewer({
   }, [markerKey]);
 
   const nameOf = (id) => partNames[id] || id;
+
+  // Which part's placement confidence to show: the selected one, else the primary marker.
+  const focusId = selectedPartId && BIKE_PART_IDS.has(selectedPartId) ? selectedPartId : markerIds[0];
+  const focusPart = focusId ? BIKE_PARTS.find((part) => part.id === focusId) : null;
 
   const handleKeyDown = (event) => {
     const scene = sceneRef.current;
@@ -213,6 +219,18 @@ export default function BikeBlueprintViewer({
         <span className="bp-hud-model">MODEL: {BIKE_MODEL.code}</span>
         <span className="bp-hud-warn">STYLISED, NOT MANUFACTURER CAD</span>
       </div>
+      <div ref={dimsRef} className="bp-dims" aria-hidden="true">
+        <span>WHEELBASE {BIKE_SPEC.wheelbaseMm} mm</span>
+        <span>SEAT {BIKE_SPEC.seatHeightMm} mm</span>
+        <span>CLEARANCE {BIKE_SPEC.groundClearanceMm} mm</span>
+      </div>
+      {focusPart && (
+        <div className={`bp-place is-${focusPart.placement}`} role="note" title={PLACEMENT_LEVELS[focusPart.placement]}>
+          <b>{nameOf(focusPart.id)}</b>
+          <span>Placement: {focusPart.placement === 'manual' ? 'stated in Hero document' : focusPart.placement === 'inferred' ? 'inferred' : 'approximate, check the bike'}</span>
+          <small>{focusPart.source}</small>
+        </div>
+      )}
       <div className="bp-hud bp-hud-tr">
         <div className="bp-hud-tr-top">
           <span aria-hidden="true">EXPLODE <b ref={explodeTextRef}>0%</b></span>
