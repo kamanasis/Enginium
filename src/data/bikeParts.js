@@ -78,9 +78,9 @@ export const BIKE_PARTS = [
   // Fuel and intake
   { id: 'fuel-tank', group: 'fuel', offset: [0.1, 1.1, 0], start: 0, placement: M, source: 'Right side view lists the fuel tank; cap is in the top view.' },
   { id: 'fuel-cock', group: 'fuel', offset: [0.3, -0.55, -0.7], start: 0.4, placement: M, source: 'Splendor PRO owner\'s manual (carburettor model): "The three way fuel valve is on the left side of the carburetor", and it is listed in the left side view. The FI Splendor+ has no fuel cock.' },
-  { id: 'carburetor', group: 'fuel', offset: [-0.4, 0.55, -0.4], start: 0.3, placement: M, source: 'Splendor PRO owner\'s manual lists the carburettor in the left side view beside the fuel valve; the FI Splendor+ manual lists its throttle body there too. Fore-aft position (behind the cylinder head) follows from the intake path to the air cleaner.' },
+  { id: 'carburetor', group: 'fuel', offset: [-0.4, 0.55, -0.4], start: 0.3, placement: M, source: 'Splendor PRO owner\'s manual lists the carburettor in the left side view beside the fuel valve; the FI Splendor+ manual (Dec 2021) lists the throttle body (item 13) and the ECU (item 12) in its left side view. Fore-aft position (behind the cylinder head) follows from the intake path to the air cleaner.' },
   { id: 'air-filter', group: 'fuel', offset: [-1.0, 0.6, -0.9], start: 0.25, placement: M, source: 'Splendor+ Xtec owner\'s manual (May 2024, p. 51): the air cleaner element is reached by removing the left side cover.' },
-  { id: 'exhaust-muffler', group: 'fuel', offset: [-0.3, -0.65, 0.9], start: 0.2, placement: M, source: 'Right side view lists the exhaust muffler.' },
+  { id: 'exhaust-muffler', group: 'fuel', offset: [-0.3, -0.65, 0.9], start: 0.2, placement: M, source: 'Splendor+ FI owner\'s manual (Dec 2021) right side view, item 15: exhaust muffler. Same on the Super Splendor (Feb 2023).' },
 
   // Engine
   { id: 'crankcase', group: 'engine', offset: [0, -0.25, 0], start: 0.1, selectable: false, placement: I, source: 'Centre of the bike, low.' },
@@ -92,7 +92,7 @@ export const BIKE_PARTS = [
   { id: 'clutch-assembly', group: 'engine', offset: [-0.2, -0.25, 1.1], start: 0.4, placement: M, source: 'Parts catalogue lists "COVER COMP.R CRANK CASE" (right crankcase cover); the manual adjusts clutch free play at the right and the kick starter is on the right.' },
   { id: 'stator-magneto', group: 'engine', offset: [0, -0.1, -1.2], start: 0.4, placement: M, source: 'Splendor PRO parts catalogue (group E-7) lists the A.C. generator under "COVER L CRANKCASE"; the manual puts the timing mark on the left crankcase cover.' },
   { id: 'gearbox', group: 'engine', offset: [-0.4, -0.95, 0.2], start: 0.55, placement: I, source: 'Inside the crankcase, behind the crankshaft.' },
-  { id: 'starter-motor', group: 'engine', offset: [0.4, -0.1, 1.0], start: 0.5, placement: M, source: 'Right side view lists the starter motor.' },
+  { id: 'starter-motor', group: 'engine', offset: [0.4, -0.1, 1.0], start: 0.5, placement: M, source: 'Splendor+ FI owner\'s manual (Dec 2021) right side view, item 5: starter motor.' },
 
   // Electrical
   { id: 'battery', group: 'electrical', offset: [-0.5, -0.3, 1.0], start: 0.3, placement: M, source: 'Manual: "The battery is located behind the right side cover."' },
