@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import KineticBackground from './components/KineticBackground';
 import EnginiumLogoMark from './components/EnginiumLogoMark';
@@ -28,6 +29,22 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(false);
   const [activeTab, setActiveTab] = useState('landing');
   const [emergencyMode, setEmergencyMode] = useState(false);
+  const navItemRefs = useRef({});
+
+  // Smooth auto-scroll active sidebar tab into view when activeTab changes
+  useEffect(() => {
+    if (activeTab && navItemRefs.current[activeTab]) {
+      try {
+        navItemRefs.current[activeTab]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'nearest'
+        });
+      } catch (e) {
+        // Fallback for environments lacking smooth scroll support
+      }
+    }
+  }, [activeTab]);
 
   const [selectedVehicle, setSelectedVehicle] = useState(() => {
     try {
@@ -480,37 +497,70 @@ export default function App() {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
             return !sidebarOpen ? (
-              // Collapsed mode: Icon-only (matching exact user screenshot)
-              <button
+              // Collapsed mode: Icon-only with smooth active pill and pip gliding
+              <motion.button
                 type="button"
                 key={item.id}
+                ref={(el) => { navItemRefs.current[item.id] = el; }}
                 className={`app-rail-btn ${isActive ? 'is-active' : ''}`}
                 onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.14 }}
                 aria-current={isActive ? 'page' : undefined}
                 aria-label={item.label}
               >
+                {isActive && (
+                  <motion.div
+                    layoutId="app-rail-active-pill"
+                    className="app-rail-active-pill"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
                 <span className="app-rail-icon-box">
                   <Icon size={18} aria-hidden="true" />
                 </span>
                 <span className="app-rail-tooltip">{item.label}</span>
-                {isActive && <span className="app-rail-active-pip" />}
-              </button>
+                {isActive && (
+                  <motion.span
+                    layoutId="app-rail-active-pip"
+                    className="app-rail-active-pip"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
+              </motion.button>
             ) : (
-              // Expanded mode: Full row with icon and menu text
-              <button
+              // Expanded mode: Full row with icon, label, gliding active pill & glowing dot
+              <motion.button
                 type="button"
                 key={item.id}
+                ref={(el) => { navItemRefs.current[item.id] = el; }}
                 className={`app-expanded-nav-item ${isActive ? 'is-active' : ''}`}
                 onClick={() => { setShowSplash(false); setActiveTab(item.id); }}
+                whileHover={{ x: 3 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.14 }}
                 aria-current={isActive ? 'page' : undefined}
               >
+                {isActive && (
+                  <motion.div
+                    layoutId="app-expanded-active-pill"
+                    className="app-expanded-active-pill"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
                 <span className="app-expanded-nav-icon">
                   <Icon size={18} aria-hidden="true" />
                 </span>
                 <span className="app-expanded-nav-label">{item.label}</span>
-                {isActive && <span className="app-expanded-nav-dot" />}
-                {isActive && <span className="app-expanded-active-indicator" />}
-              </button>
+                {isActive && (
+                  <motion.span
+                    layoutId="app-expanded-active-dot"
+                    className="app-expanded-nav-dot"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
+              </motion.button>
             );
           })}
         </nav>
