@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { BIKE_PARTS } from '../data/bikeParts';
-import { buildBikeSegments, dimensionSegments, groundRingSegments } from './bikeGeometry';
+import { buildBikeSegments, groundRingSegments } from './bikeGeometry';
 
 // One persistent three.js scene for the blueprint bike. Nothing here is rebuilt
 // when the selection, markers or React props change; they only change colours.
@@ -110,11 +110,6 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
   ringGeometry.setAttribute('position', new THREE.Float32BufferAttribute(groundRingSegments(), 3));
   const ringMaterial = new THREE.LineBasicMaterial({ color: 0xff1744, transparent: true, opacity: 0.35 });
   scene.add(new THREE.LineSegments(ringGeometry, ringMaterial));
-  const dimGeometry = new THREE.BufferGeometry();
-  dimGeometry.setAttribute('position', new THREE.Float32BufferAttribute(dimensionSegments(), 3));
-  const dimMaterial = new THREE.LineBasicMaterial({ color: 0xd9a441, transparent: true, opacity: 0.7 });
-  const dimLines = new THREE.LineSegments(dimGeometry, dimMaterial);
-  scene.add(dimLines);
   const stars = makeStars();
   scene.add(stars);
 
@@ -396,10 +391,6 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       part.material.opacity = part.opacity;
       part.material.color.lerp(isSelected || isMarker ? RED : BASE_COLOR, k);
     }
-
-    // Dimension lines belong to the assembled bike: they fade out as it separates.
-    dimMaterial.opacity = 0.7 * Math.max(0, 1 - e * 3);
-    dimLines.visible = dimMaterial.opacity > 0.01;
 
     stars.rotation.y += dt * 0.004;
     renderer.render(scene, camera);
