@@ -8,6 +8,7 @@ import GarageView from './GarageView';
 import LearnView from './LearnView';
 import ProfileView from './ProfileView';
 import EngineBlueprintAnimation from '../components/EngineBlueprintAnimation';
+import EnginiumLogoMark from '../components/EnginiumLogoMark';
 
 export default function DesignBoardView({ 
   selectedVehicle, 
@@ -96,6 +97,7 @@ export default function DesignBoardView({
             <div className="w-[380px] h-[780px] bg-[#12141a] rounded-[42px] border-4 border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col relative">
               <EngineBlueprintAnimation themeColor="#ff1744" speed={0.015} />
               <div className="flex-1 flex flex-col justify-center items-center text-center p-8 space-y-6 z-10">
+                <EnginiumLogoMark size={48} className="app-brand-emblem" />
                 <span className="text-[10px] text-[#ff1744] tracking-[0.25em] font-extrabold uppercase bg-red-500/10 px-3 py-1 rounded-full border border-red-500/30">
                   DIGITAL MECHANIC PLATFORM
                 </span>

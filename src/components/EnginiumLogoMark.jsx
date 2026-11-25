@@ -1,71 +1,115 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 /**
- * EnginiumLogoMark - Luxury Automotive & Engineering Hallmark
- * Minimalist geometric mark combining precision twin cylinders, aerodynamic flow, and ruby ignition focal point.
+ * EnginiumLogoMark - Precision Automotive & Mechanical Telemetry Hallmark
+ * Combines a machined titanium tachometer bezel, crimson redline arc,
+ * architectural "E" piston-monogram, and ruby ignition diamond core.
  */
 export default function EnginiumLogoMark({ size = 32, className = '' }) {
+  const rawId = useId();
+  const uid = rawId.replace(/[^a-zA-Z0-9_-]/g, '');
+
+  const bgGradId = `en-bg-${uid}`;
+  const bezelGradId = `en-bezel-${uid}`;
+  const crimsonGradId = `en-crimson-${uid}`;
+  const monoGradId = `en-mono-${uid}`;
+  const glowFilterId = `en-glow-${uid}`;
+
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 36 36"
+      viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={`en-luxury-emblem ${className}`}
       aria-label="Enginium Brand Hallmark"
     >
       <defs>
-        {/* Subtle Titanium Specular Sheen */}
-        <linearGradient id="enTitaniumGrad" x1="4" y1="4" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+        <radialGradient id={bgGradId} cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stopColor="#1b2030" />
+          <stop offset="65%" stopColor="#0b0d14" />
+          <stop offset="100%" stopColor="#050609" />
+        </radialGradient>
+
+        <linearGradient id={bezelGradId} x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="50%" stopColor="#94a3b8" />
-          <stop offset="100%" stopColor="#475569" />
+          <stop offset="45%" stopColor="#94a3b8" />
+          <stop offset="100%" stopColor="#334155" />
         </linearGradient>
 
-        {/* Ruby Ignition Core */}
-        <linearGradient id="enRubyPoint" x1="18" y1="18" x2="26" y2="26" gradientUnits="userSpaceOnUse">
+        <linearGradient id={crimsonGradId} x1="25" y1="8" x2="36" y2="25" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#ff4d6d" />
-          <stop offset="100%" stopColor="#e11d48" />
+          <stop offset="60%" stopColor="#ff1744" />
+          <stop offset="100%" stopColor="#be123c" />
         </linearGradient>
 
-        <filter id="enCoreGlow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
-          <feGaussianBlur stdDeviation="1.5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        <linearGradient id={monoGradId} x1="12" y1="12" x2="26" y2="28" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="100%" stopColor="#cbd5e1" />
+        </linearGradient>
+
+        <filter id={glowFilterId} x="-35%" y="-35%" width="170%" height="170%">
+          <feGaussianBlur stdDeviation="1.4" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
         </filter>
       </defs>
 
-      {/* Aerodynamic Precision Outer Ring Segments */}
-      <path
-        d="M18 3 C26.2843 3 33 9.71573 33 18 C33 26.2843 26.2843 33 18 33 C9.71573 33 3 26.2843 3 18"
-        stroke="url(#enTitaniumGrad)"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-
-      {/* Internal Geometric Cylinder Apex & "E" Monogram */}
-      <path
-        d="M11 11 H23 L18 18 H12"
-        stroke="#ffffff"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 18 H20 L15 25 H11"
-        stroke="url(#enTitaniumGrad)"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Ruby Laser Ignition Focal Point */}
+      {/* Machined Carbon Core Housing */}
       <circle
-        cx="25.5"
-        cy="18"
-        r="2"
-        fill="url(#enRubyPoint)"
-        filter="url(#enCoreGlow)"
+        cx="20"
+        cy="20"
+        r="16.5"
+        fill={`url(#${bgGradId})`}
+        stroke="rgba(255, 255, 255, 0.08)"
+        strokeWidth="0.75"
+      />
+
+      {/* Titanium Tachometer Outer Ring */}
+      <path
+        d="M 28.4 5.9 A 16.5 16.5 0 1 0 34.4 28.1"
+        stroke={`url(#${bezelGradId})`}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+
+      {/* Crimson Redline Telemetry Sweep */}
+      <path
+        d="M 31.6 8.3 A 16.5 16.5 0 0 1 36.2 22.7"
+        stroke={`url(#${crimsonGradId})`}
+        strokeWidth="2.1"
+        strokeLinecap="round"
+        filter={`url(#${glowFilterId})`}
+      />
+
+      {/* Precision Calibration Micro-Ticks */}
+      <line x1="20" y1="2.3" x2="20" y2="4.6" stroke="#94a3b8" strokeWidth="1.25" strokeLinecap="round" />
+      <line x1="2.3" y1="20" x2="4.6" y2="20" stroke="#64748b" strokeWidth="1.25" strokeLinecap="round" />
+      <line x1="20" y1="35.4" x2="20" y2="37.7" stroke="#64748b" strokeWidth="1.25" strokeLinecap="round" />
+
+      {/* Architectural "E" Piston Monogram */}
+      <path
+        d="M 24.5 13 H 14.5 C 13.4 13 12.8 13.6 12.8 14.7 V 25.3 C 12.8 26.4 13.4 27 14.5 27 H 24.5"
+        stroke={`url(#${monoGradId})`}
+        strokeWidth="2.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M 13.3 20 H 21.8"
+        stroke="#ffffff"
+        strokeWidth="2.35"
+        strokeLinecap="round"
+      />
+
+      {/* Ruby Ignition Spark Diamond */}
+      <path
+        d="M 28.6 17.1 L 31.3 20 L 28.6 22.9 L 25.9 20 Z"
+        fill={`url(#${crimsonGradId})`}
+        filter={`url(#${glowFilterId})`}
       />
     </svg>
   );

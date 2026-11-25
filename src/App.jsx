@@ -164,7 +164,8 @@ export default function App() {
             <div className="w-36 h-36 border border-red-500/35 rounded-full animate-ping"></div>
           </div>
 
-          <div className="z-10 space-y-3">
+          <div className="z-10 space-y-3 flex flex-col items-center">
+            <EnginiumLogoMark size={56} className="app-brand-emblem mb-1" />
             <span className="text-[10px] text-[#ff1744] tracking-[0.25em] font-extrabold uppercase bg-red-500/15 px-3.5 py-1.5 rounded-full border border-red-500/35">
               DIGITAL MECHANIC PLATFORM
             </span>
@@ -392,7 +393,8 @@ export default function App() {
         <KineticBackground opacity={0.75} />
         {/* Floating Switcher Bar */}
         <div className="bg-[#121319] border-b border-[#2c2f3b] px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs z-50">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
+            <EnginiumLogoMark size={22} className="app-brand-emblem" />
             <span className="font-black tracking-widest text-sm flex items-center gap-1.5 en-brand-text">
               ENGINIUM
             </span>
