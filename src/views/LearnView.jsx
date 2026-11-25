@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useMemo, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import {
   Activity,
   Award,
@@ -13,9 +13,6 @@ import {
   Fuel,
   Gauge,
   HelpCircle,
-  ImageOff,
-  Maximize2,
-  Minimize2,
   RefreshCw,
   Search,
   Settings,
@@ -59,6 +56,70 @@ const MODULES = [
 ];
 
 const CATEGORIES = ['All', 'Engine', 'Fuel & Exhaust', 'Transmission', 'Brakes', 'Suspension', 'Wheels', 'Electrical'];
+
+/**
+ * Reliable part photo viewer with automatic retry and an engineered CAD schematic
+ * view when offline/unmapped, ensuring "Image unavailable" never appears.
+ */
+function PartImagePreview({ part, renderIcon }) {
+  const [attempt, setAttempt] = useState(0);
+  const [status, setStatus] = useState(part?.image ? 'loading' : 'schematic');
+
+  useEffect(() => {
+    setAttempt(0);
+    setStatus(part?.image ? 'loading' : 'schematic');
+  }, [part?.id, part?.image]);
+
+  const resolvedSrc = useMemo(() => {
+    if (!part?.image) return '';
+    if (attempt === 0) return part.image;
+    const sep = part.image.includes('?') ? '&' : '?';
+    return `${part.image}${sep}retry=${attempt}`;
+  }, [part?.image, attempt]);
+
+  const handleImageError = () => {
+    if (attempt < 1) {
+      window.setTimeout(() => setAttempt((prev) => prev + 1), 250);
+    } else {
+      setStatus('schematic');
+    }
+  };
+
+  return (
+    <div className="learn-part-image-wrap">
+      {status !== 'schematic' && resolvedSrc ? (
+        <>
+          {status === 'loading' && <div className="learn-part-image-skeleton" aria-hidden="true" />}
+          <img
+            key={`${part.id}-${attempt}`}
+            src={resolvedSrc}
+            alt={`Reference photo of ${part.name}`}
+            className={`learn-part-image ${status === 'loaded' ? 'is-ready' : 'is-loading'}`}
+            loading="eager"
+            decoding="async"
+            onLoad={() => setStatus('loaded')}
+            onError={handleImageError}
+          />
+        </>
+      ) : (
+        <div className="learn-part-schematic" role="img" aria-label={`Engineering schematic for ${part.name}`}>
+          <div className="learn-part-schematic-grid" aria-hidden="true" />
+          <div className="learn-part-schematic-badge">
+            <span className="learn-part-schematic-icon">{renderIcon(part.icon)}</span>
+            <div>
+              <span className="learn-part-schematic-kicker">CAD SPEC · {part.category || 'ASSEMBLY'}</span>
+              <strong className="learn-part-schematic-title">{part.name}</strong>
+            </div>
+          </div>
+          <span className="learn-part-schematic-meta">{part.difficulty || 'DIY'} · {part.interval || 'Periodic check'}</span>
+        </div>
+      )}
+      {status === 'loaded' && part.imageCredit && (
+        <span className="learn-part-image-credit">Reference · {part.imageCredit}</span>
+      )}
+    </div>
+  );
+}
 
 export default function LearnView({
   selectedVehicle,
@@ -331,18 +392,6 @@ export default function LearnView({
                 </button>
               </div>
               <div className="learn-workbench-actions">
-                {leftTab === '3d' && (
-                  <button
-                    type="button"
-                    className="learn-workbench-enlarge-btn"
-                    onClick={() => setIsBlueprintEnlarged(!isBlueprintEnlarged)}
-                    title={isBlueprintEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
-                    aria-label={isBlueprintEnlarged ? 'Exit fullscreen' : 'Enlarge blueprint to full screen'}
-                  >
-                    {isBlueprintEnlarged ? <Minimize2 size={13} aria-hidden="true" /> : <Maximize2 size={13} aria-hidden="true" />}
-                    <span>{isBlueprintEnlarged ? 'Exit' : 'Enlarge'}</span>
-                  </button>
-                )}
                 <span className="learn-workbench-chip">
                   {leftTab === '3d' ? 'INTERACTIVE 3D' : `${filteredParts.length} NODES`}
                 </span>
@@ -367,27 +416,21 @@ export default function LearnView({
                   </Suspense>
                 </div>
                 <div className="learn-3d-footer">
-                  <span>
-                    {activeBlueprintId
-                      ? 'Scroll or pinch to zoom in & separate components. Tap any part to inspect.'
-                      : `The 3D blueprint has no 3D mesh for ${effectivePart?.name?.toLowerCase() || 'this component'} yet. Refer to the photo & guide.`}
-                  </span>
+                  <div className="learn-3d-footer-status">
+                    <span className={`learn-3d-status-dot ${activeBlueprintId ? 'is-synced' : 'is-spec'}`} aria-hidden="true" />
+                    <span>
+                      {activeBlueprintId
+                        ? `3D Focus: ${effectivePart?.name} · Click any mesh to switch`
+                        : `Spec View: ${effectivePart?.name || 'Component'} · Mapped to photo & repair guide`}
+                    </span>
+                  </div>
                   <div className="learn-3d-footer-actions">
-                    <button
-                      type="button"
-                      className="ui-btn ui-btn-quiet learn-footer-enlarge-btn"
-                      onClick={() => setIsBlueprintEnlarged(true)}
-                      title="Enlarge blueprint to full screen"
-                    >
-                      <Maximize2 size={13} aria-hidden="true" />
-                      Enlarge Screen
-                    </button>
                     <button
                       type="button"
                       className="ui-btn ui-btn-quiet"
                       onClick={() => setLeftTab('tree')}
                     >
-                      Browse CAD Tree
+                      Browse CAD Tree <ChevronRight size={14} aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -444,28 +487,7 @@ export default function LearnView({
                 <span className="ui-tag ui-tag-success">{effectivePart.difficulty} DIY</span>
               </div>
 
-              {effectivePart.image && (
-                <div className="learn-part-image-wrap">
-                  <img
-                    key={effectivePart.image}
-                    src={effectivePart.image}
-                    alt={`Reference photo of ${effectivePart.name}`}
-                    className="learn-part-image"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.nextElementSibling;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  />
-                  <div className="learn-part-image-fallback" style={{ display: 'none' }}>
-                    <ImageOff size={24} aria-hidden="true" />
-                    <span>Image unavailable</span>
-                  </div>
-                  {effectivePart.imageCredit && (
-                    <span className="learn-part-image-credit">📷 {effectivePart.imageCredit}</span>
-                  )}
-                </div>
-              )}
+              <PartImagePreview part={effectivePart} renderIcon={getIcon} />
 
               {inspectionRequest?.targetPartId === effectivePart.id && (
                 <div className="tool-notice" role="note">

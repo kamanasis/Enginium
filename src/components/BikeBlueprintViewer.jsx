@@ -232,19 +232,7 @@ export default function BikeBlueprintViewer({
         </div>
       )}
       <div className="bp-hud bp-hud-tr">
-        <div className="bp-hud-tr-top">
-          <span aria-hidden="true">EXPLODE <b ref={explodeTextRef}>0%</b></span>
-          <button
-            type="button"
-            className="bp-hud-enlarge-btn"
-            onClick={toggleEnlarge}
-            aria-label={isEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
-            title={isEnlarged ? 'Exit fullscreen (Esc)' : 'Enlarge blueprint to full screen'}
-          >
-            {isEnlarged ? <Minimize2 size={12} aria-hidden="true" /> : <Maximize2 size={12} aria-hidden="true" />}
-            <span>{isEnlarged ? 'EXIT' : 'ENLARGE'}</span>
-          </button>
-        </div>
+        <span aria-hidden="true">EXPLODE <b ref={explodeTextRef}>0%</b></span>
         <span className="bp-bar" aria-hidden="true"><i ref={explodeBarRef} /></span>
         <span aria-hidden="true">PARTS: {PART_COUNT}</span>
       </div>
@@ -272,27 +260,28 @@ export default function BikeBlueprintViewer({
         ))}
       </div>
 
-      <div className="bp-controls">
-        <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(0.7)} aria-label="Zoom in and separate parts"><Plus size={16} aria-hidden="true" /></button>
-        <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(1.4)} aria-label="Zoom out"><Minus size={16} aria-hidden="true" /></button>
-        <button type="button" className="bp-btn bp-btn-wide" onClick={() => sceneRef.current?.reassemble()}><RotateCcw size={15} aria-hidden="true" /> Reassemble</button>
-        <button
-          type="button"
-          className={`bp-btn bp-btn-wide bp-btn-enlarge ${isEnlarged ? 'is-active' : ''}`}
-          onClick={toggleEnlarge}
-          aria-label={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
-          title={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
-        >
-          {isEnlarged ? <Minimize2 size={15} aria-hidden="true" /> : <Maximize2 size={15} aria-hidden="true" />}
-          <span>{isEnlarged ? 'Minimize' : 'Enlarge'}</span>
-        </button>
+      <div className="bp-bottom-bar">
+        <p className="bp-hint" aria-hidden="true">
+          {isEnlarged
+            ? 'Drag to orbit · Scroll to zoom & explode · Tap a part · ESC to exit'
+            : 'Drag to orbit · Scroll to zoom & explode · Tap a part'}
+        </p>
+        <div className="bp-controls">
+          <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(0.7)} aria-label="Zoom in and separate parts" title="Zoom in & explode"><Plus size={16} aria-hidden="true" /></button>
+          <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(1.4)} aria-label="Zoom out" title="Zoom out"><Minus size={16} aria-hidden="true" /></button>
+          <button type="button" className="bp-btn bp-btn-wide" onClick={() => sceneRef.current?.reassemble()} title="Reset view & reassemble (0)"><RotateCcw size={14} aria-hidden="true" /> Reset</button>
+          <button
+            type="button"
+            className={`bp-btn bp-btn-wide bp-btn-enlarge ${isEnlarged ? 'is-active' : ''}`}
+            onClick={toggleEnlarge}
+            aria-label={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
+            title={isEnlarged ? 'Exit fullscreen view (Esc)' : 'Enlarge blueprint to full screen'}
+          >
+            {isEnlarged ? <Minimize2 size={14} aria-hidden="true" /> : <Maximize2 size={14} aria-hidden="true" />}
+            <span>{isEnlarged ? 'Minimize' : 'Enlarge'}</span>
+          </button>
+        </div>
       </div>
-
-      <p className="bp-hint" aria-hidden="true">
-        {isEnlarged
-          ? 'Drag to rotate · scroll to zoom · tap any part to inspect · press ESC to exit'
-          : 'Drag to rotate · scroll or pinch to zoom in and separate parts · tap a part'}
-      </p>
       <p className="bp-sr" aria-live="polite">{summary}</p>
 
       <div className="bp-fallback" role="status">

@@ -624,6 +624,13 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                         alt={part.name}
                         className="en-part-preview-img"
                         loading="lazy"
+                        onError={(e) => {
+                          if (!e.currentTarget.dataset.retried) {
+                            e.currentTarget.dataset.retried = '1';
+                            const sep = part.image.includes('?') ? '&' : '?';
+                            e.currentTarget.src = `${part.image}${sep}retry=1`;
+                          }
+                        }}
                       />
                     </div>
                     <div className="en-part-preview-content">
