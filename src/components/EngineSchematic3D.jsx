@@ -726,8 +726,8 @@ export default function EngineSchematic3D({
       conRodGroup.rotation.z = Math.atan2(pinX, wristY - pinY);
 
       // Stroke detection
-      const strokeIdx = Math.floor(crankAngle / Math.PI) % 4;
-      const strokeLabel = phases[strokeIdx];
+      const strokeIdx = ((Math.floor(crankAngle / Math.PI) % 4) + 4) % 4;
+      const strokeLabel = phases[strokeIdx] || 'POWER';
       if (strokeLabel !== lastStrokeLabel) {
         lastStrokeLabel = strokeLabel;
         phaseCallbackRef.current?.(strokeLabel);

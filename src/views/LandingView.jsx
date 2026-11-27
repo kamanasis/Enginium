@@ -404,8 +404,8 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                       <span className="en-ping-dot" />
                       DRAG TO ORBIT · SCROLL ZOOM
                     </span>
-                    <span className={`en-hud-pill en-stroke-pill is-${engineStrokePhase.toLowerCase()}`}>
-                      {engineStrokePhase}
+                    <span className={`en-hud-pill en-stroke-pill is-${(engineStrokePhase || 'POWER').toLowerCase()}`}>
+                      {engineStrokePhase || 'POWER'}
                     </span>
                   </div>
                   <div className="en-hud-bottom">
