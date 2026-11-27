@@ -6,7 +6,7 @@ import {
   Cpu, Zap, Disc, RefreshCw, Flame, Gauge, Volume2, ShieldCheck,
   Menu, X, Sparkles, Layers, Sliders, Eye, ChevronDown
 } from 'lucide-react';
-import EngineBlueprintAnimation from '../components/EngineBlueprintAnimation';
+import EngineSchematic3D from '../components/EngineSchematic3D';
 import EnginiumLogoMark from '../components/EnginiumLogoMark';
 import KineticBackground from '../components/KineticBackground';
 import { vehiclesData } from '../data/vehicles';
@@ -18,6 +18,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
   const [activeSymptomTest, setActiveSymptomTest] = useState('slow-starting');
   const [acousticFrequency, setAcousticFrequency] = useState(140);
   const [isPlayingAudioSim, setIsPlayingAudioSim] = useState(false);
+  const [engineStrokePhase, setEngineStrokePhase] = useState('POWER');
 
   const currentVehicle = selectedVehicle || vehiclesData[0];
 
@@ -378,14 +379,18 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               </div>
 
               <div className="en-blueprint-container">
-                <EngineBlueprintAnimation speed={0.025} />
+                <EngineSchematic3D
+                  vehicleType={currentVehicle.type}
+                  onPhaseChange={setEngineStrokePhase}
+                />
                 <div className="en-blueprint-hud-overlay">
                   <div className="en-hud-top">
                     <span className="en-hud-pill">
-                      OTTO 4-CYCLE
+                      <span className="en-ping-dot" />
+                      3D SCHEMATIC · DRAG TO ORBIT
                     </span>
                     <span className="en-hud-pill">
-                      {currentVehicle.type?.toUpperCase() || 'MOTORCYCLE'}
+                      STROKE: {engineStrokePhase}
                     </span>
                   </div>
                   <div className="en-hud-bottom">
