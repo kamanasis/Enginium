@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import KineticBackground from './components/KineticBackground';
 import EnginiumLogoMark from './components/EnginiumLogoMark';
@@ -154,6 +154,19 @@ export default function App() {
     { id: 'acoustic', label: 'Sound profile', icon: Activity },
     { id: 'profile', label: 'Settings', icon: User },
   ];
+
+  const activeNavMeta = desktopNavItems.find((item) => item.id === activeTab)
+    || (activeTab === 'scanner' ? desktopNavItems[1] : desktopNavItems[2]);
+
+  // Close emergency modal on Escape
+  useEffect(() => {
+    if (!emergencyMode) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setEmergencyMode(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [emergencyMode]);
 
   // Render Inner Active Screen
   const renderActiveScreen = () => {
@@ -640,8 +653,13 @@ export default function App() {
       <div className="app-main flex-1 flex flex-col min-w-0">
         <header className="app-topbar">
           <div className="app-mobile-brand">
-            <EnginiumLogoMark size={28} className="app-brand-emblem" />
+            <EnginiumLogoMark size={26} className="app-brand-emblem" />
             <strong className="app-brand-title">ENGINIUM</strong>
+          </div>
+          <div className="app-topbar-breadcrumb hidden lg:flex">
+            <span className="app-topbar-kicker">WORKSPACE</span>
+            <span className="app-topbar-sep">/</span>
+            <span className="app-topbar-current">{activeNavMeta?.label || 'Overview'}</span>
           </div>
           <div className="app-topbar-context">
             <span className="app-topbar-label hidden sm:inline">Active profile</span>
@@ -691,7 +709,18 @@ export default function App() {
         </header>
 
         <main className="app-content flex-1 pb-20 lg:pb-6">
-          {renderActiveScreen()}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={showSplash ? 'splash' : activeTab}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              className="min-h-full"
+            >
+              {renderActiveScreen()}
+            </motion.div>
+          </AnimatePresence>
         </main>
 
         {!showSplash && <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />}

@@ -294,27 +294,13 @@
 .en-hero-section {
   position: relative;
   z-index: 10;
-  padding: 80px 24px 64px;
+  padding: 112px 24px 64px;
   max-width: 1320px;
   margin: 0 auto;
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-@media (min-width: 768px) {
-  .en-hero-section {
-  position: relative;
-  z-index: 10;
-  padding: 80px 24px 64px;
-  max-width: 1320px;
-  margin: 0 auto;
-  min-height: calc(100vh - 72px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
 }
 
 .en-hero-content {
@@ -331,14 +317,79 @@
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: #11131a;
-  border: 1px solid #ff1744;
-  color: #ff3344;
-  font-size: 0.75rem;
-  font-weight: 750;
+  background: rgba(16, 18, 28, 0.85);
+  border: 1px solid rgba(255, 45, 79, 0.35);
+  color: #ff4d6d;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+/* Active Machine Switcher Strip in Hero */
+.en-hero-vehicle-strip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 8px 6px 14px;
+  margin: 0 auto 24px;
+  background: rgba(12, 14, 21, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(14px);
+}
+
+.en-hero-vehicle-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748b;
+}
+
+.en-hero-vehicle-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.en-hero-vehicle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #94a3b8;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.en-hero-vehicle-pill:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.en-hero-vehicle-pill.is-active {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.en-hero-vehicle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
 }
 
 .en-ping-dot {
@@ -522,38 +573,38 @@
 }
 
 .en-telemetry-card {
-  background: #090b12;
-  border: 1px solid #1f2332;
+  background: rgba(11, 13, 21, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 18px 16px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .en-telemetry-card::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #ff3344, transparent);
-  opacity: 0.4;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 45, 79, 0.65), transparent);
 }
 
 .en-telemetry-number {
-  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-  font-weight: 900;
-  color: #ff0033;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 25px rgba(255, 0, 51, 0.55);
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  font-weight: 850;
+  color: #f8fafc;
+  letter-spacing: -0.03em;
 }
 
 .en-telemetry-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 650;
+  color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-top: 4px;
@@ -566,7 +617,7 @@
   height: 440px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  background: radial-gradient(circle at center, #14151c 0%, #08080c 100%);
+  background: radial-gradient(circle at center, #121521 0%, #07080d 100%);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   overflow: hidden;
   margin-top: 12px;
@@ -585,7 +636,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 24px;
+  padding: 20px;
 }
 
 .en-hud-top {
@@ -599,14 +650,15 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-family: monospace;
-  font-weight: 700;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 650;
   letter-spacing: 0.08em;
-  background: rgba(10, 11, 16, 0.85);
-  border: 1px solid #ff1744;
-  color: #ff3344;
+  background: rgba(9, 11, 17, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  backdrop-filter: blur(8px);
 }
 
 .en-hud-bottom {
@@ -657,55 +709,70 @@
   line-height: 1.65;
 }
 
-/* Interactive Interactive Feature Tabs */
+/* Interactive Feature Tabs */
 .en-feature-tabs {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 36px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 6px;
+  border-radius: 14px;
+  background: rgba(12, 14, 21, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0 auto 32px;
+}
+
+@media (max-width: 640px) {
+  .en-hero-vehicle-strip {
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
 }
 
 .en-tab-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  background: #0d0f16;
-  border: 1px solid #202432;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
   color: #94a3b8;
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 650;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.18s ease;
 }
 
-.en-tab-btn.is-active,
+.en-tab-btn-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 45, 79, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+
 .en-tab-btn:hover {
-  background: #161824;
-  border-color: #ff1744;
+  color: #f8fafc;
+}
+
+.en-tab-btn.is-active {
   color: #ffffff;
-  box-shadow: 0 0 16px rgba(255, 23, 68, 0.25);
 }
 
 /* Feature Stage Box */
 .en-feature-stage {
-  background: #090b12;
-  border: 1px solid #1f2332;
+  background: linear-gradient(155deg, rgba(14, 17, 26, 0.92) 0%, rgba(9, 11, 17, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
-}
-
-@media (min-width: 768px) {
-  .en-feature-stage {
-  background: #090b12;
-  border: 1px solid #1f2332;
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
-}
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
 }
 
 /* Grid of Systems */
@@ -728,33 +795,35 @@
 }
 
 .en-system-card {
-  background: #090b12;
-  border: 1px solid #1f2332;
+  background: linear-gradient(155deg, rgba(14, 17, 26, 0.9) 0%, rgba(9, 11, 17, 0.94) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 24px;
-  transition: all 0.25s ease;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .en-system-card:hover {
-  background: rgba(18, 20, 28, 0.95); border-color: #ff1744; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 23, 68, 0.25);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+  background: rgba(18, 21, 32, 0.96);
+  border-color: rgba(255, 45, 79, 0.45);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55), 0 0 24px rgba(255, 23, 68, 0.14);
+  transform: translateY(-3px);
 }
 
 .en-system-icon-wrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(225, 29, 72, 0.16);
-  border: 1px solid #ff1744;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: rgba(255, 23, 68, 0.12);
+  border: 1px solid rgba(255, 23, 68, 0.32);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff3344;
-  margin-bottom: 20px;
+  color: #ff4d6d;
+  margin-bottom: 18px;
 }
 
 .en-system-card h3 {

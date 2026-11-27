@@ -261,6 +261,35 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
             Say goodbye to greasy, vague workshop PDFs. Explore interactive 3D exploded components, 41 verified photographic parts, acoustic frequency diagnostics, and verified torque specifications.
           </motion.p>
 
+          {/* Vehicle Profile Quick Selector */}
+          <motion.div
+            className="en-hero-vehicle-strip"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.25 }}
+            role="group"
+            aria-label="Select machine profile"
+          >
+            <span className="en-hero-vehicle-label">ACTIVE TWIN</span>
+            <div className="en-hero-vehicle-pills">
+              {vehiclesData.slice(0, 4).map((v) => {
+                const isSelected = currentVehicle.id === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => onSelectVehicle?.(v)}
+                    className={`en-hero-vehicle-pill ${isSelected ? 'is-active' : ''}`}
+                    aria-pressed={isSelected}
+                  >
+                    {isSelected && <span className="en-hero-vehicle-dot" aria-hidden="true" />}
+                    <span>{v.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+
           <motion.div
             className="en-hero-launcher"
             initial={{ opacity: 0, y: 20 }}
@@ -342,11 +371,11 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               </div>
               <div className="en-hud-bottom">
                 <div className="en-hud-metric-box">
-                  <div className="text-slate-200">SIMULATED RPM</div>
-                  <div className="text-[#ff1744] font-bold text-base font-bold">1,450 RPM (Idle)</div>
+                  <div className="text-slate-400">SIMULATED RPM</div>
+                  <div className="text-[#ff3355] font-bold text-base">1,450 RPM (Idle)</div>
                 </div>
                 <div className="en-hud-metric-box text-right">
-                  <div className="text-slate-200">ACTIVE STROKE</div>
+                  <div className="text-slate-400">ACTIVE STROKE</div>
                   <div className="text-white text-base font-bold">Power / Scavenge</div>
                 </div>
               </div>
@@ -359,7 +388,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
       <section className="en-section" id="features">
         <div className="en-section-header">
           <span className="en-kicker-badge">Core Platform Capabilities</span>
-          <h2 className="en-section-title">Built for Riders, Machinists & Backyard Engineers</h2>
+          <h2 className="en-section-title">Built for Riders, Machinists &amp; Backyard Engineers</h2>
           <p className="en-section-desc">
             Enginium bridges the gap between digital simulation and actual garage wrenching. Test the interactive tools below:
           </p>
@@ -367,63 +396,66 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
 
         {/* Feature Navigation Tabs */}
         <div className="en-feature-tabs">
-          <button
-            type="button"
-            className={`en-tab-btn ${activeFeatureTab === 'hud' ? 'is-active' : ''}`}
-            onClick={() => setActiveFeatureTab('hud')}
-          >
-            <Scan size={16} />
-            <span>3D HUD Inspector</span>
-          </button>
-          <button
-            type="button"
-            className={`en-tab-btn ${activeFeatureTab === 'acoustic' ? 'is-active' : ''}`}
-            onClick={() => setActiveFeatureTab('acoustic')}
-          >
-            <Activity size={16} />
-            <span>Acoustic Frequency Lab</span>
-          </button>
-          <button
-            type="button"
-            className={`en-tab-btn ${activeFeatureTab === 'matrix' ? 'is-active' : ''}`}
-            onClick={() => setActiveFeatureTab('matrix')}
-          >
-            <Compass size={16} />
-            <span>Symptom Matrix AI</span>
-          </button>
-          <button
-            type="button"
-            className={`en-tab-btn ${activeFeatureTab === 'gallery' ? 'is-active' : ''}`}
-            onClick={() => setActiveFeatureTab('gallery')}
-          >
-            <BookOpen size={16} />
-            <span>Photographic Manual</span>
-          </button>
+          {[
+            { id: 'hud', label: '3D HUD Inspector', icon: Scan },
+            { id: 'acoustic', label: 'Acoustic Frequency Lab', icon: Activity },
+            { id: 'matrix', label: 'Symptom Matrix AI', icon: Compass },
+            { id: 'gallery', label: 'Photographic Manual', icon: BookOpen },
+          ].map((tab) => {
+            const TabIcon = tab.icon;
+            const isTabActive = activeFeatureTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                className={`en-tab-btn ${isTabActive ? 'is-active' : ''}`}
+                onClick={() => setActiveFeatureTab(tab.id)}
+              >
+                {isTabActive && (
+                  <motion.span
+                    layoutId="en-feature-tab-pill"
+                    className="en-tab-btn-bg"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
+                <TabIcon size={16} className="relative z-10" />
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Interactive Feature Stage Display */}
         <div className="en-feature-stage">
+          <AnimatePresence mode="wait">
           {activeFeatureTab === 'hud' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <motion.div
+              key="hud"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+            >
               <div>
-                <span className="text-xs font-bold text-[#ff1744] font-bold tracking-wider uppercase">Feature 01 · Visual Telemetry</span>
+                <span className="text-xs font-bold text-[#ff3355] tracking-wider uppercase">Feature 01 · Visual Telemetry</span>
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-2 mb-4">
                   Exploded 3D Inspection with Tolerance Gauges
                 </h3>
-                <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-6">
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
                   Rotate, explode, and inspect the engine block in real-time. Identify components such as the spark plug, valve rocker cover, carburetor, and exhaust manifold with precise metric torque references.
                 </p>
                 <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3 text-sm text-slate-100">
-                    <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
+                  <div className="flex items-center gap-3 text-sm text-slate-200">
+                    <CheckCircle2 size={16} className="text-[#ff3355] shrink-0" />
                     <span>Real-time wireframe scan and component highlight</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-100">
-                    <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
+                  <div className="flex items-center gap-3 text-sm text-slate-200">
+                    <CheckCircle2 size={16} className="text-[#ff3355] shrink-0" />
                     <span>Cross-referenced failure symptoms for every visible part</span>
                   </div>
-                  <div className="flex items-center gap-3 text-sm text-slate-100">
-                    <CheckCircle2 size={16} className="text-[#ff1744] font-bold" />
+                  <div className="flex items-center gap-3 text-sm text-slate-200">
+                    <CheckCircle2 size={16} className="text-[#ff3355] shrink-0" />
                     <span>One-click jump into verified step-by-step repair guides</span>
                   </div>
                 </div>
@@ -437,44 +469,51 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 </button>
               </div>
 
-              <div className="relative bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 overflow-hidden min-h-[320px] flex flex-col justify-between">
-                <div className="flex justify-between items-center text-xs text-slate-200 font-mono">
+              <div className="relative bg-[#0b0d14] border border-white/10 rounded-2xl p-6 overflow-hidden min-h-[320px] flex flex-col justify-between shadow-inner">
+                <div className="flex justify-between items-center text-xs text-slate-300 font-mono">
                   <span>STATION // ACTIVE</span>
-                  <span className="text-[#ff1744] font-bold">HOTSPOTS: 8 IDENTIFIED</span>
+                  <span className="text-[#ff3355] font-bold">HOTSPOTS: 8 IDENTIFIED</span>
                 </div>
                 <div className="my-auto py-8 text-center space-y-4">
-                  <div className="w-20 h-20 mx-auto rounded-full bg-[#1e2029] border border-[#ff3344]/40 flex items-center justify-center text-[#ff1744] font-bold shadow-[0_0_30px_rgba(255,23,68,0.35)]">
-                    <Scan size={36} className="animate-pulse" />
+                  <div className="w-20 h-20 mx-auto rounded-full bg-[#161924] border border-[#ff3355]/40 flex items-center justify-center text-[#ff3355] shadow-[0_0_30px_rgba(255,23,68,0.28)]">
+                    <Scan size={34} className="animate-pulse" />
                   </div>
                   <div className="text-white font-bold text-lg">{currentVehicle.name}</div>
-                  <div className="text-xs text-slate-200 max-w-xs mx-auto">
+                  <div className="text-xs text-slate-400 max-w-xs mx-auto">
                     {currentVehicle.engine} · {currentVehicle.specs?.sparkPlugGap} plug gap
                   </div>
                 </div>
-                <div className="flex justify-between items-center text-xs font-mono text-[#ff1744] font-bold pt-4 border-t border-[#2c2f3a]/60">
+                <div className="flex justify-between items-center text-xs font-mono text-[#ff3355] font-bold pt-4 border-t border-white/10">
                   <span>3D RENDER ENGINE</span>
                   <button type="button" onClick={() => onNavigate('hud')} className="underline hover:text-white">
                     Full Interactive Screen →
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {activeFeatureTab === 'acoustic' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <motion.div
+              key="acoustic"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
+            >
               <div>
-                <span className="text-xs font-bold text-[#ff1744] font-bold tracking-wider uppercase">Feature 02 · Mechanical Acoustics</span>
+                <span className="text-xs font-bold text-[#ff3355] tracking-wider uppercase">Feature 02 · Mechanical Acoustics</span>
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-2 mb-4">
                   Identify Abnormal Sounds Through Frequency FFT
                 </h3>
-                <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-6">
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
                   Every engine failure has a characteristic acoustic fingerprint. Compare healthy purr against loose valve tappets, worn piston skirt slap, and timing chain rattles across audio spectrum bins.
                 </p>
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-xs font-mono text-slate-200">
+                  <div className="flex items-center justify-between text-xs font-mono text-slate-300">
                     <span>FREQUENCY MONITOR</span>
-                    <span className="text-[#ff1744] font-bold">{acousticFrequency} Hz</span>
+                    <span className="text-[#ff3355] font-bold">{acousticFrequency} Hz</span>
                   </div>
                   <input
                     type="range"
@@ -482,7 +521,7 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     max="600"
                     value={acousticFrequency}
                     onChange={(e) => setAcousticFrequency(Number(e.target.value))}
-                    className="w-full accent-[#ff3344] cursor-pointer"
+                    className="w-full accent-[#ff3355] cursor-pointer"
                   />
                 </div>
                 <button
@@ -495,10 +534,10 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                 </button>
               </div>
 
-              <div className="bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 flex flex-col justify-between min-h-[320px]">
-                <div className="flex justify-between items-center text-xs text-slate-200 font-mono">
+              <div className="bg-[#0b0d14] border border-white/10 rounded-2xl p-6 flex flex-col justify-between min-h-[320px]">
+                <div className="flex justify-between items-center text-xs text-slate-300 font-mono">
                   <span>AUDIO FFT SPECTRUM</span>
-                  <span className="text-[#ff1744] font-bold">HARMONIC ANALYZER</span>
+                  <span className="text-[#ff3355] font-bold">HARMONIC ANALYZER</span>
                 </div>
                 {/* Visual Audio Waveform Simulation */}
                 <div className="my-auto py-6 flex items-end justify-center gap-1.5 h-36">
@@ -507,13 +546,13 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     return (
                       <div
                         key={i}
-                        className="w-3 rounded-t bg-gradient-to-t from-[#1e2029] to-[#ff3344] transition-all duration-150"
+                        className="w-3 rounded-t bg-gradient-to-t from-[#1e2029] to-[#ff3355] transition-all duration-150"
                         style={{ height: `${scaledH}%` }}
                       />
                     );
                   })}
                 </div>
-                <div className="text-center text-xs font-mono text-slate-200">
+                <div className="text-center text-xs font-mono text-slate-300">
                   {acousticFrequency < 120
                     ? 'Sub-bass rumble (Idle Crankshaft stroke)'
                     : acousticFrequency < 300
@@ -521,17 +560,24 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     : 'High-frequency resonance (Check valve tappet clearance)'}
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {activeFeatureTab === 'matrix' && (
-            <div className="space-y-6">
+            <motion.div
+              key="matrix"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
               <div className="max-w-xl">
-                <span className="text-xs font-bold text-[#ff1744] font-bold tracking-wider uppercase">Feature 03 · Instant Diagnostic Playground</span>
+                <span className="text-xs font-bold text-[#ff3355] tracking-wider uppercase">Feature 03 · Instant Diagnostic Playground</span>
                 <h3 className="text-2xl sm:text-3xl font-black text-white mt-1 mb-2">
                   Test-Drive the AI Symptom Classifier
                 </h3>
-                <p className="text-slate-200 text-sm">
+                <p className="text-slate-300 text-sm">
                   Click a common motorcycle problem below to see the instant diagnostic analysis generated:
                 </p>
               </div>
@@ -542,10 +588,10 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                   <button
                     type="button"
                     key={key}
-                    className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
+                    className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all ${
                       activeSymptomTest === key
-                        ? 'bg-[#1e2029] border-[#ff3344] text-[#ff1744] font-bold'
-                        : 'bg-[#14151b] border-[#2c2f3a] text-slate-200 hover:text-white'
+                        ? 'bg-[#1a1d2a] border-[#ff3355] text-white shadow-[0_0_16px_rgba(255,23,68,0.2)]'
+                        : 'bg-[#11131c] border-white/10 text-slate-300 hover:text-white hover:border-white/20'
                     }`}
                     onClick={() => setActiveSymptomTest(key)}
                   >
@@ -556,22 +602,22 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
 
               {/* Selected Diagnosis Card */}
               {symptomDemos[activeSymptomTest] && (
-                <div className="bg-[#0e0f14] border border-[#2c2f3a] rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="bg-[#0b0d14] border border-white/10 rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div>
-                    <span className="text-xs text-slate-200 block mb-1">PROBABLE CAUSE</span>
+                    <span className="text-xs text-slate-400 block mb-1">PROBABLE CAUSE</span>
                     <strong className="text-white text-sm block">{symptomDemos[activeSymptomTest].cause}</strong>
                   </div>
                   <div>
-                    <span className="text-xs text-slate-200 block mb-1">CONFIDENCE & DIY LEVEL</span>
+                    <span className="text-xs text-slate-400 block mb-1">CONFIDENCE &amp; DIY LEVEL</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#ff1744] font-bold text-sm">{symptomDemos[activeSymptomTest].confidence}</span>
-                      <span className="text-[11px] px-2 py-0.5 rounded bg-[#1e2029] text-[#ff1744] font-bold border border-[#2c2f3a]">
+                      <span className="text-[#ff3355] font-bold text-sm">{symptomDemos[activeSymptomTest].confidence}</span>
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-white/5 text-slate-200 font-semibold border border-white/10">
                         {symptomDemos[activeSymptomTest].diy}
                       </span>
                     </div>
                   </div>
                   <div>
-                    <span className="text-xs text-slate-200 block mb-1">ESTIMATED TIME & COST</span>
+                    <span className="text-xs text-slate-400 block mb-1">ESTIMATED TIME &amp; COST</span>
                     <strong className="text-white text-sm block">
                       {symptomDemos[activeSymptomTest].time} · {symptomDemos[activeSymptomTest].cost}
                     </strong>
@@ -588,14 +634,21 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           )}
 
           {activeFeatureTab === 'gallery' && (
-            <div className="space-y-6">
+            <motion.div
+              key="gallery"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <span className="text-xs font-bold text-[#ff1744] font-bold tracking-wider uppercase">Feature 04 · Photographic Catalog</span>
+                  <span className="text-xs font-bold text-[#ff3355] tracking-wider uppercase">Feature 04 · Photographic Catalog</span>
                   <h3 className="text-2xl sm:text-3xl font-black text-white mt-1">
                     41 Components Sourced from Real Machinery
                   </h3>
@@ -636,13 +689,14 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     <div className="en-part-preview-content">
                       <span className="en-part-preview-cat">{part.category || 'System Component'}</span>
                       <h4 className="en-part-preview-title">{part.name}</h4>
-                      <p className="text-xs text-slate-200 line-clamp-2">{part.function}</p>
+                      <p className="text-xs text-slate-400 line-clamp-2">{part.function}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
+          </AnimatePresence>
         </div>
       </section>
 

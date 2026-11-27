@@ -1,18 +1,18 @@
 /* Local presentation system for Enginium's secondary tools. */
 .tool-view {
-  --tool-canvas: #050507;
-  --tool-text: #fce7e8;
-  --tool-muted: #d8b4ba;
-  --tool-border: #2c2f3b;
-  --tool-panel: #111218;
-  --tool-pale: #14151e;
-  --tool-red: #ef4444;
-  --tool-red-hover: #dc2626;
-  --tool-lime: #ff3344;
-  --tool-orange: #b96a2b;
-  --tool-inset: color-mix(in srgb, var(--tool-pale) 55%, var(--tool-panel));
-  --tool-warning-surface: color-mix(in srgb, var(--tool-orange) 11%, var(--tool-panel));
-  --tool-warning-border: color-mix(in srgb, var(--tool-orange) 35%, var(--tool-border));
+  --tool-canvas: #05060a;
+  --tool-text: #f8fafc;
+  --tool-muted: #94a3b8;
+  --tool-border: rgba(255, 255, 255, 0.08);
+  --tool-panel: rgba(13, 15, 23, 0.92);
+  --tool-pale: rgba(255, 255, 255, 0.035);
+  --tool-red: #ff2d4f;
+  --tool-red-hover: #e11d48;
+  --tool-lime: #ff2d4f;
+  --tool-orange: #f59e0b;
+  --tool-inset: rgba(16, 18, 28, 0.9);
+  --tool-warning-surface: rgba(245, 158, 11, 0.09);
+  --tool-warning-border: rgba(245, 158, 11, 0.28);
   background: var(--tool-canvas);
   color: var(--tool-text);
   min-height: 100%;
@@ -24,7 +24,7 @@
 .tool-page {
   width: min(100%, 1160px);
   margin: 0 auto;
-  padding: 40px 40px 100px;
+  padding: 32px 36px 88px;
 }
 
 .tool-header,
