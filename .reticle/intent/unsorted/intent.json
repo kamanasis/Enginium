@@ -110,6 +110,22 @@
       "subject": "unsorted",
       "updatedAt": 1795323178120
     },
+    "inline:enginium-brand-hallmark-logo-is-visibly-rendered-d7277a61": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "name": "Enginium Brand Hallmark"
+        },
+        "state": "visible"
+      },
+      "declaredAt": 1795578856224,
+      "id": "inline:enginium-brand-hallmark-logo-is-visibly-rendered-d7277a61",
+      "state": "bound",
+      "statement": "Enginium Brand Hallmark logo is visibly rendered in the landing header",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795578856345
+    },
     "inline:enter-workspace-from-landing-page-b84aa2f6": {
       "binding": {
         "kind": "element",

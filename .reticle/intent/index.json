@@ -61,6 +61,12 @@
       "subject": "unsorted"
     },
     {
+      "id": "inline:enginium-brand-hallmark-logo-is-visibly-rendered-d7277a61",
+      "statement": "Enginium Brand Hallmark logo is visibly rendered in the landing header",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
       "id": "inline:enter-workspace-from-landing-page-b84aa2f6",
       "statement": "Enter workspace from landing page",
       "status": "proved",

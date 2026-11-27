@@ -20,7 +20,6 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
   const [isPlayingAudioSim, setIsPlayingAudioSim] = useState(false);
   const [engineStrokePhase, setEngineStrokePhase] = useState('POWER');
   const [cockpitRpm, setCockpitRpm] = useState(1450);
-  const [cockpitExploded, setCockpitExploded] = useState(false);
 
   const currentVehicle = selectedVehicle || vehiclesData[0];
 
@@ -370,32 +369,20 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                   <span className="en-ping-dot" />
                   <span>3D CUTAWAY // {currentVehicle.name.toUpperCase()}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className={`en-cockpit-mode-btn ${cockpitExploded ? 'is-active' : ''}`}
-                    onClick={() => setCockpitExploded((prev) => !prev)}
-                    aria-pressed={cockpitExploded}
-                  >
-                    <Layers size={12} />
-                    <span>{cockpitExploded ? 'Assemble' : 'Explode'}</span>
-                  </button>
-                  <button
-                    type="button"
-                    className="en-cockpit-open-btn"
-                    onClick={() => onNavigate('hud')}
-                  >
-                    <span>Inspect 3D</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="en-cockpit-open-btn"
+                  onClick={() => onNavigate('hud')}
+                >
+                  <span>Inspect 3D</span>
+                  <ArrowRight size={13} />
+                </button>
               </div>
 
               <div className="en-blueprint-container">
                 <EngineSchematic3D
                   vehicleType={currentVehicle.type}
                   rpm={cockpitRpm}
-                  exploded={cockpitExploded}
                   onPhaseChange={setEngineStrokePhase}
                 />
                 <div className="en-blueprint-hud-overlay">
