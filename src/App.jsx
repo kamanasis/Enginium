@@ -459,7 +459,7 @@ export default function App() {
 
   return (
     <div className="app-shell min-h-screen text-white flex font-sans overflow-x-clip selection:bg-red-500 selection:text-white relative isolate">
-      <KineticBackground opacity={0.88} />
+      <KineticBackground opacity={0.22} />
       <aside className={`app-sidebar sticky top-0 h-screen self-start flex-shrink-0 z-40 hidden lg:flex ${sidebarOpen ? 'is-expanded' : 'is-collapsed'}`}>
         {/* Sidebar Header: Brand + Collapse/Expand Action */}
         <div className="app-sidebar-header">

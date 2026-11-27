@@ -110,8 +110,9 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
 
   return (
     <div className="en-landing">
-      {/* Smooth Themed Kinetic Background */}
-      <KineticBackground opacity={0.92} />
+      {/* Subtle Studio Kinetic Backdrop */}
+      <KineticBackground opacity={0.28} />
+      <div className="en-studio-top-glow" aria-hidden="true" />
 
       {/* Top Navbar */}
       <header className="en-nav-header">
@@ -227,156 +228,187 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
         </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
+      {/* Editorial Split-Viewport Hero Section */}
       <section className="en-hero-section">
-        <div className="en-hero-content">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="en-kicker-badge">
-              <span className="en-ping-dot" />
-              Interactive 4-Stroke Telemetry Engine
-            </span>
-          </motion.div>
-
-          <motion.h1
-            className="en-hero-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <span className="en-hero-title-top">The Digital Twin for</span>
-            <span className="en-hero-title-main">Motorcycle Engineering</span>
-            <span className="en-hero-title-bottom">&amp; Precision DIY Repair.</span>
-          </motion.h1>
-
-          <motion.p
-            className="en-hero-subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Say goodbye to greasy, vague workshop PDFs. Explore interactive 3D exploded components, 41 verified photographic parts, acoustic frequency diagnostics, and verified torque specifications.
-          </motion.p>
-
-          {/* Vehicle Profile Quick Selector */}
-          <motion.div
-            className="en-hero-vehicle-strip"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.25 }}
-            role="group"
-            aria-label="Select machine profile"
-          >
-            <span className="en-hero-vehicle-label">ACTIVE TWIN</span>
-            <div className="en-hero-vehicle-pills">
-              {vehiclesData.slice(0, 4).map((v) => {
-                const isSelected = currentVehicle.id === v.id;
-                return (
-                  <button
-                    key={v.id}
-                    type="button"
-                    onClick={() => onSelectVehicle?.(v)}
-                    className={`en-hero-vehicle-pill ${isSelected ? 'is-active' : ''}`}
-                    aria-pressed={isSelected}
-                  >
-                    {isSelected && <span className="en-hero-vehicle-dot" aria-hidden="true" />}
-                    <span>{v.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="en-hero-launcher"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            <button
-              type="button"
-              className="en-launcher-primary"
-              onClick={() => onNavigate('hud')}
+        <div className="en-hero-split">
+          {/* Left Column: Typography, Machine Switcher, Actions & Live Metrics */}
+          <div className="en-hero-left">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
             >
-              <span className="en-launcher-icon-wrap">
-                <Scan size={18} />
+              <span className="en-kicker-badge">
+                <span className="en-ping-dot" />
+                4-Stroke Telemetry · Offline Ready
               </span>
-              <div className="en-launcher-text">
-                <span className="en-launcher-title">Launch 3D Digital Twin</span>
-                <span className="en-launcher-sub">Interactive Exploded Engine · 60 FPS</span>
-              </div>
-              <ArrowRight size={16} className="en-launcher-arrow" />
-            </button>
+            </motion.div>
 
-            <button
-              type="button"
-              className="en-launcher-secondary"
-              onClick={() => onNavigate('learn')}
+            <motion.h1
+              className="en-hero-title"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.08 }}
             >
-              <span className="en-launcher-icon-wrap">
-                <BookOpen size={18} />
-              </span>
-              <div className="en-launcher-text">
-                <span className="en-launcher-title">41-Part CAD Assemblies</span>
-                <span className="en-launcher-sub">Photographic DIY Specifications</span>
-              </div>
-            </button>
-          </motion.div>
+              <span className="en-hero-title-top">Precision Digital Twin</span>
+              <span className="en-hero-title-main">for Motorcycle Engineering.</span>
+            </motion.h1>
 
-          {/* Telemetry Numbers Bar */}
-          <motion.div
-            className="en-telemetry-bar"
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <div className="en-telemetry-card">
-              <div className="en-telemetry-number">41</div>
-              <div className="en-telemetry-label">Verified Real Parts</div>
-            </div>
-            <div className="en-telemetry-card">
-              <div className="en-telemetry-number">12 kHz</div>
-              <div className="en-telemetry-label">Harmonic Acoustic FFT</div>
-            </div>
-            <div className="en-telemetry-card">
-              <div className="en-telemetry-number">94.8%</div>
-              <div className="en-telemetry-label">DIY Diagnostic Confidence</div>
-            </div>
-            <div className="en-telemetry-card">
-              <div className="en-telemetry-number">100%</div>
-              <div className="en-telemetry-label">Client-Side Offline Ready</div>
-            </div>
-          </motion.div>
+            <motion.p
+              className="en-hero-subtitle"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.14 }}
+            >
+              Replace vague workshop PDFs with interactive exploded 3D assemblies, 41+ real component photos, live acoustic FFT diagnostics, and model-exact repair intervals.
+            </motion.p>
 
-          {/* Real-time Kinematic 4-Stroke Canvas */}
-          <motion.div
-            className="en-blueprint-container"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <EngineBlueprintAnimation speed={0.025} />
-            <div className="en-blueprint-hud-overlay">
-              <div className="en-hud-top">
-                <span className="en-hud-pill">
-                  <span className="en-ping-dot" />
-                  KINEMATICS: RECIPROCATING 97.2cc
-                </span>
-                <span className="en-hud-pill hidden sm:inline-flex">
-                  FOUR-STROKE OTTO CYCLE
-                </span>
+            {/* Vehicle Profile Quick Selector */}
+            <motion.div
+              className="en-hero-vehicle-strip"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              role="group"
+              aria-label="Select machine profile"
+            >
+              <span className="en-hero-vehicle-label">TWIN</span>
+              <div className="en-hero-vehicle-pills">
+                {vehiclesData.slice(0, 4).map((v) => {
+                  const isSelected = currentVehicle.id === v.id;
+                  return (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => onSelectVehicle?.(v)}
+                      className={`en-hero-vehicle-pill ${isSelected ? 'is-active' : ''}`}
+                      aria-pressed={isSelected}
+                    >
+                      {isSelected && <span className="en-hero-vehicle-dot" aria-hidden="true" />}
+                      <span>{v.name}</span>
+                    </button>
+                  );
+                })}
               </div>
-              <div className="en-hud-bottom">
-                <div className="en-hud-metric-box">
-                  <div className="text-slate-400">SIMULATED RPM</div>
-                  <div className="text-[#ff3355] font-bold text-base">1,450 RPM (Idle)</div>
+            </motion.div>
+
+            <motion.div
+              className="en-hero-launcher"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.25 }}
+            >
+              <button
+                type="button"
+                className="en-launcher-primary"
+                onClick={() => onNavigate('hud')}
+              >
+                <span className="en-launcher-icon-wrap">
+                  <Scan size={17} />
+                </span>
+                <div className="en-launcher-text">
+                  <span className="en-launcher-title">Launch 3D Studio</span>
+                  <span className="en-launcher-sub">Exploded View · Hotspots</span>
                 </div>
-                <div className="en-hud-metric-box text-right">
-                  <div className="text-slate-400">ACTIVE STROKE</div>
-                  <div className="text-white text-base font-bold">Power / Scavenge</div>
+                <ArrowRight size={15} className="en-launcher-arrow" />
+              </button>
+
+              <button
+                type="button"
+                className="en-launcher-secondary"
+                onClick={() => onNavigate('learn')}
+              >
+                <span className="en-launcher-icon-wrap">
+                  <BookOpen size={17} />
+                </span>
+                <div className="en-launcher-text">
+                  <span className="en-launcher-title">Explore Parts Catalog</span>
+                  <span className="en-launcher-sub">{currentVehicle.parts?.length || 41} Real Components</span>
+                </div>
+              </button>
+            </motion.div>
+
+            {/* Compact Live Telemetry Metrics */}
+            <motion.div
+              className="en-telemetry-bar"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="en-telemetry-card">
+                <div className="en-telemetry-number">{currentVehicle.parts?.length || 41}</div>
+                <div className="en-telemetry-label">Indexed Parts</div>
+              </div>
+              <div className="en-telemetry-card">
+                <div className="en-telemetry-number">{currentVehicle.specs?.oilType?.split(' ')[0] || '10W-30'}</div>
+                <div className="en-telemetry-label">Oil Grade</div>
+              </div>
+              <div className="en-telemetry-card">
+                <div className="en-telemetry-number">{currentVehicle.specs?.sparkPlugGap || '0.7 mm'}</div>
+                <div className="en-telemetry-label">Spark Gap</div>
+              </div>
+              <div className="en-telemetry-card">
+                <div className="en-telemetry-number">12 kHz</div>
+                <div className="en-telemetry-label">Acoustic FFT</div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Live Interactive Kinematic Blueprint Cockpit */}
+          <motion.div
+            className="en-hero-right"
+            initial={{ opacity: 0, scale: 0.97, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.2 }}
+          >
+            <div className="en-cockpit-card">
+              <div className="en-cockpit-topbar">
+                <div className="en-cockpit-title">
+                  <span className="en-ping-dot" />
+                  <span>KINEMATIC ENGINE TWIN // {currentVehicle.name.toUpperCase()}</span>
+                </div>
+                <button
+                  type="button"
+                  className="en-cockpit-open-btn"
+                  onClick={() => onNavigate('hud')}
+                >
+                  <span>Inspect 3D</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
+
+              <div className="en-blueprint-container">
+                <EngineBlueprintAnimation speed={0.025} />
+                <div className="en-blueprint-hud-overlay">
+                  <div className="en-hud-top">
+                    <span className="en-hud-pill">
+                      OTTO 4-CYCLE
+                    </span>
+                    <span className="en-hud-pill">
+                      {currentVehicle.type?.toUpperCase() || 'MOTORCYCLE'}
+                    </span>
+                  </div>
+                  <div className="en-hud-bottom">
+                    <div className="en-hud-metric-box">
+                      <div className="text-slate-400 text-[10px]">SIMULATED IDLE</div>
+                      <div className="text-[#ff3355] font-bold text-sm">1,450 RPM</div>
+                    </div>
+                    <div className="en-hud-metric-box text-right">
+                      <div className="text-slate-400 text-[10px]">POWER OUTPUT</div>
+                      <div className="text-white font-bold text-sm">{currentVehicle.power || '8.02 PS'}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="en-cockpit-footer">
+                <div>
+                  <span>POWERTRAIN</span>
+                  <strong>{currentVehicle.engine}</strong>
+                </div>
+                <div>
+                  <span>TIRE SPEC</span>
+                  <strong>{currentVehicle.specs?.tirePressureFront || '25 psi'} / {(currentVehicle.specs?.tirePressureRear || '32 psi').split(' ')[0]} psi</strong>
                 </div>
               </div>
             </div>

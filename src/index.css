@@ -22,11 +22,14 @@
   body {
     background-color: var(--en-bg);
     background-image:
-      radial-gradient(circle at 12% 0%, rgba(225, 29, 72, 0.08), transparent 30rem),
-      radial-gradient(circle at 92% 10%, rgba(136, 19, 55, 0.05), transparent 28rem),
-      linear-gradient(180deg, #06070a 0%, #030305 52%, #010102 100%);
+      radial-gradient(circle at 15% -5%, rgba(225, 29, 72, 0.08), transparent 34rem),
+      radial-gradient(circle at 85% 5%, rgba(56, 189, 248, 0.03), transparent 28rem),
+      linear-gradient(180deg, #06070b 0%, #040508 55%, #020305 100%);
     color: #f1f5f9;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
     min-width: 320px;
   }
