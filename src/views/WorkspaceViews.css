@@ -172,7 +172,7 @@
 }
 
 .workspace-kpi-card strong {
-  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-family: var(--font-display, 'Syne', sans-serif);
   font-variant-numeric: tabular-nums;
   font-size: 1.2rem;
   font-weight: 700;
@@ -199,7 +199,7 @@
   right: 14px;
   display: flex;
   justify-content: space-between;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -266,7 +266,7 @@
 }
 
 .workspace-home-hero h2 {
-  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-family: var(--font-display, 'Syne', sans-serif);
   font-size: clamp(1.9rem, 3.6cqi, 2.95rem);
   font-weight: 700;
   letter-spacing: -0.035em;

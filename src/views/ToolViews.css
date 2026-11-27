@@ -269,7 +269,7 @@
 }
 
 .diagnose-cause-actions strong {
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   color: var(--tool-red, #ff1744);
 }
 
@@ -1083,7 +1083,7 @@
 
 .learn-part-schematic-kicker {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -1101,7 +1101,7 @@
 .learn-part-schematic-meta {
   position: relative;
   z-index: 1;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.72rem;
   color: #94a3b8;
 }
@@ -1872,7 +1872,7 @@
 }
 
 .learn-part-idx {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.65rem;
   font-weight: 750;
   color: #475569;
@@ -1914,7 +1914,7 @@
 }
 
 .learn-part-subsystem {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.58rem;
   font-weight: 600;
   color: #64748b;
@@ -1923,7 +1923,7 @@
 }
 
 .learn-part-badge {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.56rem;
   font-weight: 750;
   letter-spacing: 0.06em;
@@ -2170,7 +2170,7 @@
 }
 
 .cad-assembly-title {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.68rem;
   font-weight: 750;
   letter-spacing: 0.08em;
@@ -2179,7 +2179,7 @@
 }
 
 .cad-assembly-count {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.58rem;
   font-weight: 700;
   color: #ff1744;
@@ -2257,7 +2257,7 @@
 }
 
 .cad-part-diff {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
   font-size: 0.58rem;
   font-weight: 600;
   color: #64748b;
