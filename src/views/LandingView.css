@@ -7,7 +7,7 @@
   background-color: transparent;
   color: #f1f5f9;
   overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif);
   line-height: 1.5;
 }
 
@@ -353,10 +353,11 @@
 }
 
 .en-hero-title {
-  font-size: clamp(2.1rem, 4.1vw, 3.6rem);
-  font-weight: 850;
-  line-height: 1.04;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(2.15rem, 4.2vw, 3.65rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
   color: #ffffff;
   margin-bottom: 18px;
 }
@@ -796,15 +797,18 @@
 }
 
 .en-telemetry-number {
-  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
-  font-weight: 850;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(1.35rem, 2.3vw, 1.75rem);
+  font-weight: 700;
   color: #f8fafc;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 
 .en-telemetry-label {
-  font-size: 0.72rem;
-  font-weight: 650;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -846,11 +850,12 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 5px 11px;
   border-radius: 8px;
-  font-size: 0.72rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-weight: 650;
+  font-size: 0.68rem;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
   letter-spacing: 0.08em;
   background: rgba(9, 11, 17, 0.84);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -868,9 +873,11 @@
   background: rgba(10, 11, 16, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 10px;
-  padding: 12px 16px;
-  font-family: monospace;
-  font-size: 0.75rem;
+  padding: 10px 14px;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem;
+  backdrop-filter: blur(8px);
 }
 
 /* Feature Spotlight Matrix */
@@ -889,12 +896,13 @@
 }
 
 .en-section-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-  font-weight: 850;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(1.8rem, 3.3vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: #ffffff;
   margin-top: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .en-section-desc {
@@ -1259,9 +1267,10 @@
 }
 
 .en-cta-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: clamp(1.8rem, 3.3vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: #ffffff;
   margin-bottom: 16px;
 }
@@ -2037,9 +2046,10 @@
 }
 
 .en-island-brand-text {
-  font-size: 0.82rem;
-  font-weight: 750;
-  letter-spacing: 0.12em;
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   color: #f8fafc;
   transition: all 0.18s ease;
 }

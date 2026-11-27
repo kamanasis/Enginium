@@ -679,9 +679,10 @@
 }
 
 .learn-workbench-chip {
-  font-family: ui-monospace, 'SF Mono', monospace;
+  font-family: var(--font-mono, 'JetBrains Mono', ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   color: #10b981;
   background: rgba(16, 185, 129, 0.1);

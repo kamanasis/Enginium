@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +5,9 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --en-bg: #030305;
     --en-surface: #0c0e14;
     --en-surface-strong: #12141c;
@@ -26,12 +27,22 @@
       radial-gradient(circle at 85% 5%, rgba(56, 189, 248, 0.03), transparent 28rem),
       linear-gradient(180deg, #06070b 0%, #040508 55%, #020305 100%);
     color: #f1f5f9;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-sans);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     overflow-x: clip;
     min-width: 320px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+  }
+
+  code, pre, kbd, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   button, input, textarea, select {
@@ -55,9 +66,10 @@
   }
 
   .en-brand-text {
+    font-family: var(--font-display);
     font-size: 1.0625rem;
-    font-weight: 850;
-    letter-spacing: 0.14em;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     color: #ffffff;
     display: inline-flex;
     align-items: center;
@@ -571,10 +583,11 @@
 
 .ui-title {
   color: #f8fafc;
-  font-size: clamp(1.65rem, 2.7vw, 2.2rem);
-  font-weight: 750;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.7vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
   margin: 0;
 }
 
@@ -582,9 +595,10 @@
 .ui-label {
   color: #94a3b8;
   display: block;
-  font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1.3;
   text-transform: uppercase;
 }
@@ -1506,9 +1520,10 @@
 }
 
 .app-expanded-brand-title {
-  font-size: 0.875rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   color: #ffffff;
   line-height: 1.1;
   text-transform: uppercase;
