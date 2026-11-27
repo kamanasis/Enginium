@@ -456,6 +456,99 @@
   white-space: nowrap;
 }
 
+.en-cockpit-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 650;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.16s ease;
+}
+
+.en-cockpit-mode-btn:hover,
+.en-cockpit-mode-btn.is-active {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #e0f2fe;
+}
+
+.en-stroke-pill.is-intake {
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #7dd3fc;
+}
+
+.en-stroke-pill.is-compression {
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #fcd34d;
+}
+
+.en-stroke-pill.is-power {
+  border-color: rgba(255, 45, 79, 0.55);
+  color: #fda4af;
+}
+
+.en-stroke-pill.is-exhaust {
+  border-color: rgba(249, 115, 22, 0.45);
+  color: #fdba74;
+}
+
+.en-cockpit-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(11, 13, 21, 0.94);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.en-cockpit-rpm-Presets {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.en-cockpit-rpm-btn {
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.en-cockpit-rpm-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.en-cockpit-rpm-btn.is-active {
+  background: rgba(255, 23, 68, 0.16);
+  border-color: rgba(255, 45, 79, 0.48);
+  color: #ffffff;
+}
+
+.en-cockpit-slider {
+  flex: 1;
+  min-width: 120px;
+  accent-color: #ff2d4f;
+  cursor: pointer;
+  height: 4px;
+}
+
 .en-cockpit-open-btn {
   display: inline-flex;
   align-items: center;

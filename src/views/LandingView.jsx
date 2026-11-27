@@ -19,6 +19,8 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
   const [acousticFrequency, setAcousticFrequency] = useState(140);
   const [isPlayingAudioSim, setIsPlayingAudioSim] = useState(false);
   const [engineStrokePhase, setEngineStrokePhase] = useState('POWER');
+  const [cockpitRpm, setCockpitRpm] = useState(1450);
+  const [cockpitExploded, setCockpitExploded] = useState(false);
 
   const currentVehicle = selectedVehicle || vehiclesData[0];
 
@@ -366,37 +368,50 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
               <div className="en-cockpit-topbar">
                 <div className="en-cockpit-title">
                   <span className="en-ping-dot" />
-                  <span>KINEMATIC ENGINE TWIN // {currentVehicle.name.toUpperCase()}</span>
+                  <span>3D CUTAWAY // {currentVehicle.name.toUpperCase()}</span>
                 </div>
-                <button
-                  type="button"
-                  className="en-cockpit-open-btn"
-                  onClick={() => onNavigate('hud')}
-                >
-                  <span>Inspect 3D</span>
-                  <ArrowRight size={13} />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className={`en-cockpit-mode-btn ${cockpitExploded ? 'is-active' : ''}`}
+                    onClick={() => setCockpitExploded((prev) => !prev)}
+                    aria-pressed={cockpitExploded}
+                  >
+                    <Layers size={12} />
+                    <span>{cockpitExploded ? 'Assemble' : 'Explode'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="en-cockpit-open-btn"
+                    onClick={() => onNavigate('hud')}
+                  >
+                    <span>Inspect 3D</span>
+                    <ArrowRight size={13} />
+                  </button>
+                </div>
               </div>
 
               <div className="en-blueprint-container">
                 <EngineSchematic3D
                   vehicleType={currentVehicle.type}
+                  rpm={cockpitRpm}
+                  exploded={cockpitExploded}
                   onPhaseChange={setEngineStrokePhase}
                 />
                 <div className="en-blueprint-hud-overlay">
                   <div className="en-hud-top">
                     <span className="en-hud-pill">
                       <span className="en-ping-dot" />
-                      3D SCHEMATIC · DRAG TO ORBIT
+                      DRAG TO ORBIT · SCROLL ZOOM
                     </span>
-                    <span className="en-hud-pill">
-                      STROKE: {engineStrokePhase}
+                    <span className={`en-hud-pill en-stroke-pill is-${engineStrokePhase.toLowerCase()}`}>
+                      {engineStrokePhase}
                     </span>
                   </div>
                   <div className="en-hud-bottom">
                     <div className="en-hud-metric-box">
-                      <div className="text-slate-400 text-[10px]">SIMULATED IDLE</div>
-                      <div className="text-[#ff3355] font-bold text-sm">1,450 RPM</div>
+                      <div className="text-slate-400 text-[10px]">ENGINE SPEED</div>
+                      <div className="text-[#ff3355] font-bold text-sm">{cockpitRpm.toLocaleString()} RPM</div>
                     </div>
                     <div className="en-hud-metric-box text-right">
                       <div className="text-slate-400 text-[10px]">POWER OUTPUT</div>
@@ -404,6 +419,36 @@ export default function LandingView({ onNavigate, onSelectVehicle, selectedVehic
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Interactive RPM Throttle Bar */}
+              <div className="en-cockpit-controls">
+                <div className="en-cockpit-rpm-Presets">
+                  {[
+                    { label: 'Idle', val: 1450 },
+                    { label: 'Cruise', val: 4500 },
+                    { label: 'Redline', val: 8000 },
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => setCockpitRpm(preset.val)}
+                      className={`en-cockpit-rpm-btn ${cockpitRpm === preset.val ? 'is-active' : ''}`}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="range"
+                  min="900"
+                  max="8500"
+                  step="50"
+                  value={cockpitRpm}
+                  onChange={(e) => setCockpitRpm(Number(e.target.value))}
+                  aria-label="Simulated engine RPM"
+                  className="en-cockpit-slider"
+                />
               </div>
 
               <div className="en-cockpit-footer">
