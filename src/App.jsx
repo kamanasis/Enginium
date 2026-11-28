@@ -264,6 +264,11 @@ export default function App() {
         return (
           <LearnView
             selectedVehicle={selectedVehicle}
+            vehiclesList={vehiclesData}
+            onSelectVehicle={(vehicle) => {
+              setSelectedVehicle(vehicle);
+              if (vehicle?.parts?.[0]) setSelectedPart(vehicle.parts[0]);
+            }}
             activeSegment={activeSegment}
             setActiveSegment={setActiveSegment}
             selectedPart={selectedPart}

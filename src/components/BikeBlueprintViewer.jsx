@@ -1,24 +1,32 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Maximize2, Minimize2, Minus, Plus, RotateCcw, X } from 'lucide-react';
-import { BIKE_MODEL, BIKE_PARTS, BIKE_PART_IDS, BIKE_SPEC, PLACEMENT_LEVELS } from '../data/bikeParts';
+import { BIKE_PARTS, BIKE_PART_IDS, BIKE_SPEC, PLACEMENT_LEVELS, VEHICLE_SPECS } from '../data/bikeParts';
 import { createBikeScene } from '../viewer/bikeScene';
 import '../viewer/bikeBlueprint.css';
 
 const PART_COUNT = BIKE_PARTS.filter((part) => part.selectable !== false).length;
 
+function resolveSpecKey(vehicleId = '', vehicleType = '') {
+  const id = String(vehicleId || '').toLowerCase();
+  const type = String(vehicleType || '').toLowerCase();
+  if (type === 'scooter' || id.includes('activa')) return 'scooter';
+  if (id.includes('gt-650') || id.includes('gt650') || id.includes('continental')) return 'gt650';
+  if (id.includes('hunter')) return 'hunter350';
+  if (id.includes('classic') || id.includes('bullet') || id.includes('meteor')) return 'classic350';
+  return 'commuter';
+}
+
 /**
  * Interactive blueprint bike. The three.js scene is created once; props only
  * change which part is highlighted and which numbered markers blink.
- *
- * @param {string|null} selectedPartId   catalogue id to highlight
- * @param {string[]}    markerPartIds    ordered ids; the first one blinks, the rest are numbered 2, 3...
- * @param {Object}      partNames        catalogue id -> display name
- * @param {(id: string) => void} onSelectPart
  */
 export default function BikeBlueprintViewer({
   selectedPartId = null,
   markerPartIds = [],
   partNames = {},
+  vehicleId = 'splendor',
+  vehicleType = 'Motorcycle',
+  vehicleName = '',
   onSelectPart,
   debug = false,
   isEnlarged: controlledIsEnlarged,
@@ -34,6 +42,7 @@ export default function BikeBlueprintViewer({
   const onSelectRef = useRef(onSelectPart);
 
   const [internalEnlarged, setInternalEnlarged] = useState(false);
+  const [hoveredPartId, setHoveredPartId] = useState(null);
   const isEnlarged = controlledIsEnlarged !== undefined ? controlledIsEnlarged : internalEnlarged;
 
   const toggleEnlarge = useCallback(() => {
@@ -59,7 +68,6 @@ export default function BikeBlueprintViewer({
     }
   }, [isEnlarged, onToggleEnlarge]);
 
-  // Global escape key handler when enlarged
   useEffect(() => {
     if (!isEnlarged) return undefined;
     const onGlobalKeyDown = (e) => {
@@ -71,7 +79,6 @@ export default function BikeBlueprintViewer({
     return () => window.removeEventListener('keydown', onGlobalKeyDown);
   }, [isEnlarged, toggleEnlarge]);
 
-  // Lock body scroll during full-screen enlargement
   useEffect(() => {
     if (isEnlarged) {
       const prevOverflow = document.body.style.overflow;
@@ -82,7 +89,6 @@ export default function BikeBlueprintViewer({
     }
   }, [isEnlarged]);
 
-  // Synchronize with native browser fullscreen changes
   useEffect(() => {
     const onFullscreenChange = () => {
       if (!document.fullscreenElement && isEnlarged) {
@@ -116,12 +122,12 @@ export default function BikeBlueprintViewer({
     }
   }, []);
 
-  // Create the scene once.
   useEffect(() => {
     const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     const scene = createBikeScene({
       container: mountRef.current,
       onSelect: (id) => onSelectRef.current?.(id),
+      onHover: (id) => setHoveredPartId(id),
       onFrame: handleFrame,
       reducedMotion,
     });
@@ -132,7 +138,6 @@ export default function BikeBlueprintViewer({
       return undefined;
     }
     delete wrap.dataset.unavailable;
-    // Test hook: dev server or an explicit debug prop only, never in production builds.
     const exposeDebug = debug || import.meta.env.DEV;
     if (exposeDebug) window.__bikeViewer = scene;
     return () => {
@@ -142,7 +147,6 @@ export default function BikeBlueprintViewer({
     };
   }, [handleFrame, debug]);
 
-  // Props only recolour; they never rebuild the scene.
   useEffect(() => {
     sceneRef.current?.setSelected(selectedPartId);
   }, [selectedPartId]);
@@ -152,10 +156,11 @@ export default function BikeBlueprintViewer({
   }, [markerKey]);
 
   const nameOf = (id) => partNames[id] || id;
-
-  // Which part's placement confidence to show: the selected one, else the primary marker.
   const focusId = selectedPartId && BIKE_PART_IDS.has(selectedPartId) ? selectedPartId : markerIds[0];
   const focusPart = focusId ? BIKE_PARTS.find((part) => part.id === focusId) : null;
+  const specKey = resolveSpecKey(vehicleId, vehicleType);
+  const activeSpec = VEHICLE_SPECS[specKey] || BIKE_SPEC;
+  const modelCode = activeSpec.code || specKey.toUpperCase();
 
   const handleKeyDown = (event) => {
     const scene = sceneRef.current;
@@ -216,19 +221,23 @@ export default function BikeBlueprintViewer({
 
       <div className="bp-hud bp-hud-tl" aria-hidden="true">
         <span>CAD_VIEW: ORBIT {isEnlarged ? '(FULLSCREEN)' : ''}</span>
-        <span className="bp-hud-model">MODEL: {BIKE_MODEL.code}</span>
-        <span className="bp-hud-warn">STYLISED, NOT MANUFACTURER CAD</span>
+        <span className="bp-hud-model">MODEL: {vehicleName ? `${vehicleName.toUpperCase()} · ` : ''}{modelCode}</span>
+        <span className="bp-hud-warn">{activeSpec.label ? `${activeSpec.label} · ` : ''}STYLISED, NOT MANUFACTURER CAD</span>
       </div>
       <div ref={dimsRef} className="bp-dims" aria-hidden="true">
-        <span>WHEELBASE {BIKE_SPEC.wheelbaseMm} mm</span>
-        <span>SEAT {BIKE_SPEC.seatHeightMm} mm</span>
-        <span>CLEARANCE {BIKE_SPEC.groundClearanceMm} mm</span>
+        <span>WHEELBASE {activeSpec.wheelbaseMm} mm</span>
+        <span>SEAT {activeSpec.seatHeightMm} mm</span>
+        <span>CLEARANCE {activeSpec.groundClearanceMm} mm</span>
       </div>
       {focusPart && (
         <div className={`bp-place is-${focusPart.placement}`} role="note" title={PLACEMENT_LEVELS[focusPart.placement]}>
           <b>{nameOf(focusPart.id)}</b>
-          <span>Placement: {focusPart.placement === 'manual' ? 'stated in Hero document' : focusPart.placement === 'inferred' ? 'inferred' : 'approximate, check the bike'}</span>
-          <small>{focusPart.source}</small>
+          <span>
+            {activeSpec.isHeroDocumented
+              ? `Placement: ${focusPart.placement === 'manual' ? 'stated in Hero document' : focusPart.placement === 'inferred' ? 'inferred' : 'approximate, check the bike'}`
+              : `Blueprint node · ${activeSpec.label || 'Platform CAD'}`}
+          </span>
+          <small>{activeSpec.isHeroDocumented ? focusPart.source : `${vehicleName || 'Model'} architectural layout in ${modelCode}`}</small>
         </div>
       )}
       <div className="bp-hud bp-hud-tr">
@@ -261,10 +270,12 @@ export default function BikeBlueprintViewer({
       </div>
 
       <div className="bp-bottom-bar">
-        <p className="bp-hint" aria-hidden="true">
-          {isEnlarged
-            ? 'Drag to orbit · Scroll to zoom & explode · Tap a part · ESC to exit'
-            : 'Drag to orbit · Scroll to zoom & explode · Tap a part'}
+        <p className={`bp-hint ${hoveredPartId ? 'is-hover' : ''}`} aria-hidden="true">
+          {hoveredPartId
+            ? `Hover: ${nameOf(hoveredPartId)} · Tap to inspect`
+            : isEnlarged
+              ? 'Drag to orbit · Scroll to zoom & explode · Tap a part · ESC to exit'
+              : 'Drag to orbit · Scroll to zoom & explode · Tap a part'}
         </p>
         <div className="bp-controls">
           <button type="button" className="bp-btn" onClick={() => sceneRef.current?.zoomBy(0.7)} aria-label="Zoom in and separate parts" title="Zoom in & explode"><Plus size={16} aria-hidden="true" /></button>

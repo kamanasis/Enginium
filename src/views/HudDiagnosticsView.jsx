@@ -17,7 +17,7 @@ import './WorkspaceViews.css';
 
 function getVehicleDiagnosticsConfig(vehicle) {
   const isScooter = vehicle?.type?.toLowerCase() === 'scooter';
-  const isCruiser = vehicle?.id === 'classic350' || vehicle?.id === 'gt650' || vehicle?.id === 'hunter350';
+  const isCruiser = vehicle?.id === 'classic350' || vehicle?.id === 'continental-gt-650' || vehicle?.id === 'hunter-350';
 
   if (isScooter) {
     return {

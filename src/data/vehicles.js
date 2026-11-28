@@ -3446,47 +3446,352 @@ export const vehiclesData = [
       {
         id: "spark-plug",
         name: "Spark Plug (Bosch/NGK)",
+        category: "Engine",
         icon: "Zap",
         image: "/images/parts/spark-plug.jpg",
         imageCredit: "Wikimedia Commons",
-        function: "Ignites the heavy cylinder fuel charge.",
-        failures: "Soot build-up, carbon coating.",
-        symptoms: "Starting lag, cold engine stalling, engine heavy thumping but not starting.",
+        function: "Ignites the compressed fuel-air mixture in the 349cc J-Series combustion chamber.",
+        failures: "Soot build-up, carbon coating, incorrect gap.",
+        symptoms: "Starting lag, cold engine stalling, irregular heavy thumping.",
         interval: "Clean every 3,000 km, replace at 10,000 km.",
         cost: "₹180 - ₹250",
         difficulty: "Basic DIY",
-        safety: "The Classic 350 cylinder head gets exceptionally hot. Wait at least 1 hour after riding before touching.",
+        safety: "The Classic 350 cylinder head retains intense heat. Wait at least 1 hour after riding before touching.",
         diySteps: [
-          "Locate plug on the left hand side of the engine block.",
-          "Pull out the heavy spark plug cap.",
-          "Use the tool-kit spanner to unscrew.",
-          "Clean with wire brush and measure gap. Replace if electrode is rounded."
+          "Locate spark plug on the cylinder head and pull off the rubber HT boot.",
+          "Unscrew with a 16mm deep box spanner.",
+          "Clean carbon deposits with a brass wire brush and check gap (0.8 mm).",
+          "Thread by hand first before tightening firmly."
         ],
-        tools: ["Spark Plug Tool from OE kit", "Wire brush"]
+        tools: ["16mm Deep Box Spanner", "Wire Brush", "0.8mm Feeler Gauge"]
       },
       {
         id: "engine-oil",
         name: "Engine Oil & Oil Filter",
+        category: "Engine",
         icon: "Droplet",
         image: "/images/parts/engine-oil.jpg",
         imageCredit: "Wikimedia Commons",
-        function: "Lubricates the internal piston, crankshaft, and transmission gears.",
-        failures: "Viscosity loss, sludge accumulation.",
-        symptoms: "Heavy engine heating, loud metallic tappet noises, stiff gear shifts.",
-        interval: "Replace oil and filter every 10,000 km (check and top up every 2,500 km).",
-        cost: "₹1,200 - ₹1,500 (Oil + Filter)",
+        function: "Lubricates the piston, counterbalance shaft, and wet clutch inside the J-Series sump.",
+        failures: "Viscosity loss, filter clogging, sludge buildup.",
+        symptoms: "Excessive engine heat, loud metallic tappet ticking, notchy gear shifts.",
+        interval: "Replace oil & paper filter every 10,000 km.",
+        cost: "₹1,200 - ₹1,500",
         difficulty: "Yellow",
-        safety: "Hot engine oil can cause third-degree burns. Wear heat-resistant gloves.",
+        safety: "Hot engine oil causes severe burns; wear insulated gloves.",
         diySteps: [
-          "Warm up engine for 5 mins, then turn off.",
-          "Place oil drain pan under engine. Remove drain bolt (17mm or 8mm Allen key) at the bottom.",
-          "Let oil drain fully. Remove the 3 nuts of the oil filter cap on the right-side cover.",
-          "Pull out the paper oil filter. Clean filter housing with a clean cloth.",
-          "Insert new filter with rubber seal facing inwards. Fasten filter cap.",
-          "Reinstall bottom drain bolt with a new crush washer (tighten to 20Nm).",
-          "Fill 1.9 Litres of 15W-50 oil through filler cap. Check level via window glass."
+          "Warm engine for 3–5 minutes and park on center stand.",
+          "Drain sump oil into pan via lower drain bolt and strainer plate.",
+          "Replace paper cartridge oil filter behind the right cover bolts.",
+          "Refill with 1.9L of 15W-50 semi-synthetic oil and verify level in sight glass."
         ],
-        tools: ["17mm Socket", "8mm Allen Key", "Drain Pan", "Funnel", "New Crush Washer"]
+        tools: ["17mm Socket", "8mm Allen Key", "Drain Pan", "Funnel"]
+      },
+      {
+        id: "cylinder-block",
+        name: "J-Series 349cc Finned Cylinder Block",
+        category: "Engine",
+        icon: "Cpu",
+        image: "/images/parts/cylinder-block.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Houses the long-stroke piston and sheds combustion heat through deep radial cooling fins.",
+        failures: "Fin damage, base gasket weep, cylinder scoring.",
+        symptoms: "Oil misting around cylinder base, compression loss, blue exhaust smoke.",
+        interval: "Visual gasket & fin check every service.",
+        cost: "₹4,500 - ₹6,200",
+        difficulty: "Workshop",
+        safety: "Do not pressure-wash hot cooling fins; rapid cooling warps alloy castings.",
+        diySteps: [
+          "Inspect cooling fins and cylinder base gasket while engine is clean and dry.",
+          "Brush mud out from between deep fins using a stiff nylon brush.",
+          "Check compression and head bolt torque if weeping appears."
+        ],
+        tools: ["Nylon Fin Brush", "Torque Wrench"]
+      },
+      {
+        id: "valves-tappets",
+        name: "SOHC Valves & Rocker Tappets",
+        category: "Engine",
+        icon: "Settings",
+        image: "/images/parts/valves-tappets.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Meters fresh charge intake and exhaust scavenging via J-Series overhead cam rockers.",
+        failures: "Tappet clearance drift, carbon buildup on valve seats.",
+        symptoms: "Loud top-end ticking, hard hot starts, unstable idle.",
+        interval: "Check clearance every 10,000 km.",
+        cost: "₹250 - ₹450 (Adjustment)",
+        difficulty: "Yellow",
+        safety: "Always check clearance with engine dead cold at TDC on compression stroke.",
+        diySteps: [
+          "Remove fuel tank & rocker cover bolts once engine is completely cold.",
+          "Align TDC mark on magneto rotor.",
+          "Verify intake/exhaust feeler gauge clearance and lock adjuster nuts."
+        ],
+        tools: ["Feeler Gauge Set", "Tappet Adjusting Wrench"]
+      },
+      {
+        id: "fuel-tank",
+        name: "13L Sculpted Teardrop Fuel Tank",
+        category: "Fuel & Exhaust",
+        icon: "Fuel",
+        image: "/images/parts/fuel-tank.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Signature steel teardrop reservoir feeding the submerged EFI fuel pump.",
+        failures: "Internal rust near filler neck, clogged breather drain, loose tank rubber mounts.",
+        symptoms: "Fuel starvation on incline, tank vibration buzz at 4,000 rpm.",
+        interval: "Flush sediment annually; inspect breather hose every 5,000 km.",
+        cost: "₹9,500 - ₹13,000",
+        difficulty: "Yellow",
+        safety: "Keep sparks and open flames away whenever lifting the tank or unclipping quick-connect fuel lines.",
+        diySteps: [
+          "Depressurize fuel line carefully before unclipping EFI quick coupler.",
+          "Clear rubber water-drain channel around Monza filler cap.",
+          "Check front/rear rubber damper pads before bolting tank down."
+        ],
+        tools: ["12mm Socket", "Shop Rags"]
+      },
+      {
+        id: "exhaust-muffler",
+        name: "Swept Chrome Header & Peashooter Silencer",
+        category: "Fuel & Exhaust",
+        icon: "Flame",
+        image: "/images/parts/exhaust-muffler.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Routes exhaust gases past integrated catalytic chamber into the long acoustic peashooter muffler.",
+        failures: "Header flange leak, heat shield rattle, chrome bluing or condensation rust.",
+        symptoms: "Deceleration popping, metallic buzz near footpeg, hissing exhaust leak.",
+        interval: "Check flange nuts & heat shield screws every 5,000 km.",
+        cost: "₹6,500 - ₹9,200",
+        difficulty: "Basic DIY",
+        safety: "Exhaust stays burning hot long after shutdown.",
+        diySteps: [
+          "Confirm cylinder head exhaust studs and copper gasket ring show zero soot streaks.",
+          "Tighten chrome heat shield screws evenly with blue threadlocker if vibrating."
+        ],
+        tools: ["12mm Socket", "5mm Allen Key"]
+      },
+      {
+        id: "air-filter",
+        name: "Paper Air Filter Element",
+        category: "Fuel & Exhaust",
+        icon: "Wind",
+        image: "/images/parts/air-filter.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Delivers clean intake air behind the right-side oval utility panel.",
+        failures: "Dust choking, moisture saturation.",
+        symptoms: "Drop in fuel economy, flat throttle response above 60 km/h.",
+        interval: "Inspect every 5,000 km, replace every 10,000 km.",
+        cost: "₹280 - ₹360",
+        difficulty: "Basic DIY",
+        safety: "Never wash pleated dry paper elements with petrol or water.",
+        diySteps: [
+          "Unlock right side oval cover and unscrew airbox lid.",
+          "Pull out pleated cartridge; tap lightly or replace if clogged.",
+          "Wipe dust from airbox housing before sealing lid."
+        ],
+        tools: ["Phillips Screwdriver", "Ignition Key"]
+      },
+      {
+        id: "chain",
+        name: "O-Ring Final Drive Chain & Sprockets",
+        category: "Transmission",
+        icon: "RefreshCw",
+        image: "/images/parts/chain.jpg",
+        imageCredit: "Wikimedia Commons / Ralf Roletschek",
+        function: "Transmits 27 Nm of torque from the 5-speed gearbox to the 18-inch rear wheel.",
+        failures: "Dry O-rings, uneven tight spots, hooked rear sprocket teeth.",
+        symptoms: "Snatchy throttle on/off, loud chain slap over speed bumps.",
+        interval: "Clean & lube every 500 km; check 25–30 mm slack every 1,000 km.",
+        cost: "₹1,800 - ₹2,600 (Kit)",
+        difficulty: "Basic DIY",
+        safety: "Keep fingers clear of rear sprocket; never spin wheel with engine in gear.",
+        diySteps: [
+          "Put Classic 350 on center stand in neutral.",
+          "Clean with O-ring safe cleaner & brush, then wipe dry.",
+          "Adjust snail-cam/axle adjusters equally until vertical slack is 25–30 mm."
+        ],
+        tools: ["24mm Axle Wrench", "12mm Spanner", "Chain Brush & Lube"]
+      },
+      {
+        id: "clutch-assembly",
+        name: "Wet Multi-Plate Clutch Pack",
+        category: "Transmission",
+        icon: "RefreshCw",
+        image: "/images/parts/clutch-assembly.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Couples engine torque smoothly across the 5-speed constant-mesh gearbox.",
+        failures: "Glazed friction plates, fatigued springs.",
+        symptoms: "RPM flaring on inclines without matching acceleration.",
+        interval: "Check cable play every 2,000 km; inspect plates at 25,000+ km.",
+        cost: "₹1,400 - ₹2,200",
+        difficulty: "Workshop",
+        safety: "Always check clutch cable slack before assuming internal plate wear.",
+        diySteps: [
+          "Check handlebar lever freeplay (2–3 mm at perch gap).",
+          "Drain oil before unbolting right clutch casing if replacing plates."
+        ],
+        tools: ["10mm T-Handle", "Torque Wrench"]
+      },
+      {
+        id: "front-brake-disc",
+        name: "300mm Front Rotor & Dual-Channel ABS",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/front-brake-disc.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Provides high thermal stopping power for the 195 kg Classic chassis with wheel-speed ABS ring.",
+        failures: "Warped rotor, dirty ABS tone sensor, moisture-contaminated DOT 4 fluid.",
+        symptoms: "Pulsing brake lever, illuminated ABS warning lamp.",
+        interval: "Flush DOT 4 fluid every 2 years; inspect rotor thickness at 15,000 km.",
+        cost: "₹1,850 - ₹2,600",
+        difficulty: "Yellow",
+        safety: "Brake system is safety-critical; keep pads and rotor strictly oil-free.",
+        diySteps: [
+          "Check front master cylinder sight glass level.",
+          "Wipe ABS speed sensor wheel clean of metallic grit.",
+          "Measure disc thickness against minimum stamped spec."
+        ],
+        tools: ["Brake Cleaner", "Allen Key Set"]
+      },
+      {
+        id: "brake-pads",
+        name: "ByBre Floating Caliper & Sintered Pads",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/brake-pads.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Twin-piston hydraulic caliper clamping the front & rear brake rotors.",
+        failures: "Worn pad material below 2 mm, seized caliper slider pins.",
+        symptoms: "Metallic grinding sound when slowing, sluggish caliper release.",
+        interval: "Inspect pad grooves every 3,000 km.",
+        cost: "₹550 - ₹950",
+        difficulty: "Yellow",
+        safety: "Pump front brake lever firmly before riding after any caliper pad service.",
+        diySteps: [
+          "Look inside caliper bridge with a torch to check groove depth.",
+          "Clean slider pins and lubricate with silicone brake grease on pad swap."
+        ],
+        tools: ["Torch", "Allen Key", "Silicone Caliper Grease"]
+      },
+      {
+        id: "telescopic-forks",
+        name: "41mm Telescopic Forks & Gaiter Boots",
+        category: "Suspension",
+        icon: "Shield",
+        image: "/images/parts/telescopic-forks.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Long-travel 41mm front dampers protected by classic rubber fork gaiters.",
+        failures: "Torn fork oil seal, pitted stanchion chrome, oxidized fork oil.",
+        symptoms: "Oil rings running down fork legs, front-end dive under hard braking.",
+        interval: "Replace fork oil every 15,000–20,000 km.",
+        cost: "₹650 - ₹1,200 (Seals + Oil)",
+        difficulty: "Workshop",
+        safety: "Leaking fork oil dripping onto the front brake rotor causes sudden brake loss.",
+        diySteps: [
+          "Slide rubber gaiters up slightly to inspect inner chrome legs for oil film.",
+          "Inspect rubber boots for dry rot cracks."
+        ],
+        tools: ["Fork Seal Driver (Workshop)", "6mm Allen Key"]
+      },
+      {
+        id: "rear-shock-absorbers",
+        name: "Twin 6-Step Preload Rear Shocks",
+        category: "Suspension",
+        icon: "Shield",
+        image: "/images/parts/rear-shock-absorbers.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Dual rear coil-over spring shocks tuned for solo or pillion touring loads.",
+        failures: "Leaking damper seal, bottoming out on soft preload setting.",
+        symptoms: "Bouncy rear rebound over bumps, harsh bottoming with luggage.",
+        interval: "Check preload symmetry and oil leaks every 5,000 km.",
+        cost: "₹3,200 - ₹4,600 (Pair)",
+        difficulty: "Basic DIY",
+        safety: "Always set left and right preload notches identically.",
+        diySteps: [
+          "Use OE C-spanner to click both shock collars equally (notch 3–4 for pillion).",
+          "Check damper shaft for oil dust residue."
+        ],
+        tools: ["OE C-Spanner Tool"]
+      },
+      {
+        id: "front-tyre",
+        name: "19-Inch Cross-Spoked Front Wheel & Tyre",
+        category: "Wheels",
+        icon: "CircleDot",
+        image: "/images/parts/front-tyre.JPG",
+        imageCredit: "Wikimedia Commons",
+        function: "Large 100/90-19 front tyre delivering planted cruiser directional stability.",
+        failures: "Loose wire spokes, tube puncture, feathered tread wear.",
+        symptoms: "Wobble at 60–80 km/h, rhythmic wheel hop.",
+        interval: "Check 22 psi cold weekly; inspect spoke tension every 5,000 km.",
+        cost: "₹2,400 - ₹3,200",
+        difficulty: "Basic DIY",
+        safety: "Under-inflated spoked tyres pinch inner tubes on pothole hits.",
+        diySteps: [
+          "Check cold tyre pressure (22 psi).",
+          "Tap spokes gently with a wrench: loose spokes sound dull instead of ringing."
+        ],
+        tools: ["Tyre Pressure Gauge", "Spoke Wrench"]
+      },
+      {
+        id: "headlight-assembly",
+        name: "Casquette Nacelle Headlamp & Pilot Lamps",
+        category: "Electrical",
+        icon: "Zap",
+        image: "/images/parts/headlight-assembly.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Signature die-cast headlamp nacelle housing H4 bulb, tiger-eye pilot lights, and retro bezel.",
+        failures: "Blown H4 filament, loose earth pin, moisture inside pilot bulbs.",
+        symptoms: "High/low beam failure, flickering beam over rough roads.",
+        interval: "Check beam aim & lens seals every service.",
+        cost: "₹350 - ₹1,800",
+        difficulty: "Basic DIY",
+        safety: "Avoid touching halogen glass directly with bare oily fingers.",
+        diySteps: [
+          "Remove lower bezel screw to tilt headlamp reflector bowl forward.",
+          "Inspect 3-pin H4 ceramic socket for heat discoloration."
+        ],
+        tools: ["Phillips Screwdriver"]
+      },
+      {
+        id: "battery",
+        name: "12V 8Ah VRLA Battery & Side Cover",
+        category: "Electrical",
+        icon: "BatteryCharging",
+        image: "/images/parts/battery.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Powers the EFI fuel pump, ABS modulator, and high-torque electric starter.",
+        failures: "Sulfated cells, loose terminal bolts, parasitic drain.",
+        symptoms: "Starter solenoid clicking, ABS warning reset during cranking.",
+        interval: "Check resting voltage (12.6V+) every 3,000 km.",
+        cost: "₹1,650 - ₹2,300",
+        difficulty: "Basic DIY",
+        safety: "Disconnect negative (-) terminal before positive (+).",
+        diySteps: [
+          "Open battery utility panel and clean white sulfate corrosion off terminals.",
+          "Measure voltage with multimeter across posts."
+        ],
+        tools: ["10mm Spanner", "Multimeter", "Petroleum Jelly"]
+      },
+      {
+        id: "main-chassis",
+        name: "Twin-Downtube Cradle Chassis & Valanced Fenders",
+        category: "Chassis",
+        icon: "Shield",
+        image: "/images/parts/main-chassis.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Harris-developed steel twin-downtube spine frame isolating 349cc vibes and supporting steel fenders.",
+        failures: "Fender stay bolt loosening, center stand pivot wear.",
+        symptoms: "Metallic buzz from rear mudguard or loose footpeg bar.",
+        interval: "Check frame & fender fasteners every 5,000 km.",
+        cost: "₹8,000 - ₹14,000",
+        difficulty: "Workshop",
+        safety: "Never ride with cracked sub-frame or broken rear shock mounting ears.",
+        diySteps: [
+          "Check rear fender stay bolts and center stand spring tension.",
+          "Touch up gravel chips under downtubes to prevent monsoon rust."
+        ],
+        tools: ["12mm / 14mm Wrenches", "Grease Gun"]
       }
     ],
     symptomMap: {
@@ -3527,6 +3832,7 @@ export const vehiclesData = [
       {
         id: "spark-plug",
         name: "Twin NGK Spark Plugs",
+        category: "Engine",
         icon: "Zap",
         image: "/images/parts/spark-plug.jpg",
         imageCredit: "Wikimedia Commons",
@@ -3541,33 +3847,270 @@ export const vehiclesData = [
           "Remove seat and unbolt rear fuel tank mounting to tilt slightly.",
           "Disconnect both high-tension spark plug boots.",
           "Use 16mm deep thin-wall spark plug socket to remove both plugs.",
-          "Check electrode gap (0.7-0.8mm) using feeler gauge.",
-          "Torque plugs to 14 Nm to prevent stripping aluminum threads."
+          "Check electrode gap (0.7-0.8mm) using feeler gauge and torque to 14 Nm."
         ],
         tools: ["16mm Thin-Wall Plug Socket", "Torque Wrench", "Feeler Gauge"]
       },
       {
         id: "engine-oil",
         name: "Full Synthetic 10W-50 & Filter",
+        category: "Engine",
         icon: "Droplet",
         image: "/images/parts/engine-oil.jpg",
         imageCredit: "Wikimedia Commons",
         function: "Lubricates the parallel-twin cylinders, 6-speed gearbox, and slip-assist clutch.",
         failures: "Thermal breakdown, clutch drag if wrong friction modifier used.",
-        symptoms: "Stiff gear shifts, heavy engine heat radiating on rider's legs, clanking tappet noise.",
+        symptoms: "Stiff gear shifts, heavy engine heat on legs, clanking tappet noise.",
         interval: "Change every 10,000 km or 12 months.",
-        cost: "₹2,800 - ₹3,400 (3.1L Oil + Spin-on Filter)",
+        cost: "₹2,800 - ₹3,400",
         difficulty: "Yellow",
-        safety: "Engine holds over 3 litres of hot oil. Ensure drain pan has sufficient capacity (min 4L).",
+        safety: "Engine holds over 3 litres of hot oil. Ensure drain pan has at least 4L capacity.",
         diySteps: [
-          "Run bike for 3 minutes to warm oil. Place 5L pan under sump.",
-          "Loosen 8mm Allen drain bolt and remove secondary strainer plate.",
-          "Use oil filter band wrench to unscrew the spin-on oil filter.",
-          "Lubricate the rubber gasket of the new filter with clean engine oil and hand tighten 3/4 turn after contact.",
-          "Reinstall drain bolt with new copper crush washer (25 Nm).",
-          "Fill with 3.1 litres of 10W-50 JASO MA2 fully synthetic oil and verify level in sight glass."
+          "Warm oil for 3 minutes, place pan under sump, and loosen 8mm Allen drain bolt.",
+          "Unscrew spin-on oil filter and lightly oil gasket on replacement filter.",
+          "Torque drain bolt (25 Nm) and fill 3.1L of 10W-50 JASO MA2 synthetic oil."
         ],
         tools: ["8mm Allen Key", "Oil Filter Wrench", "5L Drain Basin", "Funnel"]
+      },
+      {
+        id: "cylinder-block",
+        name: "648cc Parallel-Twin Air-Oil Block",
+        category: "Engine",
+        icon: "Cpu",
+        image: "/images/parts/cylinder-block.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "270-degree crank twin-barrel finned cylinder unit paired with external front oil cooler.",
+        failures: "Oil cooler fin obstruction, head gasket weep.",
+        symptoms: "Elevated sump temperature in traffic, oil mist around front oil cooler lines.",
+        interval: "Inspect cooler fins & oil hoses every service.",
+        cost: "₹14,000 - ₹22,000",
+        difficulty: "Workshop",
+        safety: "Never straighten bent oil-cooler fins with sharp screwdrivers.",
+        diySteps: [
+          "Inspect twin barrel fins and front radiator hose banjos for seepage.",
+          "Clean road bugs from oil cooler mesh with mild detergent water."
+        ],
+        tools: ["Soft Brush", "Torque Wrench"]
+      },
+      {
+        id: "fuel-tank",
+        name: "Sculpted Cafe Racer Steel Tank",
+        category: "Fuel & Exhaust",
+        icon: "Fuel",
+        image: "/images/parts/fuel-tank.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Flat-bottomed 12.5L scalloped cafe racer tank accommodating low clip-on steering lock.",
+        failures: "Pinched fuel breather hose on reassembly, rusted Monza filler seal.",
+        symptoms: "Tank vacuum hiss when opened, fuel smell near cap.",
+        interval: "Check vent hose & seal every 5,000 km.",
+        cost: "₹12,500 - ₹16,500",
+        difficulty: "Yellow",
+        safety: "Support raised tank securely when accessing twin spark plug bays.",
+        diySteps: [
+          "Ensure rubber tank bumpers rest squarely on backbone spine.",
+          "Verify vent and overflow hoses are not kinked underneath."
+        ],
+        tools: ["10mm / 12mm Socket"]
+      },
+      {
+        id: "exhaust-muffler",
+        name: "Dual Swept Headers & Twin Megaphones",
+        category: "Fuel & Exhaust",
+        icon: "Flame",
+        image: "/images/parts/exhaust-muffler.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Symmetric twin stainless exhaust routing through left and right upswept megaphone mufflers.",
+        failures: "Header flange gasket leak, scuffed slip-on clamp.",
+        symptoms: "Exhaust popping on overrun, uneven side pressure.",
+        interval: "Inspect header collar torque & O2 sensors every 5,000 km.",
+        cost: "₹18,000 - ₹26,000 (OEM Twin)",
+        difficulty: "Basic DIY",
+        safety: "Dual stainless headers reach extreme heat; never lean boots on mid-pipes.",
+        diySteps: [
+          "Inspect dual exhaust flange studs on both cylinder ports.",
+          "Check graphite slip-on joints under rearset footpeg brackets."
+        ],
+        tools: ["12mm Socket", "5mm Allen Key"]
+      },
+      {
+        id: "chain",
+        name: "525 X-Ring Drive Chain & 15T/38T Sprockets",
+        category: "Transmission",
+        icon: "RefreshCw",
+        image: "/images/parts/chain.jpg",
+        imageCredit: "Wikimedia Commons / Ralf Roletschek",
+        function: "Heavy-duty 525 pitch chain handling 52 Nm parallel-twin torque through rear wheel cush rubbers.",
+        failures: "Tight spots, dry O/X-rings, fatigued cush drive blocks.",
+        symptoms: "Driveline lash in low gears, whining chain pitch above 80 km/h.",
+        interval: "Clean & lube every 500 km; check 20–30 mm slack every 1,000 km.",
+        cost: "₹3,800 - ₹5,400",
+        difficulty: "Basic DIY",
+        safety: "Always support bike on twin-sided paddock stand before adjusting.",
+        diySteps: [
+          "Clean chain with kerosene-free X-ring cleaner and stiff brush.",
+          "Align left and right axle marker notches equally to 20–30 mm slack."
+        ],
+        tools: ["24mm / 27mm Axle Socket", "Paddock Stand", "Chain Lube"]
+      },
+      {
+        id: "clutch-assembly",
+        name: "Slip & Assist Multi-Plate Clutch",
+        category: "Transmission",
+        icon: "RefreshCw",
+        image: "/images/parts/clutch-assembly.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Reduces lever effort and prevents rear-wheel hop during aggressive cafe-racer downshifts.",
+        failures: "Glazed friction plates, stretched clutch actuation cable.",
+        symptoms: "Gearbox false neutrals, lever biting only near outer tip.",
+        interval: "Inspect cable freeplay every 2,000 km.",
+        cost: "₹3,200 - ₹4,800",
+        difficulty: "Yellow",
+        safety: "Ensure 2–3 mm freeplay at perch so release bearing isn't preloaded.",
+        diySteps: [
+          "Check upper perch knurled adjuster and lower clutch arm alignment.",
+          "Lubricate clutch cable core cleanly if lever feels gritty."
+        ],
+        tools: ["12mm Open Wrench", "Cable Luber"]
+      },
+      {
+        id: "front-brake-disc",
+        name: "320mm Floating Front Rotor & ABS",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/front-brake-disc.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Oversized 320mm floating steel disc dispersing heat from high-speed 650 twin braking.",
+        failures: "Seized floating bobbins, minimum thickness wear, DOT 4 moisture fade.",
+        symptoms: "Brake shudder at highway speed, spongy front lever.",
+        interval: "Flush DOT 4 fluid every 2 years; inspect rotor bobbins every 5,000 km.",
+        cost: "₹3,600 - ₹4,900",
+        difficulty: "Yellow",
+        safety: "Do not ride if front brake lever pulls close to clip-on grip.",
+        diySteps: [
+          "Clean ABS ring slots and floating carrier bobbins with brake cleaner.",
+          "Check DOT 4 level in front handlebar master cylinder."
+        ],
+        tools: ["Brake Cleaner", "Allen Key Set"]
+      },
+      {
+        id: "brake-pads",
+        name: "ByBre Twin-Piston Calipers & Pads",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/brake-pads.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "High-friction sintered pads clamping the 320mm front and 240mm rear discs.",
+        failures: "Uneven tapered pad wear, brake dust buildup on pistons.",
+        symptoms: "Squealing on light lever pressure, dragging front wheel.",
+        interval: "Inspect every 3,000 km.",
+        cost: "₹850 - ₹1,450",
+        difficulty: "Yellow",
+        safety: "Bed in new sintered pads smoothly for the first 100 km.",
+        diySteps: [
+          "Inspect remaining friction grooves through caliper inspection window.",
+          "Clean piston skirts with soft brush & brake cleaner during pad swap."
+        ],
+        tools: ["Allen Keys", "Brake Cleaner"]
+      },
+      {
+        id: "rear-shock-absorbers",
+        name: "Twin Piggyback Gas-Charged Shocks",
+        category: "Suspension",
+        icon: "Shield",
+        image: "/images/parts/rear-shock-absorbers.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Gabriel nitrogen-charged piggyback coil-over dampers stabilizing high-speed sweepers.",
+        failures: "Damper oil misting, mismatched left/right preload collars.",
+        symptoms: "Rear-end wallow in fast corners, harsh square-edge kick.",
+        interval: "Check preload collars & shaft seals every 5,000 km.",
+        cost: "₹8,500 - ₹12,000 (Pair)",
+        difficulty: "Basic DIY",
+        safety: "Do not puncture pressurized nitrogen piggyback canisters.",
+        diySteps: [
+          "Match preload collar notches on both shocks using C-spanner.",
+          "Wipe piston chrome shafts clean to inspect seal lip."
+        ],
+        tools: ["OE C-Spanner"]
+      },
+      {
+        id: "front-tyre",
+        name: "18-Inch Spoked Performance Tyres",
+        category: "Wheels",
+        icon: "CircleDot",
+        image: "/images/parts/front-tyre.JPG",
+        imageCredit: "Wikimedia Commons",
+        function: "100/90-18 front and 130/70-18 rear bias/radial tyres laced to alloy rims.",
+        failures: "Spoke looseness, squared-off highway center tread.",
+        symptoms: "High-speed weave over tar snakes, heavy tip-in resistance.",
+        interval: "Verify 32 psi / 36 psi weekly; inspect spoke torque at 5,000 km.",
+        cost: "₹3,800 - ₹5,500",
+        difficulty: "Basic DIY",
+        safety: "Check tyre age date code and valve stem tightness prior to highway runs.",
+        diySteps: [
+          "Set cold pressures to 32 psi front / 36 psi rear.",
+          "Check spokes by pinging each pair cleanly around the rim."
+        ],
+        tools: ["Digital Pressure Gauge", "Spoke Wrench"]
+      },
+      {
+        id: "switchgear-throttle",
+        name: "Forged Clip-On Bars & Bar-End Mirrors",
+        category: "Chassis",
+        icon: "Settings",
+        image: "/images/parts/switchgear-throttle.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Dropped cafe-racer clip-on handlebars mounted around the upper 41mm fork stanchions.",
+        failures: "Loose bar-end mirror mounts, frayed dual push-pull throttle cables.",
+        symptoms: "Sticky throttle return, vibrating mirror arm above 5,000 rpm.",
+        interval: "Check throttle snap return & clamp bolts every 3,000 km.",
+        cost: "₹2,400 - ₹4,200",
+        difficulty: "Basic DIY",
+        safety: "Throttle must snap shut freely across full left-to-right steering lock.",
+        diySteps: [
+          "Verify throttle cable freeplay (2–3 mm) at upper adjuster.",
+          "Confirm clip-on locating bolts sit flush on upper triple clamp."
+        ],
+        tools: ["5mm / 6mm Allen Keys", "10mm Spanner"]
+      },
+      {
+        id: "instrument-cluster",
+        name: "Twin-Pod Analog Speedo & Tachometer",
+        category: "Electrical",
+        icon: "Gauge",
+        image: "/images/parts/instrument-cluster.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Dual-dial classic tachometer and speedometer with LCD odometer/fuel gauge.",
+        failures: "Condensation inside lens, frayed speed sensor cable at front hub.",
+        symptoms: "Speedo needle dropping to zero while riding.",
+        interval: "Check front hub speedo sender lead every service.",
+        cost: "₹4,800 - ₹7,200",
+        difficulty: "Basic DIY",
+        safety: "Ensure ABS and oil-pressure warning LEDs self-test at key-on.",
+        diySteps: [
+          "Trace front wheel speed sensor cable along fork leg for pinches.",
+          "Clean rubber grommets beneath twin chrome bezels."
+        ],
+        tools: ["Microfiber Cloth", "Contact Cleaner"]
+      },
+      {
+        id: "battery",
+        name: "12V 12Ah/14Ah High-Crank VRLA Battery",
+        category: "Electrical",
+        icon: "BatteryCharging",
+        image: "/images/parts/battery.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Supplies high surge current (~80A) needed to crank the 648cc parallel-twin.",
+        failures: "Relay corrosion, voltage sag below 12.3V.",
+        symptoms: "Rapid solenoid clicking, starter refusing to turn over.",
+        interval: "Keep on tender if parked >2 weeks; check terminals every 3,000 km.",
+        cost: "₹2,400 - ₹3,200",
+        difficulty: "Basic DIY",
+        safety: "Always disconnect negative cable first when removing battery strap.",
+        diySteps: [
+          "Remove seat and inspect 12V battery terminal tightness and relay sockets.",
+          "Confirm 13.8V–14.4V charging voltage across terminals at 3,000 rpm."
+        ],
+        tools: ["10mm Spanner", "Multimeter"]
       }
     ],
     symptomMap: {
@@ -3606,25 +4149,283 @@ export const vehiclesData = [
     parts: [
       {
         id: "chain",
-        name: "Open Drive Chain",
+        name: "Open Drive Chain & 17-Inch Sprocket",
+        category: "Transmission",
         icon: "RefreshCw",
         image: "/images/parts/chain.jpg",
         imageCredit: "Wikimedia Commons / Ralf Roletschek",
-        function: "Transfers punchy low-end torque to the 17-inch rear alloy wheel.",
+        function: "Transfers punchy low-end torque to the 17-inch rear cast alloy wheel.",
         failures: "Slack enlargement, road grime buildup.",
-        symptoms: "Loud chain slap on swingarm rubber pad, snatchy throttle response in 1st/2nd gear.",
+        symptoms: "Loud chain slap on swingarm rubber pad, snatchy throttle response in low gears.",
         interval: "Clean & lube every 500 km.",
         cost: "₹1,400",
         difficulty: "Basic DIY",
-        safety: "Keep bike on paddock stand (Hunter lacks main stand by default).",
+        safety: "Keep bike stable on paddock stand (Hunter Metro lacks center stand by default).",
         diySteps: [
           "Mount bike onto rear paddock stand.",
-          "Spray chain cleaner and brush thoroughly with grunge brush.",
-          "Measure vertical slack midway (spec: 25 - 30mm).",
-          "Adjust axle adjusters evenly on both sides and torque axle to 70 Nm.",
-          "Apply synthetic chain lube to inside of O-rings."
+          "Spray chain cleaner and scrub with 3-sided brush.",
+          "Adjust axle tensioners evenly until vertical slack measures 25–30 mm, then torque axle to 70 Nm."
         ],
         tools: ["24mm Axle Socket", "12mm Wrench", "Chain Cleaner & Lube", "Paddock Stand"]
+      },
+      {
+        id: "spark-plug",
+        name: "J-Series Spark Plug (Bosch/NGK)",
+        category: "Engine",
+        icon: "Zap",
+        image: "/images/parts/spark-plug.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Ignites fuel-air charge cleanly inside the compact 349cc J-Series urban head.",
+        failures: "Soot fouling from short stop-and-go city commutes.",
+        symptoms: "Cold morning hesitation, rough city idle.",
+        interval: "Inspect every 5,000 km, replace at 10,000 km.",
+        cost: "₹200 - ₹280",
+        difficulty: "Basic DIY",
+        safety: "Allow cylinder head fins to cool completely before loosening plug.",
+        diySteps: [
+          "Pull rubber HT cap off cylinder head.",
+          "Remove spark plug with 16mm box spanner and gap to 0.8 mm."
+        ],
+        tools: ["16mm Spark Plug Spanner", "0.8mm Feeler Gauge"]
+      },
+      {
+        id: "engine-oil",
+        name: "15W-50 Semi-Synthetic Oil & Filter",
+        category: "Engine",
+        icon: "Droplet",
+        image: "/images/parts/engine-oil.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Cools and lubricates the single-cylinder 349cc gearbox, cam drive, and balancer.",
+        failures: "Shear breakdown in bumper-to-bumper summer traffic.",
+        symptoms: "Hard neutral finding, excess engine heat.",
+        interval: "Change every 10,000 km; check sight glass monthly.",
+        cost: "₹1,200 - ₹1,550",
+        difficulty: "Yellow",
+        safety: "Wear gloves when pulling sump strainer and warm oil drain bolt.",
+        diySteps: [
+          "Warm engine 3 mins, place drain pan beneath sump.",
+          "Swap cartridge oil filter behind right engine cover and fill 1.9L of 15W-50 oil."
+        ],
+        tools: ["17mm Socket", "8mm Allen Key", "Drain Pan", "Funnel"]
+      },
+      {
+        id: "cylinder-block",
+        name: "349cc Finned Single Cylinder Barrel",
+        category: "Engine",
+        icon: "Cpu",
+        image: "/images/parts/cylinder-block.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Counterbalanced long-stroke air-oil cooled barrel tuned for crisp city torque.",
+        failures: "Gasket seepage, mud-caked fins reducing cooling.",
+        symptoms: "Heat soak in traffic, oil sheen around base joint.",
+        interval: "Clean cooling fins gently after muddy rides.",
+        cost: "₹4,400 - ₹6,000",
+        difficulty: "Workshop",
+        safety: "Do not blast cold pressure-washer jet onto hot barrel fins.",
+        diySteps: [
+          "Brush road dust out between cylinder cooling fins once cold.",
+          "Inspect cylinder base and rocker cover perimeter for leaks."
+        ],
+        tools: ["Nylon Fin Brush"]
+      },
+      {
+        id: "fuel-tank",
+        name: "13L Compact Teardrop Roadster Tank",
+        category: "Fuel & Exhaust",
+        icon: "Fuel",
+        image: "/images/parts/fuel-tank.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Compact ergonomic tank housing submerged EFI fuel pump for nimble urban weight balance.",
+        failures: "Blocked filler drain hole, stale moisture in ethanol fuel.",
+        symptoms: "Fuel pump priming whine changing pitch, hesitate under throttle.",
+        interval: "Check filler drain line every 5,000 km.",
+        cost: "₹8,800 - ₹11,500",
+        difficulty: "Basic DIY",
+        safety: "Keep sparks well clear when opening fuel filler or raising tank.",
+        diySteps: [
+          "Clear small rubber water drain hole beneath hinged fuel cap.",
+          "Check rubber tank side knee pads and mount bolts."
+        ],
+        tools: ["Compressed Air / Syringe", "Microfiber Cloth"]
+      },
+      {
+        id: "exhaust-muffler",
+        name: "Blacked-Out Stubby Upswept Exhaust",
+        category: "Fuel & Exhaust",
+        icon: "Flame",
+        image: "/images/parts/exhaust-muffler.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Short matte-black megaphone exhaust keeping mass centralized for quick cornering clearance.",
+        failures: "Serrated heel-guard screw rattle, matte finish scuffing.",
+        symptoms: "Metallic buzz around 3,500 rpm.",
+        interval: "Check heat shield fasteners every 3,000 km.",
+        cost: "₹5,800 - ₹7,900",
+        difficulty: "Basic DIY",
+        safety: "Matte heat shield remains hot for 30+ minutes post ride.",
+        diySteps: [
+          "Verify Allen bolts on matte exhaust shield sit snug.",
+          "Check exhaust port header collar studs for tight seal."
+        ],
+        tools: ["5mm Allen Key", "12mm Socket"]
+      },
+      {
+        id: "air-filter",
+        name: "Pleated Paper Air Filter",
+        category: "Fuel & Exhaust",
+        icon: "Wind",
+        image: "/images/parts/air-filter.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Protects throttle body and cylinder walls from urban smog and construction dust.",
+        failures: "Dust choking reducing midrange snap.",
+        symptoms: "Drop in city mileage, sluggish pull above 4,500 rpm.",
+        interval: "Inspect every 5,000 km; replace at 10,000 km.",
+        cost: "₹280 - ₹360",
+        difficulty: "Basic DIY",
+        safety: "Do not oil or wash dry OEM paper filter media.",
+        diySteps: [
+          "Remove side panel and airbox cover screws.",
+          "Replace choked cartridge cleanly."
+        ],
+        tools: ["Phillips Screwdriver"]
+      },
+      {
+        id: "front-brake-disc",
+        name: "300mm Front & 270mm Rear Disc Rotors",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/front-brake-disc.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Twin disc setup paired with Dual-Channel ABS for quick city emergency stops.",
+        failures: "DOT 4 fluid moisture contamination, rotor scoring.",
+        symptoms: "Soft lever travel, grinding brake sound.",
+        interval: "Flush DOT 4 fluid every 24 months.",
+        cost: "₹1,800 - ₹2,600",
+        difficulty: "Yellow",
+        safety: "Avoid getting chain lube overspray on the rear rotor during chain maintenance.",
+        diySteps: [
+          "Clean both rotors with dedicated brake cleaner after chain lubing.",
+          "Verify DOT 4 level in both master cylinder reservoirs."
+        ],
+        tools: ["Brake Cleaner", "Shop Rag"]
+      },
+      {
+        id: "brake-pads",
+        name: "ByBre Hydraulic Caliper & Pads",
+        category: "Brakes",
+        icon: "Disc",
+        image: "/images/parts/brake-pads.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Squeeze rotors evenly with progressive street feedback.",
+        failures: "Glazed pad surface from gentle dragging, worn wear-grooves.",
+        symptoms: "High-pitched squeal under braking.",
+        interval: "Check pad wear every 3,000 km.",
+        cost: "₹550 - ₹900",
+        difficulty: "Yellow",
+        safety: "Pump brake lever firmly until solid before moving the motorcycle.",
+        diySteps: [
+          "Inspect friction material thickness via caliper gap.",
+          "Flush brake dust off caliper pistons when replacing worn pads."
+        ],
+        tools: ["Allen Key Set", "Brake Cleaner"]
+      },
+      {
+        id: "telescopic-forks",
+        name: "41mm Front Forks & Gaiters",
+        category: "Suspension",
+        icon: "Shield",
+        image: "/images/parts/telescopic-forks.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Short-rake 41mm telescopic forks with rubber gaiters delivering quick agile steering.",
+        failures: "Torn seal boot, leaky fork oil seal.",
+        symptoms: "Oily residue on lower fork slider, clunk over potholes.",
+        interval: "Change fork oil every 15,000–20,000 km.",
+        cost: "₹650 - ₹1,150",
+        difficulty: "Workshop",
+        safety: "Address leaky fork seals promptly so oil never reaches the front brake disc.",
+        diySteps: [
+          "Lift lower rubber gaiter lip slightly to verify dry inner stanchion chrome.",
+          "Inspect fork dust seals for splits."
+        ],
+        tools: ["Fork Seal Driver (Workshop)"]
+      },
+      {
+        id: "front-tyre",
+        name: "17-Inch 10-Spoke Cast Alloy Tubeless Wheels",
+        category: "Wheels",
+        icon: "CircleDot",
+        image: "/images/parts/front-tyre.JPG",
+        imageCredit: "Wikimedia Commons",
+        function: "110/70-17 front and 140/70-17 rear tubeless tyres mounted on lightweight 17-inch alloys.",
+        failures: "Alloy rim dent from sharp potholes, slow puncture at valve stem.",
+        symptoms: "Slow overnight pressure drop, vibration above 70 km/h.",
+        interval: "Check cold pressures (29 / 32 psi) weekly.",
+        cost: "₹2,800 - ₹4,200",
+        difficulty: "Basic DIY",
+        safety: "Never ride a tubeless tyre below 20 psi; bead unseating risk.",
+        diySteps: [
+          "Check cold tyre pressure weekly (29 psi front / 32 psi rear).",
+          "Keep a tubeless mushroom/strip plug kit under the seat."
+        ],
+        tools: ["Tyre Pressure Gauge", "Tubeless Plug Kit"]
+      },
+      {
+        id: "headlight-assembly",
+        name: "Retro Round Headlamp & Rotary Switchgear",
+        category: "Electrical",
+        icon: "Zap",
+        image: "/images/parts/headlight-assembly.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Minimalist naked round headlamp paired with retro rotary switch cubes and USB port.",
+        failures: "Bulb filament failure, dusty USB flap.",
+        symptoms: "Dim low beam, USB charging intermittent.",
+        interval: "Check aim & beam toggle at every service.",
+        cost: "₹350 - ₹1,400",
+        difficulty: "Basic DIY",
+        safety: "Confirm USB port cap is sealed tight during monsoon rides.",
+        diySteps: [
+          "Inspect headlamp mount ring bolts and check beam alignment against garage wall."
+        ],
+        tools: ["Phillips Screwdriver", "Allen Key"]
+      },
+      {
+        id: "battery",
+        name: "12V 8Ah MF Battery & Under-Seat Loom",
+        category: "Electrical",
+        icon: "BatteryCharging",
+        image: "/images/parts/battery.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Powers starter motor, Tripper/LCD pod, EFI pump, and dual-channel ABS.",
+        failures: "Loose battery terminal after rough city bumps.",
+        symptoms: "Meter reset during electric start.",
+        interval: "Inspect terminals & fuse box every 5,000 km.",
+        cost: "₹1,650 - ₹2,200",
+        difficulty: "Basic DIY",
+        safety: "Disconnect negative post before loosening positive cable.",
+        diySteps: [
+          "Lift single-piece seat using ignition key.",
+          "Inspect main fuses and snug 10mm terminal bolts."
+        ],
+        tools: ["10mm Spanner", "Multimeter"]
+      },
+      {
+        id: "main-chassis",
+        name: "Compact J-Series Urban Frame & Flat Seat",
+        category: "Chassis",
+        icon: "Shield",
+        image: "/images/parts/main-chassis.jpg",
+        imageCredit: "Wikimedia Commons",
+        function: "Shorter-wheelbase 1370 mm twin-downtube chassis built for fast lane filtering and nimble handling.",
+        failures: "Loose pillion grab handles or side stand switch dirt.",
+        symptoms: "Engine stalling when shifting into 1st gear due to sticky side-stand sensor.",
+        interval: "Clean side-stand cutoff switch pivot every 3,000 km.",
+        cost: "₹7,500 - ₹12,500",
+        difficulty: "Basic DIY",
+        safety: "Ensure side-stand cutoff switch smoothly pops out before shifting to 1st gear.",
+        diySteps: [
+          "Spray electrical contact cleaner around side-stand plunger switch.",
+          "Check pillion split grab rail bolts for torque."
+        ],
+        tools: ["Contact Cleaner", "6mm Allen Key"]
       }
     ],
     symptomMap: {

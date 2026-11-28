@@ -3,28 +3,21 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { BIKE_PARTS } from '../data/bikeParts';
 import { buildBikeSegments, groundRingSegments } from './bikeGeometry';
 
-// One persistent three.js scene for the blueprint bike. Nothing here is rebuilt
-// when the selection, markers or React props change; they only change colours.
-//
-// Zoom-to-explode, in one place:
-//   depth        = clamp01((FAR - cameraDistance) / (FAR - NEAR))   how close we are
-//   e            = smoothed smoothstep(depth)                       explosion factor 0..1
-//   displacement = offset * smoothstep((e - start) / (1 - start)) * boost
-// displacement is recomputed from e every frame and written to the part's
-// group position; assembled vertices are never touched. At e = 0 every group
-// position is set to exactly (0, 0, 0), so repeated zooming cannot accumulate drift.
+// One persistent three.js scene for the blueprint bike. Nothing here changes the
+// underlying wireframe geometry; enhancements only refine depth, lighting glow,
+// subsystem focus hierarchy, hover feedback, and zoom-explode guide tethers.
 
 export const ZOOM = { far: 5.0, near: 1.9, start: 6.4, min: 1.3, max: 9 };
 
-const BASE_COLOR = new THREE.Color(0xaab3c2);
+const BASE_COLOR = new THREE.Color(0xb2bdce);
+const HOVER_COLOR = new THREE.Color(0xff708c);
 const RED = new THREE.Color(0xff1744);
+const GLOW_RED = new THREE.Color(0xff4d6d);
 const BIKE_CENTER = new THREE.Vector3(0, 0.85, 0);
 const START_DIRECTION = new THREE.Vector3(0.2, 0.24, 1).normalize();
 const SAME_GROUP_BOOST = 1.25;
 const BLINK_HZ = 1.4;
 
-// Thin curves, open loops, or hollow frames use high-precision LineSegments picking with generous threshold
-// rather than an oversized solid AABB box that would create invisible blocking walls for adjacent parts.
 const LINE_ONLY_PARTS = new Set([
   'main-chassis',
   'wiring-harness',
@@ -46,7 +39,6 @@ const smooth = (v) => {
 };
 
 function makeStars() {
-  // Deterministic scatter so the backdrop is identical on every load.
   let seed = 1337;
   const rand = () => {
     seed = (seed * 16807) % 2147483647;
@@ -61,18 +53,19 @@ function makeStars() {
   }
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  return new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xcbd5e1, size: 0.05, transparent: true, opacity: 0.5, sizeAttenuation: true }));
+  return new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xcbd5e1, size: 0.05, transparent: true, opacity: 0.48, sizeAttenuation: true }));
 }
 
 /**
  * @param {{container: HTMLElement, onSelect?: (id: string) => void,
+ *   onHover?: (id: string | null) => void,
  *   onFrame?: (frame: object) => void, reducedMotion?: boolean}} options
  * @returns {null | object} null when WebGL is unavailable
  */
-export function createBikeScene({ container, onSelect, onFrame, reducedMotion = false }) {
+export function createBikeScene({ container, onSelect, onHover, onFrame, reducedMotion = false }) {
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch {
     return null;
   }
@@ -81,39 +74,56 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
   dom.style.display = 'block';
   dom.style.width = '100%';
   dom.style.height = '100%';
-  dom.style.touchAction = 'none'; // one-finger rotate and pinch zoom must not scroll the page
+  dom.style.touchAction = 'none';
   dom.setAttribute('aria-hidden', 'true');
   container.appendChild(dom);
 
   const scene = new THREE.Scene();
+  // Soft depth fog blends distant grid edges and rear parts seamlessly into the dark canvas
+  scene.fog = new THREE.FogExp2(0x05060a, 0.048);
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 80);
 
   const controls = new OrbitControls(camera, dom);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
-  controls.enablePan = false; // keeps the explode behaviour deterministic
+  controls.enablePan = false;
   controls.rotateSpeed = 0.7;
   controls.zoomSpeed = 0.8;
   controls.minDistance = ZOOM.min;
   controls.maxDistance = ZOOM.max;
   controls.minPolarAngle = 0.15;
-  controls.maxPolarAngle = Math.PI / 2 - 0.02; // never orbit under the ground plane
+  controls.maxPolarAngle = Math.PI / 2 - 0.02;
   controls.autoRotateSpeed = 0.7;
 
   // Environment: drafting grid, wheel rings and stars.
-  const grid = new THREE.GridHelper(18, 36, 0x8a1630, 0x2a0b14);
+  const grid = new THREE.GridHelper(18, 36, 0x991b38, 0x2d0c16);
   grid.material.transparent = true;
-  grid.material.opacity = 0.55;
+  grid.material.opacity = 0.56;
   scene.add(grid);
 
   const ringGeometry = new THREE.BufferGeometry();
   ringGeometry.setAttribute('position', new THREE.Float32BufferAttribute(groundRingSegments(), 3));
-  const ringMaterial = new THREE.LineBasicMaterial({ color: 0xff1744, transparent: true, opacity: 0.35 });
+  const ringMaterial = new THREE.LineBasicMaterial({ color: 0xff1744, transparent: true, opacity: 0.38 });
   scene.add(new THREE.LineSegments(ringGeometry, ringMaterial));
   const stars = makeStars();
   scene.add(stars);
 
-  // Parts
+  // Subtle crimson explosion leader tethers (only visible while zooming to explode parts)
+  const tetherPositions = new Float32Array(BIKE_PARTS.length * 6);
+  const tetherGeo = new THREE.BufferGeometry();
+  tetherGeo.setAttribute('position', new THREE.BufferAttribute(tetherPositions, 3));
+  tetherGeo.setDrawRange(0, 0);
+  const tetherMat = new THREE.LineBasicMaterial({
+    color: 0xff1744,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+  });
+  const tetherLines = new THREE.LineSegments(tetherGeo, tetherMat);
+  tetherLines.frustumCulled = false;
+  scene.add(tetherLines);
+
+  // Parts (unchanged procedural wireframe geometry)
   const segments = buildBikeSegments();
   const parts = new Map();
   const pickTargets = [];
@@ -129,10 +139,23 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     const center = bounds.getCenter(new THREE.Vector3());
     const size = bounds.getSize(new THREE.Vector3());
 
-    const material = new THREE.LineBasicMaterial({ color: BASE_COLOR.clone(), transparent: true, opacity: 0.55 });
+    const material = new THREE.LineBasicMaterial({ color: BASE_COLOR.clone(), transparent: true, opacity: 0.58 });
     const lines = new THREE.LineSegments(geometry, material);
+
+    // Subtle additive glow pass reusing the exact same geometry for crisp active/hover highlighting
+    const glowMaterial = new THREE.LineBasicMaterial({
+      color: GLOW_RED.clone(),
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const glowLines = new THREE.LineSegments(geometry, glowMaterial);
+    glowLines.scale.setScalar(1.003);
+
     const group = new THREE.Group();
     group.add(lines);
+    group.add(glowLines);
     scene.add(group);
 
     const part = {
@@ -140,26 +163,27 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       meta,
       group,
       lines,
+      glowLines,
       material,
+      glowMaterial,
       center,
       offset: new THREE.Vector3(...meta.offset),
       boost: 1,
-      opacity: 0.55,
+      opacity: 0.58,
+      glowOpacity: 0,
     };
 
     if (meta.selectable !== false) {
-      // Lines are always pickable with high-precision line threshold for direct wire hits
       lines.userData = { partId: meta.id, isLine: true };
       pickTargets.push(lines);
 
-      // Compact/volumetric parts also get an interior proxy box for interior clicks
       if (!LINE_ONLY_PARTS.has(meta.id)) {
         const pad = 0.05;
         const minDim = 0.12;
         const proxyGeometry = new THREE.BoxGeometry(
           Math.max(size.x + pad, minDim),
           Math.max(size.y + pad, minDim),
-          Math.max(size.z + pad, minDim)
+          Math.max(size.z + pad, minDim),
         );
         const proxy = new THREE.Mesh(proxyGeometry, new THREE.MeshBasicMaterial({ visible: false }));
         proxy.position.copy(center);
@@ -174,6 +198,7 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
 
   // State
   let selectedId = null;
+  let hoveredId = null;
   let markerIds = [];
   let e = 0;
   let tween = null;
@@ -210,7 +235,6 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     camera.updateProjectionMatrix();
   }
 
-  // Initial framing: pull back on narrow (portrait) viewports so the whole bike fits.
   resize();
   const fit = Math.min(Math.max(1, 1.55 / camera.aspect), 1.5);
   const startDistance = ZOOM.start * fit;
@@ -249,10 +273,8 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     if (list.length === 1) return list[0].id;
 
     list.sort((a, b) => {
-      // If one candidate is significantly closer perpendicular to the ray, prefer it
       const diffRay = a.rayDist - b.rayDist;
       if (Math.abs(diffRay) > 0.035) return diffRay;
-      // If ray distances are comparable, the part closer in depth to the camera wins
       const diffDepth = a.depth - b.depth;
       if (Math.abs(diffDepth) > 0.35) return diffDepth;
       return diffRay;
@@ -265,15 +287,12 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     const rect = dom.getBoundingClientRect();
     if (!rect.width || !rect.height) return null;
 
-    // 1. Primary ray directly at cursor
     ndc.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
     raycaster.setFromCamera(ndc, camera);
     let hits = raycaster.intersectObjects(pickTargets, false);
     let best = evaluateHits(raycaster.ray, hits);
     if (best) return best;
 
-    // 2. Fuzzy multi-sample neighborhood (offsets in 8 directions)
-    // Ensures clicking near thin lines or small parts immediately snaps and registers
     const offsets = [
       [8, 0], [-8, 0], [0, 8], [0, -8],
       [12, 8], [-12, -8], [8, -12], [-8, 12],
@@ -292,7 +311,6 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
 
   let downAt = null;
   const onPointerDown = (event) => {
-    // Only respond to left button (0) or touch/pen (where button may be 0 or undefined)
     if (event.button !== undefined && event.button !== 0) return;
     downAt = { x: event.clientX, y: event.clientY, t: performance.now() };
   };
@@ -302,8 +320,6 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     const moved = Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y);
     const duration = performance.now() - downAt.t;
     downAt = null;
-    // 14px threshold allows natural finger/trackpad tap tolerance without triggering false drag cancellations
-    // 1000ms duration accommodates deliberate, thoughtful clicks
     if (moved > 14 || duration > 1000) return;
     const id = pickAt(event.clientX, event.clientY);
     if (id) onSelect?.(id);
@@ -314,12 +330,26 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     hoverBusy = true;
     window.setTimeout(() => {
       hoverBusy = false;
-      if (!disposed) dom.style.cursor = pickAt(event.clientX, event.clientY) ? 'pointer' : 'grab';
+      if (disposed) return;
+      const hitId = pickAt(event.clientX, event.clientY);
+      dom.style.cursor = hitId ? 'pointer' : 'grab';
+      if (hitId !== hoveredId) {
+        hoveredId = hitId;
+        onHover?.(hoveredId);
+      }
     }, 40);
+  };
+  const onPointerLeave = () => {
+    if (hoveredId !== null) {
+      hoveredId = null;
+      dom.style.cursor = 'grab';
+      onHover?.(null);
+    }
   };
   dom.addEventListener('pointerdown', onPointerDown);
   dom.addEventListener('pointerup', onPointerUp);
   dom.addEventListener('pointermove', onPointerMove);
+  dom.addEventListener('pointerleave', onPointerLeave);
 
   function focusPart() {
     return parts.get(selectedId) || parts.get(markerIds[0]) || null;
@@ -342,16 +372,18 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
     controls.autoRotate = !reducedMotion && !focus && e === 0 && now - lastInteraction > 4000;
     controls.update();
 
-    // Explosion factor from how close the camera is.
     const distance = currentDistance();
     const depth = clamp01((ZOOM.far - distance) / (ZOOM.far - ZOOM.near));
     const eTarget = smooth(depth);
     e += (eTarget - e) * (1 - Math.exp(-dt * 7));
     if (Math.abs(eTarget - e) < 5e-4) e = eTarget;
 
-    // Positions: always assembled pose + offset * f(e). Pure function of e.
     const groupFocus = focus ? focus.meta.group : null;
     let maxDisplacement = 0;
+    let tetherVertexCount = 0;
+    const tPosAttr = tetherGeo.getAttribute('position');
+    const tArr = tPosAttr.array;
+
     for (const part of parts.values()) {
       const boostTarget = groupFocus && part.meta.group === groupFocus ? SAME_GROUP_BOOST : 1;
       part.boost += (boostTarget - part.boost) * (1 - Math.exp(-dt * 6));
@@ -360,11 +392,25 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
         part.group.position.set(0, 0, 0);
       } else {
         part.group.position.copy(part.offset).multiplyScalar(progress * part.boost);
-        maxDisplacement = Math.max(maxDisplacement, part.group.position.length());
+        const disp = part.group.position.length();
+        maxDisplacement = Math.max(maxDisplacement, disp);
+
+        if (disp > 0.04 && tetherVertexCount + 2 <= BIKE_PARTS.length * 2) {
+          const idx = tetherVertexCount * 3;
+          tArr[idx] = part.center.x;
+          tArr[idx + 1] = part.center.y;
+          tArr[idx + 2] = part.center.z;
+          tArr[idx + 3] = part.center.x + part.group.position.x;
+          tArr[idx + 4] = part.center.y + part.group.position.y;
+          tArr[idx + 5] = part.center.z + part.group.position.z;
+          tetherVertexCount += 2;
+        }
       }
     }
+    tPosAttr.needsUpdate = true;
+    tetherGeo.setDrawRange(0, tetherVertexCount);
+    tetherMat.opacity = clamp01(e * 0.65) * 0.36;
 
-    // As the user zooms in, the orbit target glides from the bike to the focused part.
     tmpDesired.copy(BIKE_CENTER);
     if (focus) tmpDesired.lerp(tmpProject.copy(focus.center).add(focus.group.position), smooth(depth));
     tmpDelta.copy(tmpDesired).sub(controls.target);
@@ -374,25 +420,52 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       tmpDelta.multiplyScalar(1 - Math.exp(-dt * 6));
     }
     controls.target.add(tmpDelta);
-    camera.position.add(tmpDelta); // same shift keeps the view direction and distance unchanged
+    camera.position.add(tmpDelta);
 
-    // Highlight and blink.
+    // Highlight, subsystem hierarchy, hover & additive glow
     const hasFocus = Boolean(selectedId) || markerIds.length > 0;
     const k = 1 - Math.exp(-dt * 10);
     for (const part of parts.values()) {
       const isSelected = part.id === selectedId;
       const isMarker = markerIds.includes(part.id);
-      let targetOpacity = isSelected ? 1 : isMarker ? 0.85 : hasFocus ? 0.3 : 0.55;
-      if (part.meta.selectable === false) targetOpacity *= 0.7;
+      const isHovered = part.id === hoveredId && !isSelected && !isMarker;
+      const isSibling = Boolean(groupFocus) && part.meta.group === groupFocus && !isSelected && !isMarker;
+
+      let targetOpacity = isSelected
+        ? 1
+        : isMarker
+          ? 0.88
+          : isHovered
+            ? 0.92
+            : isSibling
+              ? 0.42
+              : hasFocus
+                ? 0.26
+                : 0.58;
+      if (part.meta.selectable === false) targetOpacity *= 0.72;
       if (part.id === markerIds[0] && !reducedMotion) {
         targetOpacity = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(seconds * Math.PI * 2 * BLINK_HZ));
       }
       part.opacity += (targetOpacity - part.opacity) * k;
       part.material.opacity = part.opacity;
-      part.material.color.lerp(isSelected || isMarker ? RED : BASE_COLOR, k);
+
+      const targetColor = (isSelected || isMarker)
+        ? RED
+        : isHovered
+          ? HOVER_COLOR
+          : BASE_COLOR;
+      part.material.color.lerp(targetColor, k);
+
+      const targetGlow = (isSelected || isMarker) ? 0.42 : isHovered ? 0.22 : 0;
+      part.glowOpacity += (targetGlow - part.glowOpacity) * k;
+      part.glowMaterial.opacity = part.glowOpacity;
+      part.glowLines.visible = part.glowOpacity > 0.01;
     }
 
-    stars.rotation.y += dt * 0.004;
+    if (!reducedMotion) {
+      ringMaterial.opacity = 0.34 + 0.08 * (0.5 + 0.5 * Math.sin(seconds * 1.4));
+      stars.rotation.y += dt * 0.004;
+    }
     renderer.render(scene, camera);
 
     if (onFrame) {
@@ -417,7 +490,7 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
 
   renderer.setAnimationLoop(tick);
 
-  const api = {
+  return {
     setSelected(id) {
       selectedId = id && parts.has(id) ? id : null;
     },
@@ -432,11 +505,9 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       lastInteraction = performance.now();
       startTween(startDistance);
     },
-    /** Which part id is under this client position, or null. */
     pick(clientX, clientY) {
       return pickAt(clientX, clientY);
     },
-    /** Immediate camera distance, for tests. */
     setDistance(distance) {
       tween = null;
       setCameraDistance(Math.min(Math.max(distance, ZOOM.min), controls.maxDistance));
@@ -455,6 +526,7 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       dom.removeEventListener('pointerdown', onPointerDown);
       dom.removeEventListener('pointerup', onPointerUp);
       dom.removeEventListener('pointermove', onPointerMove);
+      dom.removeEventListener('pointerleave', onPointerLeave);
       scene.traverse((object) => {
         object.geometry?.dispose?.();
         const materials = Array.isArray(object.material) ? object.material : [object.material];
@@ -464,5 +536,4 @@ export function createBikeScene({ container, onSelect, onFrame, reducedMotion = 
       if (dom.parentNode === container) container.removeChild(dom);
     },
   };
-  return api;
 }

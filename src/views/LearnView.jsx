@@ -55,7 +55,7 @@ const MODULES = [
   },
 ];
 
-const CATEGORIES = ['All', 'Engine', 'Fuel & Exhaust', 'Transmission', 'Brakes', 'Suspension', 'Wheels', 'Electrical'];
+const CATEGORIES = ['All', 'Engine', 'Fuel & Exhaust', 'Transmission', 'Brakes', 'Suspension', 'Wheels', 'Electrical', 'Chassis'];
 
 /**
  * Reliable part photo viewer with automatic retry and an engineered CAD schematic
@@ -123,6 +123,8 @@ function PartImagePreview({ part, renderIcon }) {
 
 export default function LearnView({
   selectedVehicle,
+  vehiclesList = [],
+  onSelectVehicle,
   activeSegment,
   setActiveSegment,
   selectedPart,
@@ -406,6 +408,9 @@ export default function LearnView({
                       selectedPartId={activeBlueprintId}
                       markerPartIds={inspectionRequest ? [inspectionRequest.targetPartId, ...(inspectionRequest.relatedPartIds || [])].map(resolveBlueprintPartId).filter(Boolean) : []}
                       partNames={vehicleBlueprintNames}
+                      vehicleId={selectedVehicle?.id}
+                      vehicleType={selectedVehicle?.type}
+                      vehicleName={selectedVehicle?.name}
                       onSelectPart={(id) => {
                         const found = resolveVehiclePart(id, selectedVehicle?.parts || []);
                         if (found) setSelectedPart(found);
@@ -585,8 +590,26 @@ export default function LearnView({
     <main className="tool-view">
       <div className="tool-page">
         <header className="tool-header">
-           <div><span className="ui-eyebrow">Learn</span><h1 className="ui-title">Parts and guides</h1><p className="ui-muted">Reference material for {selectedVehicle.name}, with optional 3D exploration and local practice quizzes.</p></div>
+           <div><span className="ui-eyebrow">Learn</span><h1 className="ui-title">Parts and guides</h1><p className="ui-muted">Reference material for {selectedVehicle.name}, with interactive 3D CAD exploration and local quizzes.</p></div>
         </header>
+        {vehiclesList.length > 1 && onSelectVehicle && (
+          <div className="learn-filters" role="group" aria-label="Switch 3D blueprint model" style={{ marginBottom: '14px' }}>
+            {vehiclesList.map((v) => {
+              const isSelected = selectedVehicle?.id === v.id;
+              return (
+                <button
+                  type="button"
+                  key={v.id}
+                  className={`ui-btn learn-filter ${isSelected ? 'is-active' : ''}`}
+                  aria-pressed={isSelected}
+                  onClick={() => onSelectVehicle(v)}
+                >
+                  {v.name}
+                </button>
+              );
+            })}
+          </div>
+        )}
         <div className="learn-tabs" role="tablist" aria-label="Learning sections">
           <button type="button" role="tab" aria-selected={activeSegment === 'parts'} className={`ui-btn learn-tab ${activeSegment === 'parts' ? 'is-active' : ''}`} onClick={() => { setActiveSegment('parts'); setSelectedModule(null); }}>Parts explorer</button>
           <button type="button" role="tab" aria-selected={activeSegment === 'educational'} className={`ui-btn learn-tab ${activeSegment === 'educational' ? 'is-active' : ''}`} onClick={() => setActiveSegment('educational')}>Guides & quizzes</button>

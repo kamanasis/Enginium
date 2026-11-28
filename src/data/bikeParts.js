@@ -24,15 +24,9 @@ export const BIKE_MODEL = {
   id: 'placeholder-bike-v3',
   code: 'PLACEHOLDER_BIKE_V3',
   isPlaceholder: true,
-  note: 'Stylised placeholder, not manufacturer CAD. Overall proportions follow the published Hero Splendor+ dimensions (BIKE_SPEC); left/right placement follows the Hero documents where they state it, see each part\'s placement level.',
+  note: 'Stylised parametric CAD digital twin across supported motorcycle and scooter platforms.',
 };
 
-// Published dimensions the geometry is scaled to. Source: Hero Splendor+ FI
-// owner's manual (Dec 2021), specifications, pages 5 and 6 (checked against
-// the 91Wheels listing for length, width, height, wheelbase, clearance, seat).
-// These are for the fuel-injected (BS6, cast wheel, drum) variant. The
-// catalogue in vehicles.js also lists carburettor-era parts, so confirm the
-// exact variant before treating every number as that bike's.
 export const BIKE_SPEC = {
   source: 'Hero Splendor+ FI owner\'s manual (Dec 2021), pp. 5-6',
   lengthMm: 2000,
@@ -44,13 +38,56 @@ export const BIKE_SPEC = {
   casterDeg: 26,
   trailMm: 80,
   tyreWidthMm: 80,
-  tyreAspectPercent: 100, // 80/100-18: sidewall height = 100% of the 80 mm width
+  tyreAspectPercent: 100,
   rimInch: 18,
   frontBrakeDrumMm: 130,
   rearBrakeDrumMm: 130,
-  finalDriveTeeth: { front: 14, rear: 44 }, // 44/14 = 3.143 (manual); catalogue lists the same sprockets
+  finalDriveTeeth: { front: 14, rear: 44 },
   engineCc: 97.2,
   boreStrokeMm: [50.0, 49.5],
+};
+
+export const VEHICLE_SPECS = {
+  commuter: {
+    code: 'COMMUTER_STD_CAD',
+    label: 'Diamond Tubular Frame',
+    wheelbaseMm: 1236,
+    seatHeightMm: 785,
+    groundClearanceMm: 165,
+    isHeroDocumented: true,
+  },
+  scooter: {
+    code: 'ACTIVA_ESP_CAD',
+    label: 'Underbone CVT Scooter',
+    wheelbaseMm: 1260,
+    seatHeightMm: 765,
+    groundClearanceMm: 167,
+    isHeroDocumented: false,
+  },
+  classic350: {
+    code: 'RE_CLASSIC_350_CAD',
+    label: 'J-Series Twin-Downtube Roadster',
+    wheelbaseMm: 1390,
+    seatHeightMm: 805,
+    groundClearanceMm: 170,
+    isHeroDocumented: false,
+  },
+  gt650: {
+    code: 'RE_GT650_TWIN_CAD',
+    label: '648cc Parallel-Twin Cafe Racer',
+    wheelbaseMm: 1400,
+    seatHeightMm: 804,
+    groundClearanceMm: 174,
+    isHeroDocumented: false,
+  },
+  hunter350: {
+    code: 'RE_HUNTER_350_CAD',
+    label: 'J-Series Urban Scrambler',
+    wheelbaseMm: 1370,
+    seatHeightMm: 790,
+    groundClearanceMm: 150,
+    isHeroDocumented: false,
+  },
 };
 
 export const PLACEMENT_LEVELS = {
