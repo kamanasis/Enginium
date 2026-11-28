@@ -370,7 +370,8 @@
 }
 
 .en-hero-title-main {
-  background: linear-gradient(135deg, #ff4d6d 0%, #ff1744 45%, #be123c 100%);
+  background: linear-gradient(180deg, #ffffff 10%, #ffd6de 38%, #ff3355 66%, #ff1744 84%, #be123c 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
